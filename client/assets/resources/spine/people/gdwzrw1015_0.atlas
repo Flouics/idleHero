@@ -1,0 +1,104 @@
+
+gdwzrw1015_0_.png
+size: 184,78
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+jumutou_1
+  rotate: false
+  xy: 86, 32
+  size: 30, 15
+  orig: 30, 15
+  offset: 0, 0
+  index: -1
+jumutou_10
+  rotate: true
+  xy: 107, 5
+  size: 10, 7
+  orig: 10, 7
+  offset: 0, 0
+  index: -1
+jumutou_11
+  rotate: false
+  xy: 151, 10
+  size: 11, 15
+  orig: 11, 15
+  offset: 0, 0
+  index: -1
+jumutou_12
+  rotate: true
+  xy: 55, 27
+  size: 20, 29
+  orig: 20, 29
+  offset: 0, 0
+  index: -1
+jumutou_13
+  rotate: true
+  xy: 2, 3
+  size: 73, 51
+  orig: 73, 51
+  offset: 0, 0
+  index: -1
+jumutou_14
+  rotate: false
+  xy: 55, 49
+  size: 83, 27
+  orig: 83, 27
+  offset: 0, 0
+  index: -1
+jumutou_2
+  rotate: true
+  xy: 136, 3
+  size: 22, 13
+  orig: 22, 13
+  offset: 0, 0
+  index: -1
+jumutou_3
+  rotate: false
+  xy: 164, 16
+  size: 13, 9
+  orig: 13, 9
+  offset: 0, 0
+  index: -1
+jumutou_4
+  rotate: true
+  xy: 89, 3
+  size: 12, 16
+  orig: 12, 16
+  offset: 0, 0
+  index: -1
+jumutou_5
+  rotate: true
+  xy: 55, 6
+  size: 19, 32
+  orig: 19, 32
+  offset: 0, 0
+  index: -1
+jumutou_6
+  rotate: false
+  xy: 140, 27
+  size: 42, 49
+  orig: 42, 49
+  offset: 0, 0
+  index: -1
+jumutou_7
+  rotate: true
+  xy: 89, 17
+  size: 13, 26
+  orig: 13, 26
+  offset: 0, 0
+  index: -1
+jumutou_8
+  rotate: false
+  xy: 118, 22
+  size: 16, 25
+  orig: 16, 25
+  offset: 0, 0
+  index: -1
+jumutou_9
+  rotate: false
+  xy: 117, 2
+  size: 16, 18
+  orig: 16, 18
+  offset: 0, 0
+  index: -1

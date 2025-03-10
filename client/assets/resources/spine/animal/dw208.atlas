@@ -1,0 +1,13 @@
+
+dw208_.png
+size: 63,49
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+daishu
+  rotate: false
+  xy: 2, 2
+  size: 59, 45
+  orig: 59, 45
+  offset: 0, 0
+  index: -1

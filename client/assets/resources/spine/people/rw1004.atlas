@@ -1,0 +1,41 @@
+
+rw1004_.png
+size: 88,43
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+duihua1_1
+  rotate: true
+  xy: 76, 6
+  size: 16, 10
+  orig: 16, 10
+  offset: 0, 0
+  index: -1
+duihua1_2
+  rotate: true
+  xy: 2, 4
+  size: 13, 37
+  orig: 13, 37
+  offset: 0, 0
+  index: -1
+duihua1_3
+  rotate: false
+  xy: 70, 24
+  size: 16, 17
+  orig: 16, 17
+  offset: 0, 0
+  index: -1
+duihua1_4
+  rotate: true
+  xy: 2, 19
+  size: 22, 66
+  orig: 22, 66
+  offset: 0, 0
+  index: -1
+duihua1_5
+  rotate: false
+  xy: 41, 2
+  size: 33, 15
+  orig: 33, 15
+  offset: 0, 0
+  index: -1

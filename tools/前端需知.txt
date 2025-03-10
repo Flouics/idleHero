@@ -1,0 +1,5 @@
+1.采用client
+备注：client 是cocos creator 3.8.2 版本
+
+2.所需要的插件版本见 第三方软件版本.txt，
+    懒人方案:直接运行 npm_install.bat

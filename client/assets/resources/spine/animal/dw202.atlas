@@ -1,0 +1,48 @@
+
+dw202_.png
+size: 84,30
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tuzi_1
+  rotate: false
+  xy: 64, 2
+  size: 11, 12
+  orig: 11, 12
+  offset: 0, 0
+  index: -1
+tuzi_10
+  rotate: false
+  xy: 31, 13
+  size: 15, 15
+  orig: 15, 15
+  offset: 0, 0
+  index: -1
+tuzi_11
+  rotate: true
+  xy: 48, 2
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: -1
+tuzi_2
+  rotate: false
+  xy: 48, 16
+  size: 16, 12
+  orig: 16, 12
+  offset: 0, 0
+  index: -1
+tuzi_3
+  rotate: false
+  xy: 2, 7
+  size: 27, 21
+  orig: 27, 21
+  offset: 0, 0
+  index: -1
+tuzi_8
+  rotate: true
+  xy: 66, 17
+  size: 11, 16
+  orig: 11, 16
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,89 @@
+{
+  "__version__": "1.3.7",
+  "log": {
+    "level": 4
+  },
+  "common": {
+    "polyfills": {
+      "asyncFunctions": true
+    },
+    "buildPath": "project://build",
+    "outputName": "web-mobile",
+    "mainBundleCompressionType": "merge_dep",
+    "platform": "web-mobile",
+    "scenes": [
+      {
+        "url": "db://assets/scenes/game.scene",
+        "uuid": "431e0475-73a8-419f-a415-e85a3206ce9f"
+      },
+      {
+        "url": "db://assets/scenes/launch.scene",
+        "uuid": "38ef32d8-8398-4003-bf59-a2608d3a6253"
+      },
+      {
+        "url": "db://assets/scenes/errorprint.scene",
+        "uuid": "5db6e65d-a8d5-42b8-ad71-3147646014cd"
+      }
+    ],
+    "startScene": "38ef32d8-8398-4003-bf59-a2608d3a6253",
+    "sourceMaps": true,
+    "name": "idleCastle"
+  },
+  "BuildTaskManager": {
+    "taskMap": {
+      "1725861373945": {
+        "type": "build",
+        "id": "1725861373945",
+        "progress": 1,
+        "state": "success",
+        "stage": "run",
+        "message": "2024-9-9 14:17:33 run package F:\\CCProject\\idleCastle\\client\\build\\web-mobile success!",
+        "options": {
+          "name": "idleCastle",
+          "server": "",
+          "platform": "web-mobile",
+          "buildPath": "project://build",
+          "debug": false,
+          "md5Cache": false,
+          "skipCompressTexture": false,
+          "sourceMaps": true,
+          "polyfills": {
+            "asyncFunctions": true
+          },
+          "experimentalEraseModules": false,
+          "startSceneAssetBundle": false,
+          "bundleConfigs": [],
+          "useBuiltinServer": false,
+          "mainBundleIsRemote": false,
+          "mainBundleCompressionType": "merge_dep",
+          "useSplashScreen": true,
+          "bundleCommonChunk": false,
+          "packAutoAtlas": true,
+          "startScene": "38ef32d8-8398-4003-bf59-a2608d3a6253",
+          "outputName": "web-mobile",
+          "taskName": "web-mobile",
+          "scenes": [
+            {
+              "url": "db://assets/scenes/errorprint.scene",
+              "uuid": "5db6e65d-a8d5-42b8-ad71-3147646014cd"
+            },
+            {
+              "url": "db://assets/scenes/game.scene",
+              "uuid": "431e0475-73a8-419f-a415-e85a3206ce9f"
+            },
+            {
+              "url": "db://assets/scenes/launch.scene",
+              "uuid": "38ef32d8-8398-4003-bf59-a2608d3a6253"
+            }
+          ],
+          "packages": {},
+          "__version__": "1.3.7",
+          "buildMode": "normal",
+          "logDest": "project://temp/builder/log/web-mobile2024-9-9 13-56.log"
+        },
+        "time": "2024-9-9 14:16:35",
+        "dirty": false
+      }
+    }
+  }
+}

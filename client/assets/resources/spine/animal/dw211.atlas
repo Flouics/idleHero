@@ -1,0 +1,13 @@
+
+dw211_.png
+size: 29,41
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ya2
+  rotate: false
+  xy: 2, 2
+  size: 25, 37
+  orig: 25, 37
+  offset: 0, 0
+  index: -1

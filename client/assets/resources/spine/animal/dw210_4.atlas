@@ -1,0 +1,13 @@
+
+dw210_4_.png
+size: 25,23
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+muji1
+  rotate: false
+  xy: 2, 2
+  size: 21, 19
+  orig: 21, 19
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,55 @@
+
+gdwzrw1013_0_.png
+size: 188,109
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+fangfengzheng_1
+  rotate: true
+  xy: 128, 2
+  size: 11, 13
+  orig: 11, 13
+  offset: 0, 0
+  index: -1
+fangfengzheng_2
+  rotate: false
+  xy: 2, 2
+  size: 18, 9
+  orig: 18, 9
+  offset: 0, 0
+  index: -1
+fangfengzheng_3
+  rotate: false
+  xy: 128, 15
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+fangfengzheng_4
+  rotate: false
+  xy: 179, 44
+  size: 7, 10
+  orig: 7, 10
+  offset: 0, 0
+  index: -1
+fangfengzheng_5
+  rotate: true
+  xy: 128, 34
+  size: 20, 49
+  orig: 20, 49
+  offset: 0, 0
+  index: -1
+fangfengzheng_6
+  rotate: true
+  xy: 2, 13
+  size: 94, 124
+  orig: 94, 124
+  offset: 0, 0
+  index: -1
+fangfengzheng_7
+  rotate: false
+  xy: 128, 56
+  size: 53, 51
+  orig: 53, 51
+  offset: 0, 0
+  index: -1

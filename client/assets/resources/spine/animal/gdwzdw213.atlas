@@ -1,0 +1,48 @@
+
+gdwzdw213_.png
+size: 109,88
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+zhu_1
+  rotate: false
+  xy: 79, 2
+  size: 22, 25
+  orig: 22, 25
+  offset: 0, 0
+  index: -1
+zhu_2
+  rotate: false
+  xy: 2, 56
+  size: 57, 30
+  orig: 57, 30
+  offset: 0, 0
+  index: -1
+zhu_3
+  rotate: false
+  xy: 2, 15
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+zhu_4
+  rotate: false
+  xy: 79, 29
+  size: 27, 31
+  orig: 27, 31
+  offset: 0, 0
+  index: -1
+zhu_5
+  rotate: false
+  xy: 43, 15
+  size: 34, 39
+  orig: 34, 39
+  offset: 0, 0
+  index: -1
+zhu_6
+  rotate: true
+  xy: 61, 62
+  size: 24, 46
+  orig: 24, 46
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,55 @@
+
+yu_345_.png
+size: 202,262
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+jly1
+  rotate: true
+  xy: 2, 38
+  size: 222, 105
+  orig: 222, 105
+  offset: 0, 0
+  index: -1
+jly2
+  rotate: false
+  xy: 109, 38
+  size: 40, 17
+  orig: 40, 17
+  offset: 0, 0
+  index: -1
+jly3
+  rotate: false
+  xy: 2, 10
+  size: 66, 26
+  orig: 66, 26
+  offset: 0, 0
+  index: -1
+jly4
+  rotate: true
+  xy: 109, 57
+  size: 203, 84
+  orig: 203, 84
+  offset: 0, 0
+  index: -1
+jly5
+  rotate: false
+  xy: 70, 6
+  size: 48, 30
+  orig: 48, 30
+  offset: 0, 0
+  index: -1
+jly6
+  rotate: true
+  xy: 120, 2
+  size: 34, 20
+  orig: 34, 20
+  offset: 0, 0
+  index: -1
+ry20
+  rotate: true
+  xy: 151, 7
+  size: 48, 49
+  orig: 48, 49
+  offset: 0, 0
+  index: -1

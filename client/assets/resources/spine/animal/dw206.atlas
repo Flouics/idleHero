@@ -1,0 +1,90 @@
+
+dw206_.png
+size: 125,78
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mm10
+  rotate: true
+  xy: 49, 16
+  size: 14, 17
+  orig: 14, 17
+  offset: 0, 0
+  index: -1
+mm11
+  rotate: true
+  xy: 66, 2
+  size: 12, 22
+  orig: 12, 22
+  offset: 0, 0
+  index: -1
+mm12
+  rotate: false
+  xy: 95, 18
+  size: 8, 13
+  orig: 8, 13
+  offset: 0, 0
+  index: -1
+mm13
+  rotate: true
+  xy: 2, 2
+  size: 45, 31
+  orig: 45, 31
+  offset: 0, 0
+  index: -1
+mm14
+  rotate: false
+  xy: 57, 33
+  size: 49, 23
+  orig: 49, 23
+  offset: 0, 0
+  index: -1
+mm23
+  rotate: false
+  xy: 108, 32
+  size: 13, 24
+  orig: 13, 24
+  offset: 0, 0
+  index: -1
+mm24
+  rotate: true
+  xy: 35, 2
+  size: 12, 29
+  orig: 12, 29
+  offset: 0, 0
+  index: -1
+mm25
+  rotate: true
+  xy: 68, 21
+  size: 10, 25
+  orig: 10, 25
+  offset: 0, 0
+  index: -1
+mm26
+  rotate: true
+  xy: 105, 18
+  size: 12, 18
+  orig: 12, 18
+  offset: 0, 0
+  index: -1
+mm27
+  rotate: false
+  xy: 2, 49
+  size: 53, 27
+  orig: 53, 27
+  offset: 0, 0
+  index: -1
+mm28
+  rotate: false
+  xy: 57, 58
+  size: 60, 18
+  orig: 60, 18
+  offset: 0, 0
+  index: -1
+mm9
+  rotate: false
+  xy: 35, 16
+  size: 12, 31
+  orig: 12, 31
+  offset: 0, 0
+  index: -1

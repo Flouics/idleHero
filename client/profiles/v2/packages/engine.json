@@ -1,0 +1,28 @@
+{
+  "__version__": "1.0.8",
+  "builder": {
+    "taskOptionsMap": {
+      "1721302691379": {
+        "cleanupImageCache": "inheritProjectSetting",
+        "__version__": "1.0.8"
+      },
+      "1721302767900": {
+        "cleanupImageCache": "inheritProjectSetting",
+        "__version__": "1.0.8"
+      },
+      "1721304193074": {
+        "cleanupImageCache": "inheritProjectSetting",
+        "__version__": "1.0.8"
+      },
+      "1725860976057": {
+        "cleanupImageCache": "inheritProjectSetting",
+        "__version__": "1.0.8"
+      },
+      "1725861373945": {
+        "cleanupImageCache": "inheritProjectSetting",
+        "__version__": "1.0.8"
+      }
+    },
+    "__version__": "1.3.7"
+  }
+}

@@ -1,0 +1,76 @@
+
+yu_373_.png
+size: 917,530
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ry20
+  rotate: false
+  xy: 244, 2
+  size: 48, 49
+  orig: 48, 49
+  offset: 0, 0
+  index: -1
+yl80
+  rotate: false
+  xy: 868, 382
+  size: 43, 79
+  orig: 43, 79
+  offset: 0, 0
+  index: -1
+yl81
+  rotate: false
+  xy: 244, 293
+  size: 622, 235
+  orig: 622, 235
+  offset: 0, 0
+  index: -1
+yl82
+  rotate: false
+  xy: 806, 222
+  size: 109, 69
+  orig: 109, 69
+  offset: 0, 0
+  index: -1
+yl83
+  rotate: true
+  xy: 868, 463
+  size: 65, 44
+  orig: 65, 44
+  offset: 0, 0
+  index: -1
+yl84
+  rotate: false
+  xy: 244, 53
+  size: 560, 238
+  orig: 560, 238
+  offset: 0, 0
+  index: -1
+yl85
+  rotate: true
+  xy: 806, 18
+  size: 123, 71
+  orig: 123, 71
+  offset: 0, 0
+  index: -1
+yl86
+  rotate: true
+  xy: 868, 319
+  size: 61, 34
+  orig: 61, 34
+  offset: 0, 0
+  index: -1
+yl87
+  rotate: true
+  xy: 2, 11
+  size: 517, 240
+  orig: 517, 240
+  offset: 0, 0
+  index: -1
+yl88
+  rotate: true
+  xy: 806, 143
+  size: 77, 86
+  orig: 77, 86
+  offset: 0, 0
+  index: -1

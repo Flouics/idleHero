@@ -1,0 +1,104 @@
+
+yu_348_.png
+size: 204,261
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ry20
+  rotate: false
+  xy: 94, 11
+  size: 48, 49
+  orig: 48, 49
+  offset: 0, 0
+  index: -1
+xy41
+  rotate: true
+  xy: 181, 89
+  size: 9, 12
+  orig: 9, 12
+  offset: 0, 0
+  index: -1
+xy42
+  rotate: false
+  xy: 2, 152
+  size: 169, 107
+  orig: 169, 107
+  offset: 0, 0
+  index: -1
+xy43
+  rotate: true
+  xy: 94, 62
+  size: 84, 85
+  orig: 84, 85
+  offset: 0, 0
+  index: -1
+xy44
+  rotate: false
+  xy: 173, 189
+  size: 28, 20
+  orig: 28, 20
+  offset: 0, 0
+  index: -1
+xy45
+  rotate: false
+  xy: 181, 111
+  size: 18, 9
+  orig: 18, 9
+  offset: 0, 0
+  index: -1
+xy46
+  rotate: false
+  xy: 173, 148
+  size: 24, 19
+  orig: 24, 19
+  offset: 0, 0
+  index: -1
+xy47
+  rotate: false
+  xy: 173, 211
+  size: 28, 23
+  orig: 28, 23
+  offset: 0, 0
+  index: -1
+xy48
+  rotate: true
+  xy: 181, 79
+  size: 8, 12
+  orig: 8, 12
+  offset: 0, 0
+  index: -1
+xy49
+  rotate: true
+  xy: 2, 2
+  size: 148, 90
+  orig: 148, 90
+  offset: 0, 0
+  index: -1
+xy50
+  rotate: false
+  xy: 173, 169
+  size: 29, 18
+  orig: 29, 18
+  offset: 0, 0
+  index: -1
+xy51
+  rotate: false
+  xy: 181, 100
+  size: 15, 9
+  orig: 15, 9
+  offset: 0, 0
+  index: -1
+xy52
+  rotate: true
+  xy: 181, 122
+  size: 24, 18
+  orig: 24, 18
+  offset: 0, 0
+  index: -1
+xy53
+  rotate: false
+  xy: 173, 236
+  size: 29, 23
+  orig: 29, 23
+  offset: 0, 0
+  index: -1

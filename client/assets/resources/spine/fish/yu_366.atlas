@@ -1,0 +1,83 @@
+
+yu_366_.png
+size: 754,388
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ry20
+  rotate: false
+  xy: 657, 113
+  size: 48, 49
+  orig: 48, 49
+  offset: 0, 0
+  index: -1
+yl26
+  rotate: true
+  xy: 655, 270
+  size: 116, 97
+  orig: 116, 97
+  offset: 0, 0
+  index: -1
+yl27
+  rotate: true
+  xy: 657, 164
+  size: 104, 58
+  orig: 104, 58
+  offset: 0, 0
+  index: -1
+yl28
+  rotate: false
+  xy: 2, 179
+  size: 372, 207
+  orig: 372, 207
+  offset: 0, 0
+  index: -1
+yl29
+  rotate: false
+  xy: 717, 243
+  size: 30, 25
+  orig: 30, 25
+  offset: 0, 0
+  index: -1
+yl30
+  rotate: false
+  xy: 401, 6
+  size: 255, 99
+  orig: 255, 99
+  offset: 0, 0
+  index: -1
+yl31
+  rotate: false
+  xy: 401, 107
+  size: 254, 143
+  orig: 254, 143
+  offset: 0, 0
+  index: -1
+yl32
+  rotate: false
+  xy: 2, 2
+  size: 397, 175
+  orig: 397, 175
+  offset: 0, 0
+  index: -1
+yl33
+  rotate: false
+  xy: 376, 236
+  size: 23, 14
+  orig: 23, 14
+  offset: 0, 0
+  index: -1
+yl34
+  rotate: false
+  xy: 376, 252
+  size: 277, 134
+  orig: 277, 134
+  offset: 0, 0
+  index: -1
+yl35
+  rotate: true
+  xy: 707, 145
+  size: 17, 8
+  orig: 17, 8
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,40 @@
+{
+  "__version__": "1.0.1",
+  "builder": {
+    "common": {
+      "polyfills": {
+        "asyncFunctions": true
+      },
+      "buildPath": "project://build",
+      "outputName": "web-desktop",
+      "mainBundleCompressionType": "merge_dep",
+      "platform": "web-desktop",
+      "startScene": "38ef32d8-8398-4003-bf59-a2608d3a6253",
+      "scenes": [
+        {
+          "url": "db://assets/scenes/game.scene",
+          "uuid": "431e0475-73a8-419f-a415-e85a3206ce9f"
+        },
+        {
+          "url": "db://assets/scenes/launch.scene",
+          "uuid": "38ef32d8-8398-4003-bf59-a2608d3a6253"
+        },
+        {
+          "url": "db://assets/scenes/errorprint.scene",
+          "uuid": "5db6e65d-a8d5-42b8-ad71-3147646014cd"
+        }
+      ]
+    },
+    "taskOptionsMap": {
+      "1721304193074": {
+        "resolution": {
+          "designWidth": 1280,
+          "designHeight": 960
+        },
+        "cullEngineAsmJsModule": false,
+        "__version__": "1.0.1"
+      }
+    },
+    "__version__": "1.3.7"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "ver": "1.0.26",
+  "importer": "image",
+  "imported": true,
+  "uuid": "d6407721-becf-4773-a321-94a795e49f64",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "dw208_": {
+      "ver": "1.0.4",
+      "uuid": "907b33fd-5e20-49b9-9aad-b56bd1ab424a",
+      "rawTextureUuid": "d6407721-becf-4773-a321-94a795e49f64",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 59,
+      "height": 45,
+      "rawWidth": 63,
+      "rawHeight": 49,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {},
+      "importer": "*",
+      "imported": false,
+      "files": [],
+      "userData": {},
+      "displayName": "",
+      "id": "",
+      "name": ""
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "d6407721-becf-4773-a321-94a795e49f64@6c48a",
+      "displayName": "dw208_",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "d6407721-becf-4773-a321-94a795e49f64",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "hasAlpha": true,
+    "type": "texture",
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "d6407721-becf-4773-a321-94a795e49f64@6c48a"
+  }
+}

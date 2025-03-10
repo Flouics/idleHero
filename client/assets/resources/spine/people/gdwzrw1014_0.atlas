@@ -1,0 +1,41 @@
+
+gdwzrw1014_0_.png
+size: 75,78
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+xiyiyu_1
+  rotate: false
+  xy: 2, 2
+  size: 38, 27
+  orig: 38, 27
+  offset: 0, 0
+  index: -1
+xiyiyu_2
+  rotate: false
+  xy: 2, 31
+  size: 40, 45
+  orig: 40, 45
+  offset: 0, 0
+  index: -1
+xiyiyu_3
+  rotate: false
+  xy: 44, 21
+  size: 26, 18
+  orig: 26, 18
+  offset: 0, 0
+  index: -1
+xiyiyu_4
+  rotate: false
+  xy: 42, 5
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: -1
+xiyiyu_5
+  rotate: false
+  xy: 44, 41
+  size: 29, 35
+  orig: 29, 35
+  offset: 0, 0
+  index: -1

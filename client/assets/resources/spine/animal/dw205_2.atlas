@@ -1,0 +1,62 @@
+
+dw205_2_.png
+size: 93,152
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ma1_1
+  rotate: true
+  xy: 2, 2
+  size: 25, 41
+  orig: 25, 41
+  offset: 0, 0
+  index: -1
+ma1_2
+  rotate: false
+  xy: 57, 108
+  size: 17, 42
+  orig: 17, 42
+  offset: 0, 0
+  index: -1
+ma1_3
+  rotate: false
+  xy: 76, 89
+  size: 14, 28
+  orig: 14, 28
+  offset: 0, 0
+  index: -1
+ma1_4
+  rotate: false
+  xy: 76, 119
+  size: 15, 31
+  orig: 15, 31
+  offset: 0, 0
+  index: -1
+ma1_5
+  rotate: true
+  xy: 45, 7
+  size: 20, 43
+  orig: 20, 43
+  offset: 0, 0
+  index: -1
+ma1_6
+  rotate: true
+  xy: 57, 69
+  size: 18, 33
+  orig: 18, 33
+  offset: 0, 0
+  index: -1
+ma1_7
+  rotate: true
+  xy: 2, 58
+  size: 92, 53
+  orig: 92, 53
+  offset: 0, 0
+  index: -1
+ma1_8
+  rotate: false
+  xy: 2, 29
+  size: 81, 27
+  orig: 81, 27
+  offset: 0, 0
+  index: -1

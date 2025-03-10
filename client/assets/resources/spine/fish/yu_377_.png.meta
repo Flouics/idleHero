@@ -1,0 +1,70 @@
+{
+  "ver": "1.0.26",
+  "importer": "image",
+  "imported": true,
+  "uuid": "1e680da3-a551-438c-9965-cc8adebe6281",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "yu_377_": {
+      "ver": "1.0.4",
+      "uuid": "4e8cc19c-dc15-4fb2-b890-50c21df168a8",
+      "rawTextureUuid": "1e680da3-a551-438c-9965-cc8adebe6281",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 408,
+      "height": 517,
+      "rawWidth": 412,
+      "rawHeight": 521,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {},
+      "importer": "*",
+      "imported": false,
+      "files": [],
+      "userData": {},
+      "displayName": "",
+      "id": "",
+      "name": ""
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "1e680da3-a551-438c-9965-cc8adebe6281@6c48a",
+      "displayName": "yu_377_",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "1e680da3-a551-438c-9965-cc8adebe6281",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "hasAlpha": true,
+    "type": "texture",
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "1e680da3-a551-438c-9965-cc8adebe6281@6c48a"
+  }
+}

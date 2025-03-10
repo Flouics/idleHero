@@ -1,0 +1,13 @@
+
+rw1009_0_.png
+size: 55,49
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ren1
+  rotate: false
+  xy: 2, 2
+  size: 51, 45
+  orig: 51, 45
+  offset: 0, 0
+  index: -1

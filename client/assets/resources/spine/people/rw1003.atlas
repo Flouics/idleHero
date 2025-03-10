@@ -1,0 +1,34 @@
+
+rw1003_.png
+size: 93,29
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+duihua4_1
+  rotate: false
+  xy: 76, 2
+  size: 12, 6
+  orig: 12, 6
+  offset: 0, 0
+  index: -1
+duihua4_2
+  rotate: true
+  xy: 58, 4
+  size: 23, 16
+  orig: 23, 16
+  offset: 0, 0
+  index: -1
+duihua4_3
+  rotate: false
+  xy: 76, 10
+  size: 15, 17
+  orig: 15, 17
+  offset: 0, 0
+  index: -1
+duihua4_4
+  rotate: true
+  xy: 2, 3
+  size: 24, 54
+  orig: 24, 54
+  offset: 0, 0
+  index: -1

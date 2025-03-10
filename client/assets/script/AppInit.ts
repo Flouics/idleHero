@@ -1,0 +1,40 @@
+﻿import { Enum } from "cc";
+import App from "./App";
+import PackageInit from "./modules/package/PackageInit";
+import PlayerInit from "./modules/player/PlayerInit";
+import TimeInit from "./modules/time/TimeInit";
+import MapInit from "./modules/map/MapInit";
+import MercenaryInit from "./modules/mercenary/MercenaryInit";
+import RewardInit from "./modules/reward/RewardInit";
+import { getPlayerProxy } from "./modules/player/PlayerProxy";
+import LobbyInit from "./modules/lobby/LobbyInit";
+
+//全局太麻烦了，老是有红线，直接静态处理吧。App只会有一个。
+export function AppInit(){
+    
+    App.initFont();
+
+    //配表记载
+    App.dataMgr.loadTexts = [
+        'config'
+        , 'base'
+    ]
+
+    //需要初始化的模块
+    var moduleMgr = App.moduleMgr
+    moduleMgr.init();
+    moduleMgr.load("lobby",new LobbyInit());
+    moduleMgr.load("player",new PlayerInit());
+    moduleMgr.load("package",new PackageInit());
+    moduleMgr.load("time",new TimeInit());
+    moduleMgr.load("map",new MapInit());
+    moduleMgr.load("mercenary",new MercenaryInit());
+    moduleMgr.load("reward",new RewardInit());
+   
+    App.httpMgr.init();
+    App.audioMgr.init();
+    App.poolMgr.init();
+
+    
+}
+

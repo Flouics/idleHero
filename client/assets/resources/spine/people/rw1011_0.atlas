@@ -1,0 +1,27 @@
+
+rw1011_0_.png
+size: 75,37
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ren3_1
+  rotate: true
+  xy: 49, 20
+  size: 15, 24
+  orig: 15, 24
+  offset: 0, 0
+  index: -1
+ren3_2
+  rotate: true
+  xy: 49, 4
+  size: 14, 23
+  orig: 14, 23
+  offset: 0, 0
+  index: -1
+ren3_3
+  rotate: true
+  xy: 2, 2
+  size: 33, 45
+  orig: 33, 45
+  offset: 0, 0
+  index: -1

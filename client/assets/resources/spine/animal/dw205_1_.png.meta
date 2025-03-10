@@ -1,0 +1,70 @@
+{
+  "ver": "1.0.26",
+  "importer": "image",
+  "imported": true,
+  "uuid": "8efc1361-50e6-48e6-990c-63c1179dc5ab",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "dw205_1_": {
+      "ver": "1.0.4",
+      "uuid": "071086d0-05ad-4524-a2e8-1833a4beb0c4",
+      "rawTextureUuid": "8efc1361-50e6-48e6-990c-63c1179dc5ab",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 3,
+      "trimY": 3,
+      "width": 114,
+      "height": 42,
+      "rawWidth": 120,
+      "rawHeight": 48,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {},
+      "importer": "*",
+      "imported": false,
+      "files": [],
+      "userData": {},
+      "displayName": "",
+      "id": "",
+      "name": ""
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "8efc1361-50e6-48e6-990c-63c1179dc5ab@6c48a",
+      "displayName": "dw205_1_",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "8efc1361-50e6-48e6-990c-63c1179dc5ab",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "hasAlpha": true,
+    "type": "texture",
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "8efc1361-50e6-48e6-990c-63c1179dc5ab@6c48a"
+  }
+}

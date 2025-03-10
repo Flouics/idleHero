@@ -1,0 +1,70 @@
+{
+  "ver": "1.0.26",
+  "importer": "image",
+  "imported": true,
+  "uuid": "907b201a-a1bd-4d16-bc35-eb693279f6c9",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "dw211_": {
+      "ver": "1.0.4",
+      "uuid": "4ae70b31-fd9d-49f8-a320-ad91f1d0268d",
+      "rawTextureUuid": "907b201a-a1bd-4d16-bc35-eb693279f6c9",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 3,
+      "trimY": 3,
+      "width": 23,
+      "height": 35,
+      "rawWidth": 29,
+      "rawHeight": 41,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {},
+      "importer": "*",
+      "imported": false,
+      "files": [],
+      "userData": {},
+      "displayName": "",
+      "id": "",
+      "name": ""
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "907b201a-a1bd-4d16-bc35-eb693279f6c9@6c48a",
+      "displayName": "dw211_",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "907b201a-a1bd-4d16-bc35-eb693279f6c9",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "hasAlpha": true,
+    "type": "texture",
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "907b201a-a1bd-4d16-bc35-eb693279f6c9@6c48a"
+  }
+}

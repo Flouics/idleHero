@@ -1,0 +1,309 @@
+locale: zh-Hans-CN
+items:
+  stage.costTip:
+    key: stage.costTip
+    value: 消耗体力:%s
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.maxLevel:
+    key: common.maxLevel
+    value: 满级
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.upgrade:
+    key: common.upgrade
+    value: 升级
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.name:
+    key: mercenary.name
+    value: 名字
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.race:
+    key: mercenary.race
+    value: 种族
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.battleType:
+    key: mercenary.battleType
+    value: 战斗类型
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.quality:
+    key: mercenary.quality
+    value: 品质
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.element:
+    key: mercenary.element
+    value: 元素
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.coldTime:
+    key: mercenary.coldTime
+    value: 冷却时间
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.life:
+    key: mercenary.life
+    value: 生命
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.atk:
+    key: mercenary.atk
+    value: 攻击力
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.atkBuffList:
+    key: mercenary.atkBuffList
+    value: 攻击buff
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.atkSpeed:
+    key: mercenary.atkSpeed
+    value: 攻击速度
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.searchRange:
+    key: mercenary.searchRange
+    value: 搜索距离
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.atkRange:
+    key: mercenary.atkRange
+    value: 攻击距离
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.atkTargetCount:
+    key: mercenary.atkTargetCount
+    value: 目标数量
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.atkCount:
+    key: mercenary.atkCount
+    value: 攻击次数
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.moveSpeed:
+    key: mercenary.moveSpeed
+    value: 移动速度
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.unit_1:
+    key: common.unit_1
+    value: 万
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.unit_2:
+    key: common.unit_2
+    value: 亿
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.unit_3:
+    key: common.unit_3
+    value: 兆
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.unit_4:
+    key: common.unit_4
+    value: 京
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.unit_5:
+    key: common.unit_5
+    value: 垓
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  stage.lock:
+    key: stage.lock
+    value: 请先解锁关卡
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  stage.noEnoughStamina:
+    key: stage.noEnoughStamina
+    value: 体力不足
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  stage.dataError:
+    key: stage.dataError
+    value: 关卡数据错误
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  stage.tip_1:
+    key: stage.tip_1
+    value: 第 %s/%s 波
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  battle.enter:
+    key: battle.enter
+    value: 进入战斗
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  idle.timeDesc:
+    key: idle.timeDesc
+    value: 已经挂机(%s)
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  time.day:
+    key: time.day
+    value: 天
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  time.hour:
+    key: time.hour
+    value: 时
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  time.min:
+    key: time.min
+    value: 分
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  time.sec:
+    key: time.sec
+    value: 秒
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  time.ms:
+    key: time.ms
+    value: 毫秒
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  time.mm:
+    key: time.mm
+    value: 毫秒
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.skillList:
+    key: mercenary.skillList
+    value: 技能列表
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.skill:
+    key: mercenary.skill
+    value: 技能
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.comfirm:
+    key: common.comfirm
+    value: 确定
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.cancel:
+    key: common.cancel
+    value: 取消
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.close:
+    key: common.close
+    value: 关闭
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.goto:
+    key: common.goto
+    value: 前往
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.buy:
+    key: common.buy
+    value: 购买
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.exchange:
+    key: common.exchange
+    value: 兑换
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+languageConfig:
+  bcp47Tag: zh-Hans-CN
+  translateFinished: 0
+  translateTotal: 0
+  compileFinished: 0
+  compileTotal: 43

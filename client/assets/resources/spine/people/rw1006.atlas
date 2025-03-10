@@ -1,0 +1,62 @@
+
+rw1006_.png
+size: 172,67
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+zouluren6_1
+  rotate: false
+  xy: 120, 39
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+zouluren6_2
+  rotate: false
+  xy: 148, 40
+  size: 22, 25
+  orig: 22, 25
+  offset: 0, 0
+  index: -1
+zouluren6_3
+  rotate: false
+  xy: 120, 17
+  size: 11, 20
+  orig: 11, 20
+  offset: 0, 0
+  index: -1
+zouluren6_4
+  rotate: true
+  xy: 2, 7
+  size: 58, 57
+  orig: 58, 57
+  offset: 0, 0
+  index: -1
+zouluren7_1
+  rotate: true
+  xy: 120, 2
+  size: 10, 25
+  orig: 10, 25
+  offset: 0, 0
+  index: -1
+zouluren7_2
+  rotate: false
+  xy: 148, 14
+  size: 22, 24
+  orig: 22, 24
+  offset: 0, 0
+  index: -1
+zouluren7_3
+  rotate: false
+  xy: 133, 17
+  size: 11, 20
+  orig: 11, 20
+  offset: 0, 0
+  index: -1
+zouluren7_4
+  rotate: true
+  xy: 61, 7
+  size: 58, 57
+  orig: 58, 57
+  offset: 0, 0
+  index: -1

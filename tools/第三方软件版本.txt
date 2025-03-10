@@ -1,0 +1,10 @@
+node:12.22.12(这个是支持win7最后的一个版本)
+https://nodejs.org/en/download/
+ps:npm的库也是基于这个版本。node建议用高级点版本。个人用node12只是因为换操作系统麻烦
+其中protobufjs-cli最低版本至少需要node14以上，好在能跑，没用到node14以上的特性。
+
+装好 nodejs之后，运行下 npm_install.bat，安装对应的库。
+
+python 3.7.9 以上
+
+

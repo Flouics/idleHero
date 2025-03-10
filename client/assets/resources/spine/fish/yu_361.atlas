@@ -1,0 +1,83 @@
+
+yu_361_.png
+size: 584,504
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ry20
+  rotate: true
+  xy: 523, 77
+  size: 48, 49
+  orig: 48, 49
+  offset: 0, 0
+  index: -1
+yl14
+  rotate: false
+  xy: 449, 79
+  size: 72, 46
+  orig: 72, 46
+  offset: 0, 0
+  index: -1
+yl16
+  rotate: false
+  xy: 2, 268
+  size: 410, 234
+  orig: 410, 234
+  offset: 0, 0
+  index: -1
+yl18
+  rotate: true
+  xy: 320, 146
+  size: 120, 71
+  orig: 120, 71
+  offset: 0, 0
+  index: -1
+yl19
+  rotate: false
+  xy: 2, 2
+  size: 35, 22
+  orig: 35, 22
+  offset: 0, 0
+  index: -1
+yl20
+  rotate: true
+  xy: 414, 127
+  size: 375, 168
+  orig: 375, 168
+  offset: 0, 0
+  index: -1
+yl21
+  rotate: true
+  xy: 393, 236
+  size: 30, 10
+  orig: 30, 10
+  offset: 0, 0
+  index: -1
+yl22
+  rotate: true
+  xy: 320, 24
+  size: 120, 59
+  orig: 120, 59
+  offset: 0, 0
+  index: -1
+yl23
+  rotate: true
+  xy: 381, 15
+  size: 53, 62
+  orig: 53, 62
+  offset: 0, 0
+  index: -1
+yl24
+  rotate: false
+  xy: 2, 26
+  size: 316, 240
+  orig: 316, 240
+  offset: 0, 0
+  index: -1
+yl25
+  rotate: false
+  xy: 381, 70
+  size: 66, 55
+  orig: 66, 55
+  offset: 0, 0
+  index: -1

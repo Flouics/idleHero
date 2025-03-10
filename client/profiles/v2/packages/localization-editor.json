@@ -1,0 +1,162 @@
+{
+  "__version__": "1.0.1",
+  "builder": {
+    "options": {
+      "web-desktop": {
+        "defaultLanguage": "zh-Hans",
+        "targetLanguageMap": {
+          "zh-Hans": {
+            "locale": "zh-Hans",
+            "value": true
+          }
+        },
+        "fallbackLanguage": "zh-Hans"
+      },
+      "web-mobile": {
+        "defaultLanguage": "zh-Hans-CN",
+        "targetLanguageMap": {
+          "zh-Hans": {
+            "locale": "zh-Hans",
+            "value": true
+          },
+          "en-US": {
+            "locale": "en-US",
+            "value": true
+          },
+          "zh-Hans-CN": {
+            "locale": "zh-Hans-CN",
+            "value": true
+          }
+        },
+        "fallbackLanguage": "zh-Hans-CN",
+        "__version__": "1.0.1"
+      },
+      "windows": {
+        "defaultLanguage": "zh-Hans",
+        "targetLanguageMap": {
+          "zh-Hans": {
+            "locale": "zh-Hans",
+            "value": true
+          }
+        },
+        "fallbackLanguage": "zh-Hans"
+      }
+    },
+    "taskOptionsMap": {
+      "1721302691379": {
+        "defaultLanguage": "zh-Hans",
+        "targetLanguageMap": {
+          "zh-Hans": {
+            "locale": "zh-Hans",
+            "value": true
+          }
+        },
+        "fallbackLanguage": "zh-Hans",
+        "__version__": "1.0.1"
+      },
+      "1721302767900": {
+        "defaultLanguage": "en-US",
+        "targetLanguageMap": {
+          "zh-Hans": {
+            "locale": "zh-Hans",
+            "value": true
+          },
+          "en-US": {
+            "locale": "en-US",
+            "value": true
+          }
+        },
+        "fallbackLanguage": "en-US",
+        "__version__": "1.0.1"
+      },
+      "1721304193074": {
+        "defaultLanguage": "zh-Hans",
+        "targetLanguageMap": {
+          "zh-Hans": {
+            "locale": "zh-Hans",
+            "value": true
+          }
+        },
+        "fallbackLanguage": "zh-Hans",
+        "__version__": "1.0.1"
+      },
+      "1721302767900}": {
+        "defaultLanguage": "en-US",
+        "targetLanguageMap": {
+          "zh-Hans": {
+            "locale": "zh-Hans",
+            "value": true
+          },
+          "en-US": {
+            "locale": "en-US",
+            "value": true
+          }
+        },
+        "fallbackLanguage": "en-US",
+        "__version__": "1.0.1"
+      },
+      "1721304193074}": {
+        "defaultLanguage": "zh-Hans",
+        "targetLanguageMap": {
+          "zh-Hans": {
+            "locale": "zh-Hans",
+            "value": true
+          }
+        },
+        "fallbackLanguage": "zh-Hans",
+        "__version__": "1.0.1"
+      },
+      "1725860976057": {
+        "defaultLanguage": "zh-Hans",
+        "targetLanguageMap": {
+          "zh-Hans": {
+            "locale": "zh-Hans",
+            "value": true
+          },
+          "en-US": {
+            "locale": "en-US",
+            "value": true
+          }
+        },
+        "fallbackLanguage": "zh-Hans",
+        "__version__": "1.0.1"
+      },
+      "1725860976057}": {
+        "defaultLanguage": "zh-Hans",
+        "targetLanguageMap": {
+          "zh-Hans": {
+            "locale": "zh-Hans",
+            "value": true
+          },
+          "en-US": {
+            "locale": "en-US",
+            "value": true
+          }
+        },
+        "fallbackLanguage": "zh-Hans",
+        "__version__": "1.0.1"
+      },
+      "1725861373945": {
+        "defaultLanguage": "zh-Hans-CN",
+        "targetLanguageMap": {
+          "zh-Hans": {
+            "locale": "zh-Hans",
+            "value": true
+          },
+          "en-US": {
+            "locale": "en-US",
+            "value": true
+          },
+          "zh-Hans-CN": {
+            "locale": "zh-Hans-CN",
+            "value": true
+          }
+        },
+        "fallbackLanguage": "zh-Hans-CN",
+        "__version__": "1.0.1"
+      }
+    },
+    "__version__": "1.3.7"
+  },
+  "EditorConfig": {}
+}

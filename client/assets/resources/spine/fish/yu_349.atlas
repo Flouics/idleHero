@@ -1,0 +1,55 @@
+
+yu_349_.png
+size: 204,143
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ry20
+  rotate: true
+  xy: 153, 2
+  size: 48, 49
+  orig: 48, 49
+  offset: 0, 0
+  index: -1
+xy10
+  rotate: false
+  xy: 2, 69
+  size: 168, 72
+  orig: 168, 72
+  offset: 0, 0
+  index: -1
+xy11
+  rotate: false
+  xy: 172, 115
+  size: 29, 26
+  orig: 29, 26
+  offset: 0, 0
+  index: -1
+xy12
+  rotate: false
+  xy: 172, 52
+  size: 18, 16
+  orig: 18, 16
+  offset: 0, 0
+  index: -1
+xy13
+  rotate: false
+  xy: 2, 13
+  size: 149, 54
+  orig: 149, 54
+  offset: 0, 0
+  index: -1
+xy14
+  rotate: false
+  xy: 172, 90
+  size: 24, 23
+  orig: 24, 23
+  offset: 0, 0
+  index: -1
+xy9
+  rotate: false
+  xy: 172, 70
+  size: 20, 18
+  orig: 20, 18
+  offset: 0, 0
+  index: -1

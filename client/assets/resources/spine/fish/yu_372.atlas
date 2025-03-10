@@ -1,0 +1,48 @@
+
+yu_372_.png
+size: 867,652
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ry20
+  rotate: false
+  xy: 739, 2
+  size: 48, 49
+  orig: 48, 49
+  offset: 0, 0
+  index: -1
+yl75
+  rotate: true
+  xy: 739, 53
+  size: 64, 43
+  orig: 64, 43
+  offset: 0, 0
+  index: -1
+yl76
+  rotate: true
+  xy: 2, 35
+  size: 615, 308
+  orig: 615, 308
+  offset: 0, 0
+  index: -1
+yl77
+  rotate: false
+  xy: 586, 17
+  size: 151, 100
+  orig: 151, 100
+  offset: 0, 0
+  index: -1
+yl78
+  rotate: true
+  xy: 586, 119
+  size: 531, 279
+  orig: 531, 279
+  offset: 0, 0
+  index: -1
+yl79
+  rotate: true
+  xy: 312, 75
+  size: 575, 272
+  orig: 575, 272
+  offset: 0, 0
+  index: -1

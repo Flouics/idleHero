@@ -1,0 +1,13 @@
+
+dw210_1_.png
+size: 34,30
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+gongji1
+  rotate: false
+  xy: 2, 2
+  size: 30, 26
+  orig: 30, 26
+  offset: 0, 0
+  index: -1

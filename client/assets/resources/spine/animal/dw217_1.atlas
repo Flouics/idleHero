@@ -1,0 +1,20 @@
+
+dw217_1_.png
+size: 46,27
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+zuomao_1
+  rotate: false
+  xy: 33, 13
+  size: 11, 12
+  orig: 11, 12
+  offset: 0, 0
+  index: -1
+zuomao_2
+  rotate: false
+  xy: 2, 2
+  size: 29, 23
+  orig: 29, 23
+  offset: 0, 0
+  index: -1

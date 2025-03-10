@@ -1,0 +1,70 @@
+{
+  "ver": "1.0.26",
+  "importer": "image",
+  "imported": true,
+  "uuid": "96bee671-9555-4545-8521-b7ee1d9f307d",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "gdwzdw206_": {
+      "ver": "1.0.4",
+      "uuid": "ca200127-92bc-4d38-b91c-162aeb573808",
+      "rawTextureUuid": "96bee671-9555-4545-8521-b7ee1d9f307d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": -1,
+      "trimX": 2,
+      "trimY": 4,
+      "width": 94,
+      "height": 90,
+      "rawWidth": 98,
+      "rawHeight": 96,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {},
+      "importer": "*",
+      "imported": false,
+      "files": [],
+      "userData": {},
+      "displayName": "",
+      "id": "",
+      "name": ""
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "96bee671-9555-4545-8521-b7ee1d9f307d@6c48a",
+      "displayName": "gdwzdw206_",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "96bee671-9555-4545-8521-b7ee1d9f307d",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "hasAlpha": true,
+    "type": "texture",
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "96bee671-9555-4545-8521-b7ee1d9f307d@6c48a"
+  }
+}

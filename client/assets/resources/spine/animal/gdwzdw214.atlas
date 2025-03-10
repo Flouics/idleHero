@@ -1,0 +1,62 @@
+
+gdwzdw214_.png
+size: 109,30
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+feige1_1
+  rotate: true
+  xy: 91, 14
+  size: 14, 16
+  orig: 14, 16
+  offset: 0, 0
+  index: -1
+feige1_2
+  rotate: true
+  xy: 91, 2
+  size: 10, 15
+  orig: 10, 15
+  offset: 0, 0
+  index: -1
+feige1_3
+  rotate: true
+  xy: 57, 11
+  size: 17, 15
+  orig: 17, 15
+  offset: 0, 0
+  index: -1
+gezi1_1
+  rotate: false
+  xy: 74, 2
+  size: 8, 8
+  orig: 8, 8
+  offset: 0, 0
+  index: -1
+gezi1_2
+  rotate: false
+  xy: 74, 12
+  size: 15, 16
+  orig: 15, 16
+  offset: 0, 0
+  index: -1
+gezi2
+  rotate: true
+  xy: 21, 6
+  size: 22, 16
+  orig: 22, 16
+  offset: 0, 0
+  index: -1
+gezi3
+  rotate: true
+  xy: 2, 5
+  size: 23, 17
+  orig: 23, 17
+  offset: 0, 0
+  index: -1
+gezi4
+  rotate: true
+  xy: 39, 6
+  size: 22, 16
+  orig: 22, 16
+  offset: 0, 0
+  index: -1

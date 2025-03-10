@@ -1,0 +1,17 @@
+{
+    "item": "item",
+    "mercenaryLevelUpgrade": "mercenary",
+    "mercenary": "mercenary",
+    "wave": "stage",
+    "monster": "monster",
+    "augment": "augment",
+    "userLevel": "userLevel",
+    "stage": "stage",
+    "mercenaryLevelData": "mercenary",
+    "skill": "skill",
+    "bullet": "bullet",
+    "config": "config",
+    "buff": "buff",
+    "base": "base",
+    "idleRwd": "idleRwd"
+}

@@ -1,0 +1,62 @@
+
+rw1005_.png
+size: 140,57
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+zouluren1_1
+  rotate: true
+  xy: 41, 12
+  size: 12, 32
+  orig: 12, 32
+  offset: 0, 0
+  index: -1
+zouluren1_2
+  rotate: true
+  xy: 30, 3
+  size: 7, 25
+  orig: 7, 25
+  offset: 0, 0
+  index: -1
+zouluren1_3
+  rotate: true
+  xy: 111, 12
+  size: 14, 25
+  orig: 14, 25
+  offset: 0, 0
+  index: -1
+zouluren1_4
+  rotate: true
+  xy: 73, 28
+  size: 27, 65
+  orig: 27, 65
+  offset: 0, 0
+  index: -1
+zouluren2_1
+  rotate: true
+  xy: 75, 13
+  size: 13, 34
+  orig: 13, 34
+  offset: 0, 0
+  index: -1
+zouluren2_2
+  rotate: true
+  xy: 2, 2
+  size: 8, 26
+  orig: 8, 26
+  offset: 0, 0
+  index: -1
+zouluren2_3
+  rotate: true
+  xy: 2, 12
+  size: 12, 37
+  orig: 12, 37
+  offset: 0, 0
+  index: -1
+zouluren2_4
+  rotate: true
+  xy: 2, 26
+  size: 29, 69
+  orig: 29, 69
+  offset: 0, 0
+  index: -1

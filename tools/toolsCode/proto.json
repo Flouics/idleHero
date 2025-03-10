@@ -1,0 +1,8 @@
+{
+  "title":"都市",
+  "name":"boss",
+  "proto": "auto/protocol/forBDZC/testData.json",
+  "ts": "client/assets/script/proto.d.ts",
+  "namespace": "client/__set/script/proto.js",
+  "html": "client/proto.html"
+}

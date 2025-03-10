@@ -1,0 +1,312 @@
+locale: index
+items:
+  stage.costTip:
+    key: stage.costTip
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.maxLevel:
+    key: common.maxLevel
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.upgrade:
+    key: common.upgrade
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.name:
+    key: mercenary.name
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.race:
+    key: mercenary.race
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.battleType:
+    key: mercenary.battleType
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.quality:
+    key: mercenary.quality
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.element:
+    key: mercenary.element
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.coldTime:
+    key: mercenary.coldTime
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.life:
+    key: mercenary.life
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.atk:
+    key: mercenary.atk
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.atkBuffList:
+    key: mercenary.atkBuffList
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.atkSpeed:
+    key: mercenary.atkSpeed
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.searchRange:
+    key: mercenary.searchRange
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.atkRange:
+    key: mercenary.atkRange
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.atkTargetCount:
+    key: mercenary.atkTargetCount
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.atkCount:
+    key: mercenary.atkCount
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.moveSpeed:
+    key: mercenary.moveSpeed
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.unit_1:
+    key: common.unit_1
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.unit_2:
+    key: common.unit_2
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.unit_3:
+    key: common.unit_3
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.unit_4:
+    key: common.unit_4
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.unit_5:
+    key: common.unit_5
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  stage.lock:
+    key: stage.lock
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  stage.noEnoughStamina:
+    key: stage.noEnoughStamina
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  stage.dataError:
+    key: stage.dataError
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  stage.tip_1:
+    key: stage.tip_1
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  battle.enter:
+    key: battle.enter
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  idle.timeDesc:
+    key: idle.timeDesc
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  time.day:
+    key: time.day
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  time.hour:
+    key: time.hour
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  time.min:
+    key: time.min
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  time.sec:
+    key: time.sec
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  time.mm:
+    key: time.mm
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  time.ms:
+    key: time.ms
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.skillList:
+    key: mercenary.skillList
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  mercenary.skill:
+    key: mercenary.skill
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.comfirm:
+    key: common.comfirm
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.cancel:
+    key: common.cancel
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.close:
+    key: common.close
+    value: ""
+    type: 4
+    isVariant: false
+    associations:
+      - sceneUuid: 97030cde-b13d-4337-8e17-1fabd079f67e
+        nodeUuid: 69bdMcbM9MUbM2fA7ck8SG
+        reference: 97030cde-b13d-4337-8e17-1fabd079f67e
+    _variants: []
+  common.goto:
+    key: common.goto
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.buy:
+    key: common.buy
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  common.exchange:
+    key: common.exchange
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+languageConfig:
+  bcp47Tag: index
+  translateFinished: 0
+  translateTotal: 0
+  compileFinished: 0
+  compileTotal: 0

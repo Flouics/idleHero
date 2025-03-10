@@ -1,0 +1,97 @@
+
+yu_375_.png
+size: 568,528
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ry20
+  rotate: false
+  xy: 154, 6
+  size: 48, 49
+  orig: 48, 49
+  offset: 0, 0
+  index: -1
+yl100
+  rotate: true
+  xy: 450, 85
+  size: 91, 61
+  orig: 91, 61
+  offset: 0, 0
+  index: -1
+yl101
+  rotate: false
+  xy: 513, 146
+  size: 44, 30
+  orig: 44, 30
+  offset: 0, 0
+  index: -1
+yl102
+  rotate: true
+  xy: 450, 178
+  size: 348, 116
+  orig: 348, 116
+  offset: 0, 0
+  index: -1
+yl103
+  rotate: true
+  xy: 376, 4
+  size: 77, 36
+  orig: 77, 36
+  offset: 0, 0
+  index: -1
+yl92
+  rotate: false
+  xy: 55, 3
+  size: 57, 52
+  orig: 57, 52
+  offset: 0, 0
+  index: -1
+yl93
+  rotate: false
+  xy: 204, 6
+  size: 30, 49
+  orig: 30, 49
+  offset: 0, 0
+  index: -1
+yl94
+  rotate: true
+  xy: 2, 57
+  size: 469, 240
+  orig: 469, 240
+  offset: 0, 0
+  index: -1
+yl95
+  rotate: true
+  xy: 114, 5
+  size: 50, 38
+  orig: 50, 38
+  offset: 0, 0
+  index: -1
+yl96
+  rotate: false
+  xy: 236, 9
+  size: 138, 46
+  orig: 138, 46
+  offset: 0, 0
+  index: -1
+yl97
+  rotate: false
+  xy: 414, 16
+  size: 97, 65
+  orig: 97, 65
+  offset: 0, 0
+  index: -1
+yl98
+  rotate: true
+  xy: 2, 2
+  size: 53, 51
+  orig: 53, 51
+  offset: 0, 0
+  index: -1
+yl99
+  rotate: true
+  xy: 244, 83
+  size: 443, 204
+  orig: 443, 204
+  offset: 0, 0
+  index: -1

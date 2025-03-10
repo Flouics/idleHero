@@ -1,0 +1,70 @@
+{
+  "ver": "1.0.26",
+  "importer": "image",
+  "imported": true,
+  "uuid": "07380d50-ab5b-4609-a54d-be434c2fd3d9",
+  "files": [
+    ".json",
+    ".png"
+  ],
+  "subMetas": {
+    "dw210_4_": {
+      "ver": "1.0.4",
+      "uuid": "5c0d19d6-8c23-4e0c-85e8-f4c026441eaa",
+      "rawTextureUuid": "07380d50-ab5b-4609-a54d-be434c2fd3d9",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0.5,
+      "offsetY": 0,
+      "trimX": 3,
+      "trimY": 2,
+      "width": 20,
+      "height": 19,
+      "rawWidth": 25,
+      "rawHeight": 23,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {},
+      "importer": "*",
+      "imported": false,
+      "files": [],
+      "userData": {},
+      "displayName": "",
+      "id": "",
+      "name": ""
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "07380d50-ab5b-4609-a54d-be434c2fd3d9@6c48a",
+      "displayName": "dw210_4_",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "07380d50-ab5b-4609-a54d-be434c2fd3d9",
+        "visible": false
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "hasAlpha": true,
+    "type": "texture",
+    "fixAlphaTransparencyArtifacts": false,
+    "redirect": "07380d50-ab5b-4609-a54d-be434c2fd3d9@6c48a"
+  }
+}

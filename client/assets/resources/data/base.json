@@ -1,0 +1,56 @@
+{"base": [
+    {
+        "lifeMax": 100,
+        "level": 1001,
+        "need": [{
+            "count": 100,
+            "id": 101001
+        }],
+        "name": "基地",
+        "icon": "icon",
+        "data1": 0,
+        "areaJson": [[
+            0,
+            0
+        ]],
+        "_id": 0,
+        "id": 100101,
+        "power": 1
+    },
+    {
+        "lifeMax": 100,
+        "level": 1002,
+        "need": [{
+            "count": 100,
+            "id": 101002
+        }],
+        "name": "金矿",
+        "icon": "icon",
+        "data1": 0,
+        "areaJson": [[
+            0,
+            0
+        ]],
+        "_id": 1,
+        "id": 100201,
+        "power": 1
+    },
+    {
+        "lifeMax": 100,
+        "level": 2001,
+        "need": [{
+            "count": 100,
+            "id": 101003
+        }],
+        "name": "基础炮塔",
+        "icon": "icon",
+        "data1": 0,
+        "areaJson": [[
+            0,
+            0
+        ]],
+        "_id": 2,
+        "id": 200101,
+        "power": 1
+    }
+]}

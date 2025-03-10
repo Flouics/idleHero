@@ -1,0 +1,55 @@
+
+dw215_.png
+size: 77,76
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tuoniao2_1
+  rotate: false
+  xy: 52, 24
+  size: 12, 8
+  orig: 12, 8
+  offset: 0, 0
+  index: -1
+tuoniao2_2
+  rotate: false
+  xy: 65, 37
+  size: 9, 37
+  orig: 9, 37
+  offset: 0, 0
+  index: -1
+tuoniao2_3
+  rotate: false
+  xy: 66, 4
+  size: 9, 31
+  orig: 9, 31
+  offset: 0, 0
+  index: -1
+tuoniao2_4
+  rotate: false
+  xy: 52, 34
+  size: 11, 40
+  orig: 11, 40
+  offset: 0, 0
+  index: -1
+tuoniao2_5
+  rotate: true
+  xy: 44, 2
+  size: 20, 17
+  orig: 20, 17
+  offset: 0, 0
+  index: -1
+tuoniao2_6
+  rotate: false
+  xy: 2, 24
+  size: 48, 50
+  orig: 48, 50
+  offset: 0, 0
+  index: -1
+tuoniao2_7
+  rotate: false
+  xy: 2, 3
+  size: 40, 19
+  orig: 40, 19
+  offset: 0, 0
+  index: -1

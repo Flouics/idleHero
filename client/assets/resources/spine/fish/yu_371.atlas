@@ -1,0 +1,83 @@
+
+yu_371_.png
+size: 498,528
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ry20
+  rotate: true
+  xy: 366, 2
+  size: 48, 49
+  orig: 48, 49
+  offset: 0, 0
+  index: -1
+yl65
+  rotate: true
+  xy: 2, 16
+  size: 510, 168
+  orig: 510, 168
+  offset: 0, 0
+  index: -1
+yl66
+  rotate: false
+  xy: 449, 6
+  size: 43, 31
+  orig: 43, 31
+  offset: 0, 0
+  index: -1
+yl67
+  rotate: true
+  xy: 458, 39
+  size: 85, 38
+  orig: 85, 38
+  offset: 0, 0
+  index: -1
+yl68
+  rotate: false
+  xy: 251, 16
+  size: 113, 54
+  orig: 113, 54
+  offset: 0, 0
+  index: -1
+yl69
+  rotate: true
+  xy: 172, 72
+  size: 454, 147
+  orig: 454, 147
+  offset: 0, 0
+  index: -1
+yl70
+  rotate: true
+  xy: 321, 77
+  size: 47, 30
+  orig: 47, 30
+  offset: 0, 0
+  index: -1
+yl71
+  rotate: false
+  xy: 366, 52
+  size: 90, 72
+  orig: 90, 72
+  offset: 0, 0
+  index: -1
+yl72
+  rotate: true
+  xy: 321, 126
+  size: 400, 151
+  orig: 400, 151
+  offset: 0, 0
+  index: -1
+yl73
+  rotate: true
+  xy: 417, 4
+  size: 46, 30
+  orig: 46, 30
+  offset: 0, 0
+  index: -1
+yl74
+  rotate: false
+  xy: 172, 7
+  size: 77, 63
+  orig: 77, 63
+  offset: 0, 0
+  index: -1

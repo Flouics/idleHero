@@ -1,0 +1,20 @@
+
+dw204_.png
+size: 45,90
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lu1
+  rotate: false
+  xy: 2, 47
+  size: 41, 41
+  orig: 41, 41
+  offset: 0, 0
+  index: -1
+lu6
+  rotate: true
+  xy: 2, 2
+  size: 43, 28
+  orig: 43, 28
+  offset: 0, 0
+  index: -1

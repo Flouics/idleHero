@@ -1,0 +1,55 @@
+
+rw1002_.png
+size: 280,89
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+duihua12
+  rotate: false
+  xy: 2, 4
+  size: 70, 83
+  orig: 70, 83
+  offset: 0, 0
+  index: -1
+duihua5_1
+  rotate: false
+  xy: 239, 60
+  size: 29, 27
+  orig: 29, 27
+  offset: 0, 0
+  index: -1
+duihua5_2
+  rotate: false
+  xy: 194, 11
+  size: 43, 76
+  orig: 43, 76
+  offset: 0, 0
+  index: -1
+duihua5_3
+  rotate: false
+  xy: 270, 58
+  size: 8, 29
+  orig: 8, 29
+  offset: 0, 0
+  index: -1
+duihua8_1
+  rotate: true
+  xy: 239, 50
+  size: 8, 26
+  orig: 8, 26
+  offset: 0, 0
+  index: -1
+duihua8_2
+  rotate: false
+  xy: 150, 2
+  size: 42, 85
+  orig: 42, 85
+  offset: 0, 0
+  index: -1
+duihua9
+  rotate: true
+  xy: 74, 11
+  size: 76, 74
+  orig: 76, 74
+  offset: 0, 0
+  index: -1

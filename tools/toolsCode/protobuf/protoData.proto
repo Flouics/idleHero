@@ -1,0 +1,106 @@
+syntax = "proto3";
+package proto;
+
+message SC
+{
+    SC_loginMod loginMod = 1;
+    SC_Hero hero = 2;
+    SC_User user = 3;
+    SC_Item item = 4;
+}
+
+message CS
+{
+    CS_Login login = 1;
+    CS_Guide guide = 2;
+}
+
+message CS_Login
+{
+    LoginAccount loginAccount = 1;
+}
+
+message LoginAccount
+{
+    string platform = 1 [default = ""];
+    string openid = 2 [default = ""];
+    string openkey = 3 [default = ""];
+    string parm1 = 4 [default = ""];
+    string parm2 = 5 [default = ""];
+    string parm3 = 6 [default = ""];
+    string parm4 = 7 [default = ""];
+    string parm5 = 8 [default = ""];
+    string parm6 = 9 [default = ""];
+}
+
+message CS_Guide
+{
+    Clogin login = 1;
+}
+
+message Clogin
+{
+    string platform = 1;
+    string ug = 2;
+    int32 pfgiftid = 3;
+    int32 pfvipgiftid = 4;
+}
+
+message SC_loginMod
+{
+    SC_LoginAccount loginAccount = 1;
+}
+
+message SC_LoginAccount
+{
+    int64 uid = 1 [default = 0];
+    string token = 2 [default = ""];
+    string backurl = 3 [default = ""];
+    string num1 = 4 [default = ""];
+    string gamename = 5 [default = ""];
+    string ip = 6 [default = ""];
+    string useraccount = 7 [default = ""];
+    string thirdpurl = 8 [default = ""];
+}
+
+message SC_Hero
+{
+    repeated HeroInfo heroList = 1;
+}
+
+message HeroInfo
+{
+    int32 id = 1 [default = 0];    
+}
+
+message SC_User
+{
+    UserInfo user = 1;    
+}
+
+message UserInfo
+{
+    int64 uid = 1 [default = 0];    
+}
+
+message SC_Item
+{
+    repeated ItemInfo itemList = 1;    
+}
+
+message ItemInfo
+{
+    int32 id = 1 [default = 0];                  //id
+    int32 kind = 2 [default = 0];                  //kind
+    int32 count = 3 [default = 0];                  //count
+    int32 label = 4 [default = 0];                  //label
+    int32 isBs = 5 [default = 0];                  //isBs
+    int32 num1 = 6 [default = 0];                  //num1
+    int32 num2 = 7 [default = 0];                  //num2
+    int32 num3 = 8 [default = 0];                  //num3
+}
+
+
+
+
+

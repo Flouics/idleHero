@@ -1,0 +1,97 @@
+
+yu_362_.png
+size: 823,479
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ry20
+  rotate: true
+  xy: 763, 240
+  size: 48, 49
+  orig: 48, 49
+  offset: 0, 0
+  index: -1
+yl10
+  rotate: false
+  xy: 663, 50
+  size: 128, 68
+  orig: 128, 68
+  offset: 0, 0
+  index: -1
+yl11
+  rotate: false
+  xy: 540, 29
+  size: 121, 89
+  orig: 121, 89
+  offset: 0, 0
+  index: -1
+yl12
+  rotate: false
+  xy: 2, 2
+  size: 536, 156
+  orig: 536, 156
+  offset: 0, 0
+  index: -1
+yl13
+  rotate: false
+  xy: 623, 258
+  size: 138, 96
+  orig: 138, 96
+  offset: 0, 0
+  index: -1
+yl2
+  rotate: false
+  xy: 763, 367
+  size: 58, 110
+  orig: 58, 110
+  offset: 0, 0
+  index: -1
+yl3
+  rotate: false
+  xy: 2, 295
+  size: 619, 182
+  orig: 619, 182
+  offset: 0, 0
+  index: -1
+yl4
+  rotate: true
+  xy: 623, 356
+  size: 121, 138
+  orig: 121, 138
+  offset: 0, 0
+  index: -1
+yl5
+  rotate: true
+  xy: 763, 290
+  size: 33, 53
+  orig: 33, 53
+  offset: 0, 0
+  index: -1
+yl6
+  rotate: false
+  xy: 596, 120
+  size: 199, 118
+  orig: 199, 118
+  offset: 0, 0
+  index: -1
+yl7
+  rotate: false
+  xy: 540, 128
+  size: 44, 30
+  orig: 44, 30
+  offset: 0, 0
+  index: -1
+yl8
+  rotate: false
+  xy: 763, 325
+  size: 58, 40
+  orig: 58, 40
+  offset: 0, 0
+  index: -1
+yl9
+  rotate: false
+  xy: 2, 160
+  size: 592, 133
+  orig: 592, 133
+  offset: 0, 0
+  index: -1

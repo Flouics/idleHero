@@ -1,0 +1,48 @@
+
+dw216_1_.png
+size: 89,30
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+zuogou_1
+  rotate: false
+  xy: 65, 17
+  size: 22, 11
+  orig: 22, 11
+  offset: 0, 0
+  index: -1
+zuogou_2
+  rotate: false
+  xy: 47, 3
+  size: 8, 14
+  orig: 8, 14
+  offset: 0, 0
+  index: -1
+zuogou_3
+  rotate: false
+  xy: 57, 7
+  size: 9, 8
+  orig: 9, 8
+  offset: 0, 0
+  index: -1
+zuogou_4
+  rotate: true
+  xy: 34, 2
+  size: 15, 11
+  orig: 15, 11
+  offset: 0, 0
+  index: -1
+zuogou_5
+  rotate: true
+  xy: 2, 3
+  size: 25, 30
+  orig: 25, 30
+  offset: 0, 0
+  index: -1
+zuogou_6
+  rotate: false
+  xy: 34, 19
+  size: 29, 9
+  orig: 29, 9
+  offset: 0, 0
+  index: -1

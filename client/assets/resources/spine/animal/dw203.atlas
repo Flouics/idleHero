@@ -1,0 +1,118 @@
+
+dw203_.png
+size: 172,142
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+nainiu2_1
+  rotate: false
+  xy: 138, 6
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+nainiu2_2
+  rotate: true
+  xy: 99, 36
+  size: 16, 36
+  orig: 16, 36
+  offset: 0, 0
+  index: -1
+nainiu2_3
+  rotate: true
+  xy: 55, 2
+  size: 13, 30
+  orig: 13, 30
+  offset: 0, 0
+  index: -1
+nainiu2_4
+  rotate: true
+  xy: 138, 58
+  size: 12, 30
+  orig: 12, 30
+  offset: 0, 0
+  index: -1
+nainiu2_5
+  rotate: true
+  xy: 87, 2
+  size: 13, 26
+  orig: 13, 26
+  offset: 0, 0
+  index: -1
+nainiu2_6
+  rotate: false
+  xy: 115, 16
+  size: 21, 18
+  orig: 21, 18
+  offset: 0, 0
+  index: -1
+nainiu2_7
+  rotate: false
+  xy: 35, 37
+  size: 62, 46
+  orig: 62, 46
+  offset: 0, 0
+  index: -1
+nainiu2_8
+  rotate: true
+  xy: 2, 2
+  size: 81, 31
+  orig: 81, 31
+  offset: 0, 0
+  index: -1
+nainiu3_1
+  rotate: false
+  xy: 138, 31
+  size: 26, 25
+  orig: 26, 25
+  offset: 0, 0
+  index: -1
+nainiu3_2
+  rotate: true
+  xy: 99, 54
+  size: 16, 37
+  orig: 16, 37
+  offset: 0, 0
+  index: -1
+nainiu3_3
+  rotate: false
+  xy: 163, 14
+  size: 7, 15
+  orig: 7, 15
+  offset: 0, 0
+  index: -1
+nainiu3_4
+  rotate: true
+  xy: 55, 17
+  size: 18, 37
+  orig: 18, 37
+  offset: 0, 0
+  index: -1
+nainiu3_5
+  rotate: false
+  xy: 94, 18
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+nainiu3_6
+  rotate: false
+  xy: 35, 2
+  size: 18, 33
+  orig: 18, 33
+  offset: 0, 0
+  index: -1
+nainiu3_7
+  rotate: false
+  xy: 2, 85
+  size: 99, 55
+  orig: 99, 55
+  offset: 0, 0
+  index: -1
+nainiu3_8
+  rotate: false
+  xy: 103, 72
+  size: 67, 68
+  orig: 67, 68
+  offset: 0, 0
+  index: -1

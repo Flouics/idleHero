@@ -1,0 +1,232 @@
+{"idleRwd": [
+    {
+        "rwdList": [{
+            "count": 200,
+            "id": 1
+        }],
+        "randomRwdList": [
+            {
+                "count": 20,
+                "id": 2
+            },
+            {
+                "count": 10,
+                "id": 3
+            },
+            {
+                "count": 1,
+                "id": 5
+            }
+        ],
+        "name": "等级1",
+        "_id": 0,
+        "id": 1
+    },
+    {
+        "rwdList": [{
+            "count": 300,
+            "id": 1
+        }],
+        "randomRwdList": [
+            {
+                "count": 30,
+                "id": 2
+            },
+            {
+                "count": 15,
+                "id": 3
+            },
+            {
+                "count": 1,
+                "id": 5
+            }
+        ],
+        "name": "等级2",
+        "_id": 1,
+        "id": 2
+    },
+    {
+        "rwdList": [{
+            "count": 400,
+            "id": 1
+        }],
+        "randomRwdList": [
+            {
+                "count": 40,
+                "id": 2
+            },
+            {
+                "count": 20,
+                "id": 3
+            },
+            {
+                "count": 2,
+                "id": 5
+            }
+        ],
+        "name": "等级3",
+        "_id": 2,
+        "id": 3
+    },
+    {
+        "rwdList": [{
+            "count": 500,
+            "id": 1
+        }],
+        "randomRwdList": [
+            {
+                "count": 50,
+                "id": 2
+            },
+            {
+                "count": 25,
+                "id": 3
+            },
+            {
+                "count": 2,
+                "id": 5
+            }
+        ],
+        "name": "等级4",
+        "_id": 3,
+        "id": 4
+    },
+    {
+        "rwdList": [{
+            "count": 600,
+            "id": 1
+        }],
+        "randomRwdList": [
+            {
+                "count": 60,
+                "id": 2
+            },
+            {
+                "count": 30,
+                "id": 3
+            },
+            {
+                "count": 3,
+                "id": 5
+            }
+        ],
+        "name": "等级5",
+        "_id": 4,
+        "id": 5
+    },
+    {
+        "rwdList": [{
+            "count": 700,
+            "id": 1
+        }],
+        "randomRwdList": [
+            {
+                "count": 70,
+                "id": 2
+            },
+            {
+                "count": 35,
+                "id": 3
+            },
+            {
+                "count": 3,
+                "id": 5
+            }
+        ],
+        "name": "等级6",
+        "_id": 5,
+        "id": 6
+    },
+    {
+        "rwdList": [{
+            "count": 800,
+            "id": 1
+        }],
+        "randomRwdList": [
+            {
+                "count": 80,
+                "id": 2
+            },
+            {
+                "count": 40,
+                "id": 3
+            },
+            {
+                "count": 3,
+                "id": 5
+            }
+        ],
+        "name": "等级7",
+        "_id": 6,
+        "id": 7
+    },
+    {
+        "rwdList": [{
+            "count": 900,
+            "id": 1
+        }],
+        "randomRwdList": [
+            {
+                "count": 90,
+                "id": 2
+            },
+            {
+                "count": 45,
+                "id": 3
+            },
+            {
+                "count": 4,
+                "id": 5
+            }
+        ],
+        "name": "等级8",
+        "_id": 7,
+        "id": 8
+    },
+    {
+        "rwdList": [{
+            "count": 1000,
+            "id": 1
+        }],
+        "randomRwdList": [
+            {
+                "count": 100,
+                "id": 2
+            },
+            {
+                "count": 45,
+                "id": 3
+            },
+            {
+                "count": 4,
+                "id": 5
+            }
+        ],
+        "name": "等级9",
+        "_id": 8,
+        "id": 9
+    },
+    {
+        "rwdList": [{
+            "count": 1200,
+            "id": 1
+        }],
+        "randomRwdList": [
+            {
+                "count": 120,
+                "id": 2
+            },
+            {
+                "count": 45,
+                "id": 3
+            },
+            {
+                "count": 4,
+                "id": 5
+            }
+        ],
+        "name": "等级10",
+        "_id": 9,
+        "id": 10
+    }
+]}

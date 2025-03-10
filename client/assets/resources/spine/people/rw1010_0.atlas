@@ -1,0 +1,13 @@
+
+rw1010_0_.png
+size: 57,83
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ren2
+  rotate: false
+  xy: 2, 2
+  size: 53, 79
+  orig: 53, 79
+  offset: 0, 0
+  index: -1

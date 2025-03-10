@@ -1,0 +1,56 @@
+{"building": [
+    {
+        "need": [{
+            "count": 100,
+            "id": 101001
+        }],
+        "name": "1级基地",
+        "icon": "icon",
+        "data1": 0,
+        "areaJson": [[
+            0,
+            0
+        ]],
+        "_id": 0,
+        "id": 1,
+        "power": 1,
+        "type": 1,
+        "life": 100
+    },
+    {
+        "need": [{
+            "count": 100,
+            "id": 101002
+        }],
+        "name": "2级基地",
+        "icon": "icon",
+        "data1": 0,
+        "areaJson": [[
+            0,
+            0
+        ]],
+        "_id": 1,
+        "id": 2,
+        "power": 1,
+        "type": 2,
+        "life": 100
+    },
+    {
+        "need": [{
+            "count": 100,
+            "id": 101003
+        }],
+        "name": "3级基地",
+        "icon": "icon",
+        "data1": 0,
+        "areaJson": [[
+            0,
+            0
+        ]],
+        "_id": 2,
+        "id": 3,
+        "power": 1,
+        "type": 3,
+        "life": 100
+    }
+]}

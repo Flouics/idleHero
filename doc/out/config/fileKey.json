@@ -1,0 +1,10 @@
+{
+    "item": "item",
+    "bullet_type": "bullet_type",
+    "mercenary": "mercenary",
+    "stage": "stage",
+    "config": "config",
+    "wave": "stage",
+    "base": "base",
+    "monster": "monster"
+}
