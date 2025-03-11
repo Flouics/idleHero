@@ -1,9 +1,11 @@
 import { Node } from "cc";
-import App from "../../App";
+import { UICallbacks } from "../../../../extensions/oops-plugin-framework/assets/core/gui/layer/Defines";
+import { oops } from "../../../../extensions/oops-plugin-framework/assets/core/Oops";
+import {App} from "../../App";
 import { nullfun } from "../../Global";
 import { Proxy }from "./Proxy";
 
-export default class Command{
+export class Command{
     app:App;
     proxy:Proxy;
     moduleName:String = "";
@@ -12,23 +14,11 @@ export default class Command{
     }
     init(){
     }
-    showView(name:string,cb:Function = nullfun,parent:Node = null,...args:any[]){
-        var winRes = name;
-        if (name.startsWith("prefab") || name.startsWith("/prefab")){
-            winRes = name;
-        }else{
-            winRes = this.proxy._prefabUrl + name;
-        }
-        App.windowMgr.open(winRes, cb,parent,...args);
+    showView(id:number,args?:any,uic?:UICallbacks){
+        oops.gui.open(id,args,uic);
     }
 
-    hideView(name:string){
-        var winRes = name;
-        if (name.startsWith("prefab") || name.startsWith("/prefab")){
-            winRes = name;
-        }else{
-            winRes = this.proxy._prefabUrl + name;
-        }
-        App.windowMgr.close(winRes);
+    hideView(id:number,isDestroy?:boolean){
+        oops.gui.remove(id,isDestroy);
     }
 }

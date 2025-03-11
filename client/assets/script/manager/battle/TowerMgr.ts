@@ -1,21 +1,34 @@
 
-import Tower from "../../logic/tower/Tower";
-import Tower_1001 from "../../logic/tower/Tower_1001";
-import BaseClass from "../../zero/BaseClass";
+import {Tower} from "../../logic/tower/Tower";
+import {Tower_1001} from "../../logic/tower/Tower_1001";
+import {BaseClass} from "../../zero/BaseClass";
 import { serialize } from "../../utils/Decorator";
 import { Node, v2 } from "cc";
-import BattleMainView from "../../modules/map/BattleMainView";
-import MapUtils from "../../logic/MapUtils";
-import { TIME_FRAME } from "../../Global";
+import {BattleMainView} from "../../modules/map/BattleMainView";
+import {MapUtils} from "../../logic/MapUtils";
+
 
 // 怪物管理器
-export default class TowerMgr extends BaseClass{
+export class TowerMgr extends BaseClass{
     @serialize()
     towerMap:Map<number,Tower> = null;
     _mainView:BattleMainView = null;
     _nodeRoot:Node = null;
     _towerTypeClassMap = {};
     
+    constructor(){
+        super();
+        TowerMgr._instance = this;
+    }
+
+    static get instance ():TowerMgr{
+        if( TowerMgr._instance){
+            return TowerMgr._instance as TowerMgr;
+        }else{
+            let instance = new TowerMgr();
+            return instance
+        }
+    }
 
     init(mainView:BattleMainView){
         this._mainView = mainView;

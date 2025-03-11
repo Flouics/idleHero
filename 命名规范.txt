@@ -1,0 +1,17 @@
+一、预制体命名：
+1.文件大写字母开头,和对应的ts文件一致。
+2.预制组件命名：
+Node->nd_name
+Lable->lb_name
+Button->btn_name
+Sprite->spt_name
+EditBox->eb_name
+ProgressBar->pb_name
+RichText->rt_name
+ScrollView->sv_name
+Toggle->tg_name
+
+二、ts文件命名：
+1.组件继承BaseView
+2.模块有一个template模版，可以用脚本生成对应的模块。
+

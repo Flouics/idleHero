@@ -1,14 +1,15 @@
 /*
  * 用户数据
  */
-import App from "../../App";
+import {App} from "../../App";
 import { clone, empty, merge, nullfun } from "../../Global";
 import { ITEM_ID_ENUM } from "../../logic/Item";
 import { serialize } from "../../utils/Decorator";
 import { toolKit } from "../../utils/ToolKit";
-import UUID from "../../utils/UUID";
+import {UUID} from "../../utils/UUID";
 import { Proxy }from "../base/Proxy";
 import { getPackageProxy } from "../package/PackageProxy";
+import { UIID_Reward } from "../reward/RewardInit";
 import { getRewardProxy } from "../reward/RewardProxy";
 
 export class PlayerProxy extends Proxy {
@@ -37,6 +38,20 @@ export class PlayerProxy extends Proxy {
 
     get uid (){
         return App.accountInfo.uid;
+    }
+
+    constructor(){       
+        super();
+        PlayerProxy._instance = this;
+    }
+
+    static get instance ():PlayerProxy{
+        if( PlayerProxy._instance){
+            return PlayerProxy._instance as PlayerProxy;
+        }else{
+            let instance = new PlayerProxy();
+            return instance
+        }
     }
 
     //方法
@@ -83,7 +98,7 @@ export class PlayerProxy extends Proxy {
                 toolKit.arrayAdd(rwdList,levelData.rwdList)
             }
         }
-        getRewardProxy().cmd.showView("rewardView",nullfun,levelData.rwdList);
+        getRewardProxy().cmd.showView(UIID_Reward.RewardView,levelData.rwdList);
         this.updateViewTask("updatePlayerInfo")
         this.dumpToDb();
     }
@@ -100,6 +115,6 @@ export class PlayerProxy extends Proxy {
 };
 
 export function getPlayerProxy(): PlayerProxy {
-    return PlayerProxy._instance;
+    return PlayerProxy.instance;
 }
 

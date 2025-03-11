@@ -1,12 +1,26 @@
-import BaseClass from "../zero/BaseClass";
+import {BaseClass} from "../zero/BaseClass";
 import { Debug }   from "../utils/Debug";
-export default class AsyncTaskMgr extends BaseClass {
+export class AsyncTaskMgr extends BaseClass {
     tasks: Function[] = [];
     lowTasks: Function[] = [];
     taskCount: number = 0;
     maxCount: number = 4;
     timeInterval: number = 0.1;
     timeRef: any ;
+
+    constructor(){
+        super();
+        AsyncTaskMgr._instance = this;
+    }
+
+    static get instance ():AsyncTaskMgr{
+        if( AsyncTaskMgr._instance){
+            return AsyncTaskMgr._instance as AsyncTaskMgr;
+        }else{
+            let instance = new AsyncTaskMgr();
+            return instance
+        }
+    }
 
     process() {
         var self = this;

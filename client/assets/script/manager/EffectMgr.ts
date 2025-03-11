@@ -3,17 +3,17 @@
  * 特效管理类，方便后续游戏扩展。
  */
 
-import App from "../App";
-import UIEffect from "../effect/UIEffect";
-import BaseClass from "../zero/BaseClass";
+import {App} from "../App";
+import {UIEffect} from "../effect/UIEffect";
+import {BaseClass} from "../zero/BaseClass";
 import { Node, Prefab, resources,instantiate, Vec2, UITransform, Vec3} from "cc";
 import { Debug }   from "../utils/Debug";
 
 export var EFFECT_COMMON = {
-    LIFE:"life"
+    LIFE:"Life"
 }
 class EffectData {
-    root:Node = App.getUIRoot();
+    root:Node = App.getEffectRoot();
     x:number = 0;
     y:number = 0;
     constructor(param:any) {
@@ -25,13 +25,27 @@ class EffectData {
     }
 }
 
-export default class EffectMgr extends BaseClass {
+export class EffectMgr extends BaseClass {
     static EFFECT_COMMON = EFFECT_COMMON;
     _baseUrl:string = "";
     _prefabUrl:string = "prefab/effect/";
     /**
      * 播放通用特效
      */
+
+     constructor(){
+        super();
+        EffectMgr._instance = this;
+    }
+
+    static get instance ():EffectMgr{
+        if( EffectMgr._instance){
+            return EffectMgr._instance as EffectMgr;
+        }else{
+            let instance = new EffectMgr();
+            return instance
+        }
+    }
 
     playEffectLife(param:any):void {
         this.playEffect(EFFECT_COMMON.LIFE,param)

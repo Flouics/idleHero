@@ -1,14 +1,31 @@
 import { PackageProxy }from "./PackageProxy";
-import Command from "./PackageCommand";
-import Init from "../base/Init";
+import {PackageCommand} from "./PackageCommand";
+import {Init} from "../base/Init";
+import { uuidIndex } from "../../common/config/GameUIConfig";
+import { LayerType, UIConfig } from "../../../../extensions/oops-plugin-framework/assets/core/gui/layer/LayerManager";
 
-export default class PackageInit extends Init {
+export enum UIID_Package {
+    /** 资源加载界面 */
+    PackageView = uuidIndex(),
+}
+
+/** 打开界面方式的配置数据 */
+var UIConfigData: { [key: number]: UIConfig } = {
+    [UIID_Package.PackageView]: 
+        { 
+            layer: LayerType.UI
+            , prefab: "/prefab/package/PackageView"
+            , bundle: "resources" 
+        },
+}
+export class PackageInit extends Init {
     proxy:PackageProxy;
-    cmd:Command;
+    cmd:PackageCommand;
     init(){
         this.moduleName = "package";
-        this.proxy = new PackageProxy(PackageProxy);
-        this.cmd = new Command();        
+        this.proxy = new PackageProxy();
+        this.cmd = new PackageCommand();   
+        this.UIConfigData = UIConfigData;         
     }
 
     onMsg(){

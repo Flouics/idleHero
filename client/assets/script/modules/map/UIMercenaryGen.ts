@@ -1,14 +1,14 @@
 import { Mercenary } from "../../logic/Mercenary";
-import BaseUI from "../../zero/BaseUI";
+import {BaseUI} from "../../zero/BaseUI";
 
 import { _decorator, instantiate, Label, Node, resources, ScrollView, Sprite} from 'cc';
 import { MapProxy , getMapProxy } from "./MapProxy";
-import Item from "../../logic/Item";
+import {Item} from "../../logic/Item";
 import { toolKit } from "../../utils/ToolKit";
 const {ccclass, property} = _decorator;
 
 @ccclass("UIMercenaryGen")
-export default class UIMercenaryGen extends BaseUI {    
+export class UIMercenaryGen extends BaseUI {    
     _baseUrl = "texture/mercenary/";
     _prefabUrl = "prefab/map/";
     proxy:MapProxy = null;
@@ -24,7 +24,7 @@ export default class UIMercenaryGen extends BaseUI {
         var self = this;
         this.proxy = getMapProxy();
         for (var i = 0; i < this.proxy.battleMercenaryCountMax; i++) {
-            this.loadPrefab("items/mercenaryItem",function(node:Node){
+            this.loadPrefab("items/MercenaryItem",function(node:Node){
                 self.sv_mercenaryGen.content.addChild(node);
                 self.setItem(node,null);
             });

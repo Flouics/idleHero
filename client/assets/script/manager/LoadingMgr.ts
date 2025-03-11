@@ -1,11 +1,15 @@
 import { resources } from "cc";
-import App from "../App";
-import BaseClass from "../zero/BaseClass";
+import {App} from "../App";
+import {BaseClass} from "../zero/BaseClass";
 import { Debug }   from "../utils/Debug";
-import { RES_WINDOW } from "../Global";
+import { oops } from "../../../extensions/oops-plugin-framework/assets/core/Oops";
+import { UUID } from "../utils/UUID";
+import { UIID } from "../common/config/GameUIConfig";
+import { uiKit } from "../utils/UIKit";
+import { UICallbacks } from "../../../extensions/oops-plugin-framework/assets/core/gui/layer/Defines";
 
 var global = window;
-export default class LoadingMgr extends BaseClass {
+export class LoadingMgr extends BaseClass {
     play_id = 0;
     is_play = false;
 
@@ -16,18 +20,21 @@ export default class LoadingMgr extends BaseClass {
         var self = this;
         setTimeout(function () {
             if (play_id == self.play_id) {
-                App.windowMgr.open(RES_WINDOW.loadingAm, function () {
-                    if (self.is_play == false) {
-                        self.stopAnimation();
+                let uic:UICallbacks = {
+                    onAdded:() => {
+                        if (self.is_play == false) {
+                            self.stopAnimation();
+                        }
                     }
-                });
+                }
+                oops.gui.open(UIID.LoadingAm, null,uic);
             }
         }, delay * 1000)
     };
 
     stopAnimation() {
         this.is_play = false;
-        App.windowMgr.close(RES_WINDOW.loadingAm);
+        oops.gui.remove(UIID.LoadingAm);
     };
 
     //todo
@@ -35,11 +42,14 @@ export default class LoadingMgr extends BaseClass {
         this.is_play = true;
         this.play_id++;
         var self = this;
-        App.windowMgr.open(RES_WINDOW.loadingAm, function () {
-            if (self.is_play == false) {
-                self.stopAnimation();
+        let uic:UICallbacks = {
+            onAdded:() => {
+                if (self.is_play == false) {
+                    self.stopAnimation();
+                }
             }
-        });
+        }
+        oops.gui.open(UIID.LoadingAm, null,uic);
     };
 
     preLoadRes(atlas_name_list: string[]) {
@@ -67,7 +77,7 @@ export default class LoadingMgr extends BaseClass {
             for (var i in ui_name_list) {
                 let ui_name = ui_name_list[i];
                 App.asyncTaskMgr.newAsyncTask(function () {
-                    App.windowMgr.preload(ui_name, cb);
+                    oops.res.preload(ui_name, cb);
                 });
             }
         } else {
@@ -77,7 +87,7 @@ export default class LoadingMgr extends BaseClass {
                 App.asyncTaskMgr.newAsyncTask(function () {
                     for (var i in ui_name_list_temp) {
                         let ui_name = ui_name_list_temp[i];
-                        App.windowMgr.preload(ui_name, cb);
+                        oops.res.preload(ui_name, cb);
                     }
                 });
             }

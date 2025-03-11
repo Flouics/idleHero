@@ -1,14 +1,14 @@
 
 
-import BaseClass from "../../zero/BaseClass";
+import {BaseClass} from "../../zero/BaseClass";
 import { getMapProxy } from "../../modules/map/MapProxy";
 import { Live } from "../../logic/Live";
-import App from "../../App";
+import {App} from "../../App";
 import { Bullet_1020 } from "../../logic/bullet/Bullet_1020";
 import { Bullet } from "../../logic/bullet/Bullet";
 import { math, tween } from "cc";
 import { toolKit } from "../../utils/ToolKit";
-import StateMachine from "../../logic/stateMachine/StateMachine";
+import {StateMachine} from "../../logic/stateMachine/StateMachine";
 
 export class SkillData{
     id:number = 0;
@@ -55,7 +55,21 @@ export class SkillData{
 }
 
 // 子弹管理器
-export default class SkillMgr extends BaseClass {  
+export class SkillMgr extends BaseClass {  
+
+    constructor(){
+        super();
+        SkillMgr._instance = this;
+    }
+
+    static get instance ():SkillMgr{
+        if( SkillMgr._instance){
+            return SkillMgr._instance as SkillMgr;
+        }else{
+            let instance = new SkillMgr();
+            return instance
+        }
+    }
 
     clear(){
         

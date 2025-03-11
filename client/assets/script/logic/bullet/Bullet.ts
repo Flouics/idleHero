@@ -1,11 +1,11 @@
 import { BoxBase }  from "../BoxBase";
-import UIBullet from "../../modules/map/UIBullet";
+import {UIBullet} from "../../modules/map/UIBullet";
 import { MapProxy , getMapProxy } from "../../modules/map/MapProxy";
-import PoolMgr from "../../manager/PoolMgr";
-import MapUtils from "../MapUtils";
+import {PoolMgr} from "../../manager/PoolMgr";
+import {MapUtils} from "../MapUtils";
 import { BulletMgr }  from "../../manager/battle/BulletMgr";
 import { Node, v2, Vec2 } from "cc";
-import BattleMainView from "../../modules/map/BattleMainView";
+import {BattleMainView} from "../../modules/map/BattleMainView";
 import { g, Z_Max_2D } from "../../Global";
 import { toolKit } from "../../utils/ToolKit";
 import { DamageRet } from "../../Interface";
@@ -40,7 +40,7 @@ export class Bullet extends BoxBase {
 
     _pb_tag:string = PoolMgr.POOL_TAG_ENUM.BULLET.tag;
     constructor(mainView: BattleMainView,shooter:BoxBase,target:BoxBase, viewPos:Vec2,bulletData:any) {
-        super(Bullet)
+        super()
         this.shooter = shooter;
         this.target = target;
         this.pos = viewPos;
@@ -84,7 +84,7 @@ export class Bullet extends BoxBase {
 
     initUI(parent:Node,cb?:Function) {        
         //实现基本的子弹逻辑
-        let pool = PoolMgr.getInstance(PoolMgr).getPool(this._pb_tag);
+        let pool = PoolMgr.instance.getPool(this._pb_tag);
         let node = pool.getItem(this);
         node.active = false;
         parent.addChild(node);

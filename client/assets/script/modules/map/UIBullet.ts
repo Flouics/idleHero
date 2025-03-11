@@ -1,12 +1,12 @@
 import { Bullet }  from "../../logic/bullet/Bullet";
 import { toolKit } from "../../utils/ToolKit";
-import BaseUI from "../../zero/BaseUI";
+import {BaseUI} from "../../zero/BaseUI";
 
 import { _decorator,Size,Sprite, UITransform, Vec3, Node} from 'cc';
 const {ccclass, property} = _decorator;
 
 @ccclass("UIBullet")
-export default class UIBullet extends BaseUI {
+export class UIBullet extends BaseUI {
     @property(Sprite)
     spt_bullet:Sprite = null;    
     @property(Node)

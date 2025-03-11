@@ -1,9 +1,12 @@
 import { Proxy }from "./Proxy";
-import Command from "./Command";
-export default class Init {
+import {Command} from "./Command";
+import { UIConfig } from "../../../../extensions/oops-plugin-framework/assets/core/gui/layer/LayerManager";
+import { oops } from "../../../../extensions/oops-plugin-framework/assets/core/Oops";
+export class Init {
     proxy:Proxy;
     cmd:Command;
     moduleName:string;
+    UIConfigData:{ [key: number]: UIConfig } = {};
 
 
     constructor(){
@@ -13,11 +16,15 @@ export default class Init {
     initModule() {
         this.init();
         this.initProxyCmd();
+        this.initViews();
         this.onMsg();
+    }
+    initViews(){
+        oops.gui.add(this.UIConfigData);
     }
     init(){
         this.moduleName = "base";
-        this.proxy = Proxy.getInstance(Proxy);
+        this.proxy = new Proxy();
         this.cmd = new Command();     
     }
     initProxyCmd(){

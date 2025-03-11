@@ -1,13 +1,12 @@
-import MapUtils from "./MapUtils";
+import {MapUtils} from "./MapUtils";
 import { serialize } from "../utils/Decorator";
-import BaseUI from "../zero/BaseUI";
+import {BaseUI} from "../zero/BaseUI";
 import { Node, Rect, UITransform, v2, Vec2, Vec3 } from "cc";
 import { ItemBase } from "./ItemBase";
 import { uiKit } from "../utils/UIKit";
 import { DamageRet } from "../Interface";
 
 export class BoxBase extends ItemBase {
-
     life:number = 1;
     lifeMax:number = 1;    
     atk:number = 0;

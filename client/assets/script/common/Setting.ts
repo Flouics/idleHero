@@ -1,13 +1,13 @@
-import App from "../App";
+import {App} from "../App";
 import { lang, nullfun } from "../Global";
 import { toolKit } from "../utils/ToolKit";
-import BaseWin from "../zero/BaseWin";
 
 import { _decorator,RichText,Label} from 'cc';
+import { BaseUI } from "../zero/BaseUI";
 const {ccclass, property} = _decorator;
 
 @ccclass("Setting")
-export default class Setting extends BaseWin {
+export class Setting extends BaseUI {
     
     onLoad () {
         super.onLoad();

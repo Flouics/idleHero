@@ -1,9 +1,14 @@
 ﻿
-import App from "./App";
-import BaseUI from "./zero/BaseUI";
-import BaseView from "./zero/BaseView";
-import SceneBase from "./zero/SceneBase";
-import { _decorator, Component, director, find, Node, profiler, Widget } from 'cc';
+import {App} from "./App";
+import { _decorator, Node, profiler } from 'cc';
+import { Root } from "../../extensions/oops-plugin-framework/assets/core/Root";
+import { DEBUG, JSB } from "cc/env";
+import { ecs } from "../../extensions/oops-plugin-framework/assets/libs/ecs/ECS";
+import { Initialize } from './initialize/Initialize';
+import { UIConfigData } from "./common/config/GameUIConfig";
+import { oops } from "../../extensions/oops-plugin-framework/assets/core/Oops";
+import { smc } from "./common/ecs/SingletonModuleComp";
+import { EcsPositionSystem } from './common/ecs/position/EcsPositionSystem';
 const {ccclass, property} = _decorator;
 /**
  * 全局唯一的游戏管理器,每个场景都可以持有
@@ -11,63 +16,30 @@ const {ccclass, property} = _decorator;
  */
 
 @ccclass("AppView")
-export default class AppView extends BaseView{
-    @property(Node)
-    public nd_effectPool: Node = null;
-    @property(Node)
-    public nd_uiPool: Node = null;
-    
-    // use this for initialization
-    onLoad () {
+export class AppView extends Root{
+   
+    start () {
+        if (DEBUG) profiler.showStats();
+    }
+
+    /** 加载完引擎配置文件后执行 */
+    protected run() {
         App.appInit(this);
         App.onLoad();
-
-        //设置为常驻借点。
-        director.addPersistRootNode(this.node);
-        //关闭帧数显示。
-        //profiler.hideStats();
-        profiler.showStats();
-
-        //适配相关的
-        // 废弃 todo
-        //cc.view.setResizeCallback(this.onViewResize.bind(this));        
-    }
-
-    start () {
-        
-    }
-
-    restart () {
-        director.removePersistRootNode(this.node);
-    }
-
-    exit () {
-        director.removePersistRootNode(this.node);
-    }
-
-    onViewResize () {
-        //遍历所有的节点。
-        //this.toolKit.showTip("onViewResize");
-        var root = find('Canvas');
-        var scene_comp = root.getComponent(SceneBase);
-        if (scene_comp && scene_comp.fitWinSize) {
-            scene_comp.fitWinSize();
+        smc.initialize = ecs.getEntity<Initialize>(Initialize);
+        if (JSB) {
+            oops.gui.toast("热更新后新程序的提示");
         }
-        this.updateNodeWidget(root);
     }
 
-    updateNodeWidget (node:Node) {
-        if (!!node && node instanceof Node) {
-            var widget = node.getComponent(Widget);
-            if (!!widget) {
-                widget.updateAlignment();
-            }
-            var children = node.children;
-            if (!!children) {
-                children.forEach(function (child:Node) {
-                    this.updateNodeWidget(child);
-                }.bind(this))
-            }
-        }
+    protected initGui() {
+        oops.gui.init(UIConfigData);
+    }
+
+    protected async initEcsSystem() {
+        oops.ecs.add(new EcsPositionSystem())
+        // oops.ecs.add(new EcsAccountSystem());
+        // oops.ecs.add(new EcsRoleSystem());
+        // oops.ecs.add(new EcsInitializeSystem());
     }
 }

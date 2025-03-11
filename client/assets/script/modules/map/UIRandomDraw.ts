@@ -1,16 +1,16 @@
 
-import BaseUI from "../../zero/BaseUI";
+import {BaseUI} from "../../zero/BaseUI";
 
 import { _decorator, Label, Node, NodeEventType, ScrollView, Sprite} from 'cc';
 import { MapProxy , getMapProxy } from "./MapProxy";
 import { Augment } from "../../manager/battle/AugmentMgr";
 import { toolKit } from "../../utils/ToolKit";
-import App from "../../App";
+import {App} from "../../App";
 import { cache } from "../../utils/Cache";
 const {ccclass, property} = _decorator;
 
 @ccclass("UIRandomDraw")
-export default class UIRandomDraw extends BaseUI {
+export class UIRandomDraw extends BaseUI {
     _baseUrl = "texture/";
     _prefabUrl = "prefab/map/";
     maxCount:number = 3;
@@ -33,7 +33,7 @@ export default class UIRandomDraw extends BaseUI {
         var self = this;        
         var index = 0;
         for (var i = 0; i < this.maxCount; i++) {
-            this.loadPrefab("items/drawItem",function(node:Node){
+            this.loadPrefab("items/DrawItem",function(node:Node){
                 self.sv_draw.content.addChild(node);
                 self.setItem(node,null);
                 node.on(NodeEventType.TOUCH_END,function(){

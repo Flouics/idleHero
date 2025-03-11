@@ -1,6 +1,6 @@
 import { getMapProxy } from "../../modules/map/MapProxy";
 import { serialize } from "../../utils/Decorator";
-import State from "./State";
+import {State} from "./State";
 
 var STATE_ENUM = {
     NONE:0,
@@ -18,7 +18,7 @@ var STATE_ENUM = {
     ASSAULT:12,            //冲锋
 }
 
-export default class StateMachine {
+export class StateMachine {
     static STATE_ENUM = STATE_ENUM;     //状态属性枚举
     state:State = new State(STATE_ENUM.NONE);      //执行的动作行为
     lastState:State = new State(STATE_ENUM.NONE);   //旧状态

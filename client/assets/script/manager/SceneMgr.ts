@@ -1,10 +1,9 @@
 import { director } from "cc";
-import BaseClass from "../zero/BaseClass";
+import {BaseClass} from "../zero/BaseClass";
 import { Debug }   from "../utils/Debug";
-import App from "../App";
+import {App} from "../App";
 
-var global = window;
-export default class SceneMgr extends BaseClass {
+export class SceneMgr extends BaseClass {
     isLoading = false;
     static EVENT = {
         BEFORE_SCENE_PRELOADING: 'BEFORE_SCENE_PRELOADING',
@@ -13,6 +12,21 @@ export default class SceneMgr extends BaseClass {
         AFTER_SCENE_LOADING: 'AFTER_SCENE_LOADING',
         //launch不需要再发射事件，进入加载。
     };
+
+    constructor(){
+        super();
+        SceneMgr._instance = this;
+    }
+
+    static get instance ():SceneMgr{
+        if( SceneMgr._instance){
+            return SceneMgr._instance as SceneMgr;
+        }else{
+            let instance = new SceneMgr();
+            return instance
+        }
+    }
+
 
     loadScene(sceneName: string, cb?: Function) {
 
@@ -28,8 +42,6 @@ export default class SceneMgr extends BaseClass {
         var self = this;
         function sceneAction() {
             Debug.log('endAction, start loadScene', new Date().getTime());
-            var uiRoot = App.windowMgr.getUIRoot();
-            uiRoot.removeAllChildren();
             // 停止当前音乐
             self.isLoading = director.loadScene(sceneName, function () {
                 self.isLoading = false;

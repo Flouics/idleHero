@@ -1,16 +1,16 @@
-import MapMainView from "../modules/map/MapMainView";
-import MapUtils from "./MapUtils";
+import {MapMainView} from "../modules/map/MapMainView";
+import {MapUtils} from "./MapUtils";
 import { Live }  from "./Live";
-import HeroMgr from "../manager/battle/HeroMgr";
-import TaskBase from "./TaskBase";
-import DigTask from "./task/DigTask";
-import PoolMgr from "../manager/PoolMgr";
-import StateMachine from "./stateMachine/StateMachine";
-import App from "../App";
-import BuildTask from "./task/BuildTask";
-import CarryTask from "./task/CarryTask";
+import {HeroMgr} from "../manager/battle/HeroMgr";
+import {TaskBase} from "./TaskBase";
+import {DigTask} from "./task/DigTask";
+import {PoolMgr} from "../manager/PoolMgr";
+import {StateMachine} from "./stateMachine/StateMachine";
+import {App} from "../App";
+import {BuildTask} from "./task/BuildTask";
+import {CarryTask} from "./task/CarryTask";
 import { toolKit } from "../utils/ToolKit";
-import BattleMainView from "../modules/map/BattleMainView";
+import {BattleMainView} from "../modules/map/BattleMainView";
 import { MercenaryMgr } from "../manager/battle/MercenaryMgr";
 import { MonsterMgr } from "../manager/battle/MonsterMgr";
 
@@ -30,9 +30,9 @@ export class Hero extends Live {
         this.init();
     }
     init(){
-        this.heroMgr = HeroMgr.getInstance(HeroMgr);
-        this.monsterMgr = MonsterMgr.getInstance(MonsterMgr);
-        this.mercenaryMgr = MercenaryMgr.getInstance(MercenaryMgr);
+        this.heroMgr = HeroMgr.instance;
+        this.monsterMgr = MonsterMgr.instance;
+        this.mercenaryMgr = MercenaryMgr.instance;
     }
 
     onEnterState(params:any){
@@ -158,7 +158,7 @@ export class Hero extends Live {
     destory(){
         //--todo表现
         super.destory();
-        let pool = PoolMgr.getInstance(PoolMgr).getPool(this._pb_tag);
+        let pool = PoolMgr.instance.getPool(this._pb_tag);
         pool.recycleItem(this.node);
     }
 }

@@ -1,6 +1,6 @@
-import Lunar from "../utils/Lunar";
-import BaseClass from "../zero/BaseClass";
-import App from "../App";
+import {Lunar} from "../utils/Lunar";
+import {BaseClass} from "../zero/BaseClass";
+import {App} from "../App";
 import { getTimeProxy } from "../modules/time/TimeProxy";
 import { lang } from "../Global";
 
@@ -21,12 +21,25 @@ var DateGMT = function (timestamp:number){
     return new Date(timestamp + App.timeMgr._timeZone * 60)
 }
 
-export default class TimeMgr extends BaseClass {
+export class TimeMgr extends BaseClass {
     _server_time_diff = 0;
     _timeZone:number = 8;
     lunar = new Lunar()
     DAY_DESC = ['日', '一', '二', '三', '四', '五', '六'];
 
+    constructor(){
+        super();
+        TimeMgr._instance = this;
+    }
+
+    static get instance ():TimeMgr{
+        if( TimeMgr._instance){
+            return TimeMgr._instance as TimeMgr;
+        }else{
+            let instance = new TimeMgr();
+            return instance
+        }
+    }
 
     //服务端和客户端时间差
     updateServerTimeDiff(server_timestamp: number) {

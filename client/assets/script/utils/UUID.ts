@@ -1,4 +1,4 @@
-import App from "../App";
+import {App} from "../App";
 
 var charStr = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 var getRand = function (min: number, max: number): number {
@@ -12,7 +12,7 @@ var getRandFromArray = function (array: any[]): any {
     return array[randIndex];
 };
 
-export default class UUID {    
+export class UUID {    
     static gen(len: number = 16) {
         var chars = charStr.split("");
         var times = new Date().getTime().toString().split("")

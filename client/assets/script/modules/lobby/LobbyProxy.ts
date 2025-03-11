@@ -1,7 +1,7 @@
 
-import App from "../../App";
+import {App} from "../../App";
 import { Proxy }from "../base/Proxy";
-import LobbyCommand from "./LobbyCommand";
+import {LobbyCommand} from "./LobbyCommand";
 /*
 
  */
@@ -13,6 +13,19 @@ export class LobbyProxy extends Proxy {
         BATTLE: 1,
         MERCENARY: 2,
         PACKAGE:3
+    }
+    constructor(){       
+        super();
+        LobbyProxy._instance = this;
+    }
+
+    static get instance ():LobbyProxy{
+        if( LobbyProxy._instance){
+            return LobbyProxy._instance as LobbyProxy;
+        }else{
+            let instance = new LobbyProxy();
+            return instance
+        }
     }
     dumpPrepare(){
         //导出数据的预处理 *写入本地之前调用*

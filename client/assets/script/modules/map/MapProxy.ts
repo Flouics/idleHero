@@ -3,26 +3,26 @@
  */
 
 import { Proxy }from "../base/Proxy";
-import Block from "../../logic/Block";
+import {Block} from "../../logic/Block";
 import { Building }  from "../../logic/Building";
-import DigTask from "../../logic/task/DigTask";
-import TaskBase from "../../logic/TaskBase";
-import MapUtils from "../../logic/MapUtils";
-import Headquarters from "../../logic/building/Headquarters";
+import {DigTask} from "../../logic/task/DigTask";
+import {TaskBase} from "../../logic/TaskBase";
+import {MapUtils} from "../../logic/MapUtils";
+import {Headquarters} from "../../logic/building/Headquarters";
 import { MonsterMgr } from "../../manager/battle/MonsterMgr";
-import HeroMgr from "../../manager/battle/HeroMgr";
-import TowerMgr from "../../manager/battle/TowerMgr";
+import {HeroMgr} from "../../manager/battle/HeroMgr";
+import {TowerMgr} from "../../manager/battle/TowerMgr";
 import { BulletMgr }  from "../../manager/battle/BulletMgr";
 import { serialize } from "../../utils/Decorator";
-import BuildTask from "../../logic/task/BuildTask";
+import {BuildTask} from "../../logic/task/BuildTask";
 import { Debug }   from "../../utils/Debug";
 import { js, Vec2 } from "cc";
 import { MercenaryMgr } from "../../manager/battle/MercenaryMgr";
-import AugmentMgr, { Augment } from "../../manager/battle/AugmentMgr";
-import RandomDrawMgr from "../../manager/battle/RandomDrawMgr";
-import MapCommand from "./MapCommand";
-import BuffMgr from "../../manager/battle/BuffMgr";
-import SkillMgr from "../../manager/battle/SkillMgr";
+import {AugmentMgr, Augment } from "../../manager/battle/AugmentMgr";
+import {RandomDrawMgr} from "../../manager/battle/RandomDrawMgr";
+import {MapCommand} from "./MapCommand";
+import {BuffMgr} from "../../manager/battle/BuffMgr";
+import {SkillMgr} from "../../manager/battle/SkillMgr";
 
 export class MapProxy extends Proxy {
     cmd:MapCommand;
@@ -50,36 +50,36 @@ export class MapProxy extends Proxy {
     mineMapJson = {};  
 
     get monsterMgr ():MonsterMgr{
-        return MonsterMgr.getInstance(MonsterMgr);
+        return MonsterMgr.instance;
     }
     get heroMgr ():HeroMgr{
-        return HeroMgr.getInstance(HeroMgr);
+        return HeroMgr.instance;
     }
     get towerMgr ():TowerMgr{
-        return TowerMgr.getInstance(TowerMgr);
+        return TowerMgr.instance;
     }
     get bulletMgr ():BulletMgr{
-        return BulletMgr.getInstance(BulletMgr);
+        return BulletMgr.instance;
     }
 
     get mercenaryMgr():MercenaryMgr{
-        return MercenaryMgr.getInstance(MercenaryMgr);
+        return MercenaryMgr.instance;
     }    
 
     get augmentMgr():AugmentMgr{
-        return AugmentMgr.getInstance(AugmentMgr);
+        return AugmentMgr.instance;
     }
     
     get randomDrawMgr():RandomDrawMgr{
-        return RandomDrawMgr.getInstance(RandomDrawMgr);
+        return RandomDrawMgr.instance;
     }
 
     get buffMgr():BuffMgr{
-        return BuffMgr.getInstance(BuffMgr);
+        return BuffMgr.instance;
     }
 
     get skillMgr():SkillMgr{
-        return SkillMgr.getInstance(SkillMgr);
+        return SkillMgr.instance;
     }
 
     task:TaskBase[] = [];
@@ -108,6 +108,19 @@ export class MapProxy extends Proxy {
     SCALE_MONSTER = 0.8
     SCALE_MONSTER_BOSS = 1.0
     
+    constructor(){       
+        super();
+        MapProxy._instance = this;
+    }
+
+    static get instance ():MapProxy{
+        if( MapProxy._instance){
+            return MapProxy._instance as MapProxy;
+        }else{
+            let instance = new MapProxy();
+            return instance
+        }
+    }
 
     //方法
     init(){

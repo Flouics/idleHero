@@ -1,18 +1,31 @@
 import { Hero } from "../../logic/Hero";
-import BaseClass from "../../zero/BaseClass";
+import {BaseClass} from "../../zero/BaseClass";
 import { serialize } from "../../utils/Decorator";
 import { Node } from "cc";
-import BattleMainView from "../../modules/map/BattleMainView";
-import { TIME_FRAME } from "../../Global";
+import {BattleMainView} from "../../modules/map/BattleMainView";
 
 
 // 角色管理器
-export default class HeroMgr extends BaseClass{
+export class HeroMgr extends BaseClass{
     @serialize()
     heroMap:{[key:number]:Hero} = {};
     _mainView:BattleMainView = null;
     _nodeRoot:Node = null;
     _scheduleId:number  = null;    
+
+    constructor(){
+        super();
+        HeroMgr._instance = this;
+    }
+
+    static get instance ():HeroMgr{
+        if( HeroMgr._instance){
+            return HeroMgr._instance as HeroMgr;
+        }else{
+            let instance = new HeroMgr();
+            return instance
+        }
+    }
     
     init(mainView:BattleMainView){
         this._mainView = mainView;
@@ -40,7 +53,7 @@ export default class HeroMgr extends BaseClass{
     }
 
     create( x: number = 0, y: number = 0){
-        let hero = new Hero(this._mainView,x,y)
+        let hero = new Hero(x,y);
         hero.initUI(this._nodeRoot)
         this.heroMap[hero.idx] = hero;        
         return hero;

@@ -1,5 +1,5 @@
 import { Monster } from "../../logic/Monster";
-import UILive from "./UILive";
+import {UILive} from "./UILive";
 import { Label, SkeletalAnimation, tween, Vec3, _decorator} from 'cc';
 import { uiKit } from "../../utils/UIKit";
 import { toolKit } from "../../utils/ToolKit";
@@ -7,7 +7,7 @@ import { Debug } from "../../utils/Debug";
 const {ccclass, property} = _decorator;
 
 @ccclass("UIMonster")
-export default class UIMonster extends UILive {    
+export class UIMonster extends UILive {    
     _baseUrl = "texture/monster/";
     _logicObj:Monster = null;
     reuse(data: any): void {

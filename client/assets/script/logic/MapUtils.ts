@@ -5,7 +5,7 @@ import { Debug }   from "../utils/Debug";
     计算地图的辅助工具，所有方法均为静态。
     // viewPos 基于mapView的地图坐标系，默认描点为(0.5,0.5)
  */
-export default class MapUtils {
+export class MapUtils {
     static size: Size = new Size(1, 1);   //砖块的尺寸
     static sizeVec2: Vec2 = new Vec2(1, 1);
     static perDis:number = 1;

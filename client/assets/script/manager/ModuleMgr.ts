@@ -1,16 +1,31 @@
-import Init from "../modules/base/Init";
-import BaseClass from "../zero/BaseClass";
+import {Init} from "../modules/base/Init";
+import {BaseClass} from "../zero/BaseClass";
 import { Proxy } from "../modules/base/Proxy";
 import { Debug }   from "../utils/Debug";
 import { js } from "cc";
 
-export default class ModuleMgr extends BaseClass{
+export class ModuleMgr extends BaseClass{
     _modules = {}  
+
+    constructor(){
+        super();
+        ModuleMgr._instance = this;
+    }
+
+    static get instance ():ModuleMgr{
+        if( ModuleMgr._instance){
+            return ModuleMgr._instance as ModuleMgr;
+        }else{
+            let instance = new ModuleMgr();
+            return instance
+        }
+    }
+
 
     getProxy<T extends Proxy>(proxy:string|object):T{
         var moduleName = "";
         if(typeof proxy === "object"){
-            moduleName = (proxy as any)._moduleName as string;
+            moduleName = (proxy as Proxy).moduleName as string;
         }else{
             moduleName = proxy;
         }

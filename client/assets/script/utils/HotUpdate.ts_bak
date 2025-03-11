@@ -1,10 +1,10 @@
-import BaseWin from "../zero/BaseWin";
+import {BaseWin} from "../zero/BaseWin";
 import { _decorator } from 'cc';
 const {ccclass, property} = _decorator;
 
 //废弃先不用
 @ccclass("HotUpdate")
-export default class HotUpdate extends BaseWin {
+export class HotUpdate extends BaseWin {
 
     @property(cc.Node)
     nd_panel: cc.Node = null;

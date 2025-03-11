@@ -1,11 +1,11 @@
 
 import { BoxBase }  from "../../logic/BoxBase";
-import BaseClass from "../../zero/BaseClass";
+import {BaseClass} from "../../zero/BaseClass";
 import { Live } from "../../logic/Live";
-import App from "../../App";
+import {App} from "../../App";
 import { MapProxy , getMapProxy } from "../../modules/map/MapProxy";
 import { Debug } from "../../utils/Debug";
-import StateMachine from "../../logic/stateMachine/StateMachine";
+import {StateMachine} from "../../logic/stateMachine/StateMachine";
 import { toolKit } from "../../utils/ToolKit";
 
 export class BuffData{
@@ -43,7 +43,21 @@ export class BuffData{
 }
 
 // buff管理器
-export default class BuffMgr extends BaseClass {
+export class BuffMgr extends BaseClass {
+
+    constructor(){
+        super();
+        BuffMgr._instance = this;
+    }
+
+    static get instance ():BuffMgr{
+        if( BuffMgr._instance){
+            return BuffMgr._instance as BuffMgr;
+        }else{
+            let instance = new BuffMgr();
+            return instance
+        }
+    }
 
     clear(){
 

@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.Prefab",
-    "_name": "buildView",
+    "_name": "BuildView",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_native": "",
@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "buildView",
+    "_name": "BuildView",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -945,8 +945,6 @@
       "__id__": 44
     },
     "is_destroy": true,
-    "index": 130,
-    "_hasBaseInit": false,
     "_id": ""
   },
   {

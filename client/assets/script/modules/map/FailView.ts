@@ -1,15 +1,16 @@
 
 import { MapProxy }  from "./MapProxy";
-import BaseView from "../../zero/BaseView";
-import App from "../../App";
-import BaseUI from "../../zero/BaseUI";
-import TouchUtils from "../../utils/TouchUtils";
+import {BaseView} from "../../zero/BaseView";
+import {App} from "../../App";
+import {BaseUI} from "../../zero/BaseUI";
+import {TouchUtils} from "../../utils/TouchUtils";
 
 import { _decorator} from 'cc';
+import { LayerDialog } from "../../../../extensions/oops-plugin-framework/assets/core/gui/layer/LayerDialog";
 const {ccclass, property} = _decorator;
 
 @ccclass("FailView")
-export default class FailView extends BaseView {
+export class FailView extends BaseView {
     mapProxy:MapProxy = null;
     moduleName = "map";
     

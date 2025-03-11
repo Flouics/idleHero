@@ -1,13 +1,13 @@
 import { Live }  from "./Live";
 import { MonsterMgr } from "../manager/battle/MonsterMgr";
 import { Building }  from "./Building";
-import PoolMgr from "../manager/PoolMgr";
-import StateMachine from "./stateMachine/StateMachine";
-import App from "../App";
+import {PoolMgr} from "../manager/PoolMgr";
+import {StateMachine} from "./stateMachine/StateMachine";
+import {App} from "../App";
 import { Node } from "cc";
 import { MercenaryMgr } from "../manager/battle/MercenaryMgr";
 import { Mercenary } from "./Mercenary";
-import UILive from "../modules/map/UILive";
+import {UILive} from "../modules/map/UILive";
 export class Monster extends Live {
     baseMoveSpeed: number = 30;    //1秒
     static _idIndex = 100000;
@@ -25,8 +25,8 @@ export class Monster extends Live {
 
     init(){
         this.initData();
-        this.monsterMgr = MonsterMgr.getInstance(MonsterMgr);
-        this.mercenaryMgr = MercenaryMgr.getInstance(MercenaryMgr);
+        this.monsterMgr = MonsterMgr.instance;
+        this.mercenaryMgr = MercenaryMgr.instance;
     }
     initData(){
         this.data = App.dataMgr.findById("monster",this.id);

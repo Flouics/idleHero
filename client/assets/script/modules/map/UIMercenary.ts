@@ -1,5 +1,5 @@
 import { Mercenary } from "../../logic/Mercenary";
-import UILive from "./UILive";
+import {UILive} from "./UILive";
 
 import { SkeletalAnimation, tween, Vec2, Vec3, _decorator} from 'cc';
 import { uiKit } from "../../utils/UIKit";
@@ -7,7 +7,7 @@ import { toolKit } from "../../utils/ToolKit";
 const {ccclass, property} = _decorator;
 
 @ccclass("UIMercenary")
-export default class UIMercenary extends UILive {    
+export class UIMercenary extends UILive {    
     _baseUrl = "texture/mercenary/";
     _logicObj:Mercenary = null;
     reuse(data: any): void {

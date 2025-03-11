@@ -1,10 +1,9 @@
 import { _decorator } from 'cc';
-import BaseWin from '../zero/BaseWin';
+import { BaseUI } from '../zero/BaseUI';
 const {ccclass, property} = _decorator;
 @ccclass("UIMask")
-export default class UIMask extends BaseWin{
-        
-    index:number = 1000;
+export class UIMask extends BaseUI{
+    
     closeTime:number = 0;
 
     setUIMaskBlockTime(time:number = 0){

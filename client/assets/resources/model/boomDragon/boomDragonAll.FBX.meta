@@ -1,5 +1,5 @@
 {
-  "ver": "2.3.12",
+  "ver": "2.3.13",
   "importer": "fbx",
   "imported": true,
   "uuid": "f984fad7-d64c-40cb-aaa2-f7be125b734f",
@@ -186,7 +186,7 @@
       "uuid": "f984fad7-d64c-40cb-aaa2-f7be125b734f@6b2b2",
       "displayName": "",
       "id": "6b2b2",
-      "name": "boomDragonAll.FBX.prefab",
+      "name": "boomDragonAll.prefab",
       "userData": {
         "gltfIndex": 0
       },
@@ -245,7 +245,6 @@
         ]
       }
     ],
-    "redirect": "f984fad7-d64c-40cb-aaa2-f7be125b734f@6b2b2",
     "assetFinder": {
       "meshes": [
         "f984fad7-d64c-40cb-aaa2-f7be125b734f@c82ec"

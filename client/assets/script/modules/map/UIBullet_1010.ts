@@ -3,11 +3,11 @@ import { toolKit } from "../../utils/ToolKit";
 
 
 import { _decorator,Size,Sprite, UITransform, Vec3, Node} from 'cc';
-import UIBullet from "./UIBullet";
+import {UIBullet} from "./UIBullet";
 const {ccclass, property} = _decorator;
 
 @ccclass("UIBullet_1010")
-export default class UIBullet_1010 extends UIBullet {  
+export class UIBullet_1010 extends UIBullet {  
 
     resetSize(size:Size){
         this.node.getComponent(UITransform).setContentSize(size);

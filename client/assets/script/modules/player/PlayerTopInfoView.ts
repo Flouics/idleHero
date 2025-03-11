@@ -1,6 +1,6 @@
 
-import App from "../../App";
-import BaseView from "../../zero/BaseView";
+import {App} from "../../App";
+import {BaseView} from "../../zero/BaseView";
 
 import { _decorator, js, Label, ProgressBar, RichText, ScrollView, Sprite, TERRAIN_HEIGHT_BASE } from 'cc';
 import { PlayerProxy }  from "./PlayerProxy";
@@ -11,7 +11,7 @@ import { empty } from "../../Global";
 const {ccclass, property} = _decorator;
 
 @ccclass("PlayerTopInfoView")
-export default class PlayerTopInfoView extends BaseView {
+export class PlayerTopInfoView extends BaseView {
     moduleName = "player"
     proxys:any[] = ["package"];
     proxy:PlayerProxy;

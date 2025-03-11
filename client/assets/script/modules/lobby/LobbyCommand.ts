@@ -1,9 +1,9 @@
 
 
-import App from "../../App";
-import BaseCommand from "../base/Command"
+import {App} from "../../App";
+import {Command} from "../base/Command"
 import { LobbyProxy }  from "./LobbyProxy";
 
-export default class LobbyCommand extends BaseCommand{
+export class LobbyCommand extends Command{
     proxy:LobbyProxy;
 }

@@ -1,20 +1,20 @@
-import MapMainView from "../../modules/map/MapMainView";
+import {MapMainView} from "../../modules/map/MapMainView";
 import { Building }  from "../Building";
 import { BoxBase }  from "../BoxBase";
-import MapUtils from "../MapUtils";
-import DataMgr from "../../manager/DataMgr";
+import {MapUtils} from "../MapUtils";
+import {DataMgr} from "../../manager/DataMgr";
 import { BulletMgr }  from "../../manager/battle/BulletMgr";
 import { Monster } from "../Monster";
 import { MonsterMgr } from "../../manager/battle/MonsterMgr";
-import TowerMgr from "../../manager/battle/TowerMgr";
-import TimeMgr from "../../manager/TimeMgr";
+import {TowerMgr} from "../../manager/battle/TowerMgr";
+import {TimeMgr} from "../../manager/TimeMgr";
 import { serialize } from "../../utils/Decorator";
-import App from "../../App";
+import {App} from "../../App";
 import { v2 } from "cc";
-import BattleMainView from "../../modules/map/BattleMainView";
+import {BattleMainView} from "../../modules/map/BattleMainView";
 import { MapProxy , getMapProxy } from "../../modules/map/MapProxy";
 
-export default class Tower extends Building {
+export class Tower extends Building {
     @serialize()
     static _idIndex = 1;
     @serialize()    
@@ -88,7 +88,7 @@ export default class Tower extends Building {
     }
     //寻找主目标
     findTarget(){
-        var monsterMap = MonsterMgr.getInstance(MonsterMgr).monsterMap;
+        var monsterMap = MonsterMgr.instance.monsterMap;
         var target:Monster = null;
         for (const key in monsterMap) {
             if (monsterMap.hasOwnProperty(key)) {                
@@ -101,7 +101,7 @@ export default class Tower extends Building {
         return target;
     }
     genBullet(){
-        BulletMgr.getInstance(BulletMgr).create(this,this.target,this.pos,this.bulletCfg);
+        BulletMgr.instance.create(this,this.target,this.pos,this.bulletCfg);
     }
     checkTargetIntoRange(target:BoxBase){
         if(target && target.checkLive()){            

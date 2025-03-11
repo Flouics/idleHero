@@ -4,7 +4,7 @@
  */
 
 import { instantiate, Node, NodePool, Prefab, resources } from "cc";
-import BaseClass from "../zero/BaseClass";
+import {BaseClass} from "../zero/BaseClass";
 import { Debug }   from "../utils/Debug";
 import { empty } from "../Global";
 
@@ -85,18 +85,33 @@ export class PoolItemEnum {
 };
 
 var POOL_TAG_ENUM = {
-    MONSTER: new PoolItemEnum("monster","prefab/map/monster","UIMonster")
-    ,MERCENARY: new PoolItemEnum("mercenary","prefab/map/mercenary","UIMercenary")
-    //,HERO:new PoolItemEnum("hero","prefab/map/hero","UIHero")
-    ,ITEM:new PoolItemEnum("item","prefab/package/item","UIItem")
-    ,BULLET:new PoolItemEnum("bullet","prefab/map/bullet/bullet","UIBullet")
-    ,BULLET_1001:new PoolItemEnum("bullet_1001","prefab/map/bullet/bullet_1001","UIBullet_1001")
-    ,BULLET_1010:new PoolItemEnum("bullet_1010","prefab/map/bullet/bullet_1010","UIBullet_1010")
+    MONSTER: new PoolItemEnum("monster","prefab/map/UIMonster","UIMonster")
+    ,MERCENARY: new PoolItemEnum("mercenary","prefab/map/UIMercenary","UIMercenary")
+    //,HERO:new PoolItemEnum("hero","prefab/map/UIhero","UIHero")
+    ,ITEM:new PoolItemEnum("item","prefab/package/UIItem","UIItem")
+    ,BULLET:new PoolItemEnum("bullet","prefab/map/bullet/UIBullet","UIBullet")
+    ,BULLET_1001:new PoolItemEnum("bullet_1001","prefab/map/bullet/UIBullet_1001","UIBullet_1001")
+    ,BULLET_1010:new PoolItemEnum("bullet_1010","prefab/map/bullet/UIBullet_1010","UIBullet_1010")
 }
 
-export default class PoolMgr extends BaseClass {
+export class PoolMgr extends BaseClass {
     poolMap:{[key:string]:Pool} = {};
     static POOL_TAG_ENUM = POOL_TAG_ENUM;
+
+    constructor(){
+        super();
+        PoolMgr._instance = this;
+    }
+
+    static get instance ():PoolMgr{
+        if( PoolMgr._instance){
+            return PoolMgr._instance as PoolMgr;
+        }else{
+            let instance = new PoolMgr();
+            return instance
+        }
+    }
+
     
     //生成一个缓冲池
     genPool(tag: string, pb_item: any, scriptName?: string, buffMinCount?: number, buffMaxCount?: number) {

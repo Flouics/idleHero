@@ -1,8 +1,8 @@
-import MapUtils from "./MapUtils";
+import {MapUtils} from "./MapUtils";
 import { serialize } from "../utils/Decorator";
-import BaseUI from "../zero/BaseUI";
+import {BaseUI} from "../zero/BaseUI";
 import { Node, Rect, UITransform, v2, Vec2, Vec3 } from "cc";
-import BaseClass from "../zero/BaseClass";
+import {BaseClass} from "../zero/BaseClass";
 
 export class ItemBase extends BaseClass {
     @serialize()

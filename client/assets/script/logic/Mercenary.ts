@@ -1,8 +1,8 @@
 
-import MapUtils from "./MapUtils";
-import TaskBase from "./TaskBase";
-import PoolMgr from "../manager/PoolMgr";
-import StateMachine from "./stateMachine/StateMachine";
+import {MapUtils} from "./MapUtils";
+import {TaskBase} from "./TaskBase";
+import {PoolMgr} from "../manager/PoolMgr";
+import {StateMachine} from "./stateMachine/StateMachine";
 import { MercenaryMgr } from "../manager/battle/MercenaryMgr";
 import { MonsterMgr } from "../manager/battle/MonsterMgr";
 import { Augment } from "../manager/battle/AugmentMgr";
@@ -11,7 +11,7 @@ import { Debug }  from "../utils/Debug";
 import { Live }  from "./Live";
 import { Monster } from "./Monster";
 import { empty } from "../Global";
-import UILive from "../modules/map/UILive";
+import {UILive} from "../modules/map/UILive";
 import { SkillData } from "../manager/battle/SkillMgr";
 
 export class Mercenary extends Live {
@@ -36,8 +36,8 @@ export class Mercenary extends Live {
     }
 
     init(){
-        this.monsterMgr = MonsterMgr.getInstance(MonsterMgr);
-        this.mercenaryMgr = MercenaryMgr.getInstance(MercenaryMgr);
+        this.monsterMgr = MonsterMgr.instance;
+        this.mercenaryMgr = MercenaryMgr.instance;
 
         //基础数据初始化
         var data = this.data;    //是MercenaryData  并非是cfg的原始数据了。

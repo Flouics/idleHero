@@ -1,10 +1,10 @@
 
-import App from "../../App";
+import {App} from "../../App";
 import { checkObjKey } from "../../Global";
 import { serialize } from "../../utils/Decorator";
 import { toolKit } from "../../utils/ToolKit";
 import { Proxy }from "../base/Proxy";
-import MercenaryCommand from "./MercenaryCommand";
+import {MercenaryCommand} from "./MercenaryCommand";
 /*
 
  */
@@ -180,6 +180,19 @@ export class MercenaryProxy extends Proxy {
     @serialize()
     mercenaryJson:{[key:number]:any} = {};
 
+    constructor(){       
+        super();
+        MercenaryProxy._instance = this;
+    }
+
+    static get instance ():MercenaryProxy{
+        if( MercenaryProxy._instance){
+            return MercenaryProxy._instance as MercenaryProxy;
+        }else{
+            let instance = new MercenaryProxy();
+            return instance
+        }
+    }
 
     init(): void {
 
@@ -226,5 +239,5 @@ export class MercenaryProxy extends Proxy {
 };
 
 export function getMercenaryProxy(): MercenaryProxy {
-    return MercenaryProxy._instance;
+    return MercenaryProxy.instance;
 }

@@ -1,4 +1,4 @@
-﻿import BaseClass from "../zero/BaseClass";
+﻿import {BaseClass} from "../zero/BaseClass";
 
 /*
  验证数字的正则表达式集
@@ -36,7 +36,7 @@
  浮点数 ^(-?\d+)(\.\d+)?$
 
  */
-export default class KeyWordMgr extends BaseClass {
+export class KeyWordMgr extends BaseClass {
     sensitiveWordMap = {};    
 
     isContainsSensitiveWord(s: string) {

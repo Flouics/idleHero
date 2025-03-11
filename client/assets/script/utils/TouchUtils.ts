@@ -6,7 +6,7 @@ import { Debug }   from './Debug';
 const {ccclass, property} = _decorator;
 
 @ccclass("TouchUtils")
-export default class TouchUtils extends Component {
+export class TouchUtils extends Component {
     _touchStartPos: Vec2 = null;
     _touchId:any = null;    //用于处理多点触摸的
     _deltaPos: Vec2 = Vec2.ZERO.clone();

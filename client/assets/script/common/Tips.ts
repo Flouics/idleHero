@@ -1,11 +1,12 @@
-import App from "../App";
-import BaseWin from "../zero/BaseWin";
+import {App} from "../App";
 
 import { _decorator,RichText,Label} from 'cc';
+import { BaseUI } from "../zero/BaseUI";
+import { oops } from "../../../extensions/oops-plugin-framework/assets/core/Oops";
 const {ccclass, property} = _decorator;
 
 @ccclass("Tips")
-export default class Tips extends BaseWin {
+export class Tips extends BaseUI {
     @property(Label)
     lb_content:Label = null;
     @property
@@ -31,7 +32,7 @@ export default class Tips extends BaseWin {
         var nowTimestamp = new Date().getTime();
         if (nowTimestamp > this.closeTime) {
             this.onClose();
-            App.windowMgr.closeUI(this);
+            oops.gui.removeByNode(this.node);
         }
     }
 }

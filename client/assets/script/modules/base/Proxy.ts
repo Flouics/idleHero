@@ -1,9 +1,9 @@
-import App, { DELAY_TASK_KEY } from "../../App";
-import BaseClass from "../../zero/BaseClass";
-import BaseView from "../../zero/BaseView";
+import {App,DELAY_TASK_KEY } from "../../App";
+import {BaseClass} from "../../zero/BaseClass";
+import {BaseView} from "../../zero/BaseView";
 import { Debug }   from "../../utils/Debug";
 import { getPlayerProxy } from "../player/PlayerProxy";
-import Command from "./Command";
+import {Command} from "./Command";
 
 export class Proxy extends BaseClass {
     viewMap:{[key:string]:any} = {};
@@ -14,12 +14,22 @@ export class Proxy extends BaseClass {
     moduleName:string = "";
     _baseUrl:string = "";
     _prefabUrl: string = "";
-    static _moduleName:string = "";
-    constructor(_class:any){       
-        super(_class);
-        this.app = App.getInstance(App);
+    constructor(){       
+        super();
+        Proxy._instance = this;
+        this.app = App.instance;
         this.init()
     }
+
+    static get instance ():Proxy{
+        if( Proxy._instance){
+            return Proxy._instance as Proxy;
+        }else{
+            let instance = new Proxy();
+            return instance
+        }
+    }
+
 
     setCommand<T extends Command>(command:T){
         this.cmd = command as T;
@@ -29,7 +39,6 @@ export class Proxy extends BaseClass {
 
     setModuleName(name:string) {
         this.moduleName = name;
-        this._class._moduleName = name;
         this._baseUrl = "texture/" + this.moduleName + "/";
         this._prefabUrl = "prefab/" + this.moduleName + "/";
         window[this.moduleName + "Proxy"] = this;

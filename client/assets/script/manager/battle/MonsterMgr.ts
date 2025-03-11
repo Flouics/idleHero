@@ -1,13 +1,13 @@
 
 import { Monster } from "../../logic/Monster";
-import BaseClass from "../../zero/BaseClass";
-import App from "../../App";
+import {BaseClass} from "../../zero/BaseClass";
+import {App} from "../../App";
 import { Node, Vec2, Vec3 } from "cc";
 import { nullfun, TIME_FRAME } from "../../Global";
 import { Debug }   from "../../utils/Debug";
-import BattleMainView from "../../modules/map/BattleMainView";
+import {BattleMainView} from "../../modules/map/BattleMainView";
 import { MapProxy , getMapProxy } from "../../modules/map/MapProxy";
-import MapUtils from "../../logic/MapUtils";
+import {MapUtils} from "../../logic/MapUtils";
 import { toolKit } from "../../utils/ToolKit";
 
 // 怪物管理器
@@ -39,6 +39,20 @@ export class MonsterMgr extends BaseClass {
     proxy:MapProxy = null;
     waveData:any = null;
     isWaveEnd:boolean = false;
+
+    constructor(){
+        super();
+        MonsterMgr._instance = this;
+    }
+
+    static get instance ():MonsterMgr{
+        if( MonsterMgr._instance){
+            return MonsterMgr._instance as MonsterMgr;
+        }else{
+            let instance = new MonsterMgr();
+            return instance
+        }
+    }
 
     init(battleMainView:BattleMainView){
         this._mainView = battleMainView;

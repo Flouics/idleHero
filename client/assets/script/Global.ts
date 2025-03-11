@@ -1,9 +1,10 @@
-import App from "./App";
+import {App} from "./App";
 import { Proxy }from "./modules/base/Proxy";
 import { toolKit } from "./utils/ToolKit";
 import { Debug }   from "./utils/Debug";
 import { Enum, js, Size } from "cc";
 import { l10n } from "../../extensions/localization-editor/static/assets/l10n";
+
 
 
 //global
@@ -92,18 +93,6 @@ export let getObjRefId = function(obj:Object){
       }
       return objectIds.get(obj);
 }
-
-export let RES_WINDOW = Enum( {
-    loadingAm: "prefab/dialog/loadingAm",
-    msgBox: "prefab/dialog/msgBox",
-    tips: "prefab/dialog/tips",
-    setting:"prefab/dialog/setting",
-    mask:"prefab/dialog/mask",
-});
-export let RES_ITEM = Enum( {
-});
-export let RES_EFFECT = Enum( {
-});
 
 //初始全局
 export function GlobalInit(){

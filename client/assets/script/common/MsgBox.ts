@@ -1,11 +1,11 @@
 import { nullfun } from "../Global";
-import BaseWin from "../zero/BaseWin";
 
 import { _decorator,RichText,Node,Label} from 'cc';
+import { BaseUI } from "../zero/BaseUI";
 const {ccclass, property} = _decorator;
 
 @ccclass("MsgBox")
-export default class MsgBox extends BaseWin {
+export class MsgBox extends BaseUI {
     @property(Node)
     nd_btnOK:Node = null;
     @property(Node)

@@ -1,10 +1,10 @@
 
-import Item from "../../logic/Item";
-import BaseCommand from "../base/Command"
+import {Item} from "../../logic/Item";
+import {Command} from "../base/Command"
 import { getRewardProxy } from "../reward/RewardProxy";
 import { PackageProxy } from "./PackageProxy";
 
-export default class PackageCommand extends BaseCommand{
+export class PackageCommand extends Command{
     proxy:PackageProxy;
     addRwdList(itemDataList:any[]){
         var self = this;

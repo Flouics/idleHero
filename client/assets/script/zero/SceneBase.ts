@@ -1,10 +1,10 @@
 import { winSize } from "../Global";
-import BaseUI from "./BaseUI";
+import {BaseUI} from "./BaseUI";
 
 import { _decorator, Canvas, view } from 'cc';
 const {ccclass, property} = _decorator;
 @ccclass("SceneBase")
-export default class SceneBase extends BaseUI{
+export class SceneBase extends BaseUI{
     // use this for initialization
     is_fit:boolean = false;
     onLoad () {

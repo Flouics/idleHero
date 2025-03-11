@@ -1,7 +1,7 @@
 import { getMapProxy } from "../../modules/map/MapProxy";
 import { serialize } from "../../utils/Decorator";
 
-export default class State {
+export class State {
     @serialize()
     id:number = 0;      //执行的动作行为
     finishTime:number = 0;

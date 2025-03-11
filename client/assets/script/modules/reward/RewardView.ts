@@ -1,14 +1,14 @@
 
-import App from "../../App";
-import BaseView from "../../zero/BaseView";
+import {App} from "../../App";
+import {BaseView} from "../../zero/BaseView";
 
 import { _decorator, ScrollView } from 'cc';
 import { RewardProxy }  from "./RewardProxy";
-import Item from "../../logic/Item";
+import {Item} from "../../logic/Item";
 const {ccclass, property} = _decorator;
 
 @ccclass("RewardView")
-export default class RewardView extends BaseView {
+export class RewardView extends BaseView {
     moduleName = "reward"
     proxy:RewardProxy;
 

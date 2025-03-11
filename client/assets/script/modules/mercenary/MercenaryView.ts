@@ -1,6 +1,6 @@
 
-import App from "../../App";
-import BaseView from "../../zero/BaseView";
+import {App} from "../../App";
+import {BaseView} from "../../zero/BaseView";
 
 import { _decorator, Button, instantiate, js, Label, Node, NodeEventType, RichText, ScrollView, Sprite, utils } from 'cc';
 import { MercenaryData, MercenaryProxy } from "./MercenaryProxy";
@@ -8,11 +8,11 @@ import { toolKit } from "../../utils/ToolKit";
 import { lang } from "../../Global";
 import { getPackageProxy } from "../package/PackageProxy";
 import { ITEM_ID_ENUM } from "../../logic/Item";
-import MercenaryItem from "./MercenaryItem";
+import {MercenaryItem} from "./MercenaryItem";
 const {ccclass, property} = _decorator;
 
 @ccclass("MercenaryView")
-export default class MercenaryView extends BaseView {
+export class MercenaryView extends BaseView {
     moduleName = "mercenary"
     proxys:any[] = [];
     proxy:MercenaryProxy;
@@ -185,7 +185,7 @@ export default class MercenaryView extends BaseView {
                 self.curMercenaryData = data;
                 self.onSwitchMercenary(data);
             }
-            self.loadPrefab("items/mercenaryItem",function(item:Node){
+            self.loadPrefab("items/MercenaryItem",function(item:Node){
                 self.sv_mercenary.content.addChild(item);
                 self.setItem(item,data);
                 item.on(NodeEventType.TOUCH_END,()=>{

@@ -1,9 +1,9 @@
 
 
-import App from "../../App";
-import BaseCommand from "../base/Command"
+import {App} from "../../App";
+import {Command} from "../base/Command"
 import { TemplateProxy }  from "./TemplateProxy";
 
-export default class TemplateCommand extends BaseCommand{
+export class TemplateCommand extends Command{
     proxy:TemplateProxy;
 }

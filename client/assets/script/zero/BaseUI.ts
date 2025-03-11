@@ -2,15 +2,15 @@
 import { EDITOR } from "cc/env";
 
 import { _decorator,resources,Sprite,SpriteFrame,Component, js, Prefab, instantiate } from 'cc';
-import CCEvent from "./CCEvent";
+import {CCEvent} from "./CCEvent";
 import { Debug }   from "../utils/Debug";
 import { ItemBase } from "../logic/ItemBase";
-import PoolMgr from "../manager/PoolMgr";
-import App from "../App";
+import {App} from "../App";
+import { GameComponent } from "../../../extensions/oops-plugin-framework/assets/module/common/GameComponent";
 const {ccclass, property} = _decorator;
 
 @ccclass("BaseUI")
-export default class BaseUI extends Component {
+export class BaseUI extends GameComponent {
     _bindData: { [key: string]: any } = {};
     _baseUrl: string = "";
     _prefabUrl: string = "";
@@ -63,41 +63,11 @@ export default class BaseUI extends Component {
         }
     }
 
-    init(...args: any[]){
-        
-    }
-
-    show (...args: any[]) {
-
-    }
-
-
-    hide (...args: any[]) {
-
-    }
-
-    _show (...args: any[]) {
-        this.node.active = true;
-    }
-
-    _hide (...args: any[]) {
-        this.node.active = false;
-        var self = this;
-        if(this.is_destroy){    // 30秒后销毁
-            this.scheduleOnce(()=>{
-                if(self.node.isValid && self.node.active == true){
-                    this.node.removeFromParent();
-                }
-            },30.0)
-        }
-    }
-
     onEnable() {
         if (this._logicObj){
             this._logicObj.onEnable(this)
         }
         this.active = true;
-        this.show();
     }
 
     onClose() {
@@ -129,7 +99,6 @@ export default class BaseUI extends Component {
     
     loadSptEx(spt: Sprite, res_url: string = null, cb?: Function) {
         if (!res_url) return;
-        var self = this;
         spt.node.active = false;
         resources.load(res_url + "/spriteFrame", SpriteFrame, function (err, spriteFrame) {
             if (!err && spt && spt.node) {
@@ -203,7 +172,7 @@ export default class BaseUI extends Component {
     }
 
     close(){
-        this._hide();
+
     }
 
     //CC 引擎的事件派发

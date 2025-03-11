@@ -16,7 +16,7 @@ class EventCallBack {
         this.name = cb.toString();
     }
 }
-export default class Emitter {
+export class Emitter {
     _callbacks = {}
 
     clear() {

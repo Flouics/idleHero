@@ -9,7 +9,7 @@ import { _decorator,Prefab,ScrollView,Node,NodePool, Layout,Component,instantiat
 import { Debug }   from '../utils/Debug';
 const {ccclass, property} = _decorator;
  @ccclass("ListViewBuffer")
- export default class ListViewBuffer extends Component{
+ export class ListViewBuffer extends Component{
 
     @property(Prefab)
     itemTemplate = null;

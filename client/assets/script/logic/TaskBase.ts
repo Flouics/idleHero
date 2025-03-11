@@ -1,5 +1,5 @@
 import { Vec2 } from "cc";
-import BaseClass from "../zero/BaseClass";
+import {BaseClass} from "../zero/BaseClass";
 var TASK_VALUE_ENUM = {
     IDLE:0,
     DIG:1,
@@ -7,7 +7,7 @@ var TASK_VALUE_ENUM = {
     CARRY:4,
 }
 
-export default class TaskBase extends BaseClass {
+export class TaskBase extends BaseClass {
     static TASK_VALUE_ENUM = TASK_VALUE_ENUM;     //属性枚举
     id = 0;
     priority:number = 1;
@@ -15,7 +15,4 @@ export default class TaskBase extends BaseClass {
     static _idIndex = 1;
     type:number = 0;
     pos:Vec2 = new Vec2(0,0);
-    constructor(_class:any){
-        super(_class);
-    }
 }

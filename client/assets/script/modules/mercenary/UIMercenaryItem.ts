@@ -1,12 +1,12 @@
 import { Mercenary } from "../../logic/Mercenary";
-import TouchUtils from "../../utils/TouchUtils";
-import BaseUI from "../../zero/BaseUI";
+import {TouchUtils} from "../../utils/TouchUtils";
+import {BaseUI} from "../../zero/BaseUI";
 
 import { _decorator, Label, Sprite} from 'cc';
 const {ccclass, property} = _decorator;
 
 @ccclass("UIMercenary")
-export default class UIMercenary extends BaseUI {    
+export class UIMercenary extends BaseUI {    
     _baseUrl = "texture/mercenary/";
     _logicObj:Mercenary = null;
     @property(Sprite)

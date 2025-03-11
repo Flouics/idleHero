@@ -1,5 +1,5 @@
 ﻿//  平台配置
-export default class Config {
+export class Config {
     /*
      * 是否测试环境 非正式发布包需要打开
      *  0,	    // 正式服

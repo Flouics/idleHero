@@ -1,8 +1,8 @@
-import App from "../../App";
-import BaseUI from "../../zero/BaseUI";
+import {App} from "../../App";
+import {BaseUI} from "../../zero/BaseUI";
 
 import { _decorator, Color, Node, Sprite, tween, Tween, UITransform, v2, Vec2, Vec3, SkeletalAnimation, SkeletalAnimationState} from 'cc';
-import StateMachine from "../../logic/stateMachine/StateMachine";
+import {StateMachine} from "../../logic/stateMachine/StateMachine";
 import { Debug } from "../../utils/Debug";
 import { empty } from "../../Global";
 import { toolKit } from "../../utils/ToolKit";
@@ -20,7 +20,7 @@ var SKELETAL_ANIMATION_NAME = {
     
 }
 @ccclass("UILive")
-export default class UILive extends BaseUI {
+export class UILive extends BaseUI {
     static SKELETAL_ANIMATION_NAME = SKELETAL_ANIMATION_NAME;
     _logicObj: Live = null;
 
@@ -130,19 +130,7 @@ export default class UILive extends BaseUI {
                 break;
         }
     }
-
-    playEffect(){
-
-    }
     
-    stopEffect(){
-
-    }
-
-    removeEffect(){
-
-    }
-
     moveStep(duration:number,toPos:Vec2,cb?:Function) {
         this.stopMoveAction();
         this._moveAction = tween(this.node)

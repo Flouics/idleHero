@@ -1,13 +1,13 @@
-import BaseClass from "../../zero/BaseClass";
+import {BaseClass} from "../../zero/BaseClass";
 import { serialize } from "../../utils/Decorator";
 import { isDisplayStats, Node, v2 } from "cc";
-import BattleMainView from "../../modules/map/BattleMainView";
-import App from "../../App";
+import {BattleMainView} from "../../modules/map/BattleMainView";
+import {App} from "../../App";
 import { toolKit } from "../../utils/ToolKit";
 import { merge, TIME_FRAME } from "../../Global";
 import { MapProxy , getMapProxy } from "../../modules/map/MapProxy";
 import { Debug }   from "../../utils/Debug";
-import MapUtils from "../../logic/MapUtils";
+import {MapUtils} from "../../logic/MapUtils";
 import { Augment } from "./AugmentMgr";
 import { Mercenary } from "../../logic/Mercenary";
 import { getMercenaryProxy } from "../../modules/mercenary/MercenaryProxy";
@@ -22,6 +22,20 @@ export class MercenaryMgr extends BaseClass{
     _nodeRoot:Node = null;
     _scheduleId:number  = null;    
     proxy:MapProxy = null;
+
+    constructor(){
+        super();
+        MercenaryMgr._instance = this;
+    }
+
+    static get instance ():MercenaryMgr{
+        if( MercenaryMgr._instance){
+            return MercenaryMgr._instance as MercenaryMgr;
+        }else{
+            let instance = new MercenaryMgr();
+            return instance
+        }
+    }
     
     init(mainView:BattleMainView){
         this._mainView = mainView;

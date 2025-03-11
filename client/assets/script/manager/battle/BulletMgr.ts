@@ -1,9 +1,9 @@
 
 import { BoxBase }  from "../../logic/BoxBase";
-import BaseClass from "../../zero/BaseClass";
+import {BaseClass} from "../../zero/BaseClass";
 import { serialize } from "../../utils/Decorator";
 import { Node, Vec2 } from "cc";
-import BattleMainView from "../../modules/map/BattleMainView";
+import {BattleMainView} from "../../modules/map/BattleMainView";
 import { Bullet }  from "../../logic/bullet/Bullet";
 import { Bullet_1001 } from "../../logic/bullet/Bullet_1001";
 import { Bullet_1010 } from "../../logic/bullet/Bullet_1010";
@@ -19,6 +19,20 @@ export class BulletMgr extends BaseClass {
     _bulletTypeClassMap = {};
     _mainView:BattleMainView = null;
     _nodeRoot:Node = null;
+
+    constructor(){
+        super();
+        BulletMgr._instance = this;
+    }
+
+    static get instance ():BulletMgr{
+        if( BulletMgr._instance){
+            return BulletMgr._instance as BulletMgr;
+        }else{
+            let instance = new BulletMgr();
+            return instance
+        }
+    }
     
     initSchedule(){
         this._mainView.offScheduleEvent(this.getClassName(),this.update.bind(this));

@@ -1,6 +1,6 @@
 
-import BaseCommand from "../base/Command"
+import {Command} from "../base/Command"
 
-export default class TimeCommand extends BaseCommand{
+export class TimeCommand extends Command{
 
 }

@@ -1,4 +1,4 @@
-export default class Lunar {
+export class Lunar {
     //获取农历
 
     getLunar(time_stamp:number) {

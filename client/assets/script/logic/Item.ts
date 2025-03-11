@@ -1,14 +1,14 @@
-import MapMainView from "../modules/map/MapMainView";
-import MapUtils from "./MapUtils";
+import {MapMainView} from "../modules/map/MapMainView";
+import {MapUtils} from "./MapUtils";
 import { MapProxy }  from "../modules/map/MapProxy";
 import { serialize } from "../utils/Decorator";
-import PoolMgr from "../manager/PoolMgr";
-import StateMachine from "./stateMachine/StateMachine";
-import App from "../App";
-import DataMgr from "../manager/DataMgr";
-import UIItem from "../modules/package/UIItem";
+import {PoolMgr} from "../manager/PoolMgr";
+import {StateMachine} from "./stateMachine/StateMachine";
+import {App} from "../App";
+import {DataMgr} from "../manager/DataMgr";
+import {UIItem} from "../modules/package/UIItem";
 import { empty } from "../Global";
-import BaseUI from "../zero/BaseUI";
+import {BaseUI} from "../zero/BaseUI";
 import { Node } from "cc";
 import { ItemBase } from "./ItemBase";
 
@@ -22,7 +22,7 @@ export var ITEM_ID_ENUM = {
     STAMINA:5,          //体力    
 }
 
-export default class Item extends ItemBase {
+export class Item extends ItemBase {
     static  ITEM_ID_ENUM = ITEM_ID_ENUM;
     @serialize()
     _id:number = null;   // 道具类型 
@@ -88,7 +88,7 @@ export default class Item extends ItemBase {
     }
 
     initUI(parent:Node,cb?:Function) {
-        let pool = PoolMgr.getInstance(PoolMgr).getPool(this._pb_tag);
+        let pool = PoolMgr.instance.getPool(this._pb_tag);
         let node = pool.getItem(this);
         node.parent = parent;
         this.node = node;
@@ -105,7 +105,7 @@ export default class Item extends ItemBase {
     destory(){
         //--todo表现
         super.destory();
-        let pool = PoolMgr.getInstance(PoolMgr).getPool(this._pb_tag);
+        let pool = PoolMgr.instance.getPool(this._pb_tag);
         pool.recycleItem(this.node);
     }
     update(){

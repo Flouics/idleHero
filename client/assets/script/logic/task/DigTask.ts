@@ -1,7 +1,7 @@
 import { Vec2 } from "cc";
-import TaskBase from "../TaskBase";
+import {TaskBase} from "../TaskBase";
 
-export default class DigTask extends TaskBase {
+export class DigTask extends TaskBase {
     constructor(x:number,y:number){
         super(DigTask);
         this.pos = new Vec2(x,y);

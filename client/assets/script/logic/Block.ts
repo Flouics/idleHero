@@ -1,10 +1,10 @@
-import MapMainView from "../modules/map/MapMainView";
-import UIBlock from "../modules/map/UIBlock";
+import {MapMainView} from "../modules/map/MapMainView";
+import {UIBlock} from "../modules/map/UIBlock";
 
 import { Building }  from "./Building";
 import { BoxBase }  from "./BoxBase";
 import { serialize } from "../utils/Decorator";
-import TouchUtils from "../utils/TouchUtils";
+import {TouchUtils} from "../utils/TouchUtils";
 import { instantiate, Node, Vec2, Vec3 } from "cc";
 import { toolKit } from "../utils/ToolKit";
 import { uiKit } from "../utils/UIKit";
@@ -23,7 +23,7 @@ var BLOCK_FLAG_ENUM = {
 }
 var CROSS_VALUE =  BLOCK_VALUE_ENUM.EMPTY;
 
-export default class Block extends BoxBase {
+export class Block extends BoxBase {
     static BLOCK_VALUE_ENUM = BLOCK_VALUE_ENUM;     //瓦片地图属性枚举
     static CROSS_VALUE = CROSS_VALUE;       //可以通过属性检查
     static BLOCK_FLAG_ENUM = BLOCK_FLAG_ENUM; //标记
@@ -56,7 +56,7 @@ export default class Block extends BoxBase {
     mapMainView: MapMainView = null;    //地图组件
     ui:UIBlock = null;
     constructor(mapMainView: MapMainView, tx: number = 0, ty: number = 0) {
-        super(Block)
+        super()
         this.tx = tx;
         this.ty = ty;
         this.mapMainView = mapMainView;

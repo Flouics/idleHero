@@ -1,6 +1,6 @@
 
-import BaseCommand from "../base/Command"
+import {Command} from "../base/Command"
 
-export default class PlayerCommand extends BaseCommand{
+export class PlayerCommand extends Command{
 
 }

@@ -1,17 +1,13 @@
 import { objToJson, jsonToObj } from "../utils/Decorator";
-import UUID from "../utils/UUID";
+import {UUID} from "../utils/UUID";
 
-export default class BaseClass {
+export class BaseClass {
     _classDbKey:string;
     _class = null;
     _classId: string = "";
     _className:string = "";
     static _instance = null;       
-    constructor(_class?:any){
-        if (_class != null) {
-            this._class = _class;
-            _class._instance = this;         //单例
-        }
+    constructor(){
         this._classId = UUID.gen(16);        
         this._className = this.constructor.name
         this._classDbKey = this.getClassName();
@@ -20,21 +16,13 @@ export default class BaseClass {
     public get className() : string {
         return this.getClassName();
     }
-
-    static clearInstance(_class:any){
-        if(_class._instance){
-            let instance = _class._instance;
-            instance.destory();
-            _class._instance = null;
-        }        
-    }
     
     //单例
-    static getInstance(_class:any){
-        if( _class._instance){
-            return _class._instance
+    static get instance(){
+        if( BaseClass._instance){
+            return BaseClass._instance
         }else{
-            let instance = new _class(_class);
+            let instance = new BaseClass();
             return instance
         }
     }

@@ -1,6 +1,6 @@
 import { Event } from "cc";
 
-export default class CCEvent extends Event{
+export class CCEvent extends Event{
     constructor(name: string, bubbles?: boolean, detail?: any) {
         super(name, bubbles);
         this.detail = detail;

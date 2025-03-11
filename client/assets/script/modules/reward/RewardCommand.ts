@@ -1,13 +1,13 @@
 
 
 import { tween, UIOpacity, Vec3 } from "cc";
-import App from "../../App";
-import BaseCommand from "../base/Command"
+import {App} from "../../App";
+import {Command} from "../base/Command"
 import { RewardProxy }  from "./RewardProxy";
-import Item from "../../logic/Item";
+import {Item} from "../../logic/Item";
 import { clone } from "../../Global";
 
-export default class RewardCommand extends BaseCommand{
+export class RewardCommand extends Command{
     proxy:RewardProxy;    
     isFloating:boolean = false;
     floatItemList = [];

@@ -1,16 +1,16 @@
 import { Building }  from "../../logic/Building";
-import BaseView from "../../zero/BaseView";
-import App from "../../App";
-
+import {BaseView} from "../../zero/BaseView";
 import { _decorator, Toggle} from 'cc';
-import { RES_WINDOW } from "../../Global";
 import { getLobbyProxy, LobbyProxy } from "./LobbyProxy";
 import { getRewardProxy } from "../reward/RewardProxy";
-import { getPackageProxy } from "../package/PackageProxy";
+import { UIID_Reward } from "../reward/RewardInit";
+import { oops } from "../../../../extensions/oops-plugin-framework/assets/core/Oops";
+import { UIID } from "../../common/config/GameUIConfig";
+import { DEBUG } from "cc/env";
 const {ccclass, property} = _decorator;
 
 @ccclass("MenuView")
-export default class MenuView extends BaseView {
+export class MenuView extends BaseView {
     _clickBuilding:Building
 
     @property(Toggle)
@@ -26,7 +26,9 @@ export default class MenuView extends BaseView {
         super.onLoad()
         
         this.proxy = getLobbyProxy();
-        window["menuView"] = this;
+        if(DEBUG){
+            window["menuView"] = this;
+        }        
     }
 
     start(): void {
@@ -53,7 +55,7 @@ export default class MenuView extends BaseView {
     }
 
     onClickIdleRwd(){
-        getRewardProxy().cmd.showView("idleRewardView");
+        getRewardProxy().cmd.showView(UIID_Reward.IdleRewardView);
     }
 
     touchMove(){
@@ -61,8 +63,7 @@ export default class MenuView extends BaseView {
     }
 
     onClickSetting(){
-        App.windowMgr.open(RES_WINDOW.setting, function (uiNode:Node) {
-        });
+        oops.gui.open(UIID.Setting);
     }
 
     switchMenu(value: number) {        

@@ -1,16 +1,14 @@
 
-import BaseCommand from "../base/Command"
-import WindowMgr from "../../manager/WindowMgr"
-import ModuleMgr from "../../manager/ModuleMgr"
-import App from "../../App";
+import {Command} from "../base/Command"
 import { MapProxy }  from "./MapProxy";
-import Block from "../../logic/Block";
-import TaskBase from "../../logic/TaskBase";
+import {Block} from "../../logic/Block";
+import {TaskBase} from "../../logic/TaskBase";
 import { toolKit } from "../../utils/ToolKit";
 import { Augment } from "../../manager/battle/AugmentMgr";
 import { nullfun } from "../../Global";
+import { UIID_Map } from "./MapInit";
 
-export default class MapCommand extends BaseCommand{
+export class MapCommand extends Command{
     proxy:MapProxy;
     moduleName:String = "map";
 
@@ -47,12 +45,12 @@ export default class MapCommand extends BaseCommand{
     }
 
     showWinView(stageId:number){
-        this.showView("winView",nullfun,null,stageId);
+        this.showView(UIID_Map.WinView,stageId);
         this.proxy.updateView("stopBattle");
     }
 
     showFailView(){
-        this.showView("failView");
+        this.showView(UIID_Map.FailView);
         this.proxy.updateView("stopBattle");
         
     }

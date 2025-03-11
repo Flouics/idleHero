@@ -1,10 +1,10 @@
 
 
-import App from "../../App";
-import BaseCommand from "../base/Command"
+import {App} from "../../App";
+import {Command} from "../base/Command"
 import { MercenaryProxy } from "./MercenaryProxy";
 
-export default class MercenaryCommand extends BaseCommand{
+export class MercenaryCommand extends Command{
     proxy:MercenaryProxy;
 
     upgrade(mercenaryId:number){

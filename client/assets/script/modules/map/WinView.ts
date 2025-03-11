@@ -1,17 +1,17 @@
 
 import { MapProxy }  from "./MapProxy";
-import BaseView from "../../zero/BaseView";
+import {BaseView} from "../../zero/BaseView";
 
 import { _decorator, ScrollView} from 'cc';
-import App from "../../App";
+import {App} from "../../App";
 import { getPackageProxy } from "../package/PackageProxy";
-import Item from "../../logic/Item";
+import {Item} from "../../logic/Item";
 import { getRewardProxy } from "../reward/RewardProxy";
 import { getPlayerProxy } from "../player/PlayerProxy";
 const {ccclass, property} = _decorator;
 
 @ccclass("WinView")
-export default class WinView extends BaseView {
+export class WinView extends BaseView {
     mapProxy:MapProxy = null;
     moduleName = "map";
     stageId:number = 0;
@@ -26,12 +26,12 @@ export default class WinView extends BaseView {
         
     }
 
-    init(stageId:number,...args:any[]): void {
+    init(stageId?:number,...args:any[]): void {
         this.mapProxy = this.proxy as MapProxy;
         this.stageId = stageId;
     }
 
-    show(): void {        
+    onEnable(): void {        
         this.initData();
     }
 

@@ -1,11 +1,11 @@
-import BaseUI from "../../zero/BaseUI";
+import {BaseUI} from "../../zero/BaseUI";
 
 import { _decorator, Sprite, Label} from 'cc';
-import Item from "../../logic/Item";
+import {Item} from "../../logic/Item";
 const {ccclass, property} = _decorator;
 
 @ccclass("UIItem")
-export default class UIItem extends BaseUI {
+export class UIItem extends BaseUI {
     @property(Sprite)
     spt_item:Sprite = null;
     @property(Label)

@@ -1,11 +1,11 @@
 
-import UIEffect from "./UIEffect";
+import {UIEffect} from "./UIEffect";
 
 import { _decorator, Color, Label, Sprite, tween, UIOpacity, UITransform, Vec3} from 'cc';
 const {ccclass, property} = _decorator;
 
 @ccclass("UIEffectLife")
-export default class UIEffectLife extends UIEffect {
+export class UIEffectLife extends UIEffect {
     @property(Label)
     lb_content:Label = null;
     

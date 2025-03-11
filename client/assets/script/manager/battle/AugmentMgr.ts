@@ -1,6 +1,6 @@
 
-import BaseClass from "../../zero/BaseClass";
-import App from "../../App";
+import {BaseClass} from "../../zero/BaseClass";
+import {App} from "../../App";
 import { toolKit } from "../../utils/ToolKit";
 import { MapProxy , getMapProxy } from "../../modules/map/MapProxy";
 import { Debug }   from "../../utils/Debug";
@@ -66,8 +66,8 @@ export class Augment{
     }
 }
 
-// 角色管理器
-export default class AugmentMgr extends BaseClass{
+// 强化管理
+export class AugmentMgr extends BaseClass{
     augmentIdMap: Map<number,Augment> = new Map();
     augmentTypeMap:Map<number,Array<Augment>> = new Map();
     augmentGotMap:Map<number,Augment> = new Map();
@@ -76,6 +76,20 @@ export default class AugmentMgr extends BaseClass{
     _scheduleId:number  = null;    
     proxy:MapProxy = null;
     
+    constructor(){
+        super();
+        AugmentMgr._instance = this;
+    }
+
+    static get instance ():AugmentMgr{
+        if( AugmentMgr._instance){
+            return AugmentMgr._instance as AugmentMgr;
+        }else{
+            let instance = new AugmentMgr();
+            return instance
+        }
+    }
+
     init(){
         this.initAugmentGenPool();
         this.reset()

@@ -1,11 +1,11 @@
 
 import { BoxBase }  from "../logic/BoxBase";
-import BaseUI from "./BaseUI";
+import {BaseUI} from "./BaseUI";
 
 import { _decorator } from 'cc';
 const {ccclass, property} = _decorator;
 @ccclass("BaseUIItem")
-export default class BaseUIItem extends BaseUI {
+export class BaseUIItem extends BaseUI {
 
     reuse(data:any){
         this._logicObj = data;

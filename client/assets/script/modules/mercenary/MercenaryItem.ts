@@ -1,13 +1,13 @@
 
-import App from "../../App";
-import BaseView from "../../zero/BaseView";
+import {App} from "../../App";
+import {BaseView} from "../../zero/BaseView";
 
 import { _decorator, Label, Node, Sprite } from 'cc';
 
 const {ccclass, property} = _decorator;
 
 @ccclass("MercenaryItem")
-export default class MercenaryItem extends BaseView {
+export class MercenaryItem extends BaseView {
 
     data:any = null;
 

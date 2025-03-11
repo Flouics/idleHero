@@ -1,22 +1,21 @@
 
-import MapUtils from "./MapUtils";
-import UILive from "../modules/map/UILive";
+import {MapUtils} from "./MapUtils";
+import {UILive} from "../modules/map/UILive";
 import { BoxBase }  from "./BoxBase";
 import { getMapProxy, MapProxy }  from "../modules/map/MapProxy";
-import PoolMgr from "../manager/PoolMgr";
-import StateMachine from "./stateMachine/StateMachine";
+import {PoolMgr} from "../manager/PoolMgr";
+import {StateMachine} from "./stateMachine/StateMachine";
 import { Node, v2, Vec2 } from "cc";
 import { toolKit } from "../utils/ToolKit";
 import { Debug }   from "../utils/Debug";
 import { BulletMgr }  from "../manager/battle/BulletMgr";
-import App from "../App";
+import {App} from "../App";
 import { BATTLE_TYPE_ENUM, RACE_ENUM } from "../modules/mercenary/MercenaryProxy";
 import { Building }  from "./Building";
 import { BuffData } from "../manager/battle/BuffMgr";
 import { SkillData } from "../manager/battle/SkillMgr";
 import { nullfun, TIME_FRAME } from "../Global";
 import { DamageRet } from "../Interface";
-
 
 export class Live extends BoxBase {
     static SERRCH_TIME = 500;   // 500 毫秒搜索一次
@@ -57,7 +56,7 @@ export class Live extends BoxBase {
     lastMoveCheckTime:number = 0;
 
     constructor( x: number = 0, y: number = 0) {
-        super(Live)
+        super()
         this.x = x;
         this.y = y;
 
@@ -145,7 +144,7 @@ export class Live extends BoxBase {
     }
 
     initUI(parent:Node,cb?:Function) {
-        let pool = PoolMgr.getInstance(PoolMgr).getPool(this._pb_tag);
+        let pool = PoolMgr.instance.getPool(this._pb_tag);
         let node = pool.getItem(this);
         let viewPos = this.pos;
         let ui = node.getComponent(UILive);
@@ -392,7 +391,7 @@ export class Live extends BoxBase {
     genBullet(bulletId:number,cb:Function = nullfun){
         var bulletCfg = App.dataMgr.findById("bullet",bulletId);
         if(!!bulletCfg){
-            var bullet =  BulletMgr.getInstance(BulletMgr).create(this,this.target,this.pos,bulletCfg);
+            var bullet =  BulletMgr.instance.create(this,this.target,this.pos,bulletCfg);
             if(bullet){
                 cb(bullet);
             }

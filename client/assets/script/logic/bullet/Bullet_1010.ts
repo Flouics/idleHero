@@ -1,7 +1,7 @@
 import { Node, Size, UITransform } from "cc";
 import { Bullet }  from "./Bullet";
 import { BoxBase }  from "../BoxBase";
-import PoolMgr from "../../manager/PoolMgr";
+import {PoolMgr} from "../../manager/PoolMgr";
 
 //激光
 export class Bullet_1010 extends Bullet {    

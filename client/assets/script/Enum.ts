@@ -1,6 +1,6 @@
 ﻿
 //  平台配置
-export default class Enum {
+export class Enum {
     static BATTLE_TYPE
 
 };

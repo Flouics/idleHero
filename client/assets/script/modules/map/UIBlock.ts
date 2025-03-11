@@ -1,11 +1,11 @@
-import BaseUI from "../../zero/BaseUI";
-import Block from "../../logic/Block";
+import {BaseUI} from "../../zero/BaseUI";
+import {Block} from "../../logic/Block";
 
 import { _decorator, Sprite} from 'cc';
 const {ccclass, property} = _decorator;
 
 @ccclass("UIBlock")
-export default class UIBlock extends BaseUI {
+export class UIBlock extends BaseUI {
     @property(Sprite)
     spt_floor:Sprite = null;
     @property(Sprite)

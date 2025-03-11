@@ -1,17 +1,18 @@
-import App from "../App";
-import BaseClass from "../zero/BaseClass";
-import Emitter from "../zero/Emitter";
+import {App} from "../App";
+import {BaseClass} from "../zero/BaseClass";
+import {Emitter} from "../zero/Emitter";
 import { clone, empty, nullfun } from "../Global";
 import { Debug }   from "../utils/Debug";
 import { toolKit } from "../utils/ToolKit";
 import { getTimeProxy } from "../modules/time/TimeProxy";
 
-var proto = {} as any;
+/** 等待实现 */
+let proto = {} as any;
 proto.SC = {} as any;
 proto.SC.create = nullfun;
 proto.CS = {} as any;
-var MD5 = {} as any;
-var Base64 = {} as any;
+let MD5 = {} as any;
+let Base64 = {} as any;
 
 var desArr = [
     ['3','1','5','8','9','7','4','2','0','6'],
@@ -160,7 +161,7 @@ export class ProtoCS{
     }
 }
 
-export default class HttpMgr extends BaseClass {
+export class HttpMgr extends BaseClass {
     _reqHttpList: any[] = []; //网络请求——键值对队列
     _isReqHttpIng: boolean = false; //当前是否还有网络请求还在进行
 /* 
@@ -189,9 +190,23 @@ export default class HttpMgr extends BaseClass {
     no_queue_filter: any[] = [];
     
     isDebug = false;
-    sc:proto.SC = null;  //用于缓存后端发送的数据
+    sc:proto.SC = null;  //用于缓存后端发送的数据 proto.SC
     mse:number = 0;
     mm:number = 0;
+
+    constructor(){
+        super();
+        HttpMgr._instance = this;
+    }
+
+    static get instance ():HttpMgr{
+        if( HttpMgr._instance){
+            return HttpMgr._instance as HttpMgr;
+        }else{
+            let instance = new HttpMgr();
+            return instance
+        }
+    }
 
     init(){
         

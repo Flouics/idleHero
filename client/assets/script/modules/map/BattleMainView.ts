@@ -1,23 +1,23 @@
 import { Building }  from "../../logic/Building";
-import Headquarters from "../../logic/building/Headquarters";
+import {Headquarters} from "../../logic/building/Headquarters";
 import { MonsterMgr } from "../../manager/battle/MonsterMgr";
-import HeroMgr from "../../manager/battle/HeroMgr";
+import {HeroMgr} from "../../manager/battle/HeroMgr";
 import { getMapProxy, MapProxy }  from "./MapProxy";
-import TowerMgr from "../../manager/battle/TowerMgr";
+import {TowerMgr} from "../../manager/battle/TowerMgr";
 import { BulletMgr }  from "../../manager/battle/BulletMgr";
-import BaseView from "../../zero/BaseView";
+import {BaseView} from "../../zero/BaseView";
 import { _decorator, EventTouch, instantiate, Label, Node, NodeEventType, Prefab, ScrollView, Size, Sprite, TERRAIN_HEIGHT_BASE, UITransform, v2, Vec2, Vec3 } from "cc";
 import { toolKit } from "../../utils/ToolKit";
 import { MercenaryMgr } from "../../manager/battle/MercenaryMgr";
-import MapMainView from "./MapMainView";
-import App, { DELAY_TASK_KEY } from "../../App";
-import MapUtils from "../../logic/MapUtils";
-import UIMercenaryGen from "./UIMercenaryGen";
-import UIRandomDraw from "./UIRandomDraw";
+import {MapMainView} from "./MapMainView";
+import {App, DELAY_TASK_KEY } from "../../App";
+import {MapUtils} from "../../logic/MapUtils";
+import {UIMercenaryGen} from "./UIMercenaryGen";
+import {UIRandomDraw} from "./UIRandomDraw";
 import { lang, TIME_FRAME } from "../../Global";
 import { PlayerProxy,  getPlayerProxy } from "../player/PlayerProxy";
 import { Debug }   from "../../utils/Debug";
-import Emitter from "../../zero/Emitter";
+import {Emitter} from "../../zero/Emitter";
 import { getPackageProxy, PackageProxy } from "../package/PackageProxy";
 import { ITEM_ID_ENUM } from "../../logic/Item";
 import { getLobbyProxy } from "../lobby/LobbyProxy";
@@ -28,7 +28,7 @@ var SCHEDULE_EVENT = "SCHEDULE_EVENT";
 
 const {ccclass, property} = _decorator;
 @ccclass("BattleMainView")
-export default class BattleMainView extends BaseView {
+export class BattleMainView extends BaseView {
     _prefabUrl = "prefab/map/"
     @property(Node)
     nd_mapRoot: Node = null;  //基础的地图层
@@ -148,8 +148,8 @@ export default class BattleMainView extends BaseView {
         this.monsterMgr = this.mapProxy.monsterMgr;
         this.heroMgr = this.mapProxy.heroMgr;
         this.towerMgr = this.mapProxy.towerMgr;
-        this.bulletMgr = BulletMgr.getInstance(BulletMgr);
-        this.mercenaryMgr = MercenaryMgr.getInstance(MercenaryMgr);
+        this.bulletMgr = BulletMgr.instance;
+        this.mercenaryMgr = MercenaryMgr.instance;
         this.monsterMgr.init(this);
         this.heroMgr.init(this);
         this.towerMgr.init(this);
@@ -174,7 +174,7 @@ export default class BattleMainView extends BaseView {
         var index = 0;
         var len = stageListData.list.length;
         stageListData.list.forEach(data => {
-            self.loadPrefab("items/stageItem",function(node:Node){
+            self.loadPrefab("items/StageItem",function(node:Node){
                 self.sv_stage.content.addChild(node);
                 self.setStageItem(node,data);
                 if(!self.stageItemSize){

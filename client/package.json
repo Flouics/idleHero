@@ -1,15 +1,21 @@
 {
-  "name": "client",
-  "uuid": "059852a4-208b-4831-b6a6-29d765d2d8f9",
+  "name": "oops-framework",
+  "uuid": "20cdfc32-449a-4ff9-900e-2ffdb685203c",
   "version": "3.0.0",
   "_sourceId": "c30b28da-749e-479b-bcb6-cecd8d7be9e3",
   "creator": {
-    "version": "3.8.2",
+    "version": "3.8.4",
     "registry": {
       "remote": {}
     },
     "dependencies": {
       "localization-editor": "1.0.1"
     }
-  }
+  },
+  "dependencies": {},
+  "description": "oops-framework",
+  "devDependencies": {
+    "@types/node": "^17.0.25"
+  },
+  "_storeId": "6d5385bb101ffaeb8f70c14e4879dbe9"
 }

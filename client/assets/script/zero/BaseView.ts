@@ -1,15 +1,15 @@
-import App from "../App";
+import {App} from "../App";
 import { Proxy }from "../modules/base/Proxy";
 import { Debug }   from "../utils/Debug";
 import { toolKit } from "../utils/ToolKit";
-import BaseWin from "./BaseWin";
 
 import { _decorator, EventTouch, find, NodeEventType } from 'cc';
+import { BaseUI } from "./BaseUI";
 const {ccclass, property} = _decorator;
 // 需要绑定proxy的需要在此层。
 
 @ccclass("BaseView")
-export default class BaseView extends BaseWin {
+export class BaseView extends BaseUI {
     _objFlags: number;
     moduleName:string = "";
     proxys:any[] = [];
@@ -18,13 +18,10 @@ export default class BaseView extends BaseWin {
 
     onLoad() {
         super.onLoad();
+        this._baseInit();
     }
 
     _baseInit(): void {
-        if (!!this._hasBaseInit) {
-            return;
-        }
-        super._baseInit();
         this.initProxy();
         var nd_close = find('close', this.node);
         if (nd_close) {

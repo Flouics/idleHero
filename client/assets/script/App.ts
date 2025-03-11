@@ -1,29 +1,27 @@
-﻿import Emitter from "./zero/Emitter";
-import Config from "./Config";
-import LoadingMgr from "./manager/LoadingMgr";
-import DBMgr, { LOCAL_STORAGE } from "./manager/DBMgr";
-import HttpMgr from "./manager/HttpMgr";
-import SceneMgr from "./manager/SceneMgr";
-import WindowMgr from "./manager/WindowMgr";
-import AudioMgr from "./manager/AudioMgr";
-import AsyncTaskMgr from "./manager/AsyncTaskMgr";
-import PoolMgr from "./manager/PoolMgr";
-import ModuleMgr from "./manager/ModuleMgr";
-import TimeMgr from "./manager/TimeMgr";
-import DataMgr from "./manager/DataMgr";
-import LoginMgr from "./manager/LoginMgr";
-import SoundMgr from "./manager/SoundMgr";
-import BaseClass from "./zero/BaseClass";
-import AppView from "./AppView";
-import EffectMgr from "./manager/EffectMgr";
+﻿import {Emitter} from "./zero/Emitter";
+import {Config} from "./Config";
+import {LoadingMgr} from "./manager/LoadingMgr";
+import {DBMgr, LOCAL_STORAGE } from "./manager/DBMgr";
+import {HttpMgr} from "./manager/HttpMgr";
+import {SceneMgr} from "./manager/SceneMgr";
+import {AsyncTaskMgr} from "./manager/AsyncTaskMgr";
+import {PoolMgr} from "./manager/PoolMgr";
+import {ModuleMgr} from "./manager/ModuleMgr";
+import {TimeMgr} from "./manager/TimeMgr";
+import {DataMgr} from "./manager/DataMgr";
+import {LoginMgr} from "./manager/LoginMgr";
+import {BaseClass} from "./zero/BaseClass";
+import {AppView} from "./AppView";
+import {EffectMgr} from "./manager/EffectMgr";
 import { AppInit } from "./AppInit";
 import { empty, GlobalInit, GlobalInitDependency} from "./Global";
 import { AnimationManager, director, find, Font, Game, game, Node, resources } from "cc";
 import { Debug }   from "./utils/Debug";
-import KeyWordMgr from "./manager/KeyWordMgr";
+import {KeyWordMgr} from "./manager/KeyWordMgr";
 import { getPlayerProxy } from "./modules/player/PlayerProxy";
 import { jsonToObj, objToJson, serialize } from "./utils/Decorator";
-import UUID from "./utils/UUID";
+import {UUID} from "./utils/UUID";
+import { oops } from "../../extensions/oops-plugin-framework/assets/core/Oops";
 
 /**
  * 全局唯一的游戏管理器,每个场景都可以持有
@@ -47,7 +45,7 @@ class AccountInfo {
 export var DELAY_TASK_KEY = "delayTask_";  //加上这个key的task，同一时间执行多个任务，只会执行第一个。
 
 //App只会有一个。
-export default class App extends BaseClass{
+export class App extends BaseClass{
 
     static accountInfo = new AccountInfo();
     
@@ -62,8 +60,6 @@ export default class App extends BaseClass{
 
     static httpMgr:HttpMgr;
     static sceneMgr:SceneMgr; 
-    static windowMgr:WindowMgr;
-    static audioMgr:AudioMgr;
     static asyncTaskMgr:AsyncTaskMgr;
     static poolMgr:PoolMgr;
     static moduleMgr:ModuleMgr;
@@ -71,7 +67,6 @@ export default class App extends BaseClass{
     static timeMgr:TimeMgr;
     static dataMgr:DataMgr;
     static loginMgr:LoginMgr;
-    static soundMgr:SoundMgr;
     static effectMgr:EffectMgr;
     static keyWordMgr:KeyWordMgr;
 
@@ -94,25 +89,18 @@ export default class App extends BaseClass{
                 
         App.config = new Config();
         
-        App.loadingMgr = App.getInstance(LoadingMgr);
-
-        App.dbMgr = App.getInstance(DBMgr);
-        App.httpMgr = App.getInstance(HttpMgr);
-        App.sceneMgr = App.getInstance(SceneMgr);
-        App.windowMgr = App.getInstance(WindowMgr);
-
-        App.audioMgr = App.getInstance(AudioMgr);
-        App.asyncTaskMgr = App.getInstance(AsyncTaskMgr);
-        App.poolMgr = App.getInstance(PoolMgr);
-        App.moduleMgr = App.getInstance(ModuleMgr);
-
-        App.timeMgr = App.getInstance(TimeMgr);
-        App.dataMgr = App.getInstance(DataMgr);
-        App.loginMgr = App.getInstance(LoginMgr);
-        App.soundMgr = App.getInstance(SoundMgr);   
-        App.effectMgr = App.getInstance(EffectMgr);  
-
-        App.keyWordMgr = App.getInstance(KeyWordMgr);
+        App.loadingMgr = new LoadingMgr();
+        App.dbMgr = new DBMgr();
+        App.httpMgr = new HttpMgr();
+        App.sceneMgr = new SceneMgr();
+        App.asyncTaskMgr = new AsyncTaskMgr();
+        App.poolMgr = new PoolMgr();
+        App.moduleMgr = new ModuleMgr();
+        App.timeMgr = new TimeMgr();
+        App.dataMgr = new DataMgr();
+        App.loginMgr = new LoginMgr();
+        App.effectMgr = new EffectMgr();  
+        App.keyWordMgr = new KeyWordMgr();
 
         //账号信息
         App.initAccount()
@@ -127,22 +115,6 @@ export default class App extends BaseClass{
 
     static clear(){
         App.config = new Config();
-        App.clearInstance(HttpMgr);
-        App.clearInstance(LoadingMgr);
-        App.clearInstance(DBMgr);
-        App.clearInstance(SceneMgr);
-        App.clearInstance(WindowMgr);
-        App.clearInstance(AudioMgr);
-        App.clearInstance(AsyncTaskMgr);
-        App.clearInstance(ModuleMgr);
-        App.clearInstance(TimeMgr);
-        App.clearInstance(DataMgr);
-        App.clearInstance(LoginMgr);
-        App.clearInstance(SoundMgr);
-        App.clearInstance(EffectMgr);
-
-        App.clearInstance(KeyWordMgr);
-
         App.font = null;
     }
 
@@ -193,17 +165,11 @@ export default class App extends BaseClass{
     }
 
     static restart () {
-        if (App.ui){
-            App.ui.restart();
-        }
         //有BUG先屏蔽。
         game.restart();
     }
 
     static exit () {
-        if (App.ui){
-            App.ui.exit();
-        }
         game.end();
     }
 
@@ -243,43 +209,25 @@ export default class App extends BaseClass{
         }
     }
 
-    static onViewResize () {
-        if (!App.ui) {
-            return false
-        }
-        App.ui.onViewResize();
-    }
-
-    static updateNodeWidget (node:Node) {
-        if (!App.ui) {
-            return false
-        }
-        App.ui.updateNodeWidget(node)
-    }
-
-    static clearInstance(_Class:any){
-        _Class.clearInstance()
-    }
-    
     //单例
     static getInstance(_Class:any){
-        if( _Class._instance){
-            return _Class._instance
-        }else{
-            let instance = new _Class(_Class);
-            return instance
-        }
+        return _Class?.instance
     }
 
-    static hotUpdateCheck (cb:Function) {        
-        //先不加进度条，就一个文本。
-        App.dataMgr.tryLoadAllTable(cb);
-    };
+    static getPopupRoot(){
+        return oops.gui.getPopupRoot();
+    }
 
-    static getUIRoot() {
-        var canvas = find('Canvas');
-        var uiRoot = find('uiRoot', canvas);
-        return uiRoot || canvas;
+    static getUIRoot(){
+        return oops.gui.getUIRoot();
+    }
+
+    static getDialogRoot(){
+        return oops.gui.getDialogRoot();
+    }
+
+    static getEffectRoot() {
+        return oops.gui.effect;
     };
 
     //加载字体

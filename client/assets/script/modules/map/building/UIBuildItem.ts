@@ -1,13 +1,13 @@
-import App from "../../../App";
+import {App} from "../../../App";
 import { toolKit } from "../../../utils/ToolKit";
-import BaseUI from "../../../zero/BaseUI";
-import UIBuilding from "../UIBuilding";
+import {BaseUI} from "../../../zero/BaseUI";
+import {UIBuilding} from "../UIBuilding";
 
 import { _decorator, Color, Node, NodeEventType, ProgressBar, Sprite, tween, Tween} from 'cc';
 const {ccclass, property} = _decorator;
 
 @ccclass("UIBuildItem")
-export default class UIBuildItem extends BaseUI {
+export class UIBuildItem extends BaseUI {
     _baseUrl = "texture/map/";
     
     @property(Sprite)

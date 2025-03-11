@@ -1,13 +1,13 @@
 ﻿import { Enum } from "cc";
-import App from "./App";
-import PackageInit from "./modules/package/PackageInit";
-import PlayerInit from "./modules/player/PlayerInit";
-import TimeInit from "./modules/time/TimeInit";
-import MapInit from "./modules/map/MapInit";
-import MercenaryInit from "./modules/mercenary/MercenaryInit";
-import RewardInit from "./modules/reward/RewardInit";
+import {App} from "./App";
+import {PackageInit} from "./modules/package/PackageInit";
+import {PlayerInit} from "./modules/player/PlayerInit";
+import {TimeInit} from "./modules/time/TimeInit";
+import {MapInit} from "./modules/map/MapInit";
+import {MercenaryInit} from "./modules/mercenary/MercenaryInit";
+import {RewardInit} from "./modules/reward/RewardInit";
 import { getPlayerProxy } from "./modules/player/PlayerProxy";
-import LobbyInit from "./modules/lobby/LobbyInit";
+import {LobbyInit} from "./modules/lobby/LobbyInit";
 
 //全局太麻烦了，老是有红线，直接静态处理吧。App只会有一个。
 export function AppInit(){
@@ -32,9 +32,7 @@ export function AppInit(){
     moduleMgr.load("reward",new RewardInit());
    
     App.httpMgr.init();
-    App.audioMgr.init();
     App.poolMgr.init();
-
     
 }
 

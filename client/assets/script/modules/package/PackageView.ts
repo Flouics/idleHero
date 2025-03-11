@@ -1,13 +1,13 @@
 
-import App from "../../App";
-import BaseView from "../../zero/BaseView";
+import {App} from "../../App";
+import {BaseView} from "../../zero/BaseView";
 
 import { _decorator, ScrollView } from 'cc';
 import { PackageProxy }  from "./PackageProxy";
 const {ccclass, property} = _decorator;
 
 @ccclass("PackageView")
-export default class PackageView extends BaseView {
+export class PackageView extends BaseView {
     moduleName = "package"
     proxy:PackageProxy;
 

@@ -1,19 +1,35 @@
-import App from "../App";
+import {App} from "../App";
 import { PlayerProxy,  getPlayerProxy } from "../modules/player/PlayerProxy";
-import BaseClass from "../zero/BaseClass";
+import {BaseClass} from "../zero/BaseClass";
 import { sys } from "cc";
 import { Debug }   from "../utils/Debug";
+import { oops } from "../../../extensions/oops-plugin-framework/assets/core/Oops";
 
 export var LOCAL_STORAGE = {
     AUDIO_SETTING: 'audio_setting',
     ACCOUNT_INFO: 'ACCOUNT_INFO',
 };
 
-
-var global = window;
-export default class DBMgr extends BaseClass {
-    ls: any = sys.localStorage;
+export class DBMgr extends BaseClass {    
+    uid:string  = "";
     LOCAL_STORAGE: any = LOCAL_STORAGE;
+    constructor(){
+        super();
+        DBMgr._instance = this;
+    }
+
+    static get instance ():DBMgr{
+        if( DBMgr._instance){
+            return DBMgr._instance as DBMgr;
+        }else{
+            let instance = new DBMgr();
+            return instance
+        }
+    }
+
+    setId(uid:string){
+        this.uid = uid;
+    }
 
     getItem(_key: string) {
         var key = this.getKey(_key);
@@ -48,16 +64,16 @@ export default class DBMgr extends BaseClass {
 
 
     _getItem(key: string) {
-        var ret = this.ls.getItem(key);
+        var ret = oops.storage.get(key);
         return ret;
     };
 
     _setItem(key: string, value: any) {
-        this.ls.setItem(key, value);
+        oops.storage.set(key, value);
     };
 
     _removeItem(key: string) {
-        this.ls.removeItem(key);
+        oops.storage.remove(key);
     };
 
     _getJsonItem(key: string) {
@@ -97,13 +113,13 @@ export default class DBMgr extends BaseClass {
     };
 
     destory() {
-        this.ls.clear();
+        oops.storage.clear();
     };
 
     //防止不同用户之间用户数据冲突
     getKey(key: string) {
-        var uid = getPlayerProxy().uid;
-        var key_prefix = uid.slice(0, 7);
-        return key_prefix + "_" + key;
+        this.uid = this.uid;
+        var key_prefix = this.uid.slice(0, 7);
+        return key_prefix + key;
     };
 };

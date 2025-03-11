@@ -1,15 +1,15 @@
 
 
-import Block from "../../logic/Block";
-import TouchUtils from "../../utils/TouchUtils";
+import {Block} from "../../logic/Block";
+import {TouchUtils} from "../../utils/TouchUtils";
 import { Debug }   from "../../utils/Debug";
 import { MapProxy }  from "./MapProxy";
-import BaseView from "../../zero/BaseView";
+import {BaseView} from "../../zero/BaseView";
 import { _decorator, EventTouch, instantiate, Node, Prefab, Size, UITransform, v2, Vec2, Vec3, approx } from "cc";
-import MapUtils from "../../logic/MapUtils";
+import {MapUtils} from "../../logic/MapUtils";
 import { nullfun, winSize } from "../../Global";
-import BattleMainView from "./BattleMainView";
-import App from "../../App";
+import {BattleMainView} from "./BattleMainView";
+import {App} from "../../App";
 import { toolKit } from "../../utils/ToolKit";
 
 
@@ -21,7 +21,7 @@ import { toolKit } from "../../utils/ToolKit";
 
 const {ccclass, property} = _decorator;
 @ccclass("MapMainView")
-export default class MapMainView extends BaseView {    
+export class MapMainView extends BaseView {    
     margin_x: number = 10;  //  一边block的个数  会被mapProxy 重写
     margin_y: number = 10;
     @property(Node)
@@ -44,10 +44,12 @@ export default class MapMainView extends BaseView {
     // use this for initialization
     onLoad() {
         super.onLoad();
-        window["map"] = this;
         this.mapProxy = this.proxy as MapProxy;
         this.blockMap = this.mapProxy.blockMap;
         this.initMap();
+        if(Debug){
+            window["map"] = this;
+        }       
     }
 
     reloadMapView(){
@@ -114,7 +116,7 @@ export default class MapMainView extends BaseView {
                 if (Math.abs(i) < 11 && Math.abs(j) < 8) {
                     this.createBlock(i, j);
                 } else {
-                    AsyncTaskMgr.getInstance(AsyncTaskMgr).newAsyncTask(function () {
+                    AsyncTaskMgr.instance.newAsyncTask(function () {
                         this.createBlock(i, j);
                     }.bind(this));
                 } 

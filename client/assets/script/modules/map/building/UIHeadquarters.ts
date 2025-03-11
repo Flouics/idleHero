@@ -1,12 +1,12 @@
-import App from "../../../App";
+import {App} from "../../../App";
 import { toolKit } from "../../../utils/ToolKit";
-import UIBuilding from "../UIBuilding";
+import {UIBuilding} from "../UIBuilding";
 
 import { _decorator, Color, Label, Node, ProgressBar, Sprite, tween, Tween} from 'cc';
 const {ccclass, property} = _decorator;
 
 @ccclass("UIHeadquarters")
-export default class UIHeadquarters extends UIBuilding {
+export class UIHeadquarters extends UIBuilding {
     _baseUrl = "texture/map/";
     _beAtkedAction:Tween<Node>;
     @property(ProgressBar)

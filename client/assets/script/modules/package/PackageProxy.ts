@@ -1,14 +1,14 @@
 
 
-import App from "../../App";
-import Item from "../../logic/Item";
+import {App} from "../../App";
+import {Item} from "../../logic/Item";
 import { serialize } from "../../utils/Decorator";
 import { toolKit } from "../../utils/ToolKit";
 import { Proxy }from "../base/Proxy";
 import { getPlayerProxy } from "../player/PlayerProxy";
 import { getRewardProxy } from "../reward/RewardProxy";
 import { getTimeProxy } from "../time/TimeProxy";
-import PackageCommand from "./PackageCommand";
+import {PackageCommand} from "./PackageCommand";
 /*
  * 背包数据
  */
@@ -43,6 +43,20 @@ export class PackageProxy extends Proxy {
     itemJson:{[key:number]:any} = {};
     @serialize()
     idleItemJson:{[key:number]:any} = {};
+
+    constructor(){       
+        super();
+        PackageProxy._instance = this;
+    }
+
+    static get instance ():PackageProxy{
+        if( PackageProxy._instance){
+            return PackageProxy._instance as PackageProxy;
+        }else{
+            let instance = new PackageProxy();
+            return instance
+        }
+    }
 
     //方法
     init(){
@@ -268,7 +282,7 @@ export class PackageProxy extends Proxy {
 };
 
 export function getPackageProxy(): PackageProxy {
-    return PackageProxy._instance;
+    return PackageProxy.instance;
 }
 
 

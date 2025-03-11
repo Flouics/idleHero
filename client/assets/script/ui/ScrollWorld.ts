@@ -22,7 +22,7 @@ class Item{
     }
 }
 @ccclass("ScrollWorld")
-export default class ScrollWorld extends Component{
+export class ScrollWorld extends Component{
     startPos:Vec2;
     endPos:Vec2;
     recordPos:Vec2;

@@ -1,16 +1,29 @@
-import App from "../App";
-import BaseClass from "../zero/BaseClass";
+import {App} from "../App";
+import {BaseClass} from "../zero/BaseClass";
 
 var global = window;
-export default class LoginMgr extends BaseClass {
+export class LoginMgr extends BaseClass {
     _is_login: boolean = false;
     _req_list_map = {};
     _req_list = [];
     _req_total = 0;
     _cb = null; 
 
-    init() {
+    constructor(){
+        super();
+        LoginMgr._instance = this;
+    }
 
+    static get instance ():LoginMgr{
+        if( LoginMgr._instance){
+            return LoginMgr._instance as LoginMgr;
+        }else{
+            let instance = new LoginMgr();
+            return instance
+        }
+    }
+
+    init() {
         this._req_list_map = {};
         this._req_list = [];
         this._req_total = 0;
@@ -37,8 +50,8 @@ export default class LoginMgr extends BaseClass {
     };
 
     startHttpReq() {
-        this._req_list.forEach(function (protoObj) {
-            App.httpMgr.post(protoObj.cmd, protoObj.data);
+        this._req_list.forEach((protoObj) => {
+            App.httpMgr.send(protoObj.cmd, protoObj.data);
         });
     };
 

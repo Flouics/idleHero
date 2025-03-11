@@ -1,9 +1,9 @@
-import UIBuilding from "../modules/map/UIBuilding";
+import {UIBuilding} from "../modules/map/UIBuilding";
 import { BoxBase }  from "./BoxBase";
 import { serialize } from "./../utils/Decorator";
 import { assetManager, instantiate, loader, Node, Prefab, resources, v2, Vec2 } from "cc";
 import { Debug }   from "../utils/Debug";
-import BattleMainView from "../modules/map/BattleMainView";
+import {BattleMainView} from "../modules/map/BattleMainView";
 import { DamageRet } from "../Interface";
 
 var BUILDING_VALUE_ENUM = {
@@ -26,7 +26,7 @@ export class Building extends BoxBase {
     @serialize()
     _pb_url:string = "";    //不预先加载的原因是因为种类比较多，而且基本上不会复用。
     constructor(mainView: BattleMainView) {
-        super(Building);
+        super();
         this._mainView = mainView;
     }
 

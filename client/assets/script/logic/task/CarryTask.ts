@@ -1,8 +1,8 @@
 import { Vec2 } from "cc";
-import TaskBase from "../TaskBase";
-import Item from "../Item";
+import {TaskBase} from "../TaskBase";
+import {Item} from "../Item";
 
-export default class CarryTask extends TaskBase {
+export class CarryTask extends TaskBase {
     startPos:Vec2;
     endPos:Vec2;
     constructor(startPos:Vec2,endPos:Vec2,item:Item){

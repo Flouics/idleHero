@@ -1,14 +1,10 @@
 import { js, resources } from "cc";
-import App from "../App";
-import BaseClass from "../zero/BaseClass";
+import {App} from "../App";
+import {BaseClass} from "../zero/BaseClass";
 import { clone, empty } from "../Global";
 import { Debug }   from "../utils/Debug";
 import { toolKit } from "../utils/ToolKit";
 
-/**
- * Created by Administrator on 2017/8/17.
- */
-var global = window;
 class Data {
     map: { [key: string]: any } = {};
     list:any[] = [];
@@ -56,7 +52,7 @@ class Data {
     };
 };
 
-export default class DataMgr extends BaseClass {
+export class DataMgr extends BaseClass {
     hasLoad: boolean = false;
     curLoad: number = 0;
     dataPool:{[key:string]:Data} = {}
@@ -66,18 +62,31 @@ export default class DataMgr extends BaseClass {
     callback: Function;
     tag: any;
     maxLoad: number;
+    constructor(){
+        super();
+        DataMgr._instance = this;
+    }
+
+    static get instance ():DataMgr{
+        if( DataMgr._instance){
+            return DataMgr._instance as DataMgr;
+        }else{
+            let instance = new DataMgr();
+            return instance
+        }
+    }
     init() {
 
     }
 
-    tryLoadAllTable(cb: Function, tag?: any) {
+    tryLoadAllTable(cb: Function) {
         if (!!this.hasLoad) {
+            cb();
             return true;
         }
         this.hasLoad = true;
         this.curLoad = 0;
         this.callback = cb;
-        this.tag = tag;
         this.maxLoad = this.loadTexts.length;
 
         var self = this;
@@ -147,9 +156,7 @@ export default class DataMgr extends BaseClass {
                 const element = this.dataPool[key];
                 this.parseDataText(element);
             }
-            if (this.callback) {
-                this.callback(this.tag);
-            }
+            this.callback && this.callback();
         }
     };
 

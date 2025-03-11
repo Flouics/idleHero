@@ -1,5 +1,5 @@
 import { Node } from "cc";
-import PoolMgr from "../../manager/PoolMgr";
+import {PoolMgr} from "../../manager/PoolMgr";
 import { Bullet }  from "./Bullet";
 
 //子弹跟踪目标

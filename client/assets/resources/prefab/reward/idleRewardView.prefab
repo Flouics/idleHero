@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.Prefab",
-    "_name": "idleRewardView",
+    "_name": "IdleRewardView",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_native": "",
@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "idleRewardView",
+    "_name": "IdleRewardView",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -207,6 +207,8 @@
       "__id__": 0
     },
     "fileId": "0fQXADA8BD0Kztq/KfSd38",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
@@ -403,6 +405,8 @@
       "__id__": 0
     },
     "fileId": "843HHXoJVPGrnTNoCHWzNT",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
@@ -1359,9 +1363,6 @@
       "__id__": 60
     },
     "is_destroy": true,
-    "isNeedBg": true,
-    "index": 0,
-    "_hasBaseInit": false,
     "sv_itemListRoot": {
       "__id__": 52
     },

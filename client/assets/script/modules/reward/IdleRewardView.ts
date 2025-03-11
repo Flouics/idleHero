@@ -1,10 +1,10 @@
 
-import App from "../../App";
-import BaseView from "../../zero/BaseView";
+import {App} from "../../App";
+import {BaseView} from "../../zero/BaseView";
 
 import { _decorator, ScrollView, Label } from 'cc';
 import { RewardProxy }  from "./RewardProxy";
-import Item from "../../logic/Item";
+import {Item} from "../../logic/Item";
 import { getPackageProxy } from "../package/PackageProxy";
 import { getTimeProxy } from "../time/TimeProxy";
 import { empty, lang } from "../../Global";
@@ -12,7 +12,7 @@ import { toolKit } from "../../utils/ToolKit";
 const {ccclass, property} = _decorator;
 
 @ccclass("IdleRewardView")
-export default class IdleRewardView extends BaseView {
+export class IdleRewardView extends BaseView {
     moduleName = "reward"
     proxy:RewardProxy;
 

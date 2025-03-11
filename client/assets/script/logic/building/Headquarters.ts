@@ -1,12 +1,12 @@
 import { Building }  from "../Building";
-import UIBuilding from "../../modules/map/UIBuilding";
+import {UIBuilding} from "../../modules/map/UIBuilding";
 import { serialize } from "../../utils/Decorator";
 import { v2, Vec2, Node, Tween} from "cc";
-import BattleMainView from "../../modules/map/BattleMainView";
+import {BattleMainView} from "../../modules/map/BattleMainView";
 import { BoxBase }  from "../BoxBase";
 import { getMapProxy } from "../../modules/map/MapProxy";
 import { DamageRet } from "../../Interface";
-export default class Headquarters extends Building {
+export class Headquarters extends Building {
     ui:UIBuilding = null;
     @serialize()
     area:Vec2[] = [v2(0,0),v2(1,0),v2(0,1),v2(-1,0)]
@@ -15,7 +15,7 @@ export default class Headquarters extends Building {
     @serialize()
     life:number = 10000;
     lifeMax: number = 10000;
-    _pb_url:string = "prefab/map/building/headquarters";
+    _pb_url:string = "prefab/map/building/Headquarters";
     _beAtkedAction:Tween<Node> = null;
     isFail:boolean = false;
     constructor(mainView: BattleMainView) {

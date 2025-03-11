@@ -1,5 +1,5 @@
 
-import App from "../../App";
+import {App} from "../../App";
 import { Proxy }from "../base/Proxy";
 /*
  * 背包数据

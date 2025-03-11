@@ -1,4 +1,4 @@
-import BaseClass from "../zero/BaseClass";
+import {BaseClass} from "../zero/BaseClass";
 import { empty } from "../Global";
 import { Debug }   from "./Debug";
 

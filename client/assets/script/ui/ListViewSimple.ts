@@ -8,7 +8,7 @@ import { _decorator,Prefab,ScrollView,Node,NodePool, Layout, UITransform, Button
 import { Debug }   from "../utils/Debug";
 const {ccclass, property} = _decorator;
  @ccclass("ListViewSimple")
- export default class ListViewSimple extends Component{
+ export class ListViewSimple extends Component{
 
     @property(Prefab) //item template to instantiate other items
     itemTemplate = null;
