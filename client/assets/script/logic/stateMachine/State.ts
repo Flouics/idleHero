@@ -33,7 +33,7 @@ export class State {
     }
 
     getTime(){
-        return getMapProxy().getBattleTime();
+        return getMapProxy().getMapTime();
     }
 
     enter(params:any,exitParams?:any){

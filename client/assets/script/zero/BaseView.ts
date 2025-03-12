@@ -5,6 +5,7 @@ import { toolKit } from "../utils/ToolKit";
 
 import { _decorator, EventTouch, find, NodeEventType } from 'cc';
 import { BaseUI } from "./BaseUI";
+import { MapProxy } from "../modules/map/MapProxy";
 const {ccclass, property} = _decorator;
 // 需要绑定proxy的需要在此层。
 
@@ -76,7 +77,6 @@ export class BaseView extends BaseUI {
 
     onClose() {
         super.onClose();
-
     }
 
     onDisable() {

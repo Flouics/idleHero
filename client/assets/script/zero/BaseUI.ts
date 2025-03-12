@@ -7,6 +7,8 @@ import { Debug }   from "../utils/Debug";
 import { ItemBase } from "../logic/ItemBase";
 import {App} from "../App";
 import { GameComponent } from "../../../extensions/oops-plugin-framework/assets/module/common/GameComponent";
+import { oops } from "../../../extensions/oops-plugin-framework/assets/core/Oops";
+import { DelegateComponent } from "../../../extensions/oops-plugin-framework/assets/core/gui/layer/DelegateComponent";
 const {ccclass, property} = _decorator;
 
 @ccclass("BaseUI")
@@ -172,7 +174,13 @@ export class BaseUI extends GameComponent {
     }
 
     close(){
-
+        let comp = this.node.getComponent(DelegateComponent);
+        if(comp && comp.vp){
+            oops.gui.removeByNode(this.node);
+        }else{
+            //
+            console.log("需要实现自己的关闭方式");
+        }        
     }
 
     //CC 引擎的事件派发

@@ -61,7 +61,7 @@ export class AsyncTaskMgr extends BaseClass {
         }
     };
 
-    destory() {
+    destroy() {
         this.tasks = [];
     };
 };

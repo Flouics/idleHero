@@ -18,11 +18,15 @@ import {BuildTask} from "../../logic/task/BuildTask";
 import { Debug }   from "../../utils/Debug";
 import { js, Vec2 } from "cc";
 import { MercenaryMgr } from "../../manager/battle/MercenaryMgr";
-import {AugmentMgr, Augment } from "../../manager/battle/AugmentMgr";
-import {RandomDrawMgr} from "../../manager/battle/RandomDrawMgr";
 import {MapCommand} from "./MapCommand";
 import {BuffMgr} from "../../manager/battle/BuffMgr";
 import {SkillMgr} from "../../manager/battle/SkillMgr";
+import { App } from "../../App";
+import { TIME_FRAME } from "../../Global";
+
+export let MAP_EVENT = {
+    SCHEDULE_EVENT : "SCHEDULE_EVENT",
+}
 
 export class MapProxy extends Proxy {
     cmd:MapCommand;
@@ -30,13 +34,13 @@ export class MapProxy extends Proxy {
 
     attrs:{[key:string]:any} = {} 
     @serialize()
-    margin_x: number = 40;   //一边block的个数 总共为   2 * margin_x + 1
+    margin_x: number = 10;   //一边block的个数 总共为   2 * margin_x + 1
     @serialize()
-    margin_y: number = 70;   //
+    margin_y: number = 10;   //
     @serialize()
-    blockWidth: number = 10;
+    blockWidth: number = 115;
     @serialize()
-    blockHeight:number = 10;
+    blockHeight:number = 115;
     blockMap: { [k1: number]: { [k2: number]: Block } } = {};
     @serialize()
     blockMapJson = {};
@@ -66,14 +70,6 @@ export class MapProxy extends Proxy {
         return MercenaryMgr.instance;
     }    
 
-    get augmentMgr():AugmentMgr{
-        return AugmentMgr.instance;
-    }
-    
-    get randomDrawMgr():RandomDrawMgr{
-        return RandomDrawMgr.instance;
-    }
-
     get buffMgr():BuffMgr{
         return BuffMgr.instance;
     }
@@ -90,19 +86,7 @@ export class MapProxy extends Proxy {
     headquartersPos = new Vec2(0,-40);         //tilePos
 
     isPause:boolean = false;
-    battleTimeStamp:number = 0;
-    _battleCoin:number = 0;
-    get battleCoin():number {
-        return this._battleCoin;
-    }
-    set battleCoin(battleCoin:number){
-        this._battleCoin = battleCoin;
-        this.updateView("updateBattleCoin");
-    }
-    battleCoinAddPerTime:number = 2;
-    battleMercenaryCountMax = 5;
-    battleCoinInterval:number = 2000;       //2秒
-    battleCoinLastTime:number = 0;
+    battleTimeStamp:number = 0;    
 
     SCALE_MERCENARY = 0.8
     SCALE_MONSTER = 0.8
@@ -124,23 +108,18 @@ export class MapProxy extends Proxy {
 
     //方法
     init(){
-
+        this.initMapSchedule();
     }
 
-    load(){
 
+    initMapSchedule(){
+        App.task(()=>{
+            this.emitter.emit(MAP_EVENT.SCHEDULE_EVENT);
+        },TIME_FRAME,`${this.moduleName}_${MAP_EVENT.SCHEDULE_EVENT}`);
     }
 
-    getBattleTime(){
+    getMapTime(){
         return this.battleTimeStamp * 1000;
-    }
-
-    tryAddBattleCoin(dt:number){
-        var nowTime = this.getBattleTime();
-        if(nowTime > this.battleCoinLastTime){
-            this.battleCoinLastTime = nowTime +  this.battleCoinInterval;
-            this.battleCoin += this.battleCoinAddPerTime;           
-        }
     }
 
     dumpPrepare(){
@@ -236,8 +215,14 @@ export class MapProxy extends Proxy {
         return task;
     }
 
-    getBlock(x: number, y: number) {        
-        x = this.fixPosX(x);
+    getBlock(_x: number|Vec2, _y?: number) {     
+        let x = _x;
+        let y = _y; 
+        if(_x instanceof Vec2){
+            x = _x.x;
+            y = _x.y;
+        }
+        x = this.fixPosX(x as number);
         y = this.fixPosY(y); 
         // Debug.tryObject(this.blockMap[x][y], "blockList out")
         if (this.blockMap[x]) {
@@ -316,13 +301,6 @@ export class MapProxy extends Proxy {
             y = y - num;
         }
         return y;
-    }
-
-    obtainAugment(augment: Augment){       
-        if(this.battleCoin > augment.price){
-            this.battleCoin += -augment.price;
-            this.mercenaryMgr.obtainAugment(augment);
-        }        
     }
 };
 

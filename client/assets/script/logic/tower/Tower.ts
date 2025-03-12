@@ -11,7 +11,6 @@ import {TimeMgr} from "../../manager/TimeMgr";
 import { serialize } from "../../utils/Decorator";
 import {App} from "../../App";
 import { v2 } from "cc";
-import {BattleMainView} from "../../modules/map/BattleMainView";
 import { MapProxy , getMapProxy } from "../../modules/map/MapProxy";
 
 export class Tower extends Building {
@@ -23,13 +22,13 @@ export class Tower extends Building {
     towerMgr:TowerMgr = null;
     lastAttackTime:number = 0;
     mapProxy:MapProxy = null;
-    constructor(mainView: BattleMainView) {
+    constructor(mainView: MapMainView) {
         super(mainView)
         this.init()
     } 
     init(){
         //不能直接引用TowerMgr，会导致交叉引用的问题。
-        this.towerMgr = this._mainView.towerMgr;
+        this.towerMgr = TowerMgr.instance;
         this.setIdx(Tower);  
         this.atk = 1;
         this.atkRange = 100;
@@ -45,7 +44,7 @@ export class Tower extends Building {
 
     atkTarget(){
         if(this.target){
-            var nowTimeStamp = this.mapProxy.getBattleTime();
+            var nowTimeStamp = this.mapProxy.getMapTime();
             var deltaAngle = this.setDirection(this.target);
             if (Math.abs(deltaAngle) > 30){
                 return

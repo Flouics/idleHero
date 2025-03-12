@@ -5,7 +5,6 @@ import {PoolMgr} from "../manager/PoolMgr";
 import {StateMachine} from "./stateMachine/StateMachine";
 import { MercenaryMgr } from "../manager/battle/MercenaryMgr";
 import { MonsterMgr } from "../manager/battle/MonsterMgr";
-import { Augment } from "../manager/battle/AugmentMgr";
 import { toolKit } from "../utils/ToolKit";
 import { Debug }  from "../utils/Debug";
 import { Live }  from "./Live";
@@ -71,21 +70,6 @@ export class Mercenary extends Live {
             self.addSkill(skillId);
         })               
     }
-
-    onObtainAugment(data:any){
-        var self = this;
-        this.augmentList = data.augmentList;
-        var lifeMax = this.lifeMax;
-        this.cacAllAugment();
-        var deltaLife = this.lifeMax - lifeMax;
-        if(deltaLife > 0){
-            this.life += deltaLife;
-        }        
-        //重新计算技能属性
-        this.skillList.forEach(skillId => {
-            self.addSkill(skillId);
-        })     
-    }
     
     //计算增强的属性部分
     cacAllAugment(){
@@ -105,121 +89,8 @@ export class Mercenary extends Live {
         }
 
         this.skillAugmentAttrMap.clear();
-
-        this.augmentList.forEach(augmentId=> {
-            var augment = this.mapProxy.augmentMgr.getAugmentById(augmentId);
-            if(augment.type >= 200 && augment.type < 300){
-                // 技能强化的
-                if(!empty(augment.skillList)){
-                    augment.skillList.forEach((skillId)=>{
-                        var skillAttrMap = this.skillAugmentAttrMap.get(skillId)
-                        if(!skillAttrMap){
-                            skillAttrMap = {
-                                coldTime:{value:0,percent:0}            
-                                ,atkBuffList:[]
-                                ,atkTargetCount:{value:0,percent:0}
-                                ,bulletId:0
-                                ,data_1:0
-                                ,data_2:0
-                                ,data_3:0
-                            }                
-                        }
-                        this.cacAugment(augment,skillAttrMap)
-                        this.skillAugmentAttrMap.set(skillId,skillAttrMap)
-                    })
-                }
-            }else{
-                this.cacAugment(augment,attrMap)
-            }            
-        });
-
-        this.doAllAugment(attrMap);
     }
     
-    cacAugment(augment:Augment,attrMap:any){
-        if(augment.type >= 200 && augment.type < 300){
-            //技能
-            for (const key in attrMap) {
-                if (augment.hasOwnProperty(key)){
-                    if(Array.isArray(augment[key])){
-                        if(!Array.isArray(attrMap[key])){
-                            Debug.log("attrMap->",key,"is not Array")
-                        }else{
-                            if(!toolKit.empty(augment[key])){
-                                attrMap[key] = toolKit.arrayAdd(attrMap[key],augment[key]);
-                            }
-                        }
-                    }else{
-                        if(augment[key] > 0){
-                            var value = Math.floor(augment[key] / 10);
-                            var type = augment[key] % 10;
-                            if(augment.isConflict == 0){
-                                var level = this.mapProxy.augmentMgr.augmentGotLevelMap.get(augment.type) || 0;
-                                value = value * level;
-                            }
-                            if(type == 1){
-                                attrMap[key].value += value;
-                            }else if(type == 2){
-                                attrMap[key].percent += value;
-                            }else{
-                                attrMap[key].value += value;
-                            }
-                        }
-                    }
-                }            
-            }
-        }else{
-            for (const key in attrMap) {
-                if (augment.hasOwnProperty(key)){
-                    if(Array.isArray(augment[key])){
-                        if(!Array.isArray(attrMap[key])){
-                            Debug.log("attrMap->",key,"is not Array")
-                        }else{
-                            if(!toolKit.empty(augment[key])){
-                                attrMap[key] = toolKit.arrayAdd(attrMap[key],augment[key]);
-                            }
-                        }
-                    }else{
-                        if(augment[key] > 0){
-                            var value = Math.floor(augment[key] / 10);
-                            var type = augment[key] % 10;
-                            if(augment.isConflict == 0){
-                                var level = this.mapProxy.augmentMgr.augmentGotLevelMap.get(augment.type) || 0;
-                                value = value * level;
-                            }                            
-                            if(type == 1){
-                                attrMap[key].value += value;
-                            }else if(type == 2){
-                                attrMap[key].percent += value;
-                            }else{
-                                attrMap[key].value += value;
-                            }
-                        }
-                    }
-                }            
-            }
-        }
-    }
-
-    doAllAugment(attrMap:any){
-        for (const key in attrMap) {
-            if (this.hasOwnProperty(key)){
-                var attr = attrMap[key];
-                if(Array.isArray(attr)){
-                    if(!toolKit.empty(attr)){
-                        this[key] = toolKit.arrayAdd(this[key],attr);
-                    }                    
-                }else{
-                    if(attr.percent != 0 || attr.value != 0){
-                        var originValue = this.data[key];
-                        var value = originValue * (100 + attr.percent)/100 + attr.value
-                        this[key] = Math.ceil(toolKit.limitNum(value,0));
-                    }
-                }
-            }
-        }
-    }
-
     onEnterState(params:any){
         var stateId = this.stateMachine.state.id;
         switch (stateId) {
@@ -302,8 +173,8 @@ export class Mercenary extends Live {
         this.mercenaryMgr.clearMercenary(this.idx)
     }
 
-    destory(isAction = false){
+    destroy(isAction = false){
         //--todo表现
-        super.destory(isAction);     
+        super.destroy(isAction);     
     }
 }

@@ -13,6 +13,9 @@ export class UIItem extends BaseUI {
 
     _baseUrl = "texture/package/";
     _logicObj:Item = null;
+    close(){
+        
+    }
     updateUI(){
         var self = this;
         var logicObj = this._logicObj

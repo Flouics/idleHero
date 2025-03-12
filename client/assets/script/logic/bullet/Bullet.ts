@@ -39,7 +39,7 @@ export class Bullet extends BoxBase {
     static _idIndex = 1;
 
     _pb_tag:string = PoolMgr.POOL_TAG_ENUM.BULLET.tag;
-    constructor(mainView: BattleMainView,shooter:BoxBase,target:BoxBase, viewPos:Vec2,bulletData:any) {
+    constructor(shooter:BoxBase,target:BoxBase, viewPos:Vec2,bulletData:any) {
         super()
         this.shooter = shooter;
         this.target = target;
@@ -48,7 +48,6 @@ export class Bullet extends BoxBase {
         this.data_1 = bulletData.data_1;
         this.data_2 = bulletData.data_2;
         this.data_3 = bulletData.data_3;
-        this._mainView = mainView;
 
         this.setTargetMap();    
         this.init();
@@ -62,7 +61,7 @@ export class Bullet extends BoxBase {
         if(this.data.duration > 0){
             this.duration = this.data.duration;
         }
-        this.clearTime = this.mapProxy.getBattleTime() + this.duration;
+        this.clearTime = this.mapProxy.getMapTime() + this.duration;
         this.moveSpeed = this.data.moveSpeed;
         this.lifeMax = this.data.lifeMax;
         this.life = this.lifeMax;
@@ -162,9 +161,9 @@ export class Bullet extends BoxBase {
         return false;
     }
 
-    destory(){
+    destroy(){
         //--todo表现
-        super.destory();
+        super.destroy();
         this.ui.destory();  
     }
 
@@ -253,7 +252,7 @@ export class Bullet extends BoxBase {
         if(this.checkTargetIntoRange(this.target)){
             this.doAtk();
         }else{
-            if (this.clearTime < this.mapProxy.getBattleTime()){
+            if (this.clearTime < this.mapProxy.getMapTime()){
                 this.clear()
             }
         }

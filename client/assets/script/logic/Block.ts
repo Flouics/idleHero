@@ -4,7 +4,6 @@ import {UIBlock} from "../modules/map/UIBlock";
 import { Building }  from "./Building";
 import { BoxBase }  from "./BoxBase";
 import { serialize } from "../utils/Decorator";
-import {TouchUtils} from "../utils/TouchUtils";
 import { instantiate, Node, Vec2, Vec3 } from "cc";
 import { toolKit } from "../utils/ToolKit";
 import { uiKit } from "../utils/UIKit";
@@ -62,26 +61,20 @@ export class Block extends BoxBase {
         this.mapMainView = mapMainView;
     }
     initUI() {
-        if(true){
-            this.id = BLOCK_VALUE_ENUM.EMPTY;
-            return;    // 目前不需要对格子UI
-        }
         let node = instantiate(this.mapMainView.pb_block) as Node;
         node.parent = this.mapMainView.nd_mapRoot;
-        var x = this.x * this.mapMainView._blockSize.width;
-        var y = this.y * this.mapMainView._blockSize.height;
-        node.setPosition(x,y);
+        node.setPosition(this.x,this.y);
         uiKit.setScale(node,0.95);
         if(this.id == null){
-            this.id = toolKit.getRand(1,10) > 8 ? Block.BLOCK_VALUE_ENUM.BLOCK : 0;
+            this.id = toolKit.getRand(1,10) > 2 ? Block.BLOCK_VALUE_ENUM.BLOCK : 0;
         }        
         this.bindUI(node.getComponent(UIBlock));
         this.updateUI();
     }
 
     move(offsetPos:Vec2){
-        var x = this.x * this.mapMainView._blockSize.width + offsetPos.x;
-        var y = this.y * this.mapMainView._blockSize.height + offsetPos.y;
+        var x = this.x + offsetPos.x;
+        var y = this.y + offsetPos.y;
         this.node.setPosition(x,y);
     }
     createBuilding(building:Building){

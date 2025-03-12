@@ -13,8 +13,8 @@ import { Node } from "cc";
 import { ItemBase } from "./ItemBase";
 
 
-// 常用资源枚举
-export var ITEM_ID_ENUM = {
+// 常用资源ID
+export let ITEM_ID_ENUM = {
     GOLD:1,             //金币
     COIN:2,             //铜币
     SOUL:3,             //灵魂
@@ -23,7 +23,6 @@ export var ITEM_ID_ENUM = {
 }
 
 export class Item extends ItemBase {
-    static  ITEM_ID_ENUM = ITEM_ID_ENUM;
     @serialize()
     _id:number = null;   // 道具类型 
     @serialize()
@@ -65,7 +64,7 @@ export class Item extends ItemBase {
 
     _pb_tag:string = PoolMgr.POOL_TAG_ENUM.ITEM.tag;
     constructor(id:number,count:number = 0) {
-        super(Item)
+        super()
         this.idx = Item._idIndex;
         Item._idIndex += 1;
         this.id = id;
@@ -98,13 +97,12 @@ export class Item extends ItemBase {
     }
 
     clear(){
-
-        this.destory();
+        this.destroy();
     }
 
-    destory(){
+    destroy(){
         //--todo表现
-        super.destory();
+        super.destroy();
         let pool = PoolMgr.instance.getPool(this._pb_tag);
         pool.recycleItem(this.node);
     }

@@ -65,7 +65,7 @@ export class Live extends BoxBase {
     }
 
     getTime(){
-        return getMapProxy().getBattleTime();
+        return getMapProxy().getMapTime();
     }
 
     onEnterState(params:any){
@@ -353,7 +353,7 @@ export class Live extends BoxBase {
     }
 
     clear(){
-        this.destory();
+        this.destroy();
     }    
 
     isMelee(){
@@ -422,7 +422,7 @@ export class Live extends BoxBase {
     }
 
     tryUseSkill(){
-        var nowTimeStamp = this.mapProxy.getBattleTime();
+        var nowTimeStamp = this.mapProxy.getMapTime();
         if(nowTimeStamp < this.lastAttackTime){
             return;
         }
@@ -442,7 +442,7 @@ export class Live extends BoxBase {
     }
     
     atkTarget(){
-        var nowTimeStamp = this.mapProxy.getBattleTime();
+        var nowTimeStamp = this.mapProxy.getMapTime();
         if(nowTimeStamp < this.lastAttackTime){
             return;
         }
@@ -584,7 +584,7 @@ export class Live extends BoxBase {
         }
 
         //只刷新必要的数据
-        buffData.clearTime = this.mapProxy.getBattleTime() + buffData.duration;
+        buffData.clearTime = this.mapProxy.getMapTime() + buffData.duration;
         if(data_1){
             buffData.data_1 = data_1;
         }
@@ -604,7 +604,7 @@ export class Live extends BoxBase {
     }
 
     checkBuff(){
-        var nowTimeStamp = this.mapProxy.getBattleTime();
+        var nowTimeStamp = this.mapProxy.getMapTime();
         var self = this;
         this.buffMap.forEach(buffData =>{
             if(buffData.clearTime < nowTimeStamp){
@@ -621,10 +621,10 @@ export class Live extends BoxBase {
         });
     }
 
-    destory(isAction = false){
+    destroy(isAction = false){
         //--todo表现
         this.buffMap.clear();
-        super.destory();
+        super.destroy();
         if(isAction){
             this.ui?.playSkeletalAnimation(UILive.SKELETAL_ANIMATION_NAME.DIE);
         }else{

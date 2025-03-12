@@ -31,7 +31,7 @@ export class InitResSystem extends ecs.ComblockSystem implements ecs.IEntityEnte
         // 加载自定义资源
         this.loadCustom(queue);
         // 加载多语言包
-        //this.loadLanguage(queue);
+        this.loadLanguage(queue);
         // 加载公共资源
         this.loadCommon(queue);
         //加载配置文件
@@ -74,7 +74,15 @@ export class InitResSystem extends ecs.ComblockSystem implements ecs.IEntityEnte
     /** 加载公共资源（必备） */
     private loadCommon(queue: AsyncQueue) {
         queue.push((next: NextFunction, params: any, args: any) => {
-            oops.res.loadDir("common", next);
+            oops.res.loadDir("prefab/dialog/", next);
+        });
+
+        queue.push((next: NextFunction, params: any, args: any) => {
+            oops.res.loadDir("prefab/common/", next);
+        });
+
+        queue.push((next: NextFunction, params: any, args: any) => {
+            oops.res.loadDir("texture/common/", next);
         });
     }
 

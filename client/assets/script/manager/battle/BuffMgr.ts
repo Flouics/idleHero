@@ -70,7 +70,7 @@ export class BuffMgr extends BaseClass {
             return null;
         }   
         buffFunc = buffFunc.bind(this);
-        var nowTime = getMapProxy().getBattleTime();
+        var nowTime = getMapProxy().getMapTime();
         if(data.lastEffetTime < nowTime){
             data.lastEffetTime = nowTime + data.interval;
             buffFunc(owner,data,cb); 

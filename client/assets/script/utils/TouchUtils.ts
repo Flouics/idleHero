@@ -5,6 +5,10 @@ import { _decorator, Size, Vec2,Component, UITransform, view, Node, Event, Event
 import { Debug }   from './Debug';
 const {ccclass, property} = _decorator;
 
+export let TouchUtilsEvent =  {
+    click:"TouchUtilsEvent.click"
+}
+
 @ccclass("TouchUtils")
 export class TouchUtils extends Component {
     _touchStartPos: Vec2 = null;
@@ -74,7 +78,7 @@ export class TouchUtils extends Component {
         var touchEndPos = event.getLocation();
         var deltaPos = touchEndPos.add(this._touchStartPos.negative());
         if(deltaPos.length() < 20 ){
-            this.node.emit("map_click",event);
+            this.node.emit(TouchUtilsEvent.click,event);
         }else{
             var dt = (nowTimeStamp - this._lastTouchEventTime)/1000;
             if(this.calcSpeed(event, dt)){

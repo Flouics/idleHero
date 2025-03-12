@@ -53,7 +53,7 @@ export class Bullet_1010 extends Bullet {
             this.clear();
         }
 
-        var nowTime = this.mapProxy.getBattleTime()
+        var nowTime = this.mapProxy.getMapTime()
         if(this.checkTime < nowTime){
             this.checkTime = nowTime + this.checkInterval;
             this.checkTargets();

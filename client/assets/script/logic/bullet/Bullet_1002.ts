@@ -55,7 +55,7 @@ export class Bullet_1002 extends Bullet {
         if(this.checkTargetIntoRange_1002()){
             this.doAtk();
         }else{
-            if (this.clearTime < this.mapProxy.getBattleTime()){
+            if (this.clearTime < this.mapProxy.getMapTime()){
                 this.clear()
             }   
         }

@@ -5,6 +5,7 @@ import { clone, empty, nullfun } from "../Global";
 import { Debug }   from "../utils/Debug";
 import { toolKit } from "../utils/ToolKit";
 import { getTimeProxy } from "../modules/time/TimeProxy";
+import { DEBUG } from "cc/env";
 
 /** 等待实现 */
 let proto = {} as any;
@@ -208,10 +209,9 @@ export class HttpMgr extends BaseClass {
         }
     }
 
-    init(){
-        
+    init(){        
         this.sc = proto.SC.create();
-        window["sc"] = this.sc;
+        DEBUG && (window["sc"] = this.sc);
     }
 
     clear() {

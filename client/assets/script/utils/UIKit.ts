@@ -49,7 +49,6 @@ class UIKit extends BaseClass {
 
     setMercenaryImg(spt:Sprite,mercenaryId:number,cb?: Function){
         var res_url = "texture/mercenary/" + mercenaryId;
-        var pb_url = "model/prefab/mercenary/mercenary_" + mercenaryId;   
         var self = this;           
         spt.node.active = false;  
         var loadSptEx = function(spt: Sprite, res_url: string = null, cb?: Function) {
@@ -65,35 +64,11 @@ class UIKit extends BaseClass {
             });
         };
 
-        var loadPrefabEx = function (pb_url:string, cb?:Function){        
-            resources.load(pb_url, Prefab, function (err: any, prefab: any) {
-                if (!spt?.node) return;
-                if (err) {
-                    loadSptEx(spt,res_url,cb);
-                }else{
-                    spt.node.active = true;  
-                    let node = instantiate(prefab) as Node;
-                    let sptNode = spt.node as any;
-                    if(sptNode?.actor?.isValid){
-                        sptNode.actor.removeFromParent();
-                    }
-                    spt.spriteFrame = null;
-                    sptNode.addChild(node);                                       
-                    self.setScale(node,300);
-                    node.setRotationFromEuler(0,0,0);
-                    node.setPosition(0,-70,0); 
-                    self.setLayerLevelByParent(sptNode);
-                    sptNode.actor = node;
-                    if(!!cb) cb(node);
-                }
-            })
-        }
-        loadPrefabEx(pb_url,cb);
+        loadSptEx(spt,res_url,cb);
     }
 
     setMonsterImg(spt:Sprite,monsterId:number,cb?: Function){
         var res_url = "texture/monster/" + monsterId;
-        var pb_url = "model/prefab/monster/monster_" + monsterId;   
         var self = this;     
         spt.node.active = false;        
         var loadSptEx = function(spt: Sprite, res_url: string = null, cb?: Function) {
@@ -108,29 +83,7 @@ class UIKit extends BaseClass {
             });
         };
 
-        var loadPrefabEx = function (pb_url:string, cb?:Function){        
-            resources.load(pb_url, Prefab, function (err: any, prefab: any) {
-                if (err) {
-                    loadSptEx(spt,res_url,cb);
-                }else{
-                    spt.node.active = true;  
-                    let node = instantiate(prefab) as Node;
-                    let sptNode = spt.node as any;
-                    if(sptNode?.actor?.isValid){
-                        sptNode.actor.removeFromParent();
-                    }
-                    spt.spriteFrame = null;
-                    sptNode.addChild(node);                                       
-                    self.setScale(node,300);
-                    node.setRotationFromEuler(0,0,0);
-                    node.setPosition(0,-70,0); 
-                    self.setLayerLevelByParent(sptNode);
-                    sptNode.actor = node;
-                    if(!!cb) cb(node);
-                }
-            })
-        }
-        loadPrefabEx(pb_url,cb);
+        loadSptEx(spt,res_url,cb);
     }
 
     getDeltaAngle(angle_old:number,angle_new:number){
@@ -147,4 +100,4 @@ class UIKit extends BaseClass {
     }
 };
 
-export var uiKit = new UIKit(UIKit);
+export var uiKit = new UIKit();

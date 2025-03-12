@@ -1,16 +1,15 @@
 
 
-import { tween, UIOpacity, Vec3 } from "cc";
+import { Node, tween, UIOpacity, Vec3 } from "cc";
 import {App} from "../../App";
 import {Command} from "../base/Command"
 import { RewardProxy }  from "./RewardProxy";
 import {Item} from "../../logic/Item";
-import { clone } from "../../Global";
 
 export class RewardCommand extends Command{
     proxy:RewardProxy;    
     isFloating:boolean = false;
-    floatItemList = [];
+    floatItemList:Array<Item> = new Array();
 
     addRwdList(itemDataList:any[]){
         var self = this;
@@ -44,7 +43,7 @@ export class RewardCommand extends Command{
                         }
                     })
                 .call(() => {                
-                    item.ui.close();
+                    item.destroy();
                 }).start();
                 App.taskOnce(doFloatAction,500,taskKey);
             }else{

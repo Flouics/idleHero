@@ -3,7 +3,6 @@ import { BoxBase }  from "../../logic/BoxBase";
 import {BaseClass} from "../../zero/BaseClass";
 import { serialize } from "../../utils/Decorator";
 import { Node, Vec2 } from "cc";
-import {BattleMainView} from "../../modules/map/BattleMainView";
 import { Bullet }  from "../../logic/bullet/Bullet";
 import { Bullet_1001 } from "../../logic/bullet/Bullet_1001";
 import { Bullet_1010 } from "../../logic/bullet/Bullet_1010";
@@ -11,14 +10,14 @@ import { Bullet_1020 } from "../../logic/bullet/Bullet_1020";
 import { Debug }   from "../../utils/Debug";
 import { Bullet_1002 } from "../../logic/bullet/Bullet_1002";
 import { TIME_FRAME } from "../../Global";
+import { getMapProxy } from "../../modules/map/MapProxy";
 
 // 子弹管理器
 export class BulletMgr extends BaseClass {
     @serialize()
     bulletMap:Map<number,Bullet> = new Map();
     _bulletTypeClassMap = {};
-    _mainView:BattleMainView = null;
-    _nodeRoot:Node = null;
+    _nd_root:Node = null;
 
     constructor(){
         super();
@@ -35,17 +34,16 @@ export class BulletMgr extends BaseClass {
     }
     
     initSchedule(){
-        this._mainView.offScheduleEvent(this.getClassName(),this.update.bind(this));
-        this._mainView.onScheduleEvent(this.getClassName(),this.update.bind(this));
+        getMapProxy().emitter.off(this.getClassName(),this.update.bind(this));
+        getMapProxy().emitter.off(this.getClassName(),this.update.bind(this));
     }
     
     clear(){
-        this._mainView.offScheduleEvent(this.getClassName(),this.update.bind(this));
+        getMapProxy().emitter.off(this.getClassName(),this.update.bind(this));
     }
 
-    init(mainView:BattleMainView){
-        this._mainView = mainView;
-        this._nodeRoot = mainView.nd_bulletRoot;
+    init(root:Node){
+        this._nd_root = root;
         this.initBulletTypeMap();
         this.reset()
     }
@@ -63,7 +61,7 @@ export class BulletMgr extends BaseClass {
 
     reset(){
         this.bulletMap.forEach(Bullet =>{
-            Bullet.destory();
+            Bullet.destroy();
         });
         this.bulletMap.clear();
         this.initSchedule()
@@ -75,8 +73,8 @@ export class BulletMgr extends BaseClass {
             Debug.warn("bullet Class not exist.",data.type);
             return null;
         }    
-        let bullet = new BulletClass(this._mainView,shooter,target,fromViewPos,data);
-        bullet.initUI(this._nodeRoot,()=>{
+        let bullet = new BulletClass(shooter,target,fromViewPos,data);
+        bullet.initUI(this._nd_root,()=>{
             if(!!cb) cb(bullet);    
         });
         this.bulletMap.set(bullet.idx, bullet);             
@@ -85,14 +83,14 @@ export class BulletMgr extends BaseClass {
 
     refresh(){
         this.bulletMap.forEach(bullet =>{
-            bullet.initUI(this._nodeRoot);       
+            bullet.initUI(this._nd_root);       
         })
     }
 
     clearBullet(idx:number){
         let obj = this.bulletMap.get(idx);
         if(obj){
-            obj.destory();
+            obj.destroy();
         }
         this.bulletMap.delete(idx);
     }

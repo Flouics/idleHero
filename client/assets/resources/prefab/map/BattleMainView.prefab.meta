@@ -2,12 +2,12 @@
   "ver": "1.1.50",
   "importer": "prefab",
   "imported": true,
-  "uuid": "9c516770-ecef-4561-aa76-28cbd4bf9f50",
+  "uuid": "8d5db91f-9ada-45f9-b649-fab83bb5b6cc",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "DrawItem"
+    "syncNodeName": "BattleMainView"
   }
 }

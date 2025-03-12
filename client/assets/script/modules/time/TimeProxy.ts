@@ -8,6 +8,20 @@ export class TimeProxy extends Proxy {
     _timeZone:number;
     _className = "TimeProxy";  
     
+    constructor(){       
+        super();
+        TimeProxy._instance = this;
+    }
+
+    static get instance ():TimeProxy{
+        if( TimeProxy._instance){
+            return TimeProxy._instance as TimeProxy;
+        }else{
+            let instance = new TimeProxy();
+            return instance
+        }
+    }
+
     //方法
     init(){
         this.setTimeZone(8);        
@@ -28,6 +42,6 @@ export class TimeProxy extends Proxy {
 };
 
 export function getTimeProxy(): TimeProxy {
-    return TimeProxy._instance;
+    return TimeProxy.instance;
 }
 

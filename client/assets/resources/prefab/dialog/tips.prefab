@@ -332,7 +332,10 @@
       "b": 255,
       "a": 255
     },
-    "_spriteFrame": null,
+    "_spriteFrame": {
+      "__uuid__": "ef58b575-d5bd-4b6b-ac05-6364e90ff8fc@f9941",
+      "__expectedType__": "cc.SpriteFrame"
+    },
     "_type": 1,
     "_fillType": 0,
     "_sizeMode": 0,
@@ -463,9 +466,6 @@
       "__id__": 21
     },
     "is_destroy": false,
-    "isNeedBg": true,
-    "index": 499,
-    "_hasBaseInit": false,
     "lb_content": {
       "__id__": 4
     },
@@ -509,8 +509,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1440,
-      "height": 720
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",

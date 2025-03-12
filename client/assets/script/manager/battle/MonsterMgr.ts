@@ -5,7 +5,6 @@ import {App} from "../../App";
 import { Node, Vec2, Vec3 } from "cc";
 import { nullfun, TIME_FRAME } from "../../Global";
 import { Debug }   from "../../utils/Debug";
-import {BattleMainView} from "../../modules/map/BattleMainView";
 import { MapProxy , getMapProxy } from "../../modules/map/MapProxy";
 import {MapUtils} from "../../logic/MapUtils";
 import { toolKit } from "../../utils/ToolKit";
@@ -33,8 +32,7 @@ class ScheduleTask  {
 }
 export class MonsterMgr extends BaseClass {
     monsterMap:Map<number,Monster> = new Map();
-    _mainView:BattleMainView = null;
-    _nodeRoot:Node = null;
+    _nd_root:Node = null;
     _scheduleTask:ScheduleTask[] = [];
     proxy:MapProxy = null;
     waveData:any = null;
@@ -54,26 +52,25 @@ export class MonsterMgr extends BaseClass {
         }
     }
 
-    init(battleMainView:BattleMainView){
-        this._mainView = battleMainView;
-        this._nodeRoot = battleMainView.nd_roleRoot;
+    init(root:Node){
+        this._nd_root = root;
         this.proxy = getMapProxy();
         this.reset()
     }
     
     initSchedule(){
-        this._mainView.offScheduleEvent(this.getClassName(),this.update);
-        this._mainView.onScheduleEvent(this.getClassName(),this.update.bind(this));
+        getMapProxy().emitter.off(this.getClassName(),this.update);
+        getMapProxy().emitter.on(this.getClassName(),this.update.bind(this));
     }
 
     clear(){
-        this._mainView.offScheduleEvent(this.getClassName(),this.update);
+        getMapProxy().emitter.off(this.getClassName(),this.update);
     }
 
     reset(){
         this._scheduleTask = [];
         this.monsterMap.forEach(monster =>{
-            monster.destory();
+            monster.destroy();
         });
         this.monsterMap.clear();
         this.initSchedule();
@@ -115,7 +112,7 @@ export class MonsterMgr extends BaseClass {
         Debug.log("createMonster",monsterType,tilePos)
         var pos = MapUtils.getViewPosByTilePos(tilePos);
         let monster = new Monster(monsterType,pos.x,pos.y);
-        monster.initUI(this._nodeRoot,()=>{
+        monster.initUI(this._nd_root,()=>{
             if(!!task) task(monster);    
         });
         this.monsterMap.set(monster.idx, monster); 
@@ -125,11 +122,10 @@ export class MonsterMgr extends BaseClass {
     }
 
     createMultiple(monsterType:number = 0,count:number = 1,tilePos:Vec2,data = {},task?:Function){
-        var self = this;
         for (let i = 0; i < count; i++) {
-            let offsetX = (i % 2 == 0 ? 1 : -1) * Math.floor((i+1)/2) * 9;
+            let offsetX = (i % 2 == 0 ? 1 : -1) * Math.floor((i + 1)/2) * 9;
             App.asyncTaskMgr.newAsyncTask(()=>{
-                self.create(monsterType,new Vec2(tilePos.x + offsetX ,tilePos.y),task);      
+                this.create(monsterType,new Vec2(tilePos.x + offsetX ,tilePos.y),task);      
             })           
         }
     }
@@ -144,7 +140,7 @@ export class MonsterMgr extends BaseClass {
     }
 
     updateScheduleTask(){
-        var nowTime = this.proxy.getBattleTime();        
+        var nowTime = this.proxy.getMapTime();        
         for (const key in this._scheduleTask) {
             var scheduleTask = this._scheduleTask[key];
             if (nowTime > scheduleTask.lastUpdateTimeStamp){
@@ -161,14 +157,14 @@ export class MonsterMgr extends BaseClass {
 
     refresh(){
         this.monsterMap.forEach(monster =>{
-            monster.initUI(this._nodeRoot);
+            monster.initUI(this._nd_root);
         })
     }
     
     clearMonster(idx:number){
         let obj = this.monsterMap.get(idx);
         if(obj){
-            obj.destory();
+            obj.destroy();
         }
         this.monsterMap.delete(idx)
     }
@@ -177,6 +173,6 @@ export class MonsterMgr extends BaseClass {
         this.monsterMap.forEach(monster =>{
             monster.update(dt);
         })        
-        this.updateScheduleTask()
+        //this.updateScheduleTask()
     }
 }

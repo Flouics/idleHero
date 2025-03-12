@@ -61,7 +61,7 @@ class Cache extends BaseClass {
     clearCache(key:string){
         this._cacheMap[key] = null;
     }
-    destory( ){
+    destroy( ){
         this._cacheMap = {};
     }
 }

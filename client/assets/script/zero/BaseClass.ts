@@ -27,11 +27,15 @@ export class BaseClass {
         }
     }
 
+    getDbKey(){        
+        return this._classDbKey;
+    }
+
     clear(){
 
     }
 
-    destory(){
+    destroy(){
         this.clear();
         if(this._class){
             this._class.instance = null;

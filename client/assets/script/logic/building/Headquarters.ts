@@ -2,10 +2,10 @@ import { Building }  from "../Building";
 import {UIBuilding} from "../../modules/map/UIBuilding";
 import { serialize } from "../../utils/Decorator";
 import { v2, Vec2, Node, Tween} from "cc";
-import {BattleMainView} from "../../modules/map/BattleMainView";
 import { BoxBase }  from "../BoxBase";
 import { getMapProxy } from "../../modules/map/MapProxy";
 import { DamageRet } from "../../Interface";
+
 export class Headquarters extends Building {
     ui:UIBuilding = null;
     @serialize()
@@ -18,8 +18,8 @@ export class Headquarters extends Building {
     _pb_url:string = "prefab/map/building/Headquarters";
     _beAtkedAction:Tween<Node> = null;
     isFail:boolean = false;
-    constructor(mainView: BattleMainView) {
-        super(mainView);
+    constructor() {
+        super();
         this.isFail = false;
     }
 

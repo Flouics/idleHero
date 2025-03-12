@@ -4,7 +4,7 @@ import { Building }  from "./Building";
 import {PoolMgr} from "../manager/PoolMgr";
 import {StateMachine} from "./stateMachine/StateMachine";
 import {App} from "../App";
-import { Node } from "cc";
+import { Node, v2 } from "cc";
 import { MercenaryMgr } from "../manager/battle/MercenaryMgr";
 import { Mercenary } from "./Mercenary";
 import {UILive} from "../modules/map/UILive";
@@ -63,10 +63,8 @@ export class Monster extends Live {
         this.monsterMgr.clearMonster(this.idx);        
     }    
     moveToHeadquarters(){
-        var target = this.mapProxy.headquarters;
-        var nearByPos = this.getNearByPos(target.getRealArea())
-        this.target = target;
-        this.moveToPos(nearByPos);
+        var toPos = v2(this.x,this.y - 1000);
+        this.moveToPos(toPos);
     }
 
     onEnterState(params:any){
@@ -126,8 +124,8 @@ export class Monster extends Live {
         super.update(dt);
     }
 
-    destory(isAction = false){
+    destroy(isAction = false){
         //--todo表现
-        super.destory(isAction);        
+        super.destroy(isAction);        
     }
 }

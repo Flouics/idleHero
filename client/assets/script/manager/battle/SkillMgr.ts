@@ -49,7 +49,7 @@ export class SkillData{
     }
 
     isCD(){
-        var nowTime = getMapProxy().getBattleTime();
+        var nowTime = getMapProxy().getMapTime();
         return this.lastCastTime >= nowTime;
     }
 }
@@ -85,7 +85,7 @@ export class SkillMgr extends BaseClass {
                 targetList = targetList.slice(0,data.atkTargetCount - 1);
             }
             if(skillFunc(owner,targetList,data,cb)){
-                data.lastCastTime = getMapProxy().getBattleTime()  + data.coldTime;
+                data.lastCastTime = getMapProxy().getMapTime()  + data.coldTime;
                 return true
             }
             return false;

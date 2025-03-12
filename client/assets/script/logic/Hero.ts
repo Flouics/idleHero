@@ -10,7 +10,6 @@ import {App} from "../App";
 import {BuildTask} from "./task/BuildTask";
 import {CarryTask} from "./task/CarryTask";
 import { toolKit } from "../utils/ToolKit";
-import {BattleMainView} from "../modules/map/BattleMainView";
 import { MercenaryMgr } from "../manager/battle/MercenaryMgr";
 import { MonsterMgr } from "../manager/battle/MonsterMgr";
 
@@ -155,9 +154,9 @@ export class Hero extends Live {
         this.heroMgr.clearHero(this.idx)
     }
 
-    destory(){
+    destroy(){
         //--todo表现
-        super.destory();
+        super.destroy();
         let pool = PoolMgr.instance.getPool(this._pb_tag);
         pool.recycleItem(this.node);
     }

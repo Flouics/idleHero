@@ -4,16 +4,15 @@ import {Tower_1001} from "../../logic/tower/Tower_1001";
 import {BaseClass} from "../../zero/BaseClass";
 import { serialize } from "../../utils/Decorator";
 import { Node, v2 } from "cc";
-import {BattleMainView} from "../../modules/map/BattleMainView";
 import {MapUtils} from "../../logic/MapUtils";
+import { getMapProxy } from "../../modules/map/MapProxy";
 
 
 // 怪物管理器
 export class TowerMgr extends BaseClass{
     @serialize()
     towerMap:Map<number,Tower> = null;
-    _mainView:BattleMainView = null;
-    _nodeRoot:Node = null;
+    _nd_root:Node = null;
     _towerTypeClassMap = {};
     
     constructor(){
@@ -30,20 +29,19 @@ export class TowerMgr extends BaseClass{
         }
     }
 
-    init(mainView:BattleMainView){
-        this._mainView = mainView;
-        this._nodeRoot = mainView.nd_buildingRoot;
+    init(root:Node){
+        this._nd_root = root;
         this.initTowerTypeMap();
         this.reset()
     }
     
     initSchedule(){
-        this._mainView.offScheduleEvent(this.getClassName(),this.update.bind(this));
-        this._mainView.onScheduleEvent(this.getClassName(),this.update.bind(this));
+        getMapProxy().emitter.off(this.getClassName(),this.update.bind(this));
+        getMapProxy().emitter.on(this.getClassName(),this.update.bind(this));
     }
     
     clear(){
-        this._mainView.offScheduleEvent(this.getClassName(),this.update.bind(this));
+        getMapProxy().emitter.off(this.getClassName(),this.update.bind(this));
     }
 
     reset(){
@@ -66,12 +64,12 @@ export class TowerMgr extends BaseClass{
 
     create(tx: number = 0, ty: number = 0,towerType:number,task?:Function){
         let TowerClass = this.getTowerClass(towerType);
-        let tower = new TowerClass(this._mainView) as Tower;
-        tower.initUI(this._nodeRoot,()=>{
+        let tower = new TowerClass() as Tower;
+        tower.initUI(this._nd_root,()=>{
             if(!!task) task(tower);    
         });
         var pos = MapUtils.getViewPosByTilePos(v2(tx,ty))
-        tower.createBuilding(pos);
+        tower.createBuilding(this._nd_root,pos);
         this.towerMap[tower.idx] = tower;        
         return tower;
     }
@@ -79,7 +77,7 @@ export class TowerMgr extends BaseClass{
     refresh(){
         for (const key in this.towerMap) {
             if (this.towerMap.hasOwnProperty(key)) {
-                this.towerMap[key].initUI(this._nodeRoot);                
+                this.towerMap[key].initUI(this._nd_root);                
             }
         }
     }

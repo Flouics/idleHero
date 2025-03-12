@@ -3,8 +3,8 @@ import { BoxBase }  from "./BoxBase";
 import { serialize } from "./../utils/Decorator";
 import { assetManager, instantiate, loader, Node, Prefab, resources, v2, Vec2 } from "cc";
 import { Debug }   from "../utils/Debug";
-import {BattleMainView} from "../modules/map/BattleMainView";
 import { DamageRet } from "../Interface";
+import { MapMainView } from "../modules/map/MapMainView";
 
 var BUILDING_VALUE_ENUM = {
     EMPTY:0,
@@ -19,15 +19,13 @@ export class Building extends BoxBase {
     @serialize()
     realArea:Vec2[] = [v2(0,0)];   // 实际坐标系
     node: Node = null; // 
-    _mainView: BattleMainView = null;    //地图
     ui:UIBuilding = null
     @serialize()
     static _idIndex = 1;
     @serialize()
     _pb_url:string = "";    //不预先加载的原因是因为种类比较多，而且基本上不会复用。
-    constructor(mainView: BattleMainView) {
+    constructor() {
         super();
-        this._mainView = mainView;
     }
 
     initUI(parent:Node,cb?:Function) {
@@ -48,21 +46,12 @@ export class Building extends BoxBase {
         })
     }
 
-    initSchedule(){
-        this._mainView.offScheduleEvent(this._classId,this.update.bind(this));
-        this._mainView.onScheduleEvent(this._classId,this.update.bind(this));
-    }
-
-    clear(){
-        this._mainView.offScheduleEvent(this._classId,this.update.bind(this));
-    }
-    
-    createBuilding(toPos:Vec2){
+    createBuilding(parent:Node,toPos:Vec2){
         Debug.log("createBuilding",toPos)
         this.setIdx(Building);       
         this.x = toPos.x;
         this.y = toPos.y;        
-        this.initUI(this._mainView.nd_buildingRoot)       
+        this.initUI(parent);       
         var self = this; 
         this.realArea = this.area.map((pos)=>{
             var x = pos.x + self.tilePos.x;
@@ -90,9 +79,9 @@ export class Building extends BoxBase {
         return this.realArea;
     }
 
-    destory(){
+    destroy(){
         this.clear();
-        super.destory();
+        super.destroy();
         if(this.node){
             this.node.removeFromParent();
         }        

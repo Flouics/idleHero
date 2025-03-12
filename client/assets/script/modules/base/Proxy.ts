@@ -4,6 +4,7 @@ import {BaseView} from "../../zero/BaseView";
 import { Debug }   from "../../utils/Debug";
 import { getPlayerProxy } from "../player/PlayerProxy";
 import {Command} from "./Command";
+import { Emitter } from "../../zero/Emitter";
 
 export class Proxy extends BaseClass {
     viewMap:{[key:string]:any} = {};
@@ -14,6 +15,7 @@ export class Proxy extends BaseClass {
     moduleName:string = "";
     _baseUrl:string = "";
     _prefabUrl: string = "";
+    emitter:Emitter = new Emitter();
     constructor(){       
         super();
         Proxy._instance = this;
@@ -29,7 +31,6 @@ export class Proxy extends BaseClass {
             return instance
         }
     }
-
 
     setCommand<T extends Command>(command:T){
         this.cmd = command as T;
@@ -90,10 +91,6 @@ export class Proxy extends BaseClass {
             ret = App.dataMgr.findById(filename,id);            
         }
         return ret; 
-    }
-
-    getDbKey(){        
-        return this._classDbKey;
     }
 
     dumpPrepare(){

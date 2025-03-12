@@ -3,7 +3,7 @@ import {App} from "../../App";
 import {BaseView} from "../../zero/BaseView";
 
 import { Node, _decorator } from 'cc';
-import { LobbyProxy }  from "./LobbyProxy";
+import { LobbyProxy, LOBBY_MENU_ENUM }  from "./LobbyProxy";
 import {MapMainView} from "../map/MapMainView";
 import {PlayerTopInfoView} from "../player/PlayerTopInfoView";
 import { UIID_Map } from "../map/MapInit";
@@ -46,7 +46,7 @@ export class LobbyView extends BaseView {
         super.onLoad(); //BaseView继承的不要去掉这句        
         this.playerTopInfoView = this.nd_playerTopInfo.getComponent(PlayerTopInfoView);             
         this.menuView = this.nd_menuRoot.getComponent(MenuView);
-        this.menuIndex = this.proxy.MENU_ENUM.COMMON;
+        this.menuIndex = LOBBY_MENU_ENUM.COMMON;
     }
 
     onEnterBattle(){
@@ -67,10 +67,9 @@ export class LobbyView extends BaseView {
         this.nd_mapRoot && (this.nd_mapRoot.active = false);        
         this.nd_mercenary && (this.nd_mercenary.active = false);
         this.nd_package && (this.nd_package.active = false);
-        var MENU_ENUM = this.proxy.MENU_ENUM;
 
         this.menuIndex = value;
-        if (this.menuIndex == MENU_ENUM.BATTLE){                 
+        if (this.menuIndex == LOBBY_MENU_ENUM.BATTLE){                 
            this.nd_mapRoot.active = true;      
             if(!this.mapMainView){
                 let uic:UICallbacks = {
@@ -78,26 +77,23 @@ export class LobbyView extends BaseView {
                         node.removeFromParent();
                         node.parent = this.nd_mapRoot;
                         this.mapMainView = node.getComponent(MapMainView);
-                        this.mapMainView.enterStage();
                     }
                 }
                 oops.gui.open(UIID_Map.MapMainView,null,uic);
-            }else{
-                this.mapMainView.enterStage();
             }
 
             this.playerTopInfoView.setPackageItemIdList_battle();
             return;
         }
         
-        if (this.menuIndex == MENU_ENUM.COMMON){            
+        if (this.menuIndex == LOBBY_MENU_ENUM.COMMON){            
             this.nd_menuRoot.active = true;
             this.playerTopInfoView.setPackageItemIdList_common();
             return;
         }
 
 
-        if (this.menuIndex == MENU_ENUM.MERCENARY){        
+        if (this.menuIndex == LOBBY_MENU_ENUM.MERCENARY){        
             this.playerTopInfoView.setPackageItemIdList_common();
             this.nd_mercenary.active = true;    
             if(!this.mercenaryView){
@@ -113,7 +109,7 @@ export class LobbyView extends BaseView {
             return;
         }
 
-        if (this.menuIndex == MENU_ENUM.PACKAGE){       
+        if (this.menuIndex == LOBBY_MENU_ENUM.PACKAGE){       
             this.playerTopInfoView.setPackageItemIdList_common(); 
             this.nd_package.active = true;   
             if(!this.packageView){

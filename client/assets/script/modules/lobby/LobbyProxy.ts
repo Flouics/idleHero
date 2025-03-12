@@ -6,14 +6,15 @@ import {LobbyCommand} from "./LobbyCommand";
 
  */
 
+export enum LOBBY_MENU_ENUM {
+    COMMON =  0,
+    BATTLE,
+    MERCENARY,
+    PACKAGE,
+}
+
 export class LobbyProxy extends Proxy {
     cmd:LobbyCommand;
-    MENU_ENUM =  {
-        COMMON: 0,
-        BATTLE: 1,
-        MERCENARY: 2,
-        PACKAGE:3
-    }
     constructor(){       
         super();
         LobbyProxy._instance = this;

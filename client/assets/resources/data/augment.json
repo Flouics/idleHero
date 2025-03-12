@@ -23,7 +23,7 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "攻击力加成",
+        "name": "攻击力+25%",
         "isConflict": 0,
         "_id": 0,
         "desc": "友军攻击力增加25%。"
@@ -52,7 +52,7 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "冷却时间减少",
+        "name": "冷却时间-15%",
         "isConflict": 0,
         "_id": 1,
         "desc": "友军攻击力增加25%。"
@@ -81,7 +81,7 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "均衡属性增加",
+        "name": "均衡属性-10%,冷却时间-0.05秒",
         "isConflict": 0,
         "_id": 2,
         "desc": "友军攻击力增加25%。"
@@ -110,7 +110,7 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "1号攻击和速度加成",
+        "name": "{m1}攻击和速度加成",
         "isConflict": 0,
         "_id": 3,
         "desc": "友军攻击速度增加25%。"
@@ -139,7 +139,7 @@
         "data_3": 0,
         "moveSpeed": 252,
         "critPower": 0,
-        "name": "1号移动速度",
+        "name": "{m2}移动速度",
         "isConflict": 0,
         "_id": 4,
         "desc": "友军攻击速度增加25%。"
@@ -168,7 +168,7 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "2号技能目标数量强化",
+        "name": "{s100301}子弹数量+1",
         "isConflict": 0,
         "_id": 5,
         "desc": "子弹数量+1"
@@ -188,7 +188,7 @@
         "atkBuffList": [],
         "atk": 0,
         "id": 21101,
-        "power": 252,
+        "power": 602,
         "skillList": [100301],
         "level": 1,
         "atkRange": 0,
@@ -197,10 +197,68 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "2号技能伤害强化",
+        "name": "{s100301}技能伤害+60%",
         "isConflict": 0,
         "_id": 6,
+        "desc": "技能伤害+60%"
+    },
+    {
+        "maxLevel": 10,
+        "atkTargetCount": 0,
+        "mercenaryList": [2],
+        "atkCount": 0,
+        "critRate": 0,
+        "type": 220,
+        "coldTime": 0,
+        "atkSpeed": 0,
+        "lifeMax": 0,
+        "rate": 0,
+        "price": 5,
+        "atkBuffList": [],
+        "atk": 0,
+        "id": 22001,
+        "power": 0,
+        "skillList": [200201],
+        "level": 1,
+        "atkRange": 0,
+        "data_2": 0,
+        "data_1": 11,
+        "data_3": 0,
+        "moveSpeed": 0,
+        "critPower": 0,
+        "name": "{s200201}子弹数量+1",
+        "isConflict": 0,
+        "_id": 7,
         "desc": "子弹数量+1"
+    },
+    {
+        "maxLevel": 10,
+        "atkTargetCount": 0,
+        "mercenaryList": [2],
+        "atkCount": 0,
+        "critRate": 0,
+        "type": 221,
+        "coldTime": 0,
+        "atkSpeed": 0,
+        "lifeMax": 0,
+        "rate": 0,
+        "price": 5,
+        "atkBuffList": [],
+        "atk": 0,
+        "id": 22101,
+        "power": 602,
+        "skillList": [200201],
+        "level": 1,
+        "atkRange": 0,
+        "data_2": 0,
+        "data_1": 0,
+        "data_3": 0,
+        "moveSpeed": 0,
+        "critPower": 0,
+        "name": "{s200201}技能伤害+60%",
+        "isConflict": 0,
+        "_id": 8,
+        "desc": "技能伤害+60%"
     },
     {
         "maxLevel": 0,
@@ -226,9 +284,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m1}",
         "isConflict": 0,
-        "_id": 7,
+        "_id": 9,
         "desc": "友军攻击力增加25%。"
     },
     {
@@ -255,9 +313,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m2}",
         "isConflict": 0,
-        "_id": 8,
+        "_id": 10,
         "desc": "友军攻击力增加25%。"
     },
     {
@@ -284,9 +342,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m3}",
         "isConflict": 0,
-        "_id": 9,
+        "_id": 11,
         "desc": "友军攻击力增加25%。"
     },
     {
@@ -313,9 +371,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m4}",
         "isConflict": 0,
-        "_id": 10,
+        "_id": 12,
         "desc": "友军攻击力增加25%。"
     },
     {
@@ -342,9 +400,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m5}",
         "isConflict": 0,
-        "_id": 11,
+        "_id": 13,
         "desc": "友军攻击力增加25%。"
     },
     {
@@ -371,9 +429,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m6}",
         "isConflict": 0,
-        "_id": 12,
+        "_id": 14,
         "desc": "友军攻击力增加25%。"
     },
     {
@@ -400,9 +458,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m7}",
         "isConflict": 0,
-        "_id": 13,
+        "_id": 15,
         "desc": "友军攻击力增加25%。"
     },
     {
@@ -429,9 +487,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m8}",
         "isConflict": 0,
-        "_id": 14,
+        "_id": 16,
         "desc": "友军攻击力增加25%。"
     },
     {
@@ -458,9 +516,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m9}",
         "isConflict": 0,
-        "_id": 15,
+        "_id": 17,
         "desc": "友军攻击力增加25%。"
     },
     {
@@ -487,9 +545,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m10}",
         "isConflict": 0,
-        "_id": 16,
+        "_id": 18,
         "desc": "友军攻击力增加25%。"
     },
     {
@@ -516,9 +574,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m11}",
         "isConflict": 0,
-        "_id": 17,
+        "_id": 19,
         "desc": "友军攻击力增加25%。"
     },
     {
@@ -545,9 +603,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m12}",
         "isConflict": 0,
-        "_id": 18,
+        "_id": 20,
         "desc": "友军攻击力增加25%。"
     },
     {
@@ -574,9 +632,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m13}",
         "isConflict": 0,
-        "_id": 19,
+        "_id": 21,
         "desc": "友军攻击力增加25%。"
     },
     {
@@ -603,9 +661,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m14}",
         "isConflict": 0,
-        "_id": 20,
+        "_id": 22,
         "desc": "友军攻击力增加25%。"
     },
     {
@@ -632,9 +690,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m15}",
         "isConflict": 0,
-        "_id": 21,
+        "_id": 23,
         "desc": "友军攻击力增加25%。"
     },
     {
@@ -661,9 +719,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m16}",
         "isConflict": 0,
-        "_id": 22,
+        "_id": 24,
         "desc": "友军攻击力增加25%。"
     },
     {
@@ -690,9 +748,9 @@
         "data_3": 0,
         "moveSpeed": 0,
         "critPower": 0,
-        "name": "解锁雇佣者",
+        "name": "解锁{m17}",
         "isConflict": 0,
-        "_id": 23,
+        "_id": 25,
         "desc": "友军攻击力增加25%。"
     }
 ]}

@@ -149,9 +149,8 @@ export class ItemBase extends BaseClass {
     onDestroy(ui?:BaseUI) {
         this.ui = null
     }
-
     
-    destory(){
+    destroy(){
         this.isDestroy = true;
     }
 }

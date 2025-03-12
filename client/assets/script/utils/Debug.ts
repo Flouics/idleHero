@@ -1,4 +1,4 @@
-import { assert, error, log, warn } from "cc";
+import { assert, error, log, warn, __private } from "cc";
 
 export class Debug {
     static tryObject(obj: any, errorString?: string) {
@@ -17,18 +17,18 @@ export class Debug {
         log("================================================")
     }
 
-    static warn(...args: any){
-        warn(args);
+    static warn(...args: any[]){
+        warn(...args);
     }
 
-    static log(...args: any){
-        log(args);
+    static log(...args: any[]){
+        log(...args);
     }
 
-    static error(...args: any){
-        error(args);
+    static error(...args: any[]){
+        error(...args);
     }
-    static assert(...args: any){
-        return assert(args);
+    static assert(condition: boolean, message?: string,...args: __private._cocos_core_platform_debug__StringSubstitution[]){
+        return assert(condition,message,...args);
     }
 }

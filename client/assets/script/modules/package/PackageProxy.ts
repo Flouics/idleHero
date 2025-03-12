@@ -1,7 +1,7 @@
 
 
 import {App} from "../../App";
-import {Item} from "../../logic/Item";
+import {Item, ITEM_ID_ENUM} from "../../logic/Item";
 import { serialize } from "../../utils/Decorator";
 import { toolKit } from "../../utils/ToolKit";
 import { Proxy }from "../base/Proxy";
@@ -201,7 +201,7 @@ export class PackageProxy extends Proxy {
     }
 
     settleStaminaRwd(){
-        var item = this.getItemById(Item.ITEM_ID_ENUM.STAMINA);
+        var item = this.getItemById(ITEM_ID_ENUM.STAMINA);
         if(item.count >= FREE_STAMINA_REWARD.MAX_VALUE){
             this.lastStaminaTimeStamp = 0;
             return;
