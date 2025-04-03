@@ -11,24 +11,14 @@
       "platform": "web-mobile",
       "scenes": [
         {
-          "url": "db://assets/resources/scenes/errorprint.scene",
-          "uuid": "5db6e65d-a8d5-42b8-ad71-3147646014cd",
-          "bundle": "db://assets/resources"
-        },
-        {
           "url": "db://assets/resources/scenes/game.scene",
           "uuid": "431e0475-73a8-419f-a415-e85a3206ce9f",
-          "bundle": "db://assets/resources"
-        },
-        {
-          "url": "db://assets/resources/scenes/launch.scene",
-          "uuid": "38ef32d8-8398-4003-bf59-a2608d3a6253",
           "bundle": "db://assets/resources"
         }
       ],
       "startScene": "38ef32d8-8398-4003-bf59-a2608d3a6253",
       "sourceMaps": true,
-      "name": "idleCastle"
+      "name": "idleHero"
     },
     "taskOptionsMap": {
       "1721302691379": {
@@ -53,9 +43,10 @@
         "orientation": "auto",
         "embedWebDebugger": false,
         "cullEngineAsmJsModule": false,
-        "__version__": "1.0.1"
+        "__version__": "1.0.1",
+        "useWebGPU": false
       }
     },
-    "__version__": "1.3.7"
+    "__version__": "1.3.8"
   }
 }

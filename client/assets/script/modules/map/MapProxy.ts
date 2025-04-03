@@ -3,7 +3,7 @@
  */
 
 import { Proxy }from "../base/Proxy";
-import {Block} from "../../logic/Block";
+import {Block, BLOCK_FLAG_ENUM, BLOCK_CROSS_VALUE} from "../../logic/Block";
 import { Building }  from "../../logic/Building";
 import {DigTask} from "../../logic/task/DigTask";
 import {TaskBase} from "../../logic/TaskBase";
@@ -22,10 +22,10 @@ import {MapCommand} from "./MapCommand";
 import {BuffMgr} from "../../manager/battle/BuffMgr";
 import {SkillMgr} from "../../manager/battle/SkillMgr";
 import { App } from "../../App";
-import { TIME_FRAME } from "../../Global";
+import { getTimeFrame } from "../../Global";
 
-export let MAP_EVENT = {
-    SCHEDULE_EVENT : "SCHEDULE_EVENT",
+export let MapProxy_event = {
+    MapProxy_update : "MapProxy_update",
 }
 
 export class MapProxy extends Proxy {
@@ -34,9 +34,9 @@ export class MapProxy extends Proxy {
 
     attrs:{[key:string]:any} = {} 
     @serialize()
-    margin_x: number = 10;   //一边block的个数 总共为   2 * margin_x + 1
+    margin_x: number = 6;   //一边block的个数 总共为   2 * margin_x + 1
     @serialize()
-    margin_y: number = 10;   //
+    margin_y: number = 6;   //
     @serialize()
     blockWidth: number = 115;
     @serialize()
@@ -81,9 +81,9 @@ export class MapProxy extends Proxy {
     task:TaskBase[] = [];
     taskMap = {}
 
-    monsterEntryPos = new Vec2(0, 60);          //tilePos
-    mercenaryEntryPos = new Vec2(0, -30);       //tilePos
-    headquartersPos = new Vec2(0,-40);         //tilePos
+    monsterEntryPos = new Vec2(0, 6);          //tilePos
+    mercenaryEntryPos = new Vec2(0, -3);       //tilePos
+    headquartersPos = new Vec2(0,-4);         //tilePos
 
     isPause:boolean = false;
     battleTimeStamp:number = 0;    
@@ -108,14 +108,13 @@ export class MapProxy extends Proxy {
 
     //方法
     init(){
-        this.initMapSchedule();
+    
     }
 
+    update(dt:number){
+        !this.isPause && (this.battleTimeStamp += dt);
 
-    initMapSchedule(){
-        App.task(()=>{
-            this.emitter.emit(MAP_EVENT.SCHEDULE_EVENT);
-        },TIME_FRAME,`${this.moduleName}_${MAP_EVENT.SCHEDULE_EVENT}`);
+        this.emit(MapProxy_event.MapProxy_update,dt);
     }
 
     getMapTime(){
@@ -172,9 +171,9 @@ export class MapProxy extends Proxy {
             var key = this.getTaskMapKey(task);
             this.taskMap[key] = task;
             if(task instanceof DigTask){
-                var block = this.getBlock(task.pos.x,task.pos.y)
+                var block = this.getBlock(task.tilePos.x,task.tilePos.y)
                 if(block){
-                    block.setFlag(Block.BLOCK_FLAG_ENUM.DIG);
+                    block.setFlag(BLOCK_FLAG_ENUM.DIG);
                 }
             }
         }
@@ -183,16 +182,18 @@ export class MapProxy extends Proxy {
     getTaskMapKey(task:TaskBase){
         var key = ""
         if(task instanceof DigTask || task instanceof BuildTask){
-            key = js.formatStr("%s_%s_%s",task.type,task.pos.x,task.pos.y)
+            key = js.formatStr("%s_%s_%s",task.type,task.tilePos.x,task.tilePos.y)
         }else{
             key = js.formatStr("%s_%s_%s",task.type,task.id)
         }
         return key;
     }
+
     checkTask(task:TaskBase){
         var key = this.getTaskMapKey(task);
         return !this.taskMap[key]
     }
+
     delTask(task:TaskBase){
         var taskList = this.task;
         var ret = false;
@@ -206,101 +207,111 @@ export class MapProxy extends Proxy {
             }
         }
         var key = this.getTaskMapKey(task);
-        this.taskMap[key] = null;
+        delete this.taskMap[key];
         return ret;
     }
 
     shiftTask(){
-        var task = this.task.shift()
+        var task = this.task.shift();
+        if(task){
+            var key = this.getTaskMapKey(task);
+            delete this.taskMap[key];
+        }
         return task;
     }
 
-    getBlock(_x: number|Vec2, _y?: number) {     
-        let x = _x;
-        let y = _y; 
-        if(_x instanceof Vec2){
-            x = _x.x;
-            y = _x.y;
+    getBlock(_tx: number|Vec2, _ty?: number) {     
+        let tx = _tx;
+        let ty = _ty; 
+        if(_tx instanceof Vec2){
+            tx = _tx.x;
+            ty = _tx.y;
         }
-        x = this.fixPosX(x as number);
-        y = this.fixPosY(y); 
+        tx = this.fixPosX(tx as number);
+        ty = this.fixPosY(ty); 
         // Debug.tryObject(this.blockMap[x][y], "blockList out")
-        if (this.blockMap[x]) {
-            return this.blockMap[x][y];
+        if (this.blockMap[tx]) {
+            return this.blockMap[tx][ty];
         } else {
             return null
         }
     }
 
     checkBlock(pos: Vec2) {
-        var block = this.getBlock(pos.x,pos.y)
+        var tilePos = MapUtils.getTilePosByViewPos(pos);
+        var block = this.getBlock(tilePos.x,tilePos.y);
         if (block) {
-            return ((block.id | Block.CROSS_VALUE) == 0 && block.buildingId == 0)
+            return (block.id == BLOCK_CROSS_VALUE && block.buildingId == 0)
         } else {
             return false;
         }
     }
 
     //避免遍历死循环。
-    checkBlockRoute(pos: Vec2) {
+    checkBlockRoute(tilePos: Vec2) {
         var max_x =  this.margin_x * 2 + 1;
         var max_y =  this.margin_y * 2 + 1;
-        var x = pos.x;
-        var y = pos.y;
-        if (x <= -max_x || x >=  max_x){
+        var tx = tilePos.x;
+        var ty = tilePos.y;
+        if (tx <= -max_x || tx >=  max_x){
             return false
         }
 
-        if (y <= -max_y || y >=  max_y){
+        if (ty <= -max_y || ty >=  max_y){
             return false
         }
 
-        var block = this.getBlock(pos.x,pos.y)
+        var block = this.getBlock(tilePos.x,tilePos.y)
         if (block) {
-            return ((block.id | Block.CROSS_VALUE) == 0 && block.buildingId == 0)
+            return (block.id == BLOCK_CROSS_VALUE && block.buildingId == 0)
         } else {
             return false;
         }
     }
 
-
-    getBuilding(x: number, y: number) {        
-        x = this.fixPosX(x);
-        y = this.fixPosY(y); 
+    getBuilding(_tx?: number|Vec2, _ty?: number) {    
+        let tx = _tx;
+        let ty = _ty; 
+        if(_tx instanceof Vec2){
+            tx = _tx.x;
+            ty = _tx.y;
+        }    
+        tx = this.fixPosX(tx as number);
+        ty = this.fixPosY(ty); 
         // Debug.tryObject(this.blockMap[x][y], "blockList out")
-        if (this.buildingMap[x]) {
-            return this.buildingMap[x][y];
+        if (this.buildingMap[tx]) {
+            return this.buildingMap[tx][ty];
         } else {
             return null
         }
     }
 
-    fixPosX(x: number){
+    fixPosX(tx: number){
         var num =  this.margin_x * 2 + 1;
-        x = x % num;
-        if(x >= -this.margin_x && x <= this.margin_x){
-            return x;
+        tx = tx % num;
+        if(tx >= -this.margin_x && tx <= this.margin_x){
+            return tx;
         }
-        if(x < -this.margin_x){
-            x = x + num;
-        }else if(x > this.margin_x){
-            x = x - num;
+        if(tx < -this.margin_x){
+            tx = tx + num;
+        }else if(tx > this.margin_x){
+            tx = tx - num;
         }
-        return x;
+        return tx;
     }
 
-    fixPosY(y: number){
+    fixPosY(ty: number){
         var num =  this.margin_y * 2 + 1;
-        y = y % num;
-        if(y >= -this.margin_y && y <= this.margin_y){
-            return y;
+        ty = ty % num;
+        if(ty >= -this.margin_y && ty <= this.margin_y){
+            return ty;
         }
-        if(y < -this.margin_y){
-            y = y + num;
-        }else if(y > this.margin_y){
-            y = y - num;
+        if(ty < -this.margin_y){
+            ty = ty + num;
+        }else if(ty > this.margin_y){
+            ty = ty - num;
         }
-        return y;
+        return ty;
     }
 };
 

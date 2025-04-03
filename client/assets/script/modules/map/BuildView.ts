@@ -21,9 +21,8 @@ export class BuildView extends BaseView {
     }
 
     initEvents(){
-        this.regClickEvent("UIBuildItem.onCLickBtn",(event:CCEvent)=>{
-            var data = event.detail;            
-        });
+        this.on("UIBuildItem.onCLickBtn",()=>{         
+        },this);
     }
 
     async initBuildListView(){

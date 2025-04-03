@@ -3,7 +3,7 @@ import { BaseClass } from "../../zero/BaseClass";
 import { serialize } from "../../utils/Decorator";
 import { Node } from "cc";
 import { Mine } from "../../logic/Mine";
-import { getMapProxy } from "../../modules/map/MapProxy";
+import { getMapProxy, MapProxy_event } from "../../modules/map/MapProxy";
 
 
 // 角色管理器
@@ -42,12 +42,13 @@ export class MineMgr extends BaseClass{
     }
 
     initSchedule(){
-        getMapProxy().emitter.off(this.getClassName(),this.update.bind(this));
-        getMapProxy().emitter.on(this.getClassName(),this.update.bind(this));
+        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
+        getMapProxy().on(MapProxy_event.MapProxy_update,this.update,this);
     }
 
     clear(){
-        getMapProxy().emitter.off(this.getClassName(),this.update.bind(this));
+        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
+        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
     }
 
     create( x: number = 0, y: number = 0){

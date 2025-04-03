@@ -1,7 +1,7 @@
 import { BoxBase }  from "../BoxBase";
 import {UIBullet} from "../../modules/map/UIBullet";
 import { MapProxy , getMapProxy } from "../../modules/map/MapProxy";
-import {PoolMgr} from "../../manager/PoolMgr";
+import {PoolMgr, POOL_TAG_ENUM} from "../../manager/PoolMgr";
 import {MapUtils} from "../MapUtils";
 import { BulletMgr }  from "../../manager/battle/BulletMgr";
 import { Node, v2, Vec2 } from "cc";
@@ -38,7 +38,7 @@ export class Bullet extends BoxBase {
 
     static _idIndex = 1;
 
-    _pb_tag:string = PoolMgr.POOL_TAG_ENUM.BULLET.tag;
+    _pb_tag:string = POOL_TAG_ENUM.BULLET.tag;
     constructor(shooter:BoxBase,target:BoxBase, viewPos:Vec2,bulletData:any) {
         super()
         this.shooter = shooter;

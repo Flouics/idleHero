@@ -13,6 +13,10 @@
       "windows": {
         "configID": "5d531a",
         "services": []
+      },
+      "android": {
+        "configID": "5d531a",
+        "services": []
       }
     },
     "taskOptionsMap": {

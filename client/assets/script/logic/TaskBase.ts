@@ -14,5 +14,5 @@ export class TaskBase extends BaseClass {
     index:number = 0;
     static _idIndex = 1;
     type:number = 0;
-    pos:Vec2 = new Vec2(0,0);
+    tilePos:Vec2 = new Vec2(0,0);
 }

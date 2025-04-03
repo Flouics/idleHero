@@ -8,7 +8,7 @@ import { Bullet_1020 } from "../../logic/bullet/Bullet_1020";
 import { Bullet } from "../../logic/bullet/Bullet";
 import { math, tween } from "cc";
 import { toolKit } from "../../utils/ToolKit";
-import {StateMachine} from "../../logic/stateMachine/StateMachine";
+import {STATE_ENUM} from "../../logic/stateMachine/StateMachine";
 
 export class SkillData{
     id:number = 0;
@@ -220,10 +220,10 @@ export class SkillMgr extends BaseClass {
                 var dirV2 = target.pos.subtract(owner.pos);
                 var dirValue = toolKit.parseVec2ToNumNormalize(dirV2);
                 var self = this;
-                owner.stateMachine.switchState(StateMachine.STATE_ENUM.ASSAULT,null,{cb:()=>{
+                owner.stateMachine.switchState(STATE_ENUM.ASSAULT,null,{cb:()=>{
                     self.baseSkillAtk(owner,[target],data);        
                     self.baseSkillBuff(owner,[target],data,dirValue);
-                    owner.stateMachine.switchState(StateMachine.STATE_ENUM.ATTACK)
+                    owner.stateMachine.switchState(STATE_ENUM.ATTACK)
                 }});
             }
             return true;

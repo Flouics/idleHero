@@ -3,11 +3,12 @@ import { Monster } from "../../logic/Monster";
 import {BaseClass} from "../../zero/BaseClass";
 import {App} from "../../App";
 import { Node, Vec2, Vec3 } from "cc";
-import { nullfun, TIME_FRAME } from "../../Global";
+import { nullfun, getTimeFrame } from "../../Global";
 import { Debug }   from "../../utils/Debug";
-import { MapProxy , getMapProxy } from "../../modules/map/MapProxy";
+import { MapProxy , getMapProxy, MapProxy_event } from "../../modules/map/MapProxy";
 import {MapUtils} from "../../logic/MapUtils";
 import { toolKit } from "../../utils/ToolKit";
+import { STATE_ENUM } from "../../logic/stateMachine/StateMachine";
 
 // 怪物管理器
 class ScheduleTask  {
@@ -59,12 +60,13 @@ export class MonsterMgr extends BaseClass {
     }
     
     initSchedule(){
-        getMapProxy().emitter.off(this.getClassName(),this.update);
-        getMapProxy().emitter.on(this.getClassName(),this.update.bind(this));
+        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
+        getMapProxy().on(MapProxy_event.MapProxy_update,this.update,this);
     }
 
     clear(){
-        getMapProxy().emitter.off(this.getClassName(),this.update);
+        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
+        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
     }
 
     reset(){
@@ -92,7 +94,7 @@ export class MonsterMgr extends BaseClass {
                 var count = 1;
                 var monsterEntryPos = new Vec2(self.proxy.monsterEntryPos.x + toolKit.getRand(-10,10),self.proxy.monsterEntryPos.y)
                 self.createMultiple(monsterId,count, monsterEntryPos, (monster: Monster) => {
-                    //monster.moveToHeadquarters();
+                    monster.stateMachine.switchState(STATE_ENUM.IDLE);
                 });  
             });             
         }      

@@ -2,8 +2,7 @@ import {MapMainView} from "../modules/map/MapMainView";
 import {MapUtils} from "./MapUtils";
 import { MapProxy }  from "../modules/map/MapProxy";
 import { serialize } from "../utils/Decorator";
-import {PoolMgr} from "../manager/PoolMgr";
-import {StateMachine} from "./stateMachine/StateMachine";
+import {PoolMgr, POOL_TAG_ENUM} from "../manager/PoolMgr";
 import {App} from "../App";
 import {DataMgr} from "../manager/DataMgr";
 import {UIItem} from "../modules/package/UIItem";
@@ -62,7 +61,7 @@ export class Item extends ItemBase {
 
     static _idIndex = 1;
 
-    _pb_tag:string = PoolMgr.POOL_TAG_ENUM.ITEM.tag;
+    _pb_tag:string = POOL_TAG_ENUM.ITEM.tag;
     constructor(id:number,count:number = 0) {
         super()
         this.idx = Item._idIndex;

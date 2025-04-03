@@ -37,7 +37,7 @@ export class TouchUtils extends Component {
         }
         this._touchSize.width = touchSize.width;
         this._touchSize.height = touchSize.height;
-        this._viewSize = view.getVisibleSize();
+        this._viewSize = this.node.parent?.getComponent(UITransform)?.contentSize;
         this._x_min = -this._touchSize.width/2 + this._viewSize.width/2;
         this._x_max = this._touchSize.width/2 - this._viewSize.width/2;
         this._y_min = -this._touchSize.height/2 + this._viewSize.height/2;

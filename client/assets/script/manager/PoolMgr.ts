@@ -84,10 +84,10 @@ export class PoolItemEnum {
     }
 };
 
-var POOL_TAG_ENUM = {
+export let POOL_TAG_ENUM = {
     MONSTER: new PoolItemEnum("monster","prefab/map/UIMonster","UIMonster")
     ,MERCENARY: new PoolItemEnum("mercenary","prefab/map/UIMercenary","UIMercenary")
-    //,HERO:new PoolItemEnum("hero","prefab/map/UIhero","UIHero")
+    ,HERO:new PoolItemEnum("hero","prefab/map/UIHero","UIHero")
     ,ITEM:new PoolItemEnum("item","prefab/package/UIItem","UIItem")
     ,BULLET:new PoolItemEnum("bullet","prefab/map/bullet/UIBullet","UIBullet")
     ,BULLET_1001:new PoolItemEnum("bullet_1001","prefab/map/bullet/UIBullet_1001","UIBullet_1001")
@@ -96,7 +96,6 @@ var POOL_TAG_ENUM = {
 
 export class PoolMgr extends BaseClass {
     poolMap:{[key:string]:Pool} = {};
-    static POOL_TAG_ENUM = POOL_TAG_ENUM;
 
     constructor(){
         super();

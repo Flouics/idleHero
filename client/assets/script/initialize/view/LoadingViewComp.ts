@@ -61,16 +61,11 @@ export class LoadingViewComp extends CCVMParentComp {
     }
 
     private addEvent() {
-        this.on(GameEvent.LoginSuccess, this.onHandler, this);
+        this.on(GameEvent.LoginSuccess, this.onLoginSuccess, this);
     }
 
-    private onHandler(event: string, args: any) {
-        switch (event) {
-            case GameEvent.LoginSuccess:
-                // 加载流程结束，移除加载提示界面
-                this.ent.remove(LoadingViewComp);
-                break;
-        }
+    private onLoginSuccess(args: any) {
+        this.ent.remove(LoadingViewComp);
     }
 
     /** 加载资源 */
@@ -86,8 +81,8 @@ export class LoadingViewComp extends CCVMParentComp {
         this.data.prompt = oops.language.getLangByID("loading_load_json");
 
         return new Promise(async (resolve, reject) => {
-            await JsonUtil.loadAsync(TableRoleJob.TableName);
-            await JsonUtil.loadAsync(TableRoleLevelUp.TableName);
+            //await JsonUtil.loadAsync(TableRoleJob.TableName);
+            //await JsonUtil.loadAsync(TableRoleLevelUp.TableName);
             resolve(null);
         });
     }
@@ -97,7 +92,7 @@ export class LoadingViewComp extends CCVMParentComp {
         // 加载初始游戏内容资源的多语言提示文本
         this.data.prompt = oops.language.getLangByID("loading_load_game");
 
-        oops.res.loadDir("game", this.onProgressCallback.bind(this), this.onCompleteCallback.bind(this));
+        oops.res.loadDir("dialog", this.onProgressCallback.bind(this), this.onCompleteCallback.bind(this));
     }
 
     /** 加载进度事件 */

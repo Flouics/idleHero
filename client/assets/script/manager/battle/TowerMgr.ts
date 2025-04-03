@@ -5,7 +5,7 @@ import {BaseClass} from "../../zero/BaseClass";
 import { serialize } from "../../utils/Decorator";
 import { Node, v2 } from "cc";
 import {MapUtils} from "../../logic/MapUtils";
-import { getMapProxy } from "../../modules/map/MapProxy";
+import { getMapProxy, MapProxy_event } from "../../modules/map/MapProxy";
 
 
 // 怪物管理器
@@ -36,12 +36,12 @@ export class TowerMgr extends BaseClass{
     }
     
     initSchedule(){
-        getMapProxy().emitter.off(this.getClassName(),this.update.bind(this));
-        getMapProxy().emitter.on(this.getClassName(),this.update.bind(this));
+        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
+        getMapProxy().on(MapProxy_event.MapProxy_update,this.update,this);
     }
     
     clear(){
-        getMapProxy().emitter.off(this.getClassName(),this.update.bind(this));
+        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
     }
 
     reset(){
@@ -90,10 +90,10 @@ export class TowerMgr extends BaseClass{
         delete this.towerMap[idx]
     }
 
-    update(){
+    update(dt:number){
         for (const key in this.towerMap) {
             if (this.towerMap.hasOwnProperty(key)) {
-                this.towerMap[key].update()                
+                this.towerMap[key].update(dt);                
             }
         }
     }

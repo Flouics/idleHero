@@ -88,8 +88,7 @@ export class BoxBase extends ItemBase {
         }
     }    
 
-    getTileDistance(toPos:Vec2){
-        var tilePos = MapUtils.getTilePosByViewPos(toPos);
+    getTileDistance(tilePos:Vec2){
         var abs_delta_x = Math.abs(this.tx - tilePos.x);
         var abs_delta_y = Math.abs(this.ty - tilePos.y);
         return Math.sqrt(abs_delta_x * abs_delta_x  + abs_delta_y * abs_delta_y);

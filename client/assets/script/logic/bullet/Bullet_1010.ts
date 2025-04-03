@@ -1,11 +1,11 @@
 import { Node, Size, UITransform } from "cc";
 import { Bullet }  from "./Bullet";
 import { BoxBase }  from "../BoxBase";
-import {PoolMgr} from "../../manager/PoolMgr";
+import {POOL_TAG_ENUM} from "../../manager/PoolMgr";
 
 //激光
 export class Bullet_1010 extends Bullet {    
-    _pb_tag:string = PoolMgr.POOL_TAG_ENUM.BULLET_1010.tag;
+    _pb_tag:string = POOL_TAG_ENUM.BULLET_1010.tag;
 
     checkInterval:number = 200; //200毫秒检测一次
     checkTime:number = 0

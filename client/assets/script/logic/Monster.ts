@@ -1,17 +1,17 @@
 import { Live }  from "./Live";
 import { MonsterMgr } from "../manager/battle/MonsterMgr";
 import { Building }  from "./Building";
-import {PoolMgr} from "../manager/PoolMgr";
-import {StateMachine} from "./stateMachine/StateMachine";
+import {PoolMgr, POOL_TAG_ENUM} from "../manager/PoolMgr";
+import {StateMachine,STATE_ENUM} from "./stateMachine/StateMachine";
 import {App} from "../App";
-import { Node, v2 } from "cc";
+import { Node, v2, Vec2 } from "cc";
 import { MercenaryMgr } from "../manager/battle/MercenaryMgr";
 import { Mercenary } from "./Mercenary";
 import {UILive} from "../modules/map/UILive";
 export class Monster extends Live {
     baseMoveSpeed: number = 30;    //1秒
     static _idIndex = 100000;
-    _pb_tag:string = PoolMgr.POOL_TAG_ENUM.MONSTER.tag;
+    _pb_tag:string = POOL_TAG_ENUM.MONSTER.tag;
     target:Live|Building = null;
     monsterMgr:MonsterMgr = null;
     mercenaryMgr:MercenaryMgr = null;
@@ -64,7 +64,7 @@ export class Monster extends Live {
     }    
     moveToHeadquarters(){
         var toPos = v2(this.x,this.y - 1000);
-        this.moveToPos(toPos);
+        this.moveToTilePos(toPos);
     }
 
     onEnterState(params:any){
@@ -79,10 +79,10 @@ export class Monster extends Live {
     onState(dt:number,params:any){
         var stateId = this.stateMachine.state.id;
         switch (stateId) {
-            case StateMachine.STATE_ENUM.IDLE:                
+            case STATE_ENUM.IDLE:                
                 this.moveToHeadquarters();
                 break;
-            case StateMachine.STATE_ENUM.ATTACK:
+            case STATE_ENUM.ATTACK:
                 this.atkTarget();
                 break;
             default:
@@ -95,12 +95,16 @@ export class Monster extends Live {
         var mercenaryMap = this.mercenaryMgr.mercenaryMap;
         var targetList = this.findTargetsByGroup(mercenaryMap);
         var target = targetList.shift();
+
         if(!target){            
-            if(this.checkCrossBuilding(this.mapProxy.headquarters)){
+/*             if(this.checkCrossBuilding(this.mapProxy.headquarters)){
                 target = this.mapProxy.headquarters;
                 targetList = [];
-            }
+            } */
+            target = mercenaryMap.entries().next()?.value;
+            targetList = [];
         }
+
         if(!!target){
             this.target = target;
             this.targetExtraList = targetList;
@@ -124,8 +128,12 @@ export class Monster extends Live {
         super.update(dt);
     }
 
+    getMoveRoute(toPos:Vec2){       
+        return [toPos];             // 直接取终点。不存在障碍，直接取终点
+    }
+
     destroy(isAction = false){
         //--todo表现
-        super.destroy(isAction);        
+        super.destroy();        
     }
 }

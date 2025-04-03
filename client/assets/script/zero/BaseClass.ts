@@ -3,7 +3,6 @@ import {UUID} from "../utils/UUID";
 
 export class BaseClass {
     _classDbKey:string;
-    _class = null;
     _classId: string = "";
     _className:string = "";
     static _instance = null;       
@@ -37,9 +36,6 @@ export class BaseClass {
 
     destroy(){
         this.clear();
-        if(this._class){
-            this._class.instance = null;
-        }
     }
 
     getClassName(){

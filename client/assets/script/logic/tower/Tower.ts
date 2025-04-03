@@ -22,8 +22,8 @@ export class Tower extends Building {
     towerMgr:TowerMgr = null;
     lastAttackTime:number = 0;
     mapProxy:MapProxy = null;
-    constructor(mainView: MapMainView) {
-        super(mainView)
+    constructor() {
+        super()
         this.init()
     } 
     init(){
@@ -34,7 +34,6 @@ export class Tower extends Building {
         this.atkRange = 100;
         this.mapProxy = getMapProxy();
         this.setBullet(this.bulletId);
-        this.initSchedule();
     }
 
     setBullet(bulletId:number){

@@ -10,7 +10,7 @@ export enum UIID_Template {
 
 /** 打开界面方式的配置数据 */
 var UIConfigData: { [key: number]: UIConfig } = {
-
+    
 }
 
 export class TimeInit extends Init {

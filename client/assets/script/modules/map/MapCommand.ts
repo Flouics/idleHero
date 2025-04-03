@@ -1,12 +1,12 @@
 
 import {Command} from "../base/Command"
 import { MapProxy }  from "./MapProxy";
-import {Block} from "../../logic/Block";
+import { Block, BLOCK_VALUE_ENUM} from "../../logic/Block";
 import {TaskBase} from "../../logic/TaskBase";
 import { toolKit } from "../../utils/ToolKit";
-import { Augment } from "../../manager/battle/AugmentMgr";
 import { nullfun } from "../../Global";
 import { UIID_Map } from "./MapInit";
+import { Vec2 } from "cc";
 
 export class MapCommand extends Command{
     proxy:MapProxy;
@@ -16,30 +16,27 @@ export class MapCommand extends Command{
         this.proxy.pushTask(task)
     }
 
-    digBlock(params:any){
-        var pos = params.tilePos || {}
-        var block = this.proxy.getBlock(pos.x,pos.y)
-        if(block && block.checkType(Block.BLOCK_VALUE_ENUM.BLOCK)){
+    digBlock(params:{tilePos?:Vec2,block?:Block}){
+        var pos = params.tilePos;
+        var block = params.block;
+        if(!block && params.tilePos){
+            block = this.proxy.getBlock(pos.x,pos.y);
+        }        
+        if(block && block.checkType(BLOCK_VALUE_ENUM.BLOCK)){
             block.onDig()
             this.proxy.updateView("digBlock", params);
         }        
     }
 
-    drawRandom(drawItem: Augment){
-        this.proxy.augmentMgr.obtainAugment(drawItem.id);
-        this.proxy.updateView("onGetDrawResult",drawItem);
-        this.proxy.randomDrawMgr.onGetDrawResult(drawItem);
-    }
-
     buildTower(params:any){
-        var pos = params.tilePos || {}
-        var block = this.proxy.getBlock(pos.x,pos.y)
+        var tilePos = params.tilePos || {}
+        var block = this.proxy.getBlock(tilePos.x,tilePos.y)
         //todo 修改炮塔
-        if(block && block.checkType(Block.BLOCK_VALUE_ENUM.EMPTY)){
+        if(block && block.checkType(BLOCK_VALUE_ENUM.EMPTY)){
             //todo tower
             var towerType = 1001;
-            this.proxy.towerMgr.create(pos.x,pos.y,towerType)
-            block.id = Block.BLOCK_VALUE_ENUM.BUILDING;
+            this.proxy.towerMgr.create(tilePos.x,tilePos.y,towerType)
+            block.id = BLOCK_VALUE_ENUM.BUILDING;
             this.proxy.updateView("buildTower", params);
         }    
     }

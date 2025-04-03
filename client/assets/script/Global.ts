@@ -2,7 +2,7 @@ import {App} from "./App";
 import { Proxy }from "./modules/base/Proxy";
 import { toolKit } from "./utils/ToolKit";
 import { Debug }   from "./utils/Debug";
-import { Enum, js, Size } from "cc";
+import { Enum, game, js, Size } from "cc";
 import { l10n } from "../../extensions/localization-editor/static/assets/l10n";
 
 
@@ -79,7 +79,9 @@ export let parseNum = function(num:number):string {
 }
 
 export let winSize = new Size(750,1334);
-export let TIME_FRAME = 1/60;  // 每一帧的时间
+export let getTimeFrame = () =>{
+    return Number(game.frameRate);
+} 
 export let g = 10;
 export let Z_Max_2D = 10;
 export let Z_Max_3D = 100;

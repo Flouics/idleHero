@@ -4,8 +4,8 @@ import { Live }  from "./Live";
 import {HeroMgr} from "../manager/battle/HeroMgr";
 import {TaskBase} from "./TaskBase";
 import {DigTask} from "./task/DigTask";
-import {PoolMgr} from "../manager/PoolMgr";
-import {StateMachine} from "./stateMachine/StateMachine";
+import {PoolMgr, POOL_TAG_ENUM} from "../manager/PoolMgr";
+import {StateMachine,STATE_ENUM} from "./stateMachine/StateMachine";
 import {App} from "../App";
 import {BuildTask} from "./task/BuildTask";
 import {CarryTask} from "./task/CarryTask";
@@ -21,7 +21,7 @@ export class Hero extends Live {
     monsterMgr:MonsterMgr = null;
     mercenaryMgr:MercenaryMgr  = null;
     static _idIndex = 1000;
-    _pb_tag:string = "" //PoolMgr.POOL_TAG_ENUM.HERO.tag;
+    _pb_tag:string = POOL_TAG_ENUM.HERO.tag;
     constructor(x: number = 0, y: number = 0) {
         super(x,y);
         this.idx = Hero._idIndex;
@@ -37,17 +37,17 @@ export class Hero extends Live {
     onEnterState(params:any){
         var stateId = this.stateMachine.state.id;
         switch (stateId) {
-            case StateMachine.STATE_ENUM.IDLE:
-                this.clearTask();               
+            case STATE_ENUM.DIG:
+                if(this.task){
+                    this.digBlock(this.task);
+                }else{
+                    this.stateMachine.switchStateIdle();
+                }
+                                  
                 break;
-            case StateMachine.STATE_ENUM.DIG:   
-                this.digBlock(this.task);                  
-                break;
-            case StateMachine.STATE_ENUM.BUILD:
+            case STATE_ENUM.BUILD:
                 this.buildTower(this.task);                     
                 break;
-            case StateMachine.STATE_ENUM.MOVING:                     
-                //break;
             default:
                 super.onEnterState(params)
                 break;
@@ -56,8 +56,11 @@ export class Hero extends Live {
 
     onState(dt:number,params:any){
         var stateId = this.stateMachine.state.id;
-        switch (stateId) {
-            case StateMachine.STATE_ENUM.IDLE:
+        switch (stateId) { 
+            case STATE_ENUM.NONE:
+                this.stateMachine.switchState(STATE_ENUM.IDLE);
+                break;
+            case STATE_ENUM.IDLE:
                 this.fetchTask();
                 break;
             default:
@@ -77,7 +80,7 @@ export class Hero extends Live {
         }else{
             var task = this.mapProxy.shiftTask();
             if(task){
-                if(this.moveToPos(task.pos)){
+                if(this.moveToTilePos(task.tilePos)){
                     this.task = task;                
                     return true;
                 }else{
@@ -91,24 +94,28 @@ export class Hero extends Live {
 
     clearTask(){
         this.task = null;
-        this.stateMachine.switchState(StateMachine.STATE_ENUM.IDLE);
+        this.stateMachine.switchState(STATE_ENUM.IDLE);
     }
 
     fetchDigTask(){
 
     }
+
     digBlock(task:TaskBase){
+        if(!task) return;
         toolKit.showTip("执行挖掘的动作。");
-        var pos = task.pos
-        App.moduleMgr.command("map","digBlock",{pos : pos})
-        this.stateMachine.switchState(StateMachine.STATE_ENUM.IDLE);
+        var tilePos = task.tilePos;
+        App.moduleMgr.command("map","digBlock",{tilePos : tilePos})
+        this.stateMachine.switchState(STATE_ENUM.IDLE);
+        this.clearTask();
     }
 
     buildTower(task:TaskBase){
         toolKit.showTip("执行建设炮台的动作。");
-        var pos = task.pos
-        App.moduleMgr.command("map","buildTower",{pos : pos})
-        this.stateMachine.switchState(StateMachine.STATE_ENUM.IDLE);
+        var tilePos = task.tilePos
+        App.moduleMgr.command("map","buildTower",{tilePos : tilePos})
+        this.stateMachine.switchState(STATE_ENUM.IDLE);
+        this.clearTask();
     }
     
     checkAction():boolean{
@@ -116,27 +123,27 @@ export class Hero extends Live {
         // 子类就是需要处理具体行为。        
         if(this.task){       
             if(this.task instanceof DigTask){
-                var digPos = this.task.pos
+                var digPos = this.task.tilePos
                 var block = this.mapProxy.getBlock(digPos.x,digPos.y);
                 if(!block){
                     this.clearTask();
                     return false;
                 }
-                if(this.routeList.length < 1 || MapUtils.isNearBy(this.pos,this.task.pos)){                    
-                    this.stateMachine.switchState(StateMachine.STATE_ENUM.DIG);
+                if(this.routeList.length < 1 || MapUtils.isNearBy(this.tilePos,this.task.tilePos)){                    
+                    this.stateMachine.switchState(STATE_ENUM.DIG);
                     return true;
                 }      
             }
 
             if(this.task instanceof BuildTask){
-                var digPos = this.task.pos
+                var digPos = this.task.tilePos
                 var block = this.mapProxy.getBlock(digPos.x,digPos.y);
                 if(!block){
                     this.clearTask();
                     return false;
                 }
-                if(this.routeList.length < 1 || MapUtils.isNearBy(this.pos,this.task.pos)){                    
-                    this.stateMachine.switchState(StateMachine.STATE_ENUM.BUILD);
+                if(this.routeList.length < 1 || MapUtils.isNearBy(this.tilePos,this.task.tilePos)){                    
+                    this.stateMachine.switchState(STATE_ENUM.BUILD);
                     return true;
                 }      
             }        

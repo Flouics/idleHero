@@ -5,7 +5,7 @@ import { Live } from "../../logic/Live";
 import {App} from "../../App";
 import { MapProxy , getMapProxy } from "../../modules/map/MapProxy";
 import { Debug } from "../../utils/Debug";
-import {StateMachine} from "../../logic/stateMachine/StateMachine";
+import {STATE_ENUM} from "../../logic/stateMachine/StateMachine";
 import { toolKit } from "../../utils/ToolKit";
 
 export class BuffData{
@@ -106,7 +106,7 @@ export class BuffMgr extends BaseClass {
         var dir = toolKit.parseNumToVec2Normalize(data.data_1);
         var distance = data.data_2;  //data_1  被击退的距离
         var duration = owner.setMoveActionForce(distance,dir,600);
-        owner.stateMachine.switchState(StateMachine.STATE_ENUM.STUN,{duration:duration});     
+        owner.stateMachine.switchState(STATE_ENUM.STUN,{duration:duration});     
         owner.clearBuff(data); //一次性的。
     }
 

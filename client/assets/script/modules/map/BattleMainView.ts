@@ -21,6 +21,7 @@ import { MercenaryMgr } from "../../manager/battle/MercenaryMgr";
 import { oops } from "../../../../extensions/oops-plugin-framework/assets/core/Oops";
 import { UIID_Map } from "./MapInit";
 import { Block } from "../../logic/Block";
+import { STATE_ENUM } from "../../logic/stateMachine/StateMachine";
 
 const {ccclass, property} = _decorator;
 @ccclass("BattleMainView")
@@ -57,6 +58,7 @@ export class BattleMainView extends BaseView {
     // use this for initialization
     onLoad() {
         super.onLoad();
+        this.initBattle();
         
         DEBUG && (window["battle"] = this);
     }
@@ -64,7 +66,7 @@ export class BattleMainView extends BaseView {
         this.enterBattle();
     }
 
-    init() {           
+    initBattle() {           
         if(this.hasInit == true) {
              return;
         }
@@ -73,6 +75,14 @@ export class BattleMainView extends BaseView {
         this.proxy =  getMapProxy();   
         this.playerProxy = getPlayerProxy();
         this.packageProxy = getPackageProxy();
+
+        MonsterMgr.instance.init(this.nd_roleRoot);
+        BulletMgr.instance.init(this.nd_bulletRoot);    
+        MercenaryMgr.instance.init(this.nd_roleRoot);
+
+        MonsterMgr.instance.reset();
+        BulletMgr.instance.reset();    
+        MercenaryMgr.instance.reset();
      }
 
     resetMap(){
@@ -143,9 +153,11 @@ export class BattleMainView extends BaseView {
         //直接生成，不再交给计时器
         this.curWaveData.monsterList.forEach(monsterId => {
             var count = 1;
-            var monsterEntryPos = new Vec2(self.proxy.monsterEntryPos.x + toolKit.getRand(-10,10),self.proxy.monsterEntryPos.y)
+            var monsterEntryPos = new Vec2(
+                            this.proxy.monsterEntryPos.x + toolKit.getRand(-10,10)
+                            ,this.proxy.monsterEntryPos.y);
             MonsterMgr.instance.createMultiple(monsterId,count, monsterEntryPos, (monster: Monster) => {
-                monster.moveToHeadquarters();
+                monster.stateMachine.switchState(STATE_ENUM.IDLE);
             });  
         }); 
 
@@ -157,7 +169,7 @@ export class BattleMainView extends BaseView {
             this.curWaveIndex += 1;
             if(!this.setWaveData()){
                 this.proxy.cmd.showWinView(this.curStageId);
-                this.digBlock && this.digBlock.onDig();
+                this.digBlock && this.command("digBlock",{block:this.digBlock});                
             }            
         }                
     }
@@ -215,7 +227,6 @@ export class BattleMainView extends BaseView {
         if(this.proxy.isPause){
             return;
         }
-        this.proxy.battleTimeStamp += dt;
         super.update(dt);
         if(this.battleState == 1){
             this.checkWave();

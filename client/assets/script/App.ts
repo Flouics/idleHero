@@ -13,7 +13,7 @@ import {LoginMgr} from "./manager/LoginMgr";
 import {BaseClass} from "./zero/BaseClass";
 import {AppView} from "./AppView";
 import {EffectMgr} from "./manager/EffectMgr";
-import { AppInit } from "./AppInit";
+import { appInit, modeuleInit } from "./AppInit";
 import { empty, GlobalInit, GlobalInitDependency} from "./Global";
 import { AnimationManager, director, find, Font, Game, game, Node, resources } from "cc";
 import { Debug }   from "./utils/Debug";
@@ -22,15 +22,13 @@ import { getPlayerProxy } from "./modules/player/PlayerProxy";
 import { jsonToObj, objToJson, serialize } from "./utils/Decorator";
 import {UUID} from "./utils/UUID";
 import { oops } from "../../extensions/oops-plugin-framework/assets/core/Oops";
+import { EventDispatcher } from "../../extensions/oops-plugin-framework/assets/core/common/event/EventDispatcher";
+import { ListenerFunc } from "../../extensions/oops-plugin-framework/assets/core/common/event/EventMessage";
 
 /**
  * 全局唯一的游戏管理器,每个场景都可以持有
  * 挂在启动场景。
  */
-enum EventEnum {
-    EVENT_HIDE = 1
-    ,EVENT_SHOW = 2
-};
 
 //全局函数
 GlobalInit();
@@ -50,8 +48,6 @@ export class App extends BaseClass{
     static accountInfo = new AccountInfo();
     
     static scheduleTask:any = null;
-    static eventEnum:any = EventEnum
-    static emitter:Emitter = new Emitter()
 
     //mamager
     static config:Config;
@@ -71,8 +67,7 @@ export class App extends BaseClass{
     static keyWordMgr:KeyWordMgr;
 
     static ui:AppView; 
-    static font:Font;
-    
+    static font:Font;       
 
     // use App for initialization
     static onLoad () {
@@ -106,11 +101,16 @@ export class App extends BaseClass{
         App.initAccount()
         
         //需要初始化的模块
-        AppInit();
+        appInit();
         
         //全局变量
         GlobalInitDependency();        
 
+    }
+
+    static moduleInit(cb?:Function){
+        modeuleInit();
+        cb && cb();
     }
 
     static clear(){
@@ -138,23 +138,38 @@ export class App extends BaseClass{
     }
 
     static onMsg () {
-        //action管理器的问题。
-        game.off(Game.EVENT_SHOW);
-        game.off(Game.EVENT_HIDE);
-        game.on(Game.EVENT_SHOW, App.onEventShow.bind(App));
-        game.on(Game.EVENT_HIDE, App.onEventHide.bind(App));
+
     }
 
-    static onEventHide () {
-        App.emitter.emit(App.eventEnum.EVENT_HIDE);
+    /**
+     * 注册全局事件
+     * @param event       事件名
+     * @param listener    处理事件的侦听器函数
+     * @param object      侦听函数绑定的this对象
+     */
+    static on(event: string, listener: ListenerFunc, object: any) {
+        oops.message.on(event, listener, object);
     }
 
-    static onEventShow () {
-        App.emitter.emit(App.eventEnum.EVENT_SHOW);
-        var animationMgr = director.getSystem(AnimationManager.ID)
-        if (director.getScheduler().isTargetPaused(animationMgr)) {
-            director.getScheduler().resumeTarget(animationMgr);
-        }
+    /**
+     * 移除全局事件
+     * @param event      事件名
+     */
+    static off(event: string,listener: ListenerFunc) {
+        oops.message.off(event,listener,this);
+    }
+
+    /** 
+     * 触发全局事件 
+     * @param event      事件名
+     * @param args       事件参数
+     */
+    static dispatchEvent(event: string, ...args: any) {
+        oops.message.dispatchEvent(event, ...args);
+    }
+
+    static emit(event: string, ...args: any){
+        App.dispatchEvent(event,...args);
     }
 
     static offMsg () {

@@ -182,7 +182,7 @@ export class MercenaryProxy extends Proxy {
 
     constructor(){       
         super();
-        MercenaryProxy._instance = this;
+        MercenaryProxy._instance = this;        
     }
 
     static get instance ():MercenaryProxy{
@@ -195,15 +195,15 @@ export class MercenaryProxy extends Proxy {
     }
 
     init(): void {
-
+        this.loadMercenaryInfo();
     }
 
     loadMercenaryInfo(){
+        this.mercenaryMap = new Map();       
         var dataObj = App.dataMgr.getTable("mercenary");
-        var self = this;
         dataObj.list.forEach(data => {
             data.level = 1;
-            self.mercenaryMap.set(data.id, new MercenaryData(data,1));
+            this.mercenaryMap.set(data.id, new MercenaryData(data,1));
         })
     }
 
@@ -223,10 +223,9 @@ export class MercenaryProxy extends Proxy {
         })
     }
 
+
     reloadPrepare(){
         //加载数据的预处理
-        this.mercenaryMap = new Map();       
-        this.loadMercenaryInfo();
         for (const key in this.mercenaryJson) {
             const json = this.mercenaryJson[key];
 

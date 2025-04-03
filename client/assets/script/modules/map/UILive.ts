@@ -2,7 +2,7 @@ import {App} from "../../App";
 import {BaseUI} from "../../zero/BaseUI";
 
 import { _decorator, Color, Node, Sprite, tween, Tween, UITransform, v2, Vec2, Vec3, SkeletalAnimation, SkeletalAnimationState} from 'cc';
-import {StateMachine} from "../../logic/stateMachine/StateMachine";
+import {STATE_ENUM} from "../../logic/stateMachine/StateMachine";
 import { Debug } from "../../utils/Debug";
 import { empty } from "../../Global";
 import { toolKit } from "../../utils/ToolKit";
@@ -105,24 +105,25 @@ export class UILive extends BaseUI {
     }
 
     playSkeletalAnimationByState(stateId:number){
+        return;
         if(this.lastAnimName == ""){
-            Debug.log("Monster",this._logicObj.idx,stateId);
+            Debug.log("playSkeletalAnimationByState",this._logicObj.idx,stateId);
         }
         
         switch (stateId) {
-            case StateMachine.STATE_ENUM.IDLE:                
+            case STATE_ENUM.IDLE:                
                 this.playSkeletalAnimation(SKELETAL_ANIMATION_NAME.IDLE);
                 break;
-            case StateMachine.STATE_ENUM.ATTACK:
+            case STATE_ENUM.ATTACK:
                 this.playSkeletalAnimation(SKELETAL_ANIMATION_NAME.ATTACK);
                 break;
-            case StateMachine.STATE_ENUM.MOVING:
+            case STATE_ENUM.MOVING:
                 this.playSkeletalAnimation(SKELETAL_ANIMATION_NAME.MOVING);
                 break;
-            case StateMachine.STATE_ENUM.DIE:
+            case STATE_ENUM.DIE:
                 this.playSkeletalAnimation(SKELETAL_ANIMATION_NAME.DIE);
                 break;
-            case StateMachine.STATE_ENUM.STUN:
+            case STATE_ENUM.STUN:
                 this.pauseSkeletalAnimation();
                 break;
             default:

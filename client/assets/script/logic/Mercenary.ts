@@ -1,21 +1,18 @@
 
 import {MapUtils} from "./MapUtils";
 import {TaskBase} from "./TaskBase";
-import {PoolMgr} from "../manager/PoolMgr";
-import {StateMachine} from "./stateMachine/StateMachine";
+import {POOL_TAG_ENUM} from "../manager/PoolMgr";
+import {STATE_ENUM} from "./stateMachine/StateMachine";
 import { MercenaryMgr } from "../manager/battle/MercenaryMgr";
 import { MonsterMgr } from "../manager/battle/MonsterMgr";
 import { toolKit } from "../utils/ToolKit";
-import { Debug }  from "../utils/Debug";
 import { Live }  from "./Live";
 import { Monster } from "./Monster";
-import { empty } from "../Global";
-import {UILive} from "../modules/map/UILive";
-import { SkillData } from "../manager/battle/SkillMgr";
+import { Vec2 } from "cc";
 
 export class Mercenary extends Live {
     static _idIndex = 1000;
-    _pb_tag:string = PoolMgr.POOL_TAG_ENUM.MERCENARY.tag;
+    _pb_tag:string = POOL_TAG_ENUM.MERCENARY.tag;
     quality: number = 1;     //品质
     baseMoveSpeed: number = 20;    //1秒
     
@@ -62,8 +59,6 @@ export class Mercenary extends Live {
         this.bulletId = data.bulletId;
         this.coldTime = data.coldTime;
 
-        this.cacAllAugment();
-
         this.life = this.lifeMax;
         var self = this;
         this.skillList.forEach(skillId => {
@@ -71,25 +66,6 @@ export class Mercenary extends Live {
         })               
     }
     
-    //计算增强的属性部分
-    cacAllAugment(){
-        var attrMap = {     
-            coldTime:{value:0,percent:0}
-            ,lifeMax:{value:0,percent:0}
-            ,atk:{value:0,percent:0}
-            ,atkBuffList:[]
-            ,atkSpeed:{value:0,percent:0}
-            ,atkRange:{value:0,percent:0}
-            ,atkTargetCount:{value:0,percent:0}
-            ,atkCount:{value:0,percent:0}
-            ,critRate:{value:0,percent:0}
-            ,critPower:{value:0,percent:0}
-            ,moveSpeed:{value:0,percent:0}
-            ,skillList:[]
-        }
-
-        this.skillAugmentAttrMap.clear();
-    }
     
     onEnterState(params:any){
         var stateId = this.stateMachine.state.id;
@@ -103,7 +79,7 @@ export class Mercenary extends Live {
     onState(dt:number,params:any){
         var stateId = this.stateMachine.state.id;
         switch (stateId) {
-            case StateMachine.STATE_ENUM.IDLE:
+            case STATE_ENUM.IDLE:
                 this.fetchTask();
                 break;
             default:
@@ -125,18 +101,18 @@ export class Mercenary extends Live {
         this.toPos.y = 0;//不要过半场
         this.toPos.x = toolKit.getRand(-200,200);
 
-        this.stateMachine.switchState(StateMachine.STATE_ENUM.MOVING);
+        this.stateMachine.switchState(STATE_ENUM.MOVING);
     }
 
     clearTask(){
         this.task = null;
-        this.stateMachine.switchState(StateMachine.STATE_ENUM.IDLE);
+        this.stateMachine.switchState(STATE_ENUM.IDLE);
     }
    
     checkAction():boolean{
         // 检查目标行为，如果有可执行目标就执行。
         // 子类就是需要处理具体行为。  
-        if(this.stateMachine.isState(StateMachine.STATE_ENUM.ATTACK))   {
+        if(this.stateMachine.isState(STATE_ENUM.ATTACK))   {
             if(this.checkTarget()){       
                 
             }else{
@@ -172,9 +148,13 @@ export class Mercenary extends Live {
     clear(){
         this.mercenaryMgr.clearMercenary(this.idx)
     }
+    
+    getMoveRoute(toPos:Vec2){       
+        return [toPos];             // 直接取终点。不存在障碍，直接取终点
+    }
 
     destroy(isAction = false){
         //--todo表现
-        super.destroy(isAction);     
+        super.destroy();     
     }
 }

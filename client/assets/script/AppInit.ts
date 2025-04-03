@@ -8,7 +8,7 @@ import {MercenaryInit} from "./modules/mercenary/MercenaryInit";
 import {RewardInit} from "./modules/reward/RewardInit";
 import {LobbyInit} from "./modules/lobby/LobbyInit";
 
-export function AppInit(){
+export function appInit(){
     
     App.initFont();
 
@@ -16,8 +16,10 @@ export function AppInit(){
     App.dataMgr.loadTexts = [
         'config'
         , 'base'
-    ]
+    ]    
+}
 
+export function modeuleInit(){
     //需要初始化的模块
     var moduleMgr = App.moduleMgr
     moduleMgr.init();
@@ -28,9 +30,8 @@ export function AppInit(){
     moduleMgr.load("map",new MapInit());
     moduleMgr.load("mercenary",new MercenaryInit());
     moduleMgr.load("reward",new RewardInit());
-   
+    
     App.httpMgr.init();
     App.poolMgr.init();
-    
 }
 

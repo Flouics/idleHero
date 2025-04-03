@@ -28,6 +28,7 @@ export class Init {
         this.cmd = new Command();     
     }
     initProxyCmd(){
+        this.proxy.init();
         this.proxy.setCommand(this.cmd);
         this.proxy.setModuleName(this.moduleName);
     }

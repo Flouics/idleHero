@@ -2,5 +2,10 @@
   "__version__": "1.0.1",
   "general": {
     "start_scene": "431e0475-73a8-419f-a415-e85a3206ce9f"
+  },
+  "preview": {
+    "current": {
+      "platform": "browser"
+    }
   }
 }

@@ -1,8 +1,8 @@
 import {BaseClass} from "../../zero/BaseClass";
 import { serialize } from "../../utils/Decorator";
 import { toolKit } from "../../utils/ToolKit";
-import { merge, TIME_FRAME } from "../../Global";
-import { MapProxy , getMapProxy } from "../../modules/map/MapProxy";
+import { merge, getTimeFrame } from "../../Global";
+import { MapProxy , getMapProxy, MapProxy_event } from "../../modules/map/MapProxy";
 import { Debug }   from "../../utils/Debug";
 import {MapUtils} from "../../logic/MapUtils";
 import { Mercenary } from "../../logic/Mercenary";
@@ -84,12 +84,12 @@ export class MercenaryMgr extends BaseClass{
     }
 
     initSchedule(){
-        getMapProxy().emitter.off(this.getClassName(),this.update.bind(this));
-        getMapProxy().emitter.on(this.getClassName(),this.update.bind(this));
+        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
+        getMapProxy().on(MapProxy_event.MapProxy_update,this.update,this);
     }
 
     clear(){
-        getMapProxy().emitter.off(this.getClassName(),this.update.bind(this));
+        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
     }
 
     checkGen(){

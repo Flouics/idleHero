@@ -2,24 +2,23 @@ import { getMapProxy } from "../../modules/map/MapProxy";
 import { serialize } from "../../utils/Decorator";
 import {State} from "./State";
 
-var STATE_ENUM = {
-    NONE:0,
-    IDLE:1, 
-    MOVING:2,
-    ATTACK:3,
-    DIG:4,
-    BUILD:5,
-    PATHFINDING:6,             // 寻路中
-    GOTO_MINE:7,             //去挖矿
-    MINING:8,                //挖矿ing
-    CARRY_RESOURCES:9,     // 搬运资源
-    DIE:10,
-    STUN:11,               //眩晕
-    ASSAULT:12,            //冲锋
+export enum STATE_ENUM {
+    NONE = 0,
+    IDLE, 
+    MOVING,
+    ATTACK,
+    DIG,
+    BUILD,
+    PATHFINDING,             // 寻路中
+    GOTO_MINE,             //去挖矿
+    MINING,                //挖矿ing
+    CARRY_RESOURCES,     // 搬运资源
+    DIE,
+    STUN,               //眩晕
+    ASSAULT,            //冲锋
 }
 
 export class StateMachine {
-    static STATE_ENUM = STATE_ENUM;     //状态属性枚举
     state:State = new State(STATE_ENUM.NONE);      //执行的动作行为
     lastState:State = new State(STATE_ENUM.NONE);   //旧状态
     enterStateHandler:Function = ()=>{};             //进入状态执行函数
@@ -48,6 +47,11 @@ export class StateMachine {
             this.switchState(this.lastState.id);
         }     
     }
+
+    switchStateIdle(){   
+        this.switchState(STATE_ENUM.IDLE);
+    }
+
 
     setDuration(duration:number){
         var value = this.state.getTime() + duration;

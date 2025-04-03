@@ -1,6 +1,6 @@
 
 
-import {Block} from "../../logic/Block";
+import {Block, BLOCK_VALUE_ENUM} from "../../logic/Block";
 import {TouchUtils, TouchUtilsEvent} from "../../utils/TouchUtils";
 import { Debug }   from "../../utils/Debug";
 import { MapProxy }  from "./MapProxy";
@@ -14,7 +14,7 @@ import { MineMgr } from "../../manager/battle/MineMgr";
 import { Headquarters } from "../../logic/building/Headquarters";
 import { Building } from "../../logic/Building";
 import { DigTask } from "../../logic/task/DigTask";
-import { lang, TIME_FRAME } from "../../Global";
+import { lang, getTimeFrame } from "../../Global";
 import { DEBUG } from "cc/env";
 import { getPackageProxy } from "../package/PackageProxy";
 import { ITEM_ID_ENUM } from "../../logic/Item";
@@ -89,7 +89,10 @@ export class MapMainView extends BaseView {
         this.margin_x = this.proxy.margin_x;
         this.margin_y = this.proxy.margin_y;             
         
+        this.heroMgr.init(this.nd_heroRoot);
         this.initBlocks();
+        this.initHeros();
+
         this.nd_contentRoot.on(TouchUtilsEvent.click, this.onMapClick.bind(this));
     }
 
@@ -121,7 +124,7 @@ export class MapMainView extends BaseView {
     }
 
     onExitBattle(){
-
+        
     }
 
     initBlockSize(size: Size) {
@@ -174,20 +177,14 @@ export class MapMainView extends BaseView {
     }
 
     createBlock(i: number, j: number) {
-        let block = this.getBlock(i, j)
+        let block = this.proxy.getBlock(i, j)
         if (block) {
             block.initUI()
         }
     }
-    getBlockByPos(tilePos: Vec2) {
-        return this.getBlock(tilePos.x, tilePos.y);
-    }
-    getBlock(x: number, y: number) {
-        return this.proxy.getBlock(x,y);
-    }
 
     initHeros() {
-        let hero = this.heroMgr.create(2, 0);
+        let hero = this.heroMgr.create(0, 0);
         this.testHero = hero;
     }
 
@@ -206,14 +203,14 @@ export class MapMainView extends BaseView {
         return this.proxy.checkBlock(pos);
     }
 
-    digBlock(params:{pos:Vec2}){
-        let pos = params.pos;
-        let block = this.proxy.getBlock(pos.x,pos.y);
+    digBlock(params:{tilePos?:Vec2,block?:Block}){
+        let tilePos = params.tilePos;
+        let block = this.proxy.getBlock(tilePos.x,tilePos.y);
         let isBattle = toolKit.getRand(1,10) > 5;
         if(isBattle){
             this.enterStage(block);
         }else{
-            block.onDig();
+            this.proxy.cmd.digBlock({block:block});
         }
     }
 
@@ -227,16 +224,16 @@ export class MapMainView extends BaseView {
         var touchEndPos = event.getLocation();
         var viewPos = this.nd_mapRoot.getComponent(UITransform).convertToNodeSpaceAR(new Vec3(touchEndPos.x, touchEndPos.y,0));
         var tilePos = MapUtils.getTilePosByViewPos(viewPos);
-        var block = this.getBlockByPos(tilePos);
+        var block = this.proxy.getBlock(tilePos);
 
         // todo 应该弹出界面让玩家选择
         switch (block.id) {
-            case Block.BLOCK_VALUE_ENUM.BLOCK:
-                this.command("pushTask",new DigTask(tilePos.x, tilePos.y));
+            case BLOCK_VALUE_ENUM.BLOCK:
+                this.proxy.cmd.pushTask(new DigTask(tilePos.x, tilePos.y));
                 break;        
-            case Block.BLOCK_VALUE_ENUM.EMPTY:
-                this.testHero.moveToPos(tilePos);                
-                //this.command("pushTask",new BuildTask(tilePos.x, tilePos.y));
+            case BLOCK_VALUE_ENUM.EMPTY:
+                this.testHero.moveToTilePos(tilePos);    
+                //this.proxy.cmd.pushTask(new BuildTask(tilePos.x, tilePos.y));            
                 break;    
             default:
                 break;
@@ -254,10 +251,9 @@ export class MapMainView extends BaseView {
     createBuilding(building: Building, toPos: Vec2) {
         building.createBuilding(this.nd_buildingRoot,toPos);
         var maskArea = building.getRealArea();
-        var self = this;
         maskArea.forEach((pos) => {
-            let block = self.getBlockByPos(pos); 
-            block.createBuilding(building)     
+            let block = this.proxy.getBlock(pos); 
+            block.createBuilding(building);     
         })
     }
 
@@ -317,18 +313,20 @@ export class MapMainView extends BaseView {
                     }
                 }
             }
-        }
-        
+        }        
+    }
+
+    update(dt:number){
+        this.proxy.update(dt);
     }
 
     //测试区域
     printBlocks(posList: Vec2[]) {
-        var self = this;
         this.dealAllBlocks((block: Block) => {
             block.event = 0;
         })
         posList.forEach((pos) => {
-            self.getBlockByPos(pos).event = 1;
+            this.proxy.getBlock(pos).event = 1;
         })
     }
 

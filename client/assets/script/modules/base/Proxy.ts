@@ -5,6 +5,8 @@ import { Debug }   from "../../utils/Debug";
 import { getPlayerProxy } from "../player/PlayerProxy";
 import {Command} from "./Command";
 import { Emitter } from "../../zero/Emitter";
+import { EventDispatcher } from "../../../../extensions/oops-plugin-framework/assets/core/common/event/EventDispatcher";
+import { ListenerFunc } from "../../../../extensions/oops-plugin-framework/assets/core/common/event/EventMessage";
 
 export class Proxy extends BaseClass {
     viewMap:{[key:string]:any} = {};
@@ -15,12 +17,12 @@ export class Proxy extends BaseClass {
     moduleName:string = "";
     _baseUrl:string = "";
     _prefabUrl: string = "";
-    emitter:Emitter = new Emitter();
+    //#region 全局事件管理
+    _event:EventDispatcher|null = null;
     constructor(){       
         super();
-        Proxy._instance = this;
+        // Proxy._instance = this;
         this.app = App.instance;
-        this.init()
     }
 
     static get instance ():Proxy{
@@ -30,6 +32,43 @@ export class Proxy extends BaseClass {
             let instance = new Proxy();
             return instance
         }
+    }
+
+    /** 全局事件管理器 */
+    get event(): EventDispatcher {
+        if (this._event == null) this._event = new EventDispatcher();
+        return this._event;
+    }           
+        
+    /**
+     * 注册全局事件
+     * @param event       事件名
+     * @param listener    处理事件的侦听器函数
+     * @param object      侦听函数绑定的this对象
+     */
+    on(event: string, listener: ListenerFunc, object: any) {
+        this.event.on(event, listener, object);
+    }
+
+    /**
+     * 移除全局事件
+     * @param event      事件名
+     */
+    off(event: string,listener: ListenerFunc) {
+        this.event.off(event,listener);
+    }
+
+    /** 
+     * 触发全局事件 
+     * @param event      事件名
+     * @param args       事件参数
+     */
+    dispatchEvent(event: string, ...args: any) {
+        this.event.dispatchEvent(event, ...args);
+    }
+
+    emit(event: string, ...args: any){
+        this.dispatchEvent(event,...args);
     }
 
     setCommand<T extends Command>(command:T){

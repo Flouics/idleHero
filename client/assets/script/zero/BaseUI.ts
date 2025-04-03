@@ -183,17 +183,6 @@ export class BaseUI extends GameComponent {
         }        
     }
 
-    //CC 引擎的事件派发
-    dispatchEvent(key:string,detail:any = this._logicObj){
-        this.node.dispatchEvent(new CCEvent(key,true,detail));
-    }
-
-    regClickEvent(key:string,callback?:Function){
-        this.node.on(key,(event:CCEvent)=>{
-            event.propagationStopped = true;
-            if (callback) callback(event);          
-        });
-    }
     destory(){
         let pool = App.poolMgr.getPool(this._pb_tag);
         if(pool){

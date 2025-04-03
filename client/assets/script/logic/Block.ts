@@ -7,25 +7,27 @@ import { serialize } from "../utils/Decorator";
 import { instantiate, Node, Vec2, Vec3 } from "cc";
 import { toolKit } from "../utils/ToolKit";
 import { uiKit } from "../utils/UIKit";
-var BLOCK_VALUE_ENUM = {
-    EMPTY:0,
-    BLOCK:1,
-    BUILDING:2,
-    MONSTER:4,
-    MONSTER_ENTRY:8,
-    MINE:16,
+import { TouchUtils } from "../utils/TouchUtils";
+
+/** 瓦片地图属性 */ 
+export enum BLOCK_VALUE_ENUM  {
+    EMPTY = 0,
+    BLOCK = 1,
+    BUILDING,
+    MONSTER,
+    MONSTER_ENTRY,
+    MINE,
 }
 
-var BLOCK_FLAG_ENUM = {
-    EMPTY:0,
-    DIG:1,
+/** 标记 */
+export enum BLOCK_FLAG_ENUM {
+    EMPTY = 0,
+    DIG,
 }
-var CROSS_VALUE =  BLOCK_VALUE_ENUM.EMPTY;
+/** 可以通过属性检查 */
+export var BLOCK_CROSS_VALUE =  BLOCK_VALUE_ENUM.EMPTY;
 
 export class Block extends BoxBase {
-    static BLOCK_VALUE_ENUM = BLOCK_VALUE_ENUM;     //瓦片地图属性枚举
-    static CROSS_VALUE = CROSS_VALUE;       //可以通过属性检查
-    static BLOCK_FLAG_ENUM = BLOCK_FLAG_ENUM; //标记
     @serialize()
     buildingId:number = 0;   // 额外属性，value不同，数据不同
 
@@ -65,9 +67,14 @@ export class Block extends BoxBase {
         node.parent = this.mapMainView.nd_mapRoot;
         node.setPosition(this.x,this.y);
         uiKit.setScale(node,0.95);
+        //临时属性
+        if(this.tx == 0 && this.ty == 0){
+            this.id = BLOCK_VALUE_ENUM.EMPTY
+        }
         if(this.id == null){
-            this.id = toolKit.getRand(1,10) > 2 ? Block.BLOCK_VALUE_ENUM.BLOCK : 0;
-        }        
+            this.id = toolKit.getRand(1,10) > 2 ? BLOCK_VALUE_ENUM.BLOCK : BLOCK_VALUE_ENUM.EMPTY;
+        }     
+        //   
         this.bindUI(node.getComponent(UIBlock));
         this.updateUI();
     }

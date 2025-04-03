@@ -4,7 +4,7 @@ import {UILive} from "../modules/map/UILive";
 import { BoxBase }  from "./BoxBase";
 import { getMapProxy, MapProxy }  from "../modules/map/MapProxy";
 import {PoolMgr} from "../manager/PoolMgr";
-import {StateMachine} from "./stateMachine/StateMachine";
+import {StateMachine,STATE_ENUM} from "./stateMachine/StateMachine";
 import { Node, v2, Vec2 } from "cc";
 import { toolKit } from "../utils/ToolKit";
 import { Debug }   from "../utils/Debug";
@@ -14,7 +14,7 @@ import { BATTLE_TYPE_ENUM, RACE_ENUM } from "../modules/mercenary/MercenaryProxy
 import { Building }  from "./Building";
 import { BuffData } from "../manager/battle/BuffMgr";
 import { SkillData } from "../manager/battle/SkillMgr";
-import { nullfun, TIME_FRAME } from "../Global";
+import { nullfun, getTimeFrame } from "../Global";
 import { DamageRet } from "../Interface";
 
 export class Live extends BoxBase {
@@ -71,14 +71,14 @@ export class Live extends BoxBase {
     onEnterState(params:any){
         var stateId = this.stateMachine.state.id;
         switch (stateId) {
-            case StateMachine.STATE_ENUM.IDLE:
+            case STATE_ENUM.IDLE:
                 this.ui?.playSkeletalAnimationByState(stateId);
                 break;
-            case StateMachine.STATE_ENUM.MOVING:
-                //this.moveStep();
+            case STATE_ENUM.MOVING:
+                this.moveStep();
                 this.ui?.playSkeletalAnimationByState(stateId);
                 break;
-            case StateMachine.STATE_ENUM.ATTACK:
+            case STATE_ENUM.ATTACK:
                 //this.atkTarget();  
                 this.updateDirectionByTarget();
                 break;
@@ -94,24 +94,24 @@ export class Live extends BoxBase {
     }
 
     onState(dt:number,params:any){  
-        if (stateId != StateMachine.STATE_ENUM.STUN) {
+        if (stateId != STATE_ENUM.STUN) {
             this.tryUseSkill(); //技能优先判断
         }        
 
         var stateId = this.stateMachine.state.id;
         switch (stateId) {
-            case StateMachine.STATE_ENUM.MOVING:
+            case STATE_ENUM.MOVING:
                 if(!this.checkMovingAction()){
                     this.doMovingAction(dt);
                 }
                 break;
-            case StateMachine.STATE_ENUM.STUN:
+            case STATE_ENUM.STUN:
                 this.doMovingActionForce(dt);
                 break;
-            case StateMachine.STATE_ENUM.ASSAULT:
+            case STATE_ENUM.ASSAULT:
                 this.doMovingActionAssault(dt);
                 break;                
-            case StateMachine.STATE_ENUM.ATTACK:
+            case STATE_ENUM.ATTACK:
                 this.atkTarget();
                 break;
             default:
@@ -127,13 +127,13 @@ export class Live extends BoxBase {
     onExitState(params:any){
         var stateId = this.stateMachine.state.id;
         switch (stateId) {
-            case StateMachine.STATE_ENUM.MOVING:
+            case STATE_ENUM.MOVING:
                 this.toPos = null;
                 break;
-            case StateMachine.STATE_ENUM.STUN:
+            case STATE_ENUM.STUN:
                 this.ui?.resumeSkeletalAnimation();
                 break;
-            case StateMachine.STATE_ENUM.ASSAULT:
+            case STATE_ENUM.ASSAULT:
             default:
                 break;
         }
@@ -154,15 +154,15 @@ export class Live extends BoxBase {
         if(!!cb) cb(this);
     }
 
-    moveToPos(toPos: Vec2) {
-        var moveRouteList = this.getMoveRoute(toPos)
+    moveToTilePos(toTilePos: Vec2) {
+        var moveRouteList = this.getMoveRoute(toTilePos)
         if (toolKit.empty(moveRouteList)){
             return false;
         }
         this.routeList = moveRouteList;
         this.ui.stopMoveAction();
-        this.stateMachine.switchState(StateMachine.STATE_ENUM.MOVING);
-        this.updateDirection(toPos);     
+        this.stateMachine.switchState(STATE_ENUM.MOVING);
+        this.updateDirection(toTilePos);     
         return true;
     }
 
@@ -204,7 +204,7 @@ export class Live extends BoxBase {
             // 执行队列行进路径
             var lastRoute = this.routeList.pop()
             if(!!lastRoute){
-                this.moveStepCheck(lastRoute)
+                this.moveTileStepCheck(lastRoute)
             }
         }
     }
@@ -215,7 +215,7 @@ export class Live extends BoxBase {
             this.lastMoveCheckTime = nowTimeStamp + Live.SERRCH_TIME;
             var target = this.findTarget();
             if(!!target){                
-                this.stateMachine.switchState(StateMachine.STATE_ENUM.ATTACK);
+                this.stateMachine.switchState(STATE_ENUM.ATTACK);
                 this.updateDirection(target.pos);
                 return true;
             }
@@ -259,12 +259,12 @@ export class Live extends BoxBase {
             toPos = this.toPos;
         }
         if (!toPos){
-            this.stateMachine.switchState(StateMachine.STATE_ENUM.IDLE);
+            this.stateMachine.switchState(STATE_ENUM.IDLE);
             return;
         }
 
         if (this.getViewDistance(toPos) < Live.MIN_DISTANCE){
-            this.stateMachine.switchState(StateMachine.STATE_ENUM.IDLE);
+            this.stateMachine.switchState(STATE_ENUM.IDLE);
             return;
         }
         this.updateDirection(toPos);
@@ -285,12 +285,12 @@ export class Live extends BoxBase {
             toPos = this.toPos;
         }
         if (!toPos){
-            this.stateMachine.switchState(StateMachine.STATE_ENUM.IDLE);
+            this.stateMachine.switchState(STATE_ENUM.IDLE);
             return;
         }
 
         if (this.getViewDistance(toPos) < Live.MIN_DISTANCE){
-            this.stateMachine.switchState(StateMachine.STATE_ENUM.IDLE);
+            this.stateMachine.switchState(STATE_ENUM.IDLE);
             return;
         }
         this.updateDirection(toPos);
@@ -308,37 +308,37 @@ export class Live extends BoxBase {
     }
     
     //只能移动到相邻的格子
-    moveStepCheck(toPos: Vec2) {
-        if (this.getTileDistance(toPos) > 1) {
+    moveTileStepCheck(tilePos: Vec2) {
+        if (this.getTileDistance(tilePos) > 1) {
             return;
         }
-        this.stateMachine.switchState(StateMachine.STATE_ENUM.MOVING,{toPos:toPos})  
+        this.stateMachine.switchState(STATE_ENUM.MOVING,{tilePos:tilePos})  
     }
 
-    //先废弃，后面又需要用到一步一步的移动再说。
     moveStep() {
-        var toPos:Vec2;
+        var toTilePos:Vec2;
         if(this.target && this.target.checkLive()){
-            toPos = new Vec2(this.target.x,this.target.y);
+            toTilePos = new Vec2(this.target.tx,this.target.ty);
         }else{
-            toPos = this.routeList.pop();  
+            toTilePos = this.routeList.pop();  
         }
-        if (!toPos){
+        if (!toTilePos){
             this.stateMachine.trySwitchLastState();
             return;
         }    
+        let toPos = MapUtils.getViewPosByTilePos(toTilePos);
+        let routeDistance = MapUtils.getRouteDis(toTilePos,this.tilePos)
         let viewDistance = MapUtils.getLineDis(toPos,this.getUIPos());
-        if(viewDistance < this.mapProxy.blockWidth){        //距离小于最小一个单位的距离就不移动了。
-            this.stateMachine.trySwitchLastState();          
+        //距离小于最小一个单位的距离就不移动了。
+        if(viewDistance < this.mapProxy.blockWidth){        
+            this.stateMachine.switchStateIdle();          
             return;
         }
         let duration = viewDistance / (this.baseMoveSpeed * this.moveSpeed);
-        let self = this, x = toPos.x, y = toPos.y;
-        //  todo 有问题，不应该先设置坐标的。 先废弃
-        self.x = x;
-        self.y = y;        
         this.ui.moveStep(duration,toPos,() => {
-            self.stateMachine.trySwitchLastState();        
+            this.x = toPos.x;
+            this.y = toPos.y;
+            this.stateMachine.switchStateIdle();        
         });
     }
 
@@ -347,13 +347,13 @@ export class Live extends BoxBase {
         this.x = pos.x;
         this.y = pos.y;
     }
-    getMoveRoute(toPos:Vec2){        
-        //return MapUtils.getRouteList(v2(this.x,this.y),toPos,this.checkBlockRoute.bind(this))
-        return [toPos];             // 直接取终点。不存在障碍，直接取终点
+    getMoveRoute(toTilePos:Vec2){        
+        return MapUtils.getRouteList(v2(this.tx,this.ty),toTilePos,this.checkBlockRoute.bind(this))
+        // return [toTilePos];             // 直接取终点。不存在障碍，直接取终点
     }
 
     clear(){
-        this.destroy();
+        this.destory();
     }    
 
     isMelee(){
@@ -409,7 +409,7 @@ export class Live extends BoxBase {
         this.ui.playSkeletalAnimation(UILive.SKELETAL_ANIMATION_NAME.ATTACK);
         
         //先直接做延时，不绑定帧了
-        this.ui.scheduleOnce(this.doAttack.bind(this),30 * TIME_FRAME);
+        this.ui.scheduleOnce(this.doAttack.bind(this),30 * getTimeFrame());
     }
 
     doAttack(){
@@ -436,7 +436,7 @@ export class Live extends BoxBase {
             //发起施展技能
             this.ui.playSkeletalAnimation(UILive.SKELETAL_ANIMATION_NAME.SKILL);   
             //先直接做延时，不绑定帧了
-            this.ui.scheduleOnce(this.useSkill.bind(this),15 * TIME_FRAME);
+            this.ui.scheduleOnce(this.useSkill.bind(this),15 * getTimeFrame());
             this.lastAttackTime = nowTimeStamp + this.atkColdTime / this.atkSpeed;  
         }        
     }
@@ -466,10 +466,10 @@ export class Live extends BoxBase {
                         this.doAttackAction();
                         this.lastAttackTime = nowTimeStamp + this.atkColdTime / this.atkSpeed;
                     }else{
-                        this.stateMachine.switchState(StateMachine.STATE_ENUM.MOVING);
+                        this.stateMachine.switchState(STATE_ENUM.MOVING);
                     }
                 }else{  
-                    this.stateMachine.switchState(StateMachine.STATE_ENUM.IDLE);
+                    this.stateMachine.switchState(STATE_ENUM.IDLE);
                 }
             }        
         }        
@@ -621,7 +621,7 @@ export class Live extends BoxBase {
         });
     }
 
-    destroy(isAction = false){
+    destory(isAction = false){
         //--todo表现
         this.buffMap.clear();
         super.destroy();

@@ -124,9 +124,12 @@ export class MapUtils {
             if (dis == 0){
                 return ret //相同地点不用寻路
             }
-        }else 
+        }else{
             if (dis == 1) {
-            return ret //相同地点不用寻路
+                //相隔地点不用寻路
+                ret.push(v2(toPos.x, toPos.y))
+                return ret 
+            }
         }
 
         // A*寻路

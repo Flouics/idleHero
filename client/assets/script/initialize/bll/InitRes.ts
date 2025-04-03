@@ -36,6 +36,8 @@ export class InitResSystem extends ecs.ComblockSystem implements ecs.IEntityEnte
         this.loadCommon(queue);
         //加载配置文件
         this.loadJsonData(queue);
+        //模块初始化
+        this.moduleInit(queue);
         // 加载游戏内容加载进度提示界面
         this.onComplete(queue, e);
 
@@ -47,6 +49,14 @@ export class InitResSystem extends ecs.ComblockSystem implements ecs.IEntityEnte
             App.dataMgr.tryLoadAllTable(next);
         });
     }
+
+    private moduleInit(queue: AsyncQueue) {
+        queue.push(async (next: NextFunction, params: any, args: any) => {
+            // 加载配置文件
+           App.moduleInit(next);
+        });
+    }
+
 
     /** 加载自定义内容（可选） */
     private loadCustom(queue: AsyncQueue) {

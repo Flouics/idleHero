@@ -1,5 +1,5 @@
 import {BaseUI} from "../../zero/BaseUI";
-import {Block} from "../../logic/Block";
+import {Block, BLOCK_VALUE_ENUM} from "../../logic/Block";
 
 import { _decorator, Sprite} from 'cc';
 const {ccclass, property} = _decorator;
@@ -25,7 +25,7 @@ export class UIBlock extends BaseUI {
         }
         var loadBlockSpt = function(){
             let spt = self.spt_item;
-            if(logicObj.checkType(Block.BLOCK_VALUE_ENUM.BLOCK) && logicObj.data_1 > 0){
+            if(logicObj.checkType(BLOCK_VALUE_ENUM.BLOCK) && logicObj.data_1 > 0){
                 self.loadSpt(spt, "block/block_" + logicObj.data_1)
             }else{
                 spt.spriteFrame = null;
