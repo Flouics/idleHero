@@ -148,6 +148,11 @@ export class SkillMgr extends BaseClass {
         if(targetList.length < 1){
             return false;
         }
+
+        if(!owner.target){
+            return false;
+        }
+    
         var damage = owner.atk * data.data_1 / 100;
         var dirV2 = null;
         var index = 0;

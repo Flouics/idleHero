@@ -37,7 +37,7 @@ export class MonsterMgr extends BaseClass {
     _scheduleTask:ScheduleTask[] = [];
     proxy:MapProxy = null;
     waveData:any = null;
-    isWaveEnd:boolean = false;
+    isWaveEnd:boolean = true;
 
     constructor(){
         super();
@@ -65,16 +65,17 @@ export class MonsterMgr extends BaseClass {
     }
 
     clear(){
-        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
-        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
-    }
-
-    reset(){
         this._scheduleTask = [];
         this.monsterMap.forEach(monster =>{
             monster.destroy();
         });
         this.monsterMap.clear();
+
+        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
+    }
+
+    reset(){
+        this.clear();
         this.initSchedule();
     }
 
@@ -92,7 +93,9 @@ export class MonsterMgr extends BaseClass {
         var createMonster = function(){
             self.waveData.monsterList.forEach(monsterId => {
                 var count = 1;
-                var monsterEntryPos = new Vec2(self.proxy.monsterEntryPos.x + toolKit.getRand(-10,10),self.proxy.monsterEntryPos.y)
+                var monsterEntryPos = new Vec2(
+                                            self.proxy.monsterEntryPos.x + toolKit.getRand(-3,3)
+                                            ,self.proxy.monsterEntryPos.y)
                 self.createMultiple(monsterId,count, monsterEntryPos, (monster: Monster) => {
                     monster.stateMachine.switchState(STATE_ENUM.IDLE);
                 });  
@@ -107,7 +110,7 @@ export class MonsterMgr extends BaseClass {
     }
 
     checkAllMonstersAreClear(){
-        return this.monsterMap.size == 0;
+        return this.monsterMap.size == 0 && this.isWaveEnd == true;
     }
 
     create(monsterType:number = 0,tilePos:Vec2,task?:Function){
@@ -123,7 +126,7 @@ export class MonsterMgr extends BaseClass {
         return monster;
     }
 
-    createMultiple(monsterType:number = 0,count:number = 1,tilePos:Vec2,data = {},task?:Function){
+    createMultiple(monsterType:number = 0,count:number = 1,tilePos:Vec2,task?:Function){
         for (let i = 0; i < count; i++) {
             let offsetX = (i % 2 == 0 ? 1 : -1) * Math.floor((i + 1)/2) * 9;
             App.asyncTaskMgr.newAsyncTask(()=>{
@@ -175,6 +178,6 @@ export class MonsterMgr extends BaseClass {
         this.monsterMap.forEach(monster =>{
             monster.update(dt);
         })        
-        //this.updateScheduleTask()
+        this.updateScheduleTask()
     }
 }

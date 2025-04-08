@@ -851,12 +851,11 @@
         {
             "monsterList": [
                 10001,
-                10002,
-                10003
+                10002
             ],
             "lifeUp": 0,
             "name": "Wave_1",
-            "count": 10,
+            "count": 2,
             "_id": 0,
             "id": 1,
             "coldTime": 5000,
@@ -864,13 +863,12 @@
         },
         {
             "monsterList": [
-                10004,
-                10005,
-                10006
+                10003,
+                10004
             ],
             "lifeUp": 0,
             "name": "Wave_2",
-            "count": 10,
+            "count": 2,
             "_id": 1,
             "id": 2,
             "coldTime": 5000,
@@ -878,13 +876,12 @@
         },
         {
             "monsterList": [
-                10007,
-                10008,
-                10009
+                10005,
+                10006
             ],
             "lifeUp": 0,
             "name": "Wave_3",
-            "count": 10,
+            "count": 2,
             "_id": 2,
             "id": 3,
             "coldTime": 5000,

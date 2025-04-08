@@ -39,6 +39,11 @@ export class BulletMgr extends BaseClass {
     }
     
     clear(){
+        this.bulletMap.forEach(bullet =>{
+            bullet.destroy();
+        });
+        this.bulletMap.clear();
+
         getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
     }
 
@@ -60,10 +65,7 @@ export class BulletMgr extends BaseClass {
     }
 
     reset(){
-        this.bulletMap.forEach(Bullet =>{
-            Bullet.destroy();
-        });
-        this.bulletMap.clear();
+        this.clear();
         this.initSchedule()
     }
 
@@ -74,10 +76,10 @@ export class BulletMgr extends BaseClass {
             return null;
         }    
         let bullet = new BulletClass(shooter,target,fromViewPos,data);
+        this.bulletMap.set(bullet.idx, bullet);  
         bullet.initUI(this._nd_root,()=>{
             if(!!cb) cb(bullet);    
-        });
-        this.bulletMap.set(bullet.idx, bullet);             
+        });           
         return bullet;
     }
 

@@ -80,7 +80,9 @@ export class UIBullet extends BaseUI {
     }
     
     destory(){
-        this.node.active = false;
-        super.destory();
+        if(this.node && this.node.isValid){
+            this.node.active = false;
+            super.destory();
+        }
     }
 }

@@ -9,7 +9,7 @@ import { toolKit } from "../../utils/ToolKit";
 import {MapMainView} from "./MapMainView";
 import {App } from "../../App";
 import {MapUtils} from "../../logic/MapUtils";
-import { clone, lang } from "../../Global";
+import { clone, empty, lang } from "../../Global";
 import { PlayerProxy,  getPlayerProxy } from "../player/PlayerProxy";
 import { getPackageProxy, PackageProxy } from "../package/PackageProxy";
 import { ITEM_ID_ENUM } from "../../logic/Item";
@@ -102,14 +102,15 @@ export class BattleMainView extends BaseView {
     }
 
     exitBattle(){
-        this.resetMap();
+        //this.resetMap();
         getLobbyProxy().updateView("onExitBattle");
         this.battleState = 0;
+        this.proxy.isBattle = false;
+        this.close();
     }
 
     stopBattle(){
         MonsterMgr.instance.clear();
-        HeroMgr.instance.clear();
         BulletMgr.instance.clear();    
         MercenaryMgr.instance.clear();
         this.battleState = 0;
@@ -129,7 +130,7 @@ export class BattleMainView extends BaseView {
             toolKit.showTip(lang("stage.dataError"));
             return
         }
-
+        this.proxy.isBattle = true;
         this.initEntryPos();
         this.initMercenary();
         this.initHeros();
@@ -137,10 +138,10 @@ export class BattleMainView extends BaseView {
 
         this.waveList = this.stageData.waveList;
         this.curWaveIndex = 0;
-        this.setWaveData();
         this.battleState = 1;
         this.proxy.updateView("onEnterBattle");
-        getLobbyProxy().updateView("onEnterBattle");        
+        getLobbyProxy().updateView("onEnterBattle");  
+        this.checkWave();      
     }
 
     setWaveData(){
@@ -151,27 +152,22 @@ export class BattleMainView extends BaseView {
         this.curWaveData = curWaveData;
         toolKit.getChild(this.nd_info,"waveTip").getComponent(Label).string = lang("stage.tip_1",this.curWaveIndex + 1,this.waveList.length)
         //直接生成，不再交给计时器
-        this.curWaveData.monsterList.forEach(monsterId => {
-            var count = 1;
-            var monsterEntryPos = new Vec2(
-                            this.proxy.monsterEntryPos.x + toolKit.getRand(-10,10)
-                            ,this.proxy.monsterEntryPos.y);
-            MonsterMgr.instance.createMultiple(monsterId,count, monsterEntryPos, (monster: Monster) => {
-                monster.stateMachine.switchState(STATE_ENUM.IDLE);
-            });  
-        }); 
-
+        MonsterMgr.instance.setWaveData(this.curWaveData);
         return true        
     }
 
     checkWave(){
         if(MonsterMgr.instance.checkAllMonstersAreClear()){
-            this.curWaveIndex += 1;
             if(!this.setWaveData()){
                 this.proxy.cmd.showWinView(this.curStageId);
                 this.digBlock && this.command("digBlock",{block:this.digBlock});                
-            }            
-        }                
+            }
+            this.curWaveIndex += 1;            
+        }else{
+            if(this.curWaveIndex > 0 && empty(MercenaryMgr.instance.mercenaryMap)){
+                getMapProxy().cmd.showFailView();
+            }
+        }           
     }
 
     initEntryPos() {
@@ -184,10 +180,11 @@ export class BattleMainView extends BaseView {
     }
 
     initMercenary() {
-        var mercenaryId = 3;
+        var mercenaryId = 2;
         MercenaryMgr.instance.addMercenaryGenPool(mercenaryId);
         //不再通过计时器去生成，直接生成一个
-        MercenaryMgr.instance.create(mercenaryId);
+        let mercenary = MercenaryMgr.instance.create(mercenaryId);
+        mercenary.stateMachine.switchStateIdle();
     }
 
     initMonsters() {        

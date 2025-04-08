@@ -1,6 +1,6 @@
 import { Monster } from "../../logic/Monster";
 import {UILive} from "./UILive";
-import { Label, SkeletalAnimation, tween, Vec3, _decorator} from 'cc';
+import { Label, SkeletalAnimation, tween, Vec3, _decorator, Node} from 'cc';
 import { uiKit } from "../../utils/UIKit";
 import { toolKit } from "../../utils/ToolKit";
 import { Debug } from "../../utils/Debug";
@@ -69,9 +69,9 @@ export class UIMonster extends UILive {
             let spt = self.spt_role;
             if(logicObj.id > 0){
                 //self.loadSpt(spt, "" + logicObj.id)
-                uiKit.setMonsterImg(spt,logicObj.id,()=>{
-                    if(spt.node.actor){
-                        self.resetSkeletalAnimationRole(spt.node.actor);
+                uiKit.setMonsterImg(spt,logicObj.id,(actor:Node)=>{
+                    if(actor){
+                        self.resetSkeletalAnimationRole(actor);
                         self.regSkeletalAnimationEvent();
                         self.playSkeletalAnimationByState(logicObj.stateMachine.state.id);                             
                         self.updateDirection();

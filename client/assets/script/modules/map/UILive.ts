@@ -132,6 +132,9 @@ export class UILive extends BaseUI {
         }
     }
     
+    /** 
+     * 废弃不用
+     */
     moveStep(duration:number,toPos:Vec2,cb?:Function) {
         this.stopMoveAction();
         this._moveAction = tween(this.node)

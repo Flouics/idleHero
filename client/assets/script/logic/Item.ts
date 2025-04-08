@@ -102,8 +102,10 @@ export class Item extends ItemBase {
     destroy(){
         //--todo表现
         super.destroy();
-        let pool = PoolMgr.instance.getPool(this._pb_tag);
-        pool.recycleItem(this.node);
+        if(this.node && this.node.isValid){
+            let pool = PoolMgr.instance.getPool(this._pb_tag);
+            pool.recycleItem(this.node); 
+        }
     }
     update(){
         

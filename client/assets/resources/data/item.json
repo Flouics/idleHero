@@ -88,5 +88,185 @@
         "type": 2,
         "data_1": 0,
         "desc": "道具4"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "铜矿",
+        "_id": 9,
+        "id": 101001,
+        "type": 101,
+        "data_1": 100,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "铝矿",
+        "_id": 10,
+        "id": 101002,
+        "type": 101,
+        "data_1": 100,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "铁矿",
+        "_id": 11,
+        "id": 101003,
+        "type": 101,
+        "data_1": 100,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "锌矿",
+        "_id": 12,
+        "id": 101004,
+        "type": 101,
+        "data_1": 100,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "锡矿",
+        "_id": 13,
+        "id": 101005,
+        "type": 101,
+        "data_1": 100,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "银矿",
+        "_id": 14,
+        "id": 101006,
+        "type": 101,
+        "data_1": 100,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "金矿",
+        "_id": 15,
+        "id": 101007,
+        "type": 101,
+        "data_1": 100,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "钴矿",
+        "_id": 16,
+        "id": 101008,
+        "type": 101,
+        "data_1": 100,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "钛矿",
+        "_id": 17,
+        "id": 101009,
+        "type": 101,
+        "data_1": 100,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "铜",
+        "_id": 18,
+        "id": 102001,
+        "type": 102,
+        "data_1": 1000,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "铝",
+        "_id": 19,
+        "id": 102002,
+        "type": 102,
+        "data_1": 1000,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "铁",
+        "_id": 20,
+        "id": 102003,
+        "type": 102,
+        "data_1": 1000,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "锌",
+        "_id": 21,
+        "id": 102004,
+        "type": 102,
+        "data_1": 1000,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "锡",
+        "_id": 22,
+        "id": 102005,
+        "type": 102,
+        "data_1": 1000,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "银",
+        "_id": 23,
+        "id": 102006,
+        "type": 102,
+        "data_1": 1000,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "金",
+        "_id": 24,
+        "id": 102007,
+        "type": 102,
+        "data_1": 1000,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "钴",
+        "_id": 25,
+        "id": 102008,
+        "type": 102,
+        "data_1": 1000,
+        "desc": "icon"
+    },
+    {
+        "data3": 0,
+        "data2": 0,
+        "name": "钛",
+        "_id": 26,
+        "id": 102009,
+        "type": 102,
+        "data_1": 1000,
+        "desc": "icon"
     }
 ]}

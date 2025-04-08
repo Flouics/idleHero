@@ -1,7 +1,7 @@
 import { Mercenary } from "../../logic/Mercenary";
 import {UILive} from "./UILive";
 
-import { SkeletalAnimation, tween, Vec2, Vec3, _decorator} from 'cc';
+import { SkeletalAnimation, tween, Vec2, Vec3, _decorator, Node} from 'cc';
 import { uiKit } from "../../utils/UIKit";
 import { toolKit } from "../../utils/ToolKit";
 const {ccclass, property} = _decorator;
@@ -69,9 +69,9 @@ export class UIMercenary extends UILive {
             let spt = self.spt_role;
             if(logicObj.id > 0){
                 //self.loadSpt(spt, "" + logicObj.id)
-                uiKit.setMercenaryImg(spt,logicObj.id,()=>{
-                    if(spt.node.actor){
-                        self.resetSkeletalAnimationRole(spt.node.actor);
+                uiKit.setMercenaryImg(spt,logicObj.id,(actor:Node)=>{
+                    if(actor){
+                        self.resetSkeletalAnimationRole(actor);
                         self.playSkeletalAnimationByState(logicObj.stateMachine.state.id);
                         self.regSkeletalAnimationEvent();     
                         self.updateDirection();

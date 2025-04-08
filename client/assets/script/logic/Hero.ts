@@ -71,7 +71,7 @@ export class Hero extends Live {
     
     //每一秒的检测
     update(dt:number){
-        super.update(dt);
+        this.mapProxy.isBattle == false && super.update(dt);
     }
 
     fetchTask(){
@@ -95,10 +95,6 @@ export class Hero extends Live {
     clearTask(){
         this.task = null;
         this.stateMachine.switchState(STATE_ENUM.IDLE);
-    }
-
-    fetchDigTask(){
-
     }
 
     digBlock(task:TaskBase){
@@ -129,9 +125,11 @@ export class Hero extends Live {
                     this.clearTask();
                     return false;
                 }
-                if(this.routeList.length < 1 || MapUtils.isNearBy(this.tilePos,this.task.tilePos)){                    
+                if(this.routeList.length < 1 && MapUtils.isNearBy(this.tilePos,this.task.tilePos)){                    
                     this.stateMachine.switchState(STATE_ENUM.DIG);
                     return true;
+                }else{
+                    this.stateMachine.switchState(STATE_ENUM.MOVING);
                 }      
             }
 
@@ -145,7 +143,9 @@ export class Hero extends Live {
                 if(this.routeList.length < 1 || MapUtils.isNearBy(this.tilePos,this.task.tilePos)){                    
                     this.stateMachine.switchState(STATE_ENUM.BUILD);
                     return true;
-                }      
+                }else{
+                    this.stateMachine.switchState(STATE_ENUM.MOVING);
+                }       
             }        
             
             if(this.task instanceof CarryTask){
@@ -164,7 +164,9 @@ export class Hero extends Live {
     destroy(){
         //--todo表现
         super.destroy();
-        let pool = PoolMgr.instance.getPool(this._pb_tag);
-        pool.recycleItem(this.node);
+        if(this.node && this.node.isValid){
+            let pool = PoolMgr.instance.getPool(this._pb_tag);
+            pool.recycleItem(this.node); 
+        }
     }
 }

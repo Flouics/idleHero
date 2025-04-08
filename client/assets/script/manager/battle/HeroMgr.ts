@@ -5,12 +5,13 @@ import { Node } from "cc";
 import {BattleMainView} from "../../modules/map/BattleMainView";
 import { MapMainView } from "../../modules/map/MapMainView";
 import { getMapProxy, MapProxy_event } from "../../modules/map/MapProxy";
+import { empty } from "../../Global";
 
 
 // 角色管理器
 export class HeroMgr extends BaseClass{
     @serialize()
-    heroMap:{[key:number]:Hero} = {};
+    heroMap:Map<number,Hero> = new Map();
     _nd_root:Node = null; 
 
     constructor(){
@@ -33,12 +34,7 @@ export class HeroMgr extends BaseClass{
     }
 
     reset(){
-        for (const key in this.heroMap) {
-            if (this.heroMap.hasOwnProperty(key)) {
-                this.heroMap[key].destroy()                
-            }
-        }
-        this.heroMap = {};
+        this.clear();
         this.initSchedule();
     }
 
@@ -48,37 +44,37 @@ export class HeroMgr extends BaseClass{
     }
 
     clear(){
+        this.heroMap.forEach(hero => {
+            hero.destroy();
+        });
+        this.heroMap.clear();
         getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
     }
 
     create( x: number = 0, y: number = 0){
         let hero = new Hero(x,y);
         hero.initUI(this._nd_root)
-        this.heroMap[hero.idx] = hero;        
+        this.heroMap.set(hero.idx,hero);        
         return hero;
     }
 
     refresh(){
-        for (const key in this.heroMap) {
-            if (this.heroMap.hasOwnProperty(key)) {
-                this.heroMap[key].initUI(this._nd_root);                
-            }
-        }
+        this.heroMap.forEach(hero => {
+            hero.initUI(this._nd_root);  
+        });
     }
 
     clearHero(idx:number){
-        let obj = this.heroMap[idx];
+        let obj = this.heroMap.get(idx);
         if(obj){
             obj.destroy();
         }
-        delete this.heroMap[idx]
+        this.heroMap.delete(idx);
     }
     
     update(dt:number){
-        for (const key in this.heroMap) {
-            if (this.heroMap.hasOwnProperty(key)) {
-                this.heroMap[key].update(dt)                
-            }
-        }
+        this.heroMap.forEach(hero =>{
+            hero.update(dt);
+        });
     }
 }

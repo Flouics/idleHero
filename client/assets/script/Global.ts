@@ -80,7 +80,7 @@ export let parseNum = function(num:number):string {
 
 export let winSize = new Size(750,1334);
 export let getTimeFrame = () =>{
-    return Number(game.frameRate);
+    return game.frameTime / 1000;
 } 
 export let g = 10;
 export let Z_Max_2D = 10;

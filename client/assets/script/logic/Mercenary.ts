@@ -1,7 +1,7 @@
 
 import {MapUtils} from "./MapUtils";
 import {TaskBase} from "./TaskBase";
-import {POOL_TAG_ENUM} from "../manager/PoolMgr";
+import {POOL_TAG_ENUM, PoolMgr} from "../manager/PoolMgr";
 import {STATE_ENUM} from "./stateMachine/StateMachine";
 import { MercenaryMgr } from "../manager/battle/MercenaryMgr";
 import { MonsterMgr } from "../manager/battle/MonsterMgr";
@@ -9,6 +9,7 @@ import { toolKit } from "../utils/ToolKit";
 import { Live }  from "./Live";
 import { Monster } from "./Monster";
 import { Vec2 } from "cc";
+import { clone } from "../Global";
 
 export class Mercenary extends Live {
     static _idIndex = 1000;
@@ -65,8 +66,7 @@ export class Mercenary extends Live {
             self.addSkill(skillId);
         })               
     }
-    
-    
+        
     onEnterState(params:any){
         var stateId = this.stateMachine.state.id;
         switch (stateId) {
@@ -87,6 +87,25 @@ export class Mercenary extends Live {
                 break;
         }
     }
+    moveStep() {
+            var toTilePos:Vec2;
+            if(this.target && this.target.checkLive()){
+                toTilePos = new Vec2(this.target.tx,this.target.ty);
+            }else{
+                toTilePos = this.toTilePos;  
+            }
+            if (!toTilePos){
+                this.stateMachine.trySwitchLastState();
+                return;
+            }    
+            let toPos = MapUtils.getViewPosByTilePos(toTilePos);
+            let viewDistance = MapUtils.getLineDis(toPos,this.getUIPos());
+            //距离小于最小一个单位的距离就不移动了。
+            if(viewDistance < Live.MIN_DISTANCE){        
+                this.stateMachine.switchStateIdle();          
+                return;
+            }
+        }
     
     //每一秒的检测
     update(dt:number){
@@ -95,13 +114,23 @@ export class Mercenary extends Live {
 
     fetchTask(){
         // 没有目标的，就定个目标
-/*         var routeList = this.getMoveRoute(this.mapProxy.monsterEntryPos);
-        this.routeList = routeList; */
-        this.toPos = MapUtils.getViewPosByTilePos(this.mapProxy.monsterEntryPos);
-        this.toPos.y = 0;//不要过半场
-        this.toPos.x = toolKit.getRand(-200,200);
-
-        this.stateMachine.switchState(STATE_ENUM.MOVING);
+        if(this.target){
+            if(this.checkTarget()){
+                this.stateMachine.switchState(STATE_ENUM.ATTACK)
+                return;
+            }else{
+                if(!this.target.checkLive()){
+                    this.target = null;
+                }                
+            }            
+        }else{
+            if(!this.findTarget()){
+                this.toTilePos = clone(this.mapProxy.monsterEntryPos);
+                this.toTilePos.y = 0;//不要过半场
+                this.toTilePos.x = 0; //toolKit.getRand(-10,10);
+                this.stateMachine.switchState(STATE_ENUM.MOVING);
+            }
+        }
     }
 
     clearTask(){
@@ -149,12 +178,16 @@ export class Mercenary extends Live {
         this.mercenaryMgr.clearMercenary(this.idx)
     }
     
-    getMoveRoute(toPos:Vec2){       
-        return [toPos];             // 直接取终点。不存在障碍，直接取终点
+    getMoveRoute(toPos:Vec2):{route:Array<Vec2>,isPass:boolean}{       
+        return {route:[toPos],isPass:true};             // 直接取终点。不存在障碍，直接取终点
     }
 
     destroy(isAction = false){
         //--todo表现
         super.destroy();     
+        if(this.node && this.node.isValid){
+            let pool = PoolMgr.instance.getPool(this._pb_tag);
+            pool.recycleItem(this.node); 
+        }
     }
 }

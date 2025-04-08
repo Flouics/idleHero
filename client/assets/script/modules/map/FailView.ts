@@ -32,7 +32,7 @@ export class FailView extends BaseView {
     }
 
     onClickAgain(){
-        this.close();
         this.mapProxy.updateView("againBattle");
+        this.close();
     }
 }

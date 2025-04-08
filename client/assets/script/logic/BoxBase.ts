@@ -59,7 +59,7 @@ export class BoxBase extends ItemBase {
 
     target:BoxBase = null;
     targetExtraList:BoxBase[] = null;   //副目标列表    
-    toPos:Vec2 = null;              //移动的目的地
+    toTilePos:Vec2 = null;              //移动的目的地
 
     getBoundingBox():any{
         if(this.node?.isValid && this.node.getComponent(UITransform) && this.node.parent && this.node.parent.getComponent(UITransform)){

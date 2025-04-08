@@ -98,7 +98,7 @@ export class MapMainView extends BaseView {
 
     enterStage(block:Block){
         //扣除体力
-        let stageId = toolKit.getRand(1,2);
+        let stageId = 1;
         let stageData = App.dataMgr.findById("stage",stageId);
         if(!stageData){
             toolKit.showTip(lang("stage.dataError"));

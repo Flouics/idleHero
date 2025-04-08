@@ -81,11 +81,12 @@ export class MapProxy extends Proxy {
     task:TaskBase[] = [];
     taskMap = {}
 
-    monsterEntryPos = new Vec2(0, 6);          //tilePos
+    monsterEntryPos = new Vec2(0, 8);          //tilePos
     mercenaryEntryPos = new Vec2(0, -3);       //tilePos
     headquartersPos = new Vec2(0,-4);         //tilePos
 
     isPause:boolean = false;
+    isBattle:boolean = false;
     battleTimeStamp:number = 0;    
 
     SCALE_MERCENARY = 0.8

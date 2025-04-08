@@ -1,7 +1,7 @@
 import {BaseClass} from "../../zero/BaseClass";
 import { serialize } from "../../utils/Decorator";
 import { toolKit } from "../../utils/ToolKit";
-import { merge, getTimeFrame } from "../../Global";
+import { merge, getTimeFrame, empty } from "../../Global";
 import { MapProxy , getMapProxy, MapProxy_event } from "../../modules/map/MapProxy";
 import { Debug }   from "../../utils/Debug";
 import {MapUtils} from "../../logic/MapUtils";
@@ -39,12 +39,7 @@ export class MercenaryMgr extends BaseClass{
     }
 
     reset(){
-        this.mercenaryMap.forEach(data => {
-            data.destroy();
-        })
-
-        this.mercenaryMap.clear();
-        this.mercenaryGenPool.clear();
+        this.clear();
         this.initSchedule();
     }
 
@@ -89,6 +84,12 @@ export class MercenaryMgr extends BaseClass{
     }
 
     clear(){
+        this.mercenaryMap.forEach(mercenary => {
+            mercenary.destroy();
+        });
+        this.mercenaryMap.clear();
+        this.mercenaryGenPool.clear();
+
         getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
     }
 
@@ -121,7 +122,7 @@ export class MercenaryMgr extends BaseClass{
         }
 
         var pos = MapUtils.getViewPosByTilePos(this.proxy.mercenaryEntryPos);
-        var x = pos.x + toolKit.getRand(-300,300);
+        var x = pos.x //+ toolKit.getRand(-300,300);
         var y = pos.y;
         Debug.log("createMercenary",mercenaryId,v2(x,y));
         let mercenary = new Mercenary(data,x,y);

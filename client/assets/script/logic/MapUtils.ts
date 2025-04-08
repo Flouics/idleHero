@@ -115,19 +115,22 @@ export class MapUtils {
         return pos.x + "_" + pos.y;
     }
     // 获取最短路径
-    static getRouteList(fromPos: Vec2, toPos: Vec2, checkFun: Function = () => { return true }) {
+    static getRouteList(fromPos: Vec2, toPos: Vec2
+        , checkFun: Function = () => { return true }):{route:Array<Vec2>,isPass:boolean} {
         var getKey = (pos: Vec2) => { return MapUtils.getKey(pos) }
         var getDis = (pos: Vec2) => { return MapUtils.getRouteDis(pos,toPos) }
-        var ret: Vec2[] = []
+        var ret = {route:[],isPass:false}; 
         var dis = getDis(fromPos)
         if (checkFun(toPos) ){
             if (dis == 0){
+                ret.isPass = true;
                 return ret //相同地点不用寻路
             }
         }else{
             if (dis == 1) {
                 //相隔地点不用寻路
-                ret.push(v2(toPos.x, toPos.y))
+                ret.isPass = true;
+                ret.route.push(v2(toPos.x, toPos.y))
                 return ret 
             }
         }
@@ -216,11 +219,14 @@ export class MapUtils {
         var result = findRoute(route)
         if (!result) {
             //无路可走,取最短
+            ret.isPass = false;
             result = shortestRoute
+        }else{
+            ret.isPass = true;
         }
         
         while (result) {
-            ret.push(v2(result.x, result.y))
+            ret.route.push(v2(result.x, result.y))
             result = result.last
         }
         return ret

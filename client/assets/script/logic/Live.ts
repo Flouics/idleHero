@@ -16,6 +16,7 @@ import { BuffData } from "../manager/battle/BuffMgr";
 import { SkillData } from "../manager/battle/SkillMgr";
 import { nullfun, getTimeFrame } from "../Global";
 import { DamageRet } from "../Interface";
+import { BLOCK_VALUE_ENUM } from "./Block";
 
 export class Live extends BoxBase {
     static SERRCH_TIME = 500;   // 500 毫秒搜索一次
@@ -128,7 +129,7 @@ export class Live extends BoxBase {
         var stateId = this.stateMachine.state.id;
         switch (stateId) {
             case STATE_ENUM.MOVING:
-                this.toPos = null;
+                this.toTilePos = null;
                 break;
             case STATE_ENUM.STUN:
                 this.ui?.resumeSkeletalAnimation();
@@ -155,8 +156,10 @@ export class Live extends BoxBase {
     }
 
     moveToTilePos(toTilePos: Vec2) {
-        var moveRouteList = this.getMoveRoute(toTilePos)
-        if (toolKit.empty(moveRouteList)){
+        var routeData = this.getMoveRoute(toTilePos)
+        var moveRouteList = routeData.route
+        var isPass = routeData.isPass
+        if (!isPass){
             return false;
         }
         this.routeList = moveRouteList;
@@ -209,7 +212,12 @@ export class Live extends BoxBase {
         }
     }
 
-    checkMovingAction(){        
+    checkMovingAction(){       
+        if(this.mapProxy.isBattle == false){
+            return false;
+        }
+        
+        // 战斗部分的判断
         var nowTimeStamp = this.getTime(); // 本地时间就够了 
         if (nowTimeStamp > this.lastMoveCheckTime){
             this.lastMoveCheckTime = nowTimeStamp + Live.SERRCH_TIME;
@@ -256,7 +264,7 @@ export class Live extends BoxBase {
         if(this.target && this.target.checkLive()){         // 有目标再跳转方向，否则不调整
             toPos = new Vec2(this.target.x,this.target.y);        
         }else{
-            toPos = this.toPos;
+            toPos = MapUtils.getViewPosByTilePos(this.toTilePos);
         }
         if (!toPos){
             this.stateMachine.switchState(STATE_ENUM.IDLE);
@@ -282,7 +290,7 @@ export class Live extends BoxBase {
         if(this.target && this.target.checkLive()){         // 有目标再跳转方向，否则不调整
             toPos = new Vec2(this.target.x,this.target.y);        
         }else{
-            toPos = this.toPos;
+            toPos = MapUtils.getViewPosByTilePos(this.toTilePos);
         }
         if (!toPos){
             this.stateMachine.switchState(STATE_ENUM.IDLE);
@@ -326,20 +334,24 @@ export class Live extends BoxBase {
             this.stateMachine.trySwitchLastState();
             return;
         }    
+        this.toTilePos = toTilePos;
         let toPos = MapUtils.getViewPosByTilePos(toTilePos);
         let routeDistance = MapUtils.getRouteDis(toTilePos,this.tilePos)
+        let block = this.mapProxy.getBlock(toTilePos);
         let viewDistance = MapUtils.getLineDis(toPos,this.getUIPos());
         //距离小于最小一个单位的距离就不移动了。
-        if(viewDistance < this.mapProxy.blockWidth){        
+        if(viewDistance < this.mapProxy.blockWidth && !block.checkType(BLOCK_VALUE_ENUM.EMPTY)){        
             this.stateMachine.switchStateIdle();          
             return;
         }
+        /**
         let duration = viewDistance / (this.baseMoveSpeed * this.moveSpeed);
         this.ui.moveStep(duration,toPos,() => {
             this.x = toPos.x;
             this.y = toPos.y;
             this.stateMachine.switchStateIdle();        
-        });
+        }); 
+        */
     }
 
     fixPositionByView(){
@@ -347,9 +359,8 @@ export class Live extends BoxBase {
         this.x = pos.x;
         this.y = pos.y;
     }
-    getMoveRoute(toTilePos:Vec2){        
+    getMoveRoute(toTilePos:Vec2):{route:Array<Vec2>,isPass:boolean}{        
         return MapUtils.getRouteList(v2(this.tx,this.ty),toTilePos,this.checkBlockRoute.bind(this))
-        // return [toTilePos];             // 直接取终点。不存在障碍，直接取终点
     }
 
     clear(){
@@ -402,14 +413,15 @@ export class Live extends BoxBase {
 
     doAttackAction(){
         if (!this.target){
-            return;
+            return false;
         }
-        if(!!this.ui?._directAction) return; //调整方向，先不攻击。
+        if(!!this.ui?._directAction) return false; //调整方向，先不攻击。
         
         this.ui.playSkeletalAnimation(UILive.SKELETAL_ANIMATION_NAME.ATTACK);
         
         //先直接做延时，不绑定帧了
         this.ui.scheduleOnce(this.doAttack.bind(this),30 * getTimeFrame());
+        return true;
     }
 
     doAttack(){
@@ -451,8 +463,9 @@ export class Live extends BoxBase {
         for (let i = 0; i < atkCount; i++) {
             if(this.checkTarget()){            
                 //发起攻击
-                this.doAttackAction();
-                this.lastAttackTime = nowTimeStamp + this.atkColdTime / this.atkSpeed;    
+                if(this.doAttackAction()){
+                    this.lastAttackTime = nowTimeStamp + this.atkColdTime / this.atkSpeed;
+                }                    
             }else{
                 var target = this.findTarget();
                 if(!!target){  //不浪费攻击机会，没有人可以选就打别人                  
@@ -463,8 +476,9 @@ export class Live extends BoxBase {
                     this.updateDirection(toPos);
     
                     if(this.checkTargetInAtkRange(this.target)){
-                        this.doAttackAction();
-                        this.lastAttackTime = nowTimeStamp + this.atkColdTime / this.atkSpeed;
+                        if(this.doAttackAction()){
+                            this.lastAttackTime = nowTimeStamp + this.atkColdTime / this.atkSpeed;
+                        }  
                     }else{
                         this.stateMachine.switchState(STATE_ENUM.MOVING);
                     }
@@ -499,6 +513,9 @@ export class Live extends BoxBase {
         if(!this.checkLive()) {
             this.clear();
         }
+        if(this.ui){
+            this.ui.onBeAtked(damageRet.damage);
+        }
         super.onBeAtked(damageRet,atker);
     }
 
@@ -507,9 +524,6 @@ export class Live extends BoxBase {
             return;
         }
         this.life += -damage;
-        if(this.ui){
-            this.ui.onBeAtked(damage);
-        }
         //Debug.log("onDamaged",this.name,this.life);
     }
 

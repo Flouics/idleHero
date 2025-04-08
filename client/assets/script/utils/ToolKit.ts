@@ -474,12 +474,16 @@ export class ToolKit {
             return true
         }
         var typeStr = typeof(value)
-        if(typeStr == "string"){
-            return value == ""
+        if(typeStr == "string" || Array.isArray(value)){
+            return value.length == 0
         }else if (typeStr == "boolean"){
             return true;
         }else if (typeStr == "object"){
-            return Object.keys(value).length == 0;
+            if(value instanceof Map || value instanceof Set){
+                return value.size == 0;
+            }else{
+                return Object.keys(value).length == 0;
+            }            
         }else{
             return !value
         }

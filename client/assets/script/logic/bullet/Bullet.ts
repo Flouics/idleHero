@@ -180,10 +180,9 @@ export class Bullet extends BoxBase {
 
     doAtk(){
         if(this.target && this.target.isDestroy == false){
-            var self = this;
             this.target.onBeAtked(this.getDamageRet(),this.shooter);           
             this.data.atkBuffList.forEach(buffId=>{
-                self.target.addBuff(buffId);
+                this.target.addBuff(buffId);
             })           
             this.onDamaged();
         }else{

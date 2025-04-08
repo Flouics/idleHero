@@ -63,7 +63,7 @@ export class Monster extends Live {
         this.monsterMgr.clearMonster(this.idx);        
     }    
     moveToHeadquarters(){
-        var toPos = v2(this.x,this.y - 1000);
+        var toPos = v2(this.x,this.y - 20);
         this.moveToTilePos(toPos);
     }
 
@@ -101,8 +101,9 @@ export class Monster extends Live {
                 target = this.mapProxy.headquarters;
                 targetList = [];
             } */
-            target = mercenaryMap.entries().next()?.value;
+            let tempTarget = mercenaryMap.values().next()?.value;
             targetList = [];
+            tempTarget && (this.toTilePos = tempTarget.tilePos);
         }
 
         if(!!target){
@@ -128,12 +129,17 @@ export class Monster extends Live {
         super.update(dt);
     }
 
-    getMoveRoute(toPos:Vec2){       
-        return [toPos];             // 直接取终点。不存在障碍，直接取终点
+
+    getMoveRoute(toPos:Vec2):{route:Array<Vec2>,isPass:boolean}{       
+        return {route:[toPos],isPass:true};             // 直接取终点。不存在障碍，直接取终点
     }
 
     destroy(isAction = false){
         //--todo表现
-        super.destroy();        
+        super.destroy();    
+        if(this.node && this.node.isValid){
+            let pool = PoolMgr.instance.getPool(this._pb_tag);
+            pool.recycleItem(this.node); 
+        }  
     }
 }

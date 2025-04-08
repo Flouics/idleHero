@@ -5,8 +5,8 @@ import {BaseUI} from "../../zero/BaseUI";
 import { _decorator, Label, Sprite} from 'cc';
 const {ccclass, property} = _decorator;
 
-@ccclass("UIMercenary")
-export class UIMercenary extends BaseUI {    
+@ccclass("UIMercenaryItem")
+export class UIMercenaryItem extends BaseUI {    
     _baseUrl = "texture/mercenary/";
     _logicObj:Mercenary = null;
     @property(Sprite)

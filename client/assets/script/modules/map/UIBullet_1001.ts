@@ -9,8 +9,6 @@ const {ccclass, property} = _decorator;
 @ccclass("UIBullet_1001")
 export class UIBullet_1001 extends UIBullet {  
     updateUI() {
-        if(!this._logicObj) return;
-        this.node.active = true;
-        this._isReady = true;
+        super.updateUI();
     }
 }
