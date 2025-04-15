@@ -35,7 +35,7 @@ export class BaseClass {
     }
 
     destroy(){
-        this.clear();
+        //this.clear();
     }
 
     getClassName(){

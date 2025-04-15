@@ -9,6 +9,8 @@ import {App} from "../App";
 import { GameComponent } from "../../../extensions/oops-plugin-framework/assets/module/common/GameComponent";
 import { oops } from "../../../extensions/oops-plugin-framework/assets/core/Oops";
 import { DelegateComponent } from "../../../extensions/oops-plugin-framework/assets/core/gui/layer/DelegateComponent";
+import { empty, isValid, NodeEx } from "../Global";
+import { UUID } from "../utils/UUID";
 const {ccclass, property} = _decorator;
 
 @ccclass("BaseUI")
@@ -59,6 +61,7 @@ export class BaseUI extends GameComponent {
 
     // use this for initialization
     onLoad() {
+        this.nodeTreeInfoLite();
         this.clearData();
         if (this._logicObj){
             this._logicObj.onLoad(this)
@@ -98,15 +101,29 @@ export class BaseUI extends GameComponent {
     loadSpt(spt: Sprite, res_url: string = null, cb?: Function) {
         this.loadSptEx(spt,this.getResUrl(res_url),cb);
     };
+
+    loadSptEmpty(spt: Sprite) {
+        this.loadSptEx(spt,null);
+    };
     
     loadSptEx(spt: Sprite, res_url: string = null, cb?: Function) {
-        if (!res_url) return;
-        spt.node.active = false;
+        if (!isValid(spt)) return;
+        let node = spt.node as NodeEx;
+        node.loadIndex = node.loadIndex || UUID.ID_AUTO;
+        let loadIndex = node.loadIndex;
+        if(empty(res_url)){
+            spt.spriteFrame = null;
+            if (!!cb) cb( null );
+            return;
+        }
         resources.load(res_url + "/spriteFrame", SpriteFrame, function (err, spriteFrame) {
-            if (!err && spt && spt.node) {
-                spt.spriteFrame = spriteFrame;
-                spt.node.active = true;
-                if (!!cb) cb( spriteFrame);
+            if (!err && spt && spt.isValid) {
+                if(node.loadIndex == loadIndex){
+                    spt.spriteFrame = spriteFrame;                    
+                }else{
+                    Debug.log("loadIndex is not equal",res_url,spt)
+                }      
+                if (!!cb) cb( spt.spriteFrame );             
             }else{
                 Debug.log(js.formatStr("loadSptEx error,error->%s spt->%s", err,spt));
             }
@@ -171,6 +188,10 @@ export class BaseUI extends GameComponent {
         if(!EDITOR){
             this.updateUI();
         }        
+    }
+
+    onClickClose(){
+        this.close();
     }
 
     close(){

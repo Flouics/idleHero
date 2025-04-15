@@ -44,7 +44,7 @@ export class UIBuilding extends BaseUI {
             if(logicObj.id > 0){
                 self.loadSpt(self.spt_face, "building/building_" + logicObj.id)
             }else{
-                self.spt_face.spriteFrame = null;
+                self.loadSptEmpty(self.spt_face);
             }           
         })
     }

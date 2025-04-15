@@ -88,7 +88,7 @@ export class Item extends ItemBase {
     initUI(parent:Node,cb?:Function) {
         let pool = PoolMgr.instance.getPool(this._pb_tag);
         let node = pool.getItem(this);
-        node.parent = parent;
+        node.parent = parent;   
         this.node = node;
         this.ui = this.node.getComponent(UIItem);
         this.ui.bindBox(this);

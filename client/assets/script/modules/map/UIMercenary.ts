@@ -78,7 +78,7 @@ export class UIMercenary extends UILive {
                     }
                 });
             }else{
-                spt.spriteFrame = null;
+                self.loadSptEmpty(spt);
             }       
         }
         this.updateDataToUI("mercenary.type",logicObj.id,()=>{

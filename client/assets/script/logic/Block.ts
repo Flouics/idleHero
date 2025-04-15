@@ -8,6 +8,7 @@ import { instantiate, Node, Vec2, Vec3 } from "cc";
 import { toolKit } from "../utils/ToolKit";
 import { uiKit } from "../utils/UIKit";
 import { TouchUtils } from "../utils/TouchUtils";
+import { getMapProxy } from "../modules/map/MapProxy";
 
 /** 瓦片地图属性 */ 
 export enum BLOCK_VALUE_ENUM  {
@@ -73,7 +74,15 @@ export class Block extends BoxBase {
         }
         if(this.id == null){
             this.id = toolKit.getRand(1,10) > 2 ? BLOCK_VALUE_ENUM.BLOCK : BLOCK_VALUE_ENUM.EMPTY;
-        }     
+        }
+        if(this.checkType(BLOCK_VALUE_ENUM.BLOCK)){
+            let value = toolKit.getRand(1,100)
+            if(value < 30){
+                this._idPre = BLOCK_VALUE_ENUM.MONSTER_ENTRY;
+            }else if(value < 60){
+                this._idPre = BLOCK_VALUE_ENUM.MINE;
+            }
+        }  
         //   
         this.bindUI(node.getComponent(UIBlock));
         this.updateUI();
@@ -106,12 +115,16 @@ export class Block extends BoxBase {
         this.data_2 = value;
     }
     onDig(){
+        this.clearBlock();
+        this.clearFlag();
+        if(this._idPre == BLOCK_VALUE_ENUM.MINE){
+            this.data_1 = 1001;
+            getMapProxy().cmd.buildMine({block:this});            
+        }    
         if (this._idPre > 0){
             this.id = this._idPre;
-            this.clearFlag();
-            return true
-        }
-        this.clearBlock()
-        return false;
+            this._idPre = 0;        // 只赋值一次
+        }    
+        return true;
     }
 }

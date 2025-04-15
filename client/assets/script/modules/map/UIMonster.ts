@@ -78,7 +78,7 @@ export class UIMonster extends UILive {
                     }
                 });
             }else{
-                spt.spriteFrame = null;
+                self.loadSptEmpty(spt);
             }       
         }
         this.updateDataToUI("monster.type",logicObj.id,()=>{

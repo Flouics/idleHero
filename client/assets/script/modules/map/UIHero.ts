@@ -16,7 +16,7 @@ export class UIHero extends UILive {
             if(logicObj.id > 0){
                 self.loadSpt(spt, "" + logicObj.id)
             }else{
-                spt.spriteFrame = null;
+                self.loadSptEmpty(spt);
             }       
         }
         this.updateDataToUI("hero.type",logicObj.id,()=>{

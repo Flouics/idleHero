@@ -17,7 +17,8 @@ export class RewardCommand extends Command{
         itemDataList.forEach(itemData=>{
             rwdItemList.push(new Item(itemData.id,itemData.count));
         })
-        this.proxy.addRwd(rwdItemList);    
+        this.proxy.addRwd(rwdItemList);  
+        App.dumpToDb();  
     }
 
     float(){        
@@ -28,15 +29,16 @@ export class RewardCommand extends Command{
             self.floatItemList.push(item)
         })
         self.proxy.clearRwd();
+        App.dumpToDb();
         doFloatAction = function (){
             var item = self.floatItemList.shift();
             if(item){
                 self.isFloating = true;
-                item.initUI(App.getUIRoot());
+                item.initUI(App.getPopupRoot());
                 tween(item.node)
-                .by(0.5,
+                .by(0.8,
                     {position:new Vec3(0,160,0)})
-                .by(0.3,
+                .by(0.4,
                     { position:new Vec3(0,160,0)},{
                         onUpdate(taget:Node,ratio:number){
                             item.node.getComponent(UIOpacity).opacity = 255 - 255 * ratio;
@@ -45,7 +47,7 @@ export class RewardCommand extends Command{
                 .call(() => {                
                     item.destroy();
                 }).start();
-                App.taskOnce(doFloatAction,500,taskKey);
+                App.taskOnce(doFloatAction,800,taskKey);
             }else{
                 self.isFloating = false;
             }            

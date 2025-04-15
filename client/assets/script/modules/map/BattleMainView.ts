@@ -22,6 +22,7 @@ import { oops } from "../../../../extensions/oops-plugin-framework/assets/core/O
 import { UIID_Map } from "./MapInit";
 import { Block } from "../../logic/Block";
 import { STATE_ENUM } from "../../logic/stateMachine/StateMachine";
+import { MineMgr } from "../../manager/battle/MineMgr";
 
 const {ccclass, property} = _decorator;
 @ccclass("BattleMainView")
@@ -101,10 +102,14 @@ export class BattleMainView extends BaseView {
         this.digBlock = block;
     }
 
+    onClickExitBattle(){
+        this.exitBattle();
+    }
+
     exitBattle(){
         //this.resetMap();
+        this.stopBattle();
         getLobbyProxy().updateView("onExitBattle");
-        this.battleState = 0;
         this.proxy.isBattle = false;
         this.close();
     }
@@ -160,7 +165,7 @@ export class BattleMainView extends BaseView {
         if(MonsterMgr.instance.checkAllMonstersAreClear()){
             if(!this.setWaveData()){
                 this.proxy.cmd.showWinView(this.curStageId);
-                this.digBlock && this.command("digBlock",{block:this.digBlock});                
+                this.digBlock && this.digBlock.onDig();               
             }
             this.curWaveIndex += 1;            
         }else{

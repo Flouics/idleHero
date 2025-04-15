@@ -140,7 +140,7 @@ export class Proxy extends BaseClass {
 
     }
 
-    dumpToDb(isImmediate = false){
+    dumpToDb(isImmediate = true){
         if (!this.isDump) {
             return
         }
@@ -155,8 +155,8 @@ export class Proxy extends BaseClass {
         if(isImmediate){
             doAction();
         }else{
-            // 延时100毫秒
-            App.taskOnce(doAction,0,DELAY_TASK_KEY + "ddumpToDb_" + this.getClassName());
+            // 延时1秒
+            App.taskOnce(doAction,1.0,DELAY_TASK_KEY + "dumpToDb_" + this.getClassName());
         }       
     }
     

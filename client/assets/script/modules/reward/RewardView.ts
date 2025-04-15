@@ -46,8 +46,7 @@ export class RewardView extends BaseView {
     }
 
     onClickComfirm(){
-        this.command("float");
-        App.dumpToDb();    
+        this.command("float"); 
         this.close();
     }
 }

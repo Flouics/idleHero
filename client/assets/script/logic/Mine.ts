@@ -1,7 +1,7 @@
 
 import {MapUtils} from "./MapUtils";
 import { Debug }  from "../utils/Debug";
-import { empty } from "../Global";
+import { empty, merge } from "../Global";
 import { BoxBase } from "./BoxBase";
 import { MineMgr } from "../manager/battle/MineMgr";
 import { serialize } from "../utils/Decorator";
@@ -9,63 +9,69 @@ import { Item } from "./Item";
 import { instantiate, Node, Prefab, resources } from "cc";
 import { UIMine } from "../modules/map/UIMine";
 import { getMapProxy } from "../modules/map/MapProxy";
+import { getRewardProxy } from "../modules/reward/RewardProxy";
+import { uiKit } from "../utils/UIKit";
+import { App } from "../App";
+import { toolKit } from "../utils/ToolKit";
+import { getPackageProxy } from "../modules/package/PackageProxy";
+import { getTimeProxy } from "../modules/time/TimeProxy";
 
+/**
+ * 每次计算产出的时间。默认X秒一次
+ */
+let PER_CAC_PRODUCT_TIME = 20;
+/** 
+ * 配表数据是多长时间的产量，默认X小时
+ */
+let PRODUCT_TIME = 60 * 60 * 1;
 export class Mine extends BoxBase {
     static _idIndex = 0;
 
     mineMgr:MineMgr = null;
     data = null;
     @serialize()
-    itemMap:{[key:number]:Item} = null;
+    itemMap:{[key:number]:Item} = {};
 
     @serialize()
     produceTimeLast:number = null;    
 
-    _pb_url:string = "";    //不预先加载的原因是因为种类比较多，而且基本上不会复用。
-    constructor(data:any, x: number = 0, y: number = 0) {
+    _pb_url:string = "prefab/map/UIMine";
+    constructor(data:any, tx: number = 0, ty: number = 0) {
         super();
-        this.x = x;
-        this.y = y;
+        this.tx = tx;
+        this.ty = ty;
         this.id = data.id;
         Mine._idIndex++;
         this.idx = Mine._idIndex;        
-        this.data = data;
+        this.data = App.dataMgr.findById("mine",this.id);
+        merge(this.data,data);
         this.init();
     }
 
     init(){
-        this.mineMgr = MineMgr.instance;
-
-        //基础数据初始化           
+        this.mineMgr = MineMgr.instance;     
     }
-
     
     initUI(parent:Node,cb?:Function) {
-        let self = this;
         if(this._pb_url == "") {
             return;
         }
-        resources.load(this._pb_url, Prefab, function (err: any, prefab: any) {
-            if (err) {
-                Debug.error(this._pb_url, err);
-            }else{
-                let node = instantiate(prefab);
-                let viewPos = MapUtils.getViewPosByTilePos(self.pos);
-                node.parent = parent;
-                node.setPosition(viewPos.x, viewPos.y);
-                self.bindUI(node.getComponent(UIMine));
-            }
+        uiKit.loadPrefab(this._pb_url,(node:Node) => {
+            let viewPos = this.pos;
+            node.parent = parent;
+            node.setPosition(viewPos.x, viewPos.y);
+            this.bindUI(node.getComponent(UIMine));
         })
     }
-
     
     calcProduct(deltaTime:number){
         if(empty(this.data)){
             return
         }
 
-        this.data.product.forEach(product => {
-            let item = new Item(product.id,product.count * deltaTime);
+        this.data.productList.forEach(product => {
+            let count = Math.round(product.count / PRODUCT_TIME * deltaTime);
+            this.addItem(product.id,count);
         });
     }
 
@@ -73,23 +79,34 @@ export class Mine extends BoxBase {
         if(empty(this.data)){
             return
         }
-        let nowTime = getMapProxy().getMapTime();
+        let nowTime = getTimeProxy().getTime();
         if(this.produceTimeLast == null){
             this.produceTimeLast = nowTime;
             return;
         }
-        let deltaTime = nowTime - this.produceTimeLast;
-        if(deltaTime > 1){
+        let deltaTime = (nowTime - this.produceTimeLast)/1000;
+        if(deltaTime > PER_CAC_PRODUCT_TIME ){
             this.calcProduct(deltaTime);
             this.produceTimeLast = nowTime;
         }
     }
 
-    addItem(item:Item){
-        if (this.itemMap[item.id] == null){
-            this.itemMap[item.id] = new Item(item.id);
+    addItem(id:number,count:number){
+        if (this.itemMap[id] == null){
+            this.itemMap[id] = new Item(id);
         }
-        this.itemMap[item.id].add(item.count);
+        this.itemMap[id].add(count);
+    }
+
+    getRwd(){
+        let itemList = [];
+        for (const key in this.itemMap) {
+            itemList.push(this.itemMap[key]);
+        }
+        this.itemMap = {};
+        getPackageProxy().addItemList(itemList);
+        getRewardProxy().cmd.addRwdList(itemList);
+        getRewardProxy().cmd.float();        
     }
 
     clear(){
@@ -99,9 +116,12 @@ export class Mine extends BoxBase {
     destroy(isAction = false){
         //--todo表现
         super.destroy();     
+        if(this.node){
+            this.node.removeFromParent();
+        }   
     }
 
     update(dt:number){
-        //todo;
+        this.calcProductTime();
     }
 }

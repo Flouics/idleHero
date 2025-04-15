@@ -14,9 +14,9 @@ import { BATTLE_TYPE_ENUM, RACE_ENUM } from "../modules/mercenary/MercenaryProxy
 import { Building }  from "./Building";
 import { BuffData } from "../manager/battle/BuffMgr";
 import { SkillData } from "../manager/battle/SkillMgr";
-import { nullfun, getTimeFrame } from "../Global";
+import { nullfun, getTimeFrame, empty } from "../Global";
 import { DamageRet } from "../Interface";
-import { BLOCK_VALUE_ENUM } from "./Block";
+import { BLOCK_CROSS_VALUE, BLOCK_VALUE_ENUM } from "./Block";
 
 export class Live extends BoxBase {
     static SERRCH_TIME = 500;   // 500 毫秒搜索一次
@@ -101,6 +101,9 @@ export class Live extends BoxBase {
 
         var stateId = this.stateMachine.state.id;
         switch (stateId) {
+            case STATE_ENUM.IDLE:
+                this.tryMoveToNextEmpty();
+                break;
             case STATE_ENUM.MOVING:
                 if(!this.checkMovingAction()){
                     this.doMovingAction(dt);
@@ -200,6 +203,29 @@ export class Live extends BoxBase {
     //避免遍历死循环。
     checkBlockRoute(pos:Vec2){
         return this.mapProxy.checkBlockRoute(pos);
+    }
+
+    /**
+     * 移动到附近空的格子
+     */
+    tryMoveToNextEmpty(){
+        if (!empty(this.routeList)){
+            return;
+        }
+        let block = this.mapProxy.getBlock(this.tx,this.ty);
+        if (block && !block.checkType(BLOCK_CROSS_VALUE)){
+            var dirs = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+            for (const key in dirs) {
+                let dir = dirs[key]
+                let toTilePos = v2(this.tx + dir[0],this.ty + dir[1])
+                block = this.mapProxy.getBlock(toTilePos.x,toTilePos.y);
+                if (block && block.checkType(BLOCK_CROSS_VALUE)){
+                    this.routeList = [toTilePos];
+                    this.stateMachine.switchState(STATE_ENUM.MOVING);
+                    return;
+                }
+            }
+        } 
     }
     
     moveNext(){
@@ -340,7 +366,7 @@ export class Live extends BoxBase {
         let block = this.mapProxy.getBlock(toTilePos);
         let viewDistance = MapUtils.getLineDis(toPos,this.getUIPos());
         //距离小于最小一个单位的距离就不移动了。
-        if(viewDistance < this.mapProxy.blockWidth && !block.checkType(BLOCK_VALUE_ENUM.EMPTY)){        
+        if(viewDistance <= this.mapProxy.blockWidth && !block.checkType(BLOCK_CROSS_VALUE)){        
             this.stateMachine.switchStateIdle();          
             return;
         }

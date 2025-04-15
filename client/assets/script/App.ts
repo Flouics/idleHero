@@ -269,8 +269,12 @@ export class App extends BaseClass{
         // todo 
         //i18n.init(lang);
     }
-    static dumpToDb(){       
-        App.moduleMgr.dumpToDb()
+    /**
+     * 存储数据
+     * @param isImmediate 是否延时 默认true
+     */
+    static dumpToDb(isImmediate = true){       
+        App.moduleMgr.dumpToDb(isImmediate)
         //Debug.log("保存成功")
     }
 

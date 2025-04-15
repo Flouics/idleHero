@@ -4,13 +4,15 @@ import { serialize } from "../../utils/Decorator";
 import { Node } from "cc";
 import { Mine } from "../../logic/Mine";
 import { getMapProxy, MapProxy_event } from "../../modules/map/MapProxy";
+import { App } from "../../App";
+import { Debug } from "../../utils/Debug";
 
 
 // 角色管理器
 export class MineMgr extends BaseClass{
     @serialize()
-    mineMap:{[key:number]:Mine} = {};
-    _nodeRoot:Node = null; 
+    mineMap:Map<number,Mine> = new Map();
+    _nd_root:Node = null; 
 
     constructor(){
         super();
@@ -27,17 +29,15 @@ export class MineMgr extends BaseClass{
     }
     
     init(root:Node){
-        this._nodeRoot = root;
+        this._nd_root = root;
         this.reset()
     }
 
     reset(){
-        for (const key in this.mineMap) {
-            if (this.mineMap.hasOwnProperty(key)) {
-                this.mineMap[key].destroy()                
-            }
-        }
-        this.mineMap = {};
+        this.mineMap.forEach(mine =>{
+            mine.destroy();
+        });
+        this.mineMap.clear();
         this.initSchedule();
     }
 
@@ -48,26 +48,28 @@ export class MineMgr extends BaseClass{
 
     clear(){
         getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
-        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
     }
 
-    create( x: number = 0, y: number = 0){
-        let mine = new Mine(x,y);
-        mine.initUI(this._nodeRoot)
-        this.mineMap[mine.idx] = mine;        
+    create( x: number = 0, y: number = 0,mineId:number){
+        let data = App.dataMgr.findById("mine",mineId);
+        if(!data){
+            Debug.log("can't find mine config by id:",mineId);
+            return;
+        }
+        let mine = new Mine(data,x,y);
+        mine.initUI(this._nd_root)
+        this.mineMap.set(mine.idx,mine);        
         return mine;
     }
 
     refresh(){
-        for (const key in this.mineMap) {
-            if (this.mineMap.hasOwnProperty(key)) {
-                this.mineMap[key].initUI(this._nodeRoot);                
-            }
-        }
+        this.mineMap.forEach(mine =>{
+            mine.initUI(this._nd_root);
+        });
     }
 
     clearMine(idx:number){
-        let obj = this.mineMap[idx];
+        let obj = this.mineMap.get(idx);
         if(obj){
             obj.destroy();
         }
@@ -75,10 +77,8 @@ export class MineMgr extends BaseClass{
     }
     
     update(dt:number){
-        for (const key in this.mineMap) {
-            if (this.mineMap.hasOwnProperty(key)) {
-                this.mineMap[key].update(dt)                
-            }
-        }
+        this.mineMap.forEach(mine =>{
+            mine.update(dt);
+        });
     }
 }

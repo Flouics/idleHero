@@ -12,6 +12,7 @@ import {CarryTask} from "./task/CarryTask";
 import { toolKit } from "../utils/ToolKit";
 import { MercenaryMgr } from "../manager/battle/MercenaryMgr";
 import { MonsterMgr } from "../manager/battle/MonsterMgr";
+import { BLOCK_CROSS_VALUE, BLOCK_VALUE_ENUM } from "./Block";
 
 export class Hero extends Live {
     baseMoveSpeed: number = 180;    //1秒
@@ -61,7 +62,9 @@ export class Hero extends Live {
                 this.stateMachine.switchState(STATE_ENUM.IDLE);
                 break;
             case STATE_ENUM.IDLE:
-                this.fetchTask();
+                if (!this.fetchTask()){
+                    this.tryMoveToNextEmpty();
+                }
                 break;
             default:
                 super.onState(dt,params)

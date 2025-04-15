@@ -14,7 +14,7 @@ export class Setting extends BaseUI {
     }
 
     onClickSave(){
-        App.dumpToDb();
+        App.dumpToDb(false);
     }
 
     onClickLoad(){

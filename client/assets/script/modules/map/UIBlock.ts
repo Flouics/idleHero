@@ -17,41 +17,55 @@ export class UIBlock extends BaseUI {
 
     _baseUrl = "texture/map/";
     _logicObj:Block = null;
-    updateUI(){
-        var self = this;
+
+    loadBlockSpt(){
         var logicObj = this._logicObj
         if(!logicObj){
             return 
         }
-        var loadBlockSpt = function(){
-            let spt = self.spt_item;
-            if(logicObj.checkType(BLOCK_VALUE_ENUM.BLOCK) && logicObj.data_1 > 0){
-                self.loadSpt(spt, "block/block_" + logicObj.data_1)
-            }else{
-                spt.spriteFrame = null;
-            }       
+        let spt = this.spt_item;
+        if(logicObj.checkType(BLOCK_VALUE_ENUM.BLOCK) && logicObj.data_1 > 0){
+            this.loadSpt(spt, "block/block_" + logicObj.data_1)
+        }else if(logicObj.checkType(BLOCK_VALUE_ENUM.MONSTER_ENTRY)){
+            this.loadSpt(spt, "block/entry_1")
+        }else{
+            this.loadSptEmpty(spt);
+        }     
+    }
+
+    loadFlagSpt(){
+        var logicObj = this._logicObj
+        if(!logicObj){
+            return 
         }
-        this.updateDataToUI("block.type",logicObj.id,()=>{
-            loadBlockSpt()           
-        })
+        let spt = this.spt_flag;
+        if(logicObj.data_2 > 0){
+            this.loadSpt(spt, "block/flag_" + logicObj.data_2)
+        }else{
+            this.loadSptEmpty(spt);
+        }       
+    }
 
-        this.updateDataToUI("block.data_1",logicObj.data_1,loadBlockSpt)
-
-        this.updateDataToUI("block.data_2",logicObj.data_2,()=>{
-            let spt = self.spt_flag;
-            if(logicObj.data_2 > 0){
-                self.loadSpt(spt, "block/flag_" + logicObj.data_2)
-            }else{
-                spt.spriteFrame = null;
-            }           
-        })
-
-        this.updateDataToUI("block.event",logicObj.event,()=>{
-            if(logicObj.event > 0){
-                self.loadSpt(self.spt_event, "event/event_" + logicObj.event)
-            }else{
-                self.spt_event.spriteFrame = null;
-            }           
-        })
+    loadEventSpt(){
+        var logicObj = this._logicObj
+        if(!logicObj){
+            return 
+        }
+        if(logicObj.event > 0){
+            this.loadSpt(this.spt_event, "event/event_" + logicObj.event)
+        }else{
+            this.loadSptEmpty(this.spt_event);
+        }            
+    }
+    updateUI(){
+        var logicObj = this._logicObj
+        if(!logicObj){
+            return 
+        }
+        this.updateDataToUI("block.type_data_1"
+                        ,{id:logicObj.id,data_1:logicObj.data_1}
+                        ,this.loadBlockSpt.bind(this));
+        this.updateDataToUI("block.data_2",logicObj.data_2,this.loadFlagSpt.bind(this));
+        this.updateDataToUI("block.event",logicObj.event,this.loadEventSpt.bind(this));
     }
 }

@@ -16,6 +16,9 @@ export class UIItem extends BaseUI {
     close(){
         
     }
+    reuse(){
+        this.node.setPosition(0,0,0);
+    }
     updateUI(){
         var self = this;
         var logicObj = this._logicObj
@@ -27,7 +30,7 @@ export class UIItem extends BaseUI {
             if(logicObj.id > 0){
                 self.loadSpt(spt, "item/" + logicObj.id)
             }else{
-                spt.spriteFrame = null;
+                self.loadSptEmpty(spt);
             }   
         }
         this.updateDataToUI("item.type",logicObj.id,loadSpt)

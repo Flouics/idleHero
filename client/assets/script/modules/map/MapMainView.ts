@@ -86,10 +86,12 @@ export class MapMainView extends BaseView {
     
     initMap() {
         this.heroMgr = HeroMgr.instance;
+        this.mineMgr = MineMgr.instance;
         this.margin_x = this.proxy.margin_x;
         this.margin_y = this.proxy.margin_y;             
         
         this.heroMgr.init(this.nd_heroRoot);
+        this.mineMgr.init(this.nd_mineRoot);
         this.initBlocks();
         this.initHeros();
 
@@ -174,6 +176,18 @@ export class MapMainView extends BaseView {
                 } 
             }
         }
+
+        //init Mine
+        let mineMapJson = this.proxy.mineMapJson || {}
+        for (let tx in mineMapJson) {
+            for (let ty in mineMapJson[tx]) {
+                let tilePos = v2(Number(tx),Number(ty));
+                let mine = this.proxy.mineMgr.create(tilePos.x,tilePos.y,0);
+                !this.proxy.mineMap[tilePos.x] && (this.proxy.mineMap[tilePos.x] = {});
+                this.proxy.mineMap[tilePos.x][tilePos.y] = mine;
+                mine.unserialize(this.proxy.getMineJson(tilePos.x,tilePos.y));
+            }
+        }
     }
 
     createBlock(i: number, j: number) {
@@ -205,13 +219,7 @@ export class MapMainView extends BaseView {
 
     digBlock(params:{tilePos?:Vec2,block?:Block}){
         let tilePos = params.tilePos;
-        let block = this.proxy.getBlock(tilePos.x,tilePos.y);
-        let isBattle = toolKit.getRand(1,10) > 5;
-        if(isBattle){
-            this.enterStage(block);
-        }else{
-            this.proxy.cmd.digBlock({block:block});
-        }
+        let block = params.block || this.proxy.getBlock(tilePos.x,tilePos.y);
     }
 
     buildTower(params:any){
@@ -221,7 +229,7 @@ export class MapMainView extends BaseView {
 
     // 地图触发了点击事件
     onMapClick(event: EventTouch) {
-        var touchEndPos = event.getLocation();
+        var touchEndPos = event.getUILocation();
         var viewPos = this.nd_mapRoot.getComponent(UITransform).convertToNodeSpaceAR(new Vec3(touchEndPos.x, touchEndPos.y,0));
         var tilePos = MapUtils.getTilePosByViewPos(viewPos);
         var block = this.proxy.getBlock(tilePos);
@@ -232,9 +240,14 @@ export class MapMainView extends BaseView {
                 this.proxy.cmd.pushTask(new DigTask(tilePos.x, tilePos.y));
                 break;        
             case BLOCK_VALUE_ENUM.EMPTY:
-                this.testHero.moveToTilePos(tilePos);    
+                //this.testHero.moveToTilePos(tilePos);    
                 //this.proxy.cmd.pushTask(new BuildTask(tilePos.x, tilePos.y));            
                 break;    
+            case BLOCK_VALUE_ENUM.MONSTER_ENTRY:
+                toolKit.showMsgBox(lang("map.fightTip_1"),()=>{                    
+                    this.enterStage(block);
+                });
+                break;   
             default:
                 break;
         }

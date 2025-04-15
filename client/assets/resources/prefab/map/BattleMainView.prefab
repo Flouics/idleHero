@@ -1377,7 +1377,7 @@
     },
     "component": "",
     "_componentId": "d2997lUKvtK84YqmG5/Ya21",
-    "handler": "exitBattle",
+    "handler": "onClickExitBattle",
     "customEventData": ""
   },
   {

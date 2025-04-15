@@ -12,6 +12,8 @@ var getRandFromArray = function (array: any[]): any {
     return array[randIndex];
 };
 
+
+let _ID_AUTO = 1;
 export class UUID {    
     static gen(len: number = 16) {
         var chars = charStr.split("");
@@ -31,5 +33,9 @@ export class UUID {
             }
         }
         return ret.join("")
+    }
+    static get ID_AUTO(){
+        _ID_AUTO++;
+        return _ID_AUTO;
     }
 }

@@ -80,7 +80,6 @@ export class Building extends BoxBase {
     }
 
     destroy(){
-        this.clear();
         super.destroy();
         if(this.node){
             this.node.removeFromParent();

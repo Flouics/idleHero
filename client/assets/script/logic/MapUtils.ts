@@ -212,7 +212,7 @@ export class MapUtils {
             closeList.push(curRoute);
             return findRoute(curRoute)
         }
-
+        
         var route = new Route(fromPos, null)
         filterMap[getKey(fromPos)] = true;
         closeList.push(route);

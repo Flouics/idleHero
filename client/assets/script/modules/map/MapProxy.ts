@@ -23,6 +23,8 @@ import {BuffMgr} from "../../manager/battle/BuffMgr";
 import {SkillMgr} from "../../manager/battle/SkillMgr";
 import { App } from "../../App";
 import { getTimeFrame } from "../../Global";
+import { MineMgr } from "../../manager/battle/MineMgr";
+import { Mine } from "../../logic/Mine";
 
 export let MapProxy_event = {
     MapProxy_update : "MapProxy_update",
@@ -44,12 +46,15 @@ export class MapProxy extends Proxy {
     blockMap: { [k1: number]: { [k2: number]: Block } } = {};
     @serialize()
     blockMapJson = {};
-    buildingMap: { [key: number]: Building } = {};
+    
+    buildingMap: { [k1: number]: { [k2: number]: Building } } = {};
     @serialize()
     buildingMapJson = {};    
     headquarters: Headquarters = null;
     @serialize()
     headquartersJson = {};      //todo
+
+    mineMap: { [k1: number]: { [k2: number]: Mine } } = {};
     @serialize()
     mineMapJson = {};  
 
@@ -76,6 +81,10 @@ export class MapProxy extends Proxy {
 
     get skillMgr():SkillMgr{
         return SkillMgr.instance;
+    }
+
+    get mineMgr():MineMgr{
+        return MineMgr.instance;
     }
 
     task:TaskBase[] = [];
@@ -123,18 +132,20 @@ export class MapProxy extends Proxy {
     }
 
     dumpPrepare(){
-        this.blockMapJson = {}
-        for (var i in this.blockMap) {
-            this.blockMapJson[i] = {}
-            for (var j in this.blockMap[i]) {
-                this.blockMapJson[i][j] = this.blockMap[i][j].serialize();
+        let mapToJson = function(map){
+            let json = {}
+            for (var i in map) {
+                json[i] = {}
+                for (var j in map[i]) {
+                    json[i][j] = map[i][j].serialize();
+                }
             }
+            return json
         }
 
-        this.buildingMapJson = {}
-        for (var i in this.buildingMap) {
-            this.buildingMapJson[i] = this.buildingMap[i].serialize();
-        }
+        this.blockMapJson = mapToJson(this.blockMap);     
+        this.buildingMapJson = mapToJson(this.buildingMap);
+        this.mineMapJson = mapToJson(this.mineMap);
     }
 
     getBlockJson(x: number, y: number){
@@ -145,8 +156,20 @@ export class MapProxy extends Proxy {
         }        
     }
 
-    getBuildingJson(x: number){
-        return this.buildingMapJson[x];
+    getBuildingJson(x: number, y: number){
+        if(this.buildingMapJson[x]){
+            return this.buildingMapJson[x][y];
+        }else{
+            return null;
+        }        
+    }
+
+    getMineJson(x: number, y: number){
+        if(this.mineMapJson[x]){
+            return this.mineMapJson[x][y];
+        }else{
+            return null;
+        }        
     }
 
     reloadPrepare(){
@@ -230,7 +253,6 @@ export class MapProxy extends Proxy {
         }
         tx = this.fixPosX(tx as number);
         ty = this.fixPosY(ty); 
-        // Debug.tryObject(this.blockMap[x][y], "blockList out")
         if (this.blockMap[tx]) {
             return this.blockMap[tx][ty];
         } else {
@@ -279,9 +301,24 @@ export class MapProxy extends Proxy {
         }    
         tx = this.fixPosX(tx as number);
         ty = this.fixPosY(ty); 
-        // Debug.tryObject(this.blockMap[x][y], "blockList out")
         if (this.buildingMap[tx]) {
             return this.buildingMap[tx][ty];
+        } else {
+            return null
+        }
+    }
+
+    getMine(_tx: number|Vec2, _ty?: number) {     
+        let tx = _tx;
+        let ty = _ty; 
+        if(_tx instanceof Vec2){
+            tx = _tx.x;
+            ty = _tx.y;
+        }
+        tx = this.fixPosX(tx as number);
+        ty = this.fixPosY(ty); 
+        if (this.mineMap[tx]) {
+            return this.mineMap[tx][ty];
         } else {
             return null
         }

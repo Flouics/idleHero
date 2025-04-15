@@ -78,11 +78,11 @@ export class ModuleMgr extends BaseClass{
         mod.cmd[funcName](...params)
     };
 
-    dumpToDb(){
+    dumpToDb(isImmediate = false){
         for (const key in this._modules) {
             if (Object.prototype.hasOwnProperty.call(this._modules, key)) {
                 var mod = this._modules[key];
-                mod.proxy.dumpToDb();
+                mod.proxy.dumpToDb(isImmediate);
             }
         }
     }

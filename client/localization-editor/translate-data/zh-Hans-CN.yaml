@@ -301,9 +301,16 @@ items:
     isVariant: false
     associations: []
     _variants: []
+  map.fightTip_1:
+    key: map.fightTip_1
+    value: 是否进入战斗解锁该战斗区域
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
 languageConfig:
   bcp47Tag: zh-Hans-CN
   translateFinished: 0
   translateTotal: 0
   compileFinished: 0
-  compileTotal: 43
+  compileTotal: 44

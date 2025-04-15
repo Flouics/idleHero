@@ -121,7 +121,9 @@ export class LobbyView extends BaseView {
                     }
                 }
                 oops.gui.open(UIID_Package.PackageView,null,uic);
-            } 
+            }else{
+                this.packageView.updateItemList();
+            }
             return;
         }
     }

@@ -17,20 +17,19 @@ export class MapCommand extends Command{
     }
 
     digBlock(params:{tilePos?:Vec2,block?:Block}){
-        var pos = params.tilePos;
-        var block = params.block;
-        if(!block && params.tilePos){
-            block = this.proxy.getBlock(pos.x,pos.y);
-        }        
+        var tilePos = params?.tilePos;
+        var block = params.block || this.proxy.getBlock(tilePos.x,tilePos.y);  
+        tilePos = tilePos || block.tilePos;
         if(block && block.checkType(BLOCK_VALUE_ENUM.BLOCK)){
             block.onDig()
             this.proxy.updateView("digBlock", params);
         }        
     }
 
-    buildTower(params:any){
-        var tilePos = params.tilePos || {}
-        var block = this.proxy.getBlock(tilePos.x,tilePos.y)
+    buildTower(params:{tilePos?:Vec2,block?:Block}){
+        var tilePos = params?.tilePos;
+        var block = params.block || this.proxy.getBlock(tilePos.x,tilePos.y)
+        tilePos = tilePos || block.tilePos;
         //todo 修改炮塔
         if(block && block.checkType(BLOCK_VALUE_ENUM.EMPTY)){
             //todo tower
@@ -39,6 +38,17 @@ export class MapCommand extends Command{
             block.id = BLOCK_VALUE_ENUM.BUILDING;
             this.proxy.updateView("buildTower", params);
         }    
+    }
+
+    buildMine(params:{tilePos?:Vec2,block?:Block}){
+        var tilePos = params!.tilePos;
+        var block = params.block || this.proxy.getBlock(tilePos.x,tilePos.y)
+        tilePos = tilePos || block.tilePos;
+        if(block && block.checkType(BLOCK_VALUE_ENUM.EMPTY)){
+            let mine = this.proxy.mineMgr.create(tilePos.x,tilePos.y,block.data_1);
+            !this.proxy.mineMap[tilePos.x] && (this.proxy.mineMap[tilePos.x] = {});
+            this.proxy.mineMap[tilePos.x][tilePos.y] = mine;
+        }
     }
 
     showWinView(stageId:number){

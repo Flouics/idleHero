@@ -2,15 +2,24 @@ import {App} from "./App";
 import { Proxy }from "./modules/base/Proxy";
 import { toolKit } from "./utils/ToolKit";
 import { Debug }   from "./utils/Debug";
-import { Enum, game, js, Size } from "cc";
+import { Component, Enum, game, js, Node, Size, Vec2 } from "cc";
 import { l10n } from "../../extensions/localization-editor/static/assets/l10n";
 
 
 
 //global
+export type NodeEx = Node & {
+    originX:number,
+    originY:number,
+    originPos:Vec2,
+    loadIndex:number;
+}
 export let g_event_error_str = "";
 export let empty = function(value:any){
     return toolKit.empty(value);
+}
+export let isValid = function(node:Node | Component){
+    return node && node.isValid
 }
 export let deepCopy = function <T>(obj: T,map = new WeakMap()): T {
     if (obj === null || typeof obj !== 'object') {

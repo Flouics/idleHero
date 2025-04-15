@@ -81,7 +81,6 @@ export class IdleRewardView extends BaseView {
             getPackageProxy().getIdleRwd();
             this.proxy.cmd.addRwdList(this.itemList);
             this.command("float");
-            App.dumpToDb();    
         }          
         this.close();
     }
