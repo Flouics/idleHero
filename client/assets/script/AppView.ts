@@ -1,12 +1,12 @@
 ﻿
 import {App} from "./App";
 import { _decorator, Node, profiler } from 'cc';
-import { Root } from "../../extensions/oops-plugin-framework/assets/core/Root";
+import { Root } from "./oops/core/Root";
 import { DEBUG, JSB } from "cc/env";
-import { ecs } from "../../extensions/oops-plugin-framework/assets/libs/ecs/ECS";
+import { ecs } from "./oops/libs/ecs/ECS";
 import { Initialize } from './initialize/Initialize';
 import { UIConfigData } from "./common/config/GameUIConfig";
-import { oops } from "../../extensions/oops-plugin-framework/assets/core/Oops";
+import { oops } from "./oops/core/Oops";
 import { smc } from "./common/ecs/SingletonModuleComp";
 import { EcsPositionSystem } from './common/ecs/position/EcsPositionSystem';
 const {ccclass, property} = _decorator;

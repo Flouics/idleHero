@@ -20,7 +20,7 @@ import { getPackageProxy } from "../package/PackageProxy";
 import { ITEM_ID_ENUM } from "../../logic/Item";
 import { toolKit } from "../../utils/ToolKit";
 import { App } from "../../App";
-import { UICallbacks } from "../../../../extensions/oops-plugin-framework/assets/core/gui/layer/Defines";
+import { UICallbacks } from "../.././oops/core/gui/layer/Defines";
 import { BattleMainView } from "./BattleMainView";
 import { UIID_Map } from "./MapInit";
 

@@ -1,6 +1,6 @@
 import { Node } from "cc";
-import { UICallbacks } from "../../../../extensions/oops-plugin-framework/assets/core/gui/layer/Defines";
-import { oops } from "../../../../extensions/oops-plugin-framework/assets/core/Oops";
+import { UICallbacks } from "../.././oops/core/gui/layer/Defines";
+import { oops } from "../.././oops/core/Oops";
 import {App} from "../../App";
 import { nullfun } from "../../Global";
 import { Proxy }from "./Proxy";

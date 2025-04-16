@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-11-11 17:41:53
  */
 
-import { LayerType,UIConfig} from "../../../../extensions/oops-plugin-framework/assets/core/gui/layer/LayerManager"
+import { LayerType,UIConfig} from "../.././oops/core/gui/layer/LayerManager"
 
 let _UIID_ENUM_INDEX = 0;
 export let uuidIndex =() =>{

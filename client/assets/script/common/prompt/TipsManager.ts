@@ -6,8 +6,8 @@
  */
 
 import { Node, tween, Vec3 } from "cc";
-import { UICallbacks } from "../../../../extensions/oops-plugin-framework/assets/core/gui/layer/Defines";
-import { oops } from "../../../../extensions/oops-plugin-framework/assets/core/Oops";
+import { UICallbacks } from "../.././oops/core/gui/layer/Defines";
+import { oops } from "../.././oops/core/Oops";
 import { UIID } from "../config/GameUIConfig";
 
 /** 提示窗口管理 */

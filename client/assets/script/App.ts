@@ -21,9 +21,9 @@ import {KeyWordMgr} from "./manager/KeyWordMgr";
 import { getPlayerProxy } from "./modules/player/PlayerProxy";
 import { jsonToObj, objToJson, serialize } from "./utils/Decorator";
 import {UUID} from "./utils/UUID";
-import { oops } from "../../extensions/oops-plugin-framework/assets/core/Oops";
-import { EventDispatcher } from "../../extensions/oops-plugin-framework/assets/core/common/event/EventDispatcher";
-import { ListenerFunc } from "../../extensions/oops-plugin-framework/assets/core/common/event/EventMessage";
+import { oops } from "./oops/core/Oops";
+import { EventDispatcher } from "./oops/core/common/event/EventDispatcher";
+import { ListenerFunc } from "./oops/core/common/event/EventMessage";
 
 /**
  * 全局唯一的游戏管理器,每个场景都可以持有

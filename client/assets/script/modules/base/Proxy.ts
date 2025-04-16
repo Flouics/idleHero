@@ -5,8 +5,8 @@ import { Debug }   from "../../utils/Debug";
 import { getPlayerProxy } from "../player/PlayerProxy";
 import {Command} from "./Command";
 import { Emitter } from "../../zero/Emitter";
-import { EventDispatcher } from "../../../../extensions/oops-plugin-framework/assets/core/common/event/EventDispatcher";
-import { ListenerFunc } from "../../../../extensions/oops-plugin-framework/assets/core/common/event/EventMessage";
+import { EventDispatcher } from "../.././oops/core/common/event/EventDispatcher";
+import { ListenerFunc } from "../.././oops/core/common/event/EventMessage";
 
 export class Proxy extends BaseClass {
     viewMap:{[key:string]:any} = {};

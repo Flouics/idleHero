@@ -2,9 +2,9 @@ import {MsgBox} from "../common/MsgBox";
 import { clone, lang, nullfun} from "../Global";
 import { assetManager, js, Label, macro, Node, Rect, resources, Sprite, SpriteAtlas, SpriteFrame, sys, Texture2D, UITransform, v2, v3, Vec2, Vec3 } from "cc";
 import { Debug }   from "./Debug";
-import { oops } from "../../../extensions/oops-plugin-framework/assets/core/Oops";
+import { oops } from ".././oops/core/Oops";
 import { UIID } from "../common/config/GameUIConfig";
-import { UICallbacks } from "../../../extensions/oops-plugin-framework/assets/core/gui/layer/Defines";
+import { UICallbacks } from ".././oops/core/gui/layer/Defines";
 
 
 export class ToolKit {   
