@@ -2,9 +2,9 @@ import { TemplateProxy }  from "./TemplateProxy";
 import {TemplateCommand} from "./TemplateCommand";
 import {Init} from "../base/Init";
 import { uuidIndex } from "../../common/config/GameUIConfig";
-import { LayerType, UIConfig } from "../../../../extensions/oops-plugin-framework/assets/core/gui/layer/LayerManager";
+import { LayerType, UIConfig } from "../.././oops/core/gui/layer/LayerManager";
 import { UUID } from "../../utils/UUID";
-import { oops } from "../../../../extensions/oops-plugin-framework/assets/core/Oops";
+import { oops } from "../.././oops/core/Oops";
 
 export enum UIID_Template {
     /** 资源加载界面 */

@@ -1,5 +1,5 @@
 
-import { JsonUtil } from "../../../../extensions/oops-plugin-framework/assets/core/utils/JsonUtil";
+import { JsonUtil } from "../.././oops/core/utils/JsonUtil";
 
 export class TablePromptWindow {
     static TableName: string = "PromptWindow";

@@ -2,7 +2,7 @@ import { RewardProxy }  from "./RewardProxy";
 import {RewardCommand} from "./RewardCommand";
 import {Init} from "../base/Init";
 import { uuidIndex } from "../../common/config/GameUIConfig";
-import { LayerType, UIConfig } from "../../../../extensions/oops-plugin-framework/assets/core/gui/layer/LayerManager";
+import { LayerType, UIConfig } from "../.././oops/core/gui/layer/LayerManager";
 
 export enum UIID_Reward {
     /** 资源加载界面 */

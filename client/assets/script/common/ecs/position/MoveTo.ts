@@ -5,9 +5,9 @@
  * @LastEditTime: 2023-01-19 15:27:24
  */
 import { Node, Vec3 } from "cc";
-import { Timer } from "../../../../../extensions/oops-plugin-framework/assets/core/common/timer/Timer";
-import { Vec3Util } from "../../../../../extensions/oops-plugin-framework/assets/core/utils/Vec3Util";
-import { ecs } from "../../../../../extensions/oops-plugin-framework/assets/libs/ecs/ECS";
+import { Timer } from "../../.././oops/core/common/timer/Timer";
+import { Vec3Util } from "../../.././oops/core/utils/Vec3Util";
+import { ecs } from "../../.././oops/libs/ecs/ECS";
 
 /** 向目标移动，移动过程中目标位置变化会自动修正移动目标点，直到未修正前移动到目标点停止 */
 @ecs.register('MoveTo')

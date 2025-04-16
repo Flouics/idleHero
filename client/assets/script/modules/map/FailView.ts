@@ -6,7 +6,7 @@ import {BaseUI} from "../../zero/BaseUI";
 import {TouchUtils} from "../../utils/TouchUtils";
 
 import { _decorator} from 'cc';
-import { LayerDialog } from "../../../../extensions/oops-plugin-framework/assets/core/gui/layer/LayerDialog";
+import { LayerDialog } from "../.././oops/core/gui/layer/LayerDialog";
 const {ccclass, property} = _decorator;
 
 @ccclass("FailView")

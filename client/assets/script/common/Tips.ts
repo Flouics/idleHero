@@ -2,7 +2,7 @@ import {App} from "../App";
 
 import { _decorator,RichText,Label} from 'cc';
 import { BaseUI } from "../zero/BaseUI";
-import { oops } from "../../../extensions/oops-plugin-framework/assets/core/Oops";
+import { oops } from ".././oops/core/Oops";
 const {ccclass, property} = _decorator;
 
 @ccclass("Tips")

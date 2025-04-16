@@ -6,8 +6,8 @@
  */
 
 import { v3 } from "cc";
-import { oops } from "../../../../extensions/oops-plugin-framework/assets/core/Oops";
-import { ecs } from "../../../../extensions/oops-plugin-framework/assets/libs/ecs/ECS";
+import { oops } from "../.././oops/core/Oops";
+import { ecs } from "../.././oops/libs/ecs/ECS";
 import { GameEvent } from "../../common/config/GameEvent";
 import { Account } from "../Account";
 import { AccountModelComp } from "../model/AccountModelComp";

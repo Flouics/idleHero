@@ -5,7 +5,7 @@
  * @LastEditTime: 2022-08-01 13:49:35
  */
 
-import { ecs } from "../../../extensions/oops-plugin-framework/assets/libs/ecs/ECS";
+import { ecs } from ".././oops/libs/ecs/ECS";
 import { Account } from "../account/Account";
 import { InitResComp, InitResSystem } from "./bll/InitRes";
 

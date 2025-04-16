@@ -3,7 +3,7 @@ import { PlayerProxy,  getPlayerProxy } from "../modules/player/PlayerProxy";
 import {BaseClass} from "../zero/BaseClass";
 import { sys } from "cc";
 import { Debug }   from "../utils/Debug";
-import { oops } from "../../../extensions/oops-plugin-framework/assets/core/Oops";
+import { oops } from ".././oops/core/Oops";
 
 export var LOCAL_STORAGE = {
     AUDIO_SETTING: 'audio_setting',

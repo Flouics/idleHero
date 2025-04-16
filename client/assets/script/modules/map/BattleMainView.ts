@@ -18,7 +18,7 @@ import { Monster } from "../../logic/Monster";
 import { DEBUG } from "cc/env";
 import { Mercenary } from "../../logic/Mercenary";
 import { MercenaryMgr } from "../../manager/battle/MercenaryMgr";
-import { oops } from "../../../../extensions/oops-plugin-framework/assets/core/Oops";
+import { oops } from "../.././oops/core/Oops";
 import { UIID_Map } from "./MapInit";
 import { Block } from "../../logic/Block";
 import { STATE_ENUM } from "../../logic/stateMachine/StateMachine";

@@ -5,9 +5,9 @@
  * @LastEditTime: 2022-09-22 14:41:58
  */
 
-import { oops } from "../../../../extensions/oops-plugin-framework/assets/core/Oops";
-import { AsyncQueue,NextFunction} from "../../../../extensions/oops-plugin-framework/assets/libs/collection/AsyncQueue";
-import { ecs } from "../../../../extensions/oops-plugin-framework/assets/libs/ecs/ECS";
+import { oops } from "../.././oops/core/Oops";
+import { AsyncQueue,NextFunction} from "../.././oops/libs/collection/AsyncQueue";
+import { ecs } from "../.././oops/libs/ecs/ECS";
 import { App } from "../../App";
 import { UIID } from "../../common/config/GameUIConfig";
 import { Initialize } from "../Initialize";

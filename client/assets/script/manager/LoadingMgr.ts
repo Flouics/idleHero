@@ -2,11 +2,11 @@ import { resources } from "cc";
 import {App} from "../App";
 import {BaseClass} from "../zero/BaseClass";
 import { Debug }   from "../utils/Debug";
-import { oops } from "../../../extensions/oops-plugin-framework/assets/core/Oops";
+import { oops } from ".././oops/core/Oops";
 import { UUID } from "../utils/UUID";
 import { UIID } from "../common/config/GameUIConfig";
 import { uiKit } from "../utils/UIKit";
-import { UICallbacks } from "../../../extensions/oops-plugin-framework/assets/core/gui/layer/Defines";
+import { UICallbacks } from ".././oops/core/gui/layer/Defines";
 
 var global = window;
 export class LoadingMgr extends BaseClass {
