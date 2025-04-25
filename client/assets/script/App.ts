@@ -110,6 +110,7 @@ export class App extends BaseClass{
 
     static moduleInit(cb?:Function){
         modeuleInit();
+        this.reloadFromDb();
         cb && cb();
     }
 

@@ -149,7 +149,7 @@ export class Proxy extends BaseClass {
             self.dumpPrepare()
             var key = self.getDbKey();
             var json = self.serialize();
-            Debug.log("dumpToDb",json)
+            Debug.log("dumpToDb",key)
             App.dbMgr.setItem(key,json);
         }
         if(isImmediate){
@@ -167,7 +167,7 @@ export class Proxy extends BaseClass {
         var key = this.getDbKey();
         var json = App.dbMgr.getItem(key);
         if(json){
-            Debug.log("reloadFromDb",json)
+            Debug.log("reloadFromDb",key)
             this.unserialize(json);            
         }
         this.reloadPrepare();

@@ -30,6 +30,7 @@ export enum BLOCK_FLAG_ENUM {
 export var BLOCK_CROSS_VALUE =  BLOCK_VALUE_ENUM.EMPTY;
 
 export class Block extends BoxBase {
+    static _idIndex = 0;
     @serialize()
     buildingId:number = 0;   // 额外属性，value不同，数据不同
 
@@ -63,13 +64,8 @@ export class Block extends BoxBase {
         this.tx = tx;
         this.ty = ty;
         this.mapMainView = mapMainView;
-    }
-    initUI() {
-        let node = instantiate(this.mapMainView.pb_block) as Node;
-        node.parent = this.mapMainView.nd_mapRoot;
-        node.setPosition(this.x,this.y);
-        uiKit.setScale(node,0.95);
-        //临时属性
+        this.setIdx(Block);
+
         if(this.tx == 0 && this.ty == 0){
             this.id = BLOCK_VALUE_ENUM.EMPTY
         }else{
@@ -78,6 +74,8 @@ export class Block extends BoxBase {
         if(this.id == null){
             this.id = BLOCK_VALUE_ENUM.BLOCK;
         }
+
+        //临时属性
         if(this.checkType(BLOCK_VALUE_ENUM.BLOCK)){
             let value = toolKit.getRand(1,100)
             if(value < 30){
@@ -85,8 +83,13 @@ export class Block extends BoxBase {
             }else {
                 this._idPre = BLOCK_VALUE_ENUM.MONSTER_ENTRY;
             }
-        }  
-        //   
+        }   
+    }
+    initUI() {
+        let node = instantiate(this.mapMainView.pb_block) as Node;
+        node.parent = this.mapMainView.nd_mapRoot;
+        node.setPosition(this.x,this.y);
+        uiKit.setScale(node,0.95);
         this.bindUI(node.getComponent(UIBlock));
         this.updateUI();
     }
@@ -132,6 +135,7 @@ export class Block extends BoxBase {
             this._idPre = 0;        // 只赋值一次
         }    
         getMapProxy().updateBlockFlag(this);
+        getMapProxy().dumpToDb();
         return true;
     }
 }

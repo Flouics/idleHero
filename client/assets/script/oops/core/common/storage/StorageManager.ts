@@ -153,9 +153,10 @@ export class StorageManager {
 
     /** 获取数据分组关键字 */
     private getKey(key: string): string {
-        if (this.id == null || this.id == "") {
+/*         if (this.id == null || this.id == "") {
             return key;
         }
-        return `${this.id}_${key}`;
+        return `${this.id}_${key}`; */
+        return key;
     }
 }

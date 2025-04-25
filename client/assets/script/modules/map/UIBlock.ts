@@ -32,9 +32,12 @@ export class UIBlock extends BaseUI {
             this.loadSpt(spt, "block/block_" + logicObj.data_1)
         }else if(logicObj.checkType(BLOCK_VALUE_ENUM.MONSTER_ENTRY)){
             this.loadSpt(spt, "block/entry_1")
+        }else if(logicObj.checkType(BLOCK_VALUE_ENUM.ELITE_ENTRY)){
+            this.loadSpt(spt, "block/entry_2")
         }else{
             this.loadSptEmpty(spt);
-        }     
+        }  
+        this.lb_desc.node.active = logicObj.checkType(BLOCK_VALUE_ENUM.BLOCK);   
     }
 
     loadFlagSpt(){

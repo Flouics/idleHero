@@ -115,7 +115,7 @@ export class MapProxy extends Proxy {
     }
 
     reloadPrepare(){
-        //Debug.log("reloadPrepare")
+        Debug.log("reloadPrepare Map")
     }
 
     sortTask(){
@@ -280,11 +280,11 @@ export class MapProxy extends Proxy {
                     hasSetMap[x][y] = block;
                     block.clearFlag();                    
                     for (const dir of dirs) {
-                        block = this.getBlock(block.tx + dir[0],block.ty + dir[1]);
-                        if(block){
+                        let block_check = this.getBlock(block.tx + dir[0],block.ty + dir[1]);
+                        if(block_check){
                             hasSetMap[x] = hasSetMap[x] || {}
-                            hasSetMap[x][y] = block;
-                            block.clearFlag();
+                            hasSetMap[x][y] = block_check;
+                            block_check.clearFlag();
                         }
                     }
                     

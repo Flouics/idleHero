@@ -114,7 +114,7 @@ export class ItemBase extends BaseClass {
     }    
     setIdx(_class:any){
         this.idx = _class._idIndex;
-        _class._idIndex += 1;
+        _class._idIndex ++;
     }
     updateUI() {
         if(this.ui){
