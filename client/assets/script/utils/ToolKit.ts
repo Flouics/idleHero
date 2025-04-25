@@ -2,9 +2,11 @@ import {MsgBox} from "../common/MsgBox";
 import { clone, lang, nullfun} from "../Global";
 import { assetManager, js, Label, macro, Node, Rect, resources, Sprite, SpriteAtlas, SpriteFrame, sys, Texture2D, UITransform, v2, v3, Vec2, Vec3 } from "cc";
 import { Debug }   from "./Debug";
-import { oops } from ".././oops/core/Oops";
+import { oops } from "../oops/core/Oops";
 import { UIID } from "../common/config/GameUIConfig";
-import { UICallbacks } from ".././oops/core/gui/layer/Defines";
+import { UICallbacks } from "../oops/core/gui/layer/Defines";
+import { getPackageProxy } from "../modules/package/PackageProxy";
+import { ITEM_ID_ENUM } from "../logic/Item";
 
 
 export class ToolKit {   
@@ -673,6 +675,14 @@ export class ToolKit {
         }
 
         return rectAnglesIntersect(rect_1,rect_2,angel_1,angel_2,anchorPoint_1,anchorPoint_2);        
+    }
+    static checkGold(value:number){
+        let item = getPackageProxy().getItemById(ITEM_ID_ENUM.GOLD);
+        if (item.count < value){
+            //todo 跳转
+            return false
+        }
+        return true
     }
 }
 

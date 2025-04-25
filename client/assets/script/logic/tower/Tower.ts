@@ -1,13 +1,10 @@
-import {MapMainView} from "../../modules/map/MapMainView";
 import { Building }  from "../Building";
 import { BoxBase }  from "../BoxBase";
 import {MapUtils} from "../MapUtils";
-import {DataMgr} from "../../manager/DataMgr";
 import { BulletMgr }  from "../../manager/battle/BulletMgr";
 import { Monster } from "../Monster";
 import { MonsterMgr } from "../../manager/battle/MonsterMgr";
 import {TowerMgr} from "../../manager/battle/TowerMgr";
-import {TimeMgr} from "../../manager/TimeMgr";
 import { serialize } from "../../utils/Decorator";
 import {App} from "../../App";
 import { v2 } from "cc";
@@ -19,16 +16,17 @@ export class Tower extends Building {
     @serialize()    
     bulletId = 100101;
     bulletCfg:any = {};
-    towerMgr:TowerMgr = null;
+
     lastAttackTime:number = 0;
     mapProxy:MapProxy = null;
+    get towerMgr() {
+        return TowerMgr.instance;
+    }
     constructor() {
         super()
         this.init()
     } 
     init(){
-        //不能直接引用TowerMgr，会导致交叉引用的问题。
-        this.towerMgr = TowerMgr.instance;
         this.setIdx(Tower);  
         this.atk = 1;
         this.atkRange = 100;

@@ -9,6 +9,8 @@ import { MapProxy , getMapProxy, MapProxy_event } from "../../modules/map/MapPro
 import {MapUtils} from "../../logic/MapUtils";
 import { toolKit } from "../../utils/ToolKit";
 import { STATE_ENUM } from "../../logic/stateMachine/StateMachine";
+import { off } from "process";
+import { v2 } from "cc";
 
 // 怪物管理器
 class ScheduleTask  {
@@ -38,6 +40,7 @@ export class MonsterMgr extends BaseClass {
     proxy:MapProxy = null;
     waveData:any = null;
     isWaveEnd:boolean = true;
+    isReady:boolean = false;
 
     constructor(){
         super();
@@ -90,14 +93,29 @@ export class MonsterMgr extends BaseClass {
         if (!self.waveData){
             return;
         }
+        this.isReady = false;
         var createMonster = function(){
-            self.waveData.monsterList.forEach(monsterId => {
-                var count = 1;
+            let isEven = self.waveData.monsterList.length % 2 == 0
+            let perOffsetX = 2
+            let offsetX = 0;
+            self.waveData.monsterList.forEach((monsterId:number,index:number)=> {          
+                if (index > 0 || isEven){
+                    if(offsetX == 0){
+                        offsetX = -perOffsetX
+                    }else{
+                        offsetX = -offsetX
+                        if(offsetX > 0){
+                            offsetX += perOffsetX
+                        }    
+                    }                
+                }
+                let count = 1;
                 var monsterEntryPos = new Vec2(
-                                            self.proxy.monsterEntryPos.x + toolKit.getRand(-3,3)
+                                            self.proxy.monsterEntryPos.x + 0
                                             ,self.proxy.monsterEntryPos.y)
                 self.createMultiple(monsterId,count, monsterEntryPos, (monster: Monster) => {
-                    monster.stateMachine.switchState(STATE_ENUM.IDLE);
+                    monster.toTilePos = v2(monster.tx,self.proxy.monsterBattlePos.y);
+                    monster.stateMachine.switchState(STATE_ENUM.MOVING);
                 });  
             });             
         }      
@@ -112,6 +130,21 @@ export class MonsterMgr extends BaseClass {
     checkAllMonstersAreClear(){
         return this.monsterMap.size == 0 && this.isWaveEnd == true;
     }
+
+    checkIsReady(){
+        if(this.isReady){
+            return true;
+        }
+        let ret = true;
+        this.monsterMap.forEach(monster => {
+            if (!monster.stateMachine.isState(STATE_ENUM.IDLE)){
+                ret = false;
+            }
+        })
+        this.isReady = ret;
+        return this.isReady;
+    }
+
 
     create(monsterType:number = 0,tilePos:Vec2,task?:Function){
         Debug.log("createMonster",monsterType,tilePos)

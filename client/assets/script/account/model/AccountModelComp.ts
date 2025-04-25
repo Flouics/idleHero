@@ -7,7 +7,7 @@
  * @LastEditTime: 2022-07-25 17:03:45
  */
 
-import { ecs } from "../.././oops/libs/ecs/ECS";
+import { ecs } from "../../oops/libs/ecs/ECS";
 
 
 /** 

@@ -2,6 +2,8 @@ import {BaseUI} from "../../zero/BaseUI";
 import {Block, BLOCK_VALUE_ENUM} from "../../logic/Block";
 
 import { _decorator, Sprite} from 'cc';
+import { Label } from "cc";
+import { getMapProxy } from "./MapProxy";
 const {ccclass, property} = _decorator;
 
 @ccclass("UIBlock")
@@ -14,6 +16,8 @@ export class UIBlock extends BaseUI {
     spt_event:Sprite = null;
     @property(Sprite)
     spt_flag:Sprite = null;
+    @property(Label)
+    lb_desc:Label = null;
 
     _baseUrl = "texture/map/";
     _logicObj:Block = null;
@@ -67,5 +71,9 @@ export class UIBlock extends BaseUI {
                         ,this.loadBlockSpt.bind(this));
         this.updateDataToUI("block.data_2",logicObj.data_2,this.loadFlagSpt.bind(this));
         this.updateDataToUI("block.event",logicObj.event,this.loadEventSpt.bind(this));
+        let cost = getMapProxy().digBlockCost;
+        this.updateDataToUI("block.digCost",cost,() => {
+            this.lb_desc.string = cost.toString();
+        })
     }
 }

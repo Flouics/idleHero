@@ -7,6 +7,7 @@ import {MapInit} from "./modules/map/MapInit";
 import {MercenaryInit} from "./modules/mercenary/MercenaryInit";
 import {RewardInit} from "./modules/reward/RewardInit";
 import {LobbyInit} from "./modules/lobby/LobbyInit";
+import { EquipInit } from "./modules/equip/EquipInit";
 
 export function appInit(){
     
@@ -30,6 +31,7 @@ export function modeuleInit(){
     moduleMgr.load("map",new MapInit());
     moduleMgr.load("mercenary",new MercenaryInit());
     moduleMgr.load("reward",new RewardInit());
+    //moduleMgr.load("equip",new EquipInit());
     
     App.httpMgr.init();
     App.poolMgr.init();

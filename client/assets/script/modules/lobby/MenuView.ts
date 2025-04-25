@@ -4,7 +4,7 @@ import { _decorator, Toggle} from 'cc';
 import { getLobbyProxy, LobbyProxy, LOBBY_MENU_ENUM } from "./LobbyProxy";
 import { getRewardProxy } from "../reward/RewardProxy";
 import { UIID_Reward } from "../reward/RewardInit";
-import { oops } from "../.././oops/core/Oops";
+import { oops } from "../../oops/core/Oops";
 import { UIID } from "../../common/config/GameUIConfig";
 import { DEBUG } from "cc/env";
 const {ccclass, property} = _decorator;

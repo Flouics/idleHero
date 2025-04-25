@@ -1,7 +1,7 @@
 import { Proxy }from "./Proxy";
 import {Command} from "./Command";
-import { UIConfig } from "../.././oops/core/gui/layer/LayerManager";
-import { oops } from "../.././oops/core/Oops";
+import { UIConfig } from "../../oops/core/gui/layer/LayerManager";
+import { oops } from "../../oops/core/Oops";
 export class Init {
     proxy:Proxy;
     cmd:Command;

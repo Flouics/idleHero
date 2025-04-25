@@ -40,7 +40,7 @@ class AccountInfo {
     uid:string = "";
 }
 
-export var DELAY_TASK_KEY = "delayTask_";  //加上这个key的task，同一时间执行多个任务，只会执行第一个。
+export let DELAY_TASK_KEY = "delayTask_";  //加上这个key的task，同一时间执行多个任务，只会执行第一个。
 
 //App只会有一个。
 export class App extends BaseClass{
@@ -101,7 +101,7 @@ export class App extends BaseClass{
         App.initAccount()
         
         //需要初始化的模块
-        appInit();
+        //appInit();
         
         //全局变量
         GlobalInitDependency();        

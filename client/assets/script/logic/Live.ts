@@ -12,8 +12,8 @@ import { BulletMgr }  from "../manager/battle/BulletMgr";
 import {App} from "../App";
 import { BATTLE_TYPE_ENUM, RACE_ENUM } from "../modules/mercenary/MercenaryProxy";
 import { Building }  from "./Building";
-import { BuffData } from "../manager/battle/BuffMgr";
-import { SkillData } from "../manager/battle/SkillMgr";
+import { BuffData, BuffMgr } from "../manager/battle/BuffMgr";
+import { SkillData, SkillMgr } from "../manager/battle/SkillMgr";
 import { nullfun, getTimeFrame, empty } from "../Global";
 import { DamageRet } from "../Interface";
 import { BLOCK_CROSS_VALUE, BLOCK_VALUE_ENUM } from "./Block";
@@ -80,8 +80,8 @@ export class Live extends BoxBase {
                 this.ui?.playSkeletalAnimationByState(stateId);
                 break;
             case STATE_ENUM.ATTACK:
-                //this.atkTarget();  
-                this.updateDirectionByTarget();
+                this.atkTarget();  
+                //this.updateDirectionByTarget();
                 break;
             default:
                 this.ui?.playSkeletalAnimationByState(stateId);
@@ -407,7 +407,7 @@ export class Live extends BoxBase {
         var flag = false;
         this.skillMap.forEach(skillData =>{
             if(!skillData.isCD()){
-                if(self.mapProxy.skillMgr.tryUseSkill(this,targetList,skillData)){
+                if(SkillMgr.instance.tryUseSkill(this,targetList,skillData)){
                     flag = true;
                 }
             }
@@ -425,10 +425,10 @@ export class Live extends BoxBase {
         return flag;
     }
 
-    genBullet(bulletId:number,cb:Function = nullfun){
+    genBullet(bulletId:number,target:BoxBase = this.target,cb:Function = nullfun){
         var bulletCfg = App.dataMgr.findById("bullet",bulletId);
         if(!!bulletCfg){
-            var bullet =  BulletMgr.instance.create(this,this.target,this.pos,bulletCfg);
+            var bullet =  BulletMgr.instance.create(this,target,this.pos,bulletCfg);
             if(bullet){
                 cb(bullet);
             }
@@ -437,26 +437,19 @@ export class Live extends BoxBase {
         }        
     }
 
-    doAttackAction(){
-        if (!this.target){
+    doAttackAction(targetList:BoxBase[]){
+        if (!targetList){
             return false;
-        }
-        if(!!this.ui?._directAction) return false; //调整方向，先不攻击。
-        
-        this.ui.playSkeletalAnimation(UILive.SKELETAL_ANIMATION_NAME.ATTACK);
-        
-        //先直接做延时，不绑定帧了
-        this.ui.scheduleOnce(this.doAttack.bind(this),30 * getTimeFrame());
+        }        
+        this.ui.playSkeletalAnimation(UILive.SKELETAL_ANIMATION_NAME.ATTACK);        
+        this.doAttack.bind(this)
         return true;
     }
 
-    doAttack(){
-        if(this.isMelee()){
-            this.target.onBeAtked(this.getDamageRet(),this);            
-            this.onAtk(this.target);
-        }else if(this.isRange()){
-            this.genBullet(this.bulletId);
-        }
+    doAttack(targetList:BoxBase[]){
+        targetList.forEach(target => {
+            this.genBullet(this.bulletId,target);
+        });        
     }
 
     tryUseSkill(){
@@ -487,31 +480,11 @@ export class Live extends BoxBase {
 
         var atkCount = this.atkCount;
         for (let i = 0; i < atkCount; i++) {
-            if(this.checkTarget()){            
-                //发起攻击
-                if(this.doAttackAction()){
-                    this.lastAttackTime = nowTimeStamp + this.atkColdTime / this.atkSpeed;
-                }                    
-            }else{
-                var target = this.findTarget();
-                if(!!target){  //不浪费攻击机会，没有人可以选就打别人                  
-                    this.target = target;
-    
-                    //调整方向
-                    var toPos = new Vec2(this.target.x,this.target.y);       
-                    this.updateDirection(toPos);
-    
-                    if(this.checkTargetInAtkRange(this.target)){
-                        if(this.doAttackAction()){
-                            this.lastAttackTime = nowTimeStamp + this.atkColdTime / this.atkSpeed;
-                        }  
-                    }else{
-                        this.stateMachine.switchState(STATE_ENUM.MOVING);
-                    }
-                }else{  
-                    this.stateMachine.switchState(STATE_ENUM.IDLE);
-                }
-            }        
+            let targetList = this.findAllTargets();            
+            //发起攻击
+            if(this.doAttackAction(targetList)){
+                this.lastAttackTime = nowTimeStamp + this.atkColdTime / this.atkSpeed;
+            }          
         }        
     }
 
@@ -640,7 +613,7 @@ export class Live extends BoxBase {
 
     clearBuff(buffData:BuffData){
         this.buffMap.delete(buffData.type);
-        this.mapProxy.buffMgr.clearBuff(this,buffData);
+        BuffMgr.instance.clearBuff(this,buffData);
     }
 
     checkBuff(){
@@ -649,7 +622,7 @@ export class Live extends BoxBase {
         this.buffMap.forEach(buffData =>{
             if(buffData.clearTime < nowTimeStamp){
                 self.buffMap.delete(buffData.type);
-                self.mapProxy.buffMgr.clearBuff(self,buffData);
+                BuffMgr.instance.clearBuff(self,buffData);
             } 
         });
     }
@@ -657,7 +630,7 @@ export class Live extends BoxBase {
     dealBuff(){
         var self = this;
         this.buffMap.forEach(buffData =>{   
-            self.mapProxy.buffMgr.dealBuff(self,buffData);        //交给buffMg
+            BuffMgr.instance.dealBuff(self,buffData);        //交给buffMg
         });
     }
 

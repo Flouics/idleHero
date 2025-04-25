@@ -5,10 +5,10 @@
  * @LastEditTime: 2022-08-29 13:37:08
  */
 import { _decorator, sys } from "cc";
-import { oops } from "../.././oops/core/Oops";
-import { JsonUtil } from "../.././oops/core/utils/JsonUtil";
-import { ecs } from "../.././oops/libs/ecs/ECS";
-import { CCVMParentComp } from "../.././oops/module/common/CCVMParentComp";
+import { oops } from "../../oops/core/Oops";
+import { JsonUtil } from "../../oops/core/utils/JsonUtil";
+import { ecs } from "../../oops/libs/ecs/ECS";
+import { CCVMParentComp } from "../../oops/module/common/CCVMParentComp";
 import { App } from "../../App";
 import { GameEvent } from "../../common/config/GameEvent";
 import { UIID } from "../../common/config/GameUIConfig";

@@ -5,7 +5,7 @@
  * @LastEditTime: 2022-08-29 14:13:42
  */
 import { _decorator, Component, game, sys } from "cc";
-import { oops } from "../.././oops/core/Oops";
+import { oops } from "../../oops/core/Oops";
 import { UIID } from "../../common/config/GameUIConfig";
 import { tips } from "../../common/prompt/TipsManager";
 import { Hot, HotOptions } from "./Hot";

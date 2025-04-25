@@ -3,32 +3,23 @@
  */
 
 import { Proxy }from "../base/Proxy";
-import {Block, BLOCK_FLAG_ENUM, BLOCK_CROSS_VALUE} from "../../logic/Block";
-import { Building }  from "../../logic/Building";
+import {Block, BLOCK_FLAG_ENUM, BLOCK_CROSS_VALUE, BLOCK_VALUE_ENUM} from "../../logic/Block";
 import {DigTask} from "../../logic/task/DigTask";
 import {TaskBase} from "../../logic/TaskBase";
 import {MapUtils} from "../../logic/MapUtils";
-import {Headquarters} from "../../logic/building/Headquarters";
-import { MonsterMgr } from "../../manager/battle/MonsterMgr";
-import {HeroMgr} from "../../manager/battle/HeroMgr";
-import {TowerMgr} from "../../manager/battle/TowerMgr";
-import { BulletMgr }  from "../../manager/battle/BulletMgr";
 import { serialize } from "../../utils/Decorator";
 import {BuildTask} from "../../logic/task/BuildTask";
 import { Debug }   from "../../utils/Debug";
 import { js, Vec2 } from "cc";
-import { MercenaryMgr } from "../../manager/battle/MercenaryMgr";
 import {MapCommand} from "./MapCommand";
-import {BuffMgr} from "../../manager/battle/BuffMgr";
-import {SkillMgr} from "../../manager/battle/SkillMgr";
-import { App } from "../../App";
-import { getTimeFrame } from "../../Global";
-import { MineMgr } from "../../manager/battle/MineMgr";
-import { Mine } from "../../logic/Mine";
+
 
 export let MapProxy_event = {
     MapProxy_update : "MapProxy_update",
 }
+
+//四个方向
+let dirs = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 
 export class MapProxy extends Proxy {
     cmd:MapCommand;
@@ -47,60 +38,23 @@ export class MapProxy extends Proxy {
     @serialize()
     blockMapJson = {};
     
-    buildingMap: { [k1: number]: { [k2: number]: Building } } = {};
-    @serialize()
-    buildingMapJson = {};    
-    headquarters: Headquarters = null;
-    @serialize()
-    headquartersJson = {};      //todo
-
-    mineMap: { [k1: number]: { [k2: number]: Mine } } = {};
-    @serialize()
-    mineMapJson = {};  
-
-    get monsterMgr ():MonsterMgr{
-        return MonsterMgr.instance;
-    }
-    get heroMgr ():HeroMgr{
-        return HeroMgr.instance;
-    }
-    get towerMgr ():TowerMgr{
-        return TowerMgr.instance;
-    }
-    get bulletMgr ():BulletMgr{
-        return BulletMgr.instance;
-    }
-
-    get mercenaryMgr():MercenaryMgr{
-        return MercenaryMgr.instance;
-    }    
-
-    get buffMgr():BuffMgr{
-        return BuffMgr.instance;
-    }
-
-    get skillMgr():SkillMgr{
-        return SkillMgr.instance;
-    }
-
-    get mineMgr():MineMgr{
-        return MineMgr.instance;
-    }
-
     task:TaskBase[] = [];
     taskMap = {}
 
     monsterEntryPos = new Vec2(0, 8);          //tilePos
+    monsterBattlePos = new Vec2(0, 3);          //tilePos
     mercenaryEntryPos = new Vec2(0, -3);       //tilePos
-    headquartersPos = new Vec2(0,-4);         //tilePos
 
     isPause:boolean = false;
     isBattle:boolean = false;
-    battleTimeStamp:number = 0;    
+    battleTimeStamp:number = 0;
+    @serialize()
+    digBlockCost = 0;    
 
-    SCALE_MERCENARY = 0.8
-    SCALE_MONSTER = 0.8
-    SCALE_MONSTER_BOSS = 1.0
+    SCALE_MERCENARY = 0.8;
+    SCALE_MONSTER = 0.8;
+    SCALE_MONSTER_ELIT = 1.0;
+    BASE_DIG_BLOCK_COST = 50;    
     
     constructor(){       
         super();
@@ -118,7 +72,9 @@ export class MapProxy extends Proxy {
 
     //方法
     init(){
-    
+        if(this.digBlockCost == 0){
+            this.digBlockCost = this.BASE_DIG_BLOCK_COST;
+        }
     }
 
     update(dt:number){
@@ -127,6 +83,10 @@ export class MapProxy extends Proxy {
         this.emit(MapProxy_event.MapProxy_update,dt);
     }
 
+    /**
+     * 战斗时间
+     * @returns 毫秒
+     */
     getMapTime(){
         return this.battleTimeStamp * 1000;
     }
@@ -144,29 +104,11 @@ export class MapProxy extends Proxy {
         }
 
         this.blockMapJson = mapToJson(this.blockMap);     
-        this.buildingMapJson = mapToJson(this.buildingMap);
-        this.mineMapJson = mapToJson(this.mineMap);
     }
 
     getBlockJson(x: number, y: number){
         if(this.blockMapJson[x]){
             return this.blockMapJson[x][y];
-        }else{
-            return null;
-        }        
-    }
-
-    getBuildingJson(x: number, y: number){
-        if(this.buildingMapJson[x]){
-            return this.buildingMapJson[x][y];
-        }else{
-            return null;
-        }        
-    }
-
-    getMineJson(x: number, y: number){
-        if(this.mineMapJson[x]){
-            return this.mineMapJson[x][y];
         }else{
             return null;
         }        
@@ -292,38 +234,6 @@ export class MapProxy extends Proxy {
         }
     }
 
-    getBuilding(_tx?: number|Vec2, _ty?: number) {    
-        let tx = _tx;
-        let ty = _ty; 
-        if(_tx instanceof Vec2){
-            tx = _tx.x;
-            ty = _tx.y;
-        }    
-        tx = this.fixPosX(tx as number);
-        ty = this.fixPosY(ty); 
-        if (this.buildingMap[tx]) {
-            return this.buildingMap[tx][ty];
-        } else {
-            return null
-        }
-    }
-
-    getMine(_tx: number|Vec2, _ty?: number) {     
-        let tx = _tx;
-        let ty = _ty; 
-        if(_tx instanceof Vec2){
-            tx = _tx.x;
-            ty = _tx.y;
-        }
-        tx = this.fixPosX(tx as number);
-        ty = this.fixPosY(ty); 
-        if (this.mineMap[tx]) {
-            return this.mineMap[tx][ty];
-        } else {
-            return null
-        }
-    }
-
     fixPosX(tx: number){
         var num =  this.margin_x * 2 + 1;
         tx = tx % num;
@@ -351,6 +261,52 @@ export class MapProxy extends Proxy {
         }
         return ty;
     }
+
+    updateAllBlockFlag(){
+        let hasSetMap = {}
+        for (var x in this.blockMap) {
+            for (var y in this.blockMap[x]) {
+                if(hasSetMap[x] && hasSetMap[x][y]){
+                    // 已经检查过了。
+                    continue;
+                }
+                let block = this.blockMap[x][y];
+                if(!block){
+                    continue;
+                }
+                
+                if (block.checkType(BLOCK_VALUE_ENUM.EMPTY)){
+                    hasSetMap[x] = hasSetMap[x] || {}
+                    hasSetMap[x][y] = block;
+                    block.clearFlag();                    
+                    for (const dir of dirs) {
+                        block = this.getBlock(block.tx + dir[0],block.ty + dir[1]);
+                        if(block){
+                            hasSetMap[x] = hasSetMap[x] || {}
+                            hasSetMap[x][y] = block;
+                            block.clearFlag();
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+
+    /**
+     * 刷新四周block的flag
+     * @param block 
+     */
+    updateBlockFlag(block:Block){
+        if (block.checkType(BLOCK_VALUE_ENUM.EMPTY)){                 
+            for (const dir of dirs) {
+                block = this.getBlock(block.tx + dir[0],block.ty + dir[1]);
+                if(block){
+                    block.clearFlag();
+                }
+            }            
+        }
+    } 
 };
 
 export function getMapProxy(): MapProxy {

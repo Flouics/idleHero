@@ -1,6 +1,7 @@
 
 import { Proxy }from "../base/Proxy";
 import {TemplateCommand} from "./TemplateCommand";
+import { serialize } from "../../utils/Decorator";
 /*
 
  */

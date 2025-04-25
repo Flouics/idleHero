@@ -1,7 +1,7 @@
 import { TimeProxy }from "./TimeProxy";
 import {TimeCommand} from "./TimeCommand";
 import {Init} from "../base/Init";
-import { UIConfig } from "../.././oops/core/gui/layer/LayerManager";
+import { UIConfig } from "../../oops/core/gui/layer/LayerManager";
 
 export enum UIID_Template {
     /** 资源加载界面 */

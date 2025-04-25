@@ -13,8 +13,10 @@ var getRandFromArray = function (array: any[]): any {
 };
 
 
-let _ID_AUTO = 1;
-export class UUID {    
+
+export class UUID {   
+    static _ID_AUTO = 0;
+    static _UIID_INDEX = 0;
     static gen(len: number = 16) {
         var chars = charStr.split("");
         var times = new Date().getTime().toString().split("")
@@ -35,7 +37,11 @@ export class UUID {
         return ret.join("")
     }
     static get ID_AUTO(){
-        _ID_AUTO++;
-        return _ID_AUTO;
+        UUID._ID_AUTO++;
+        return UUID._ID_AUTO;
+    }
+    static get UIID_INDEX(){
+        UUID._UIID_INDEX++;
+        return UUID._UIID_INDEX;
     }
 }

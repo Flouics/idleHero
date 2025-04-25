@@ -50,7 +50,7 @@ export class Monster extends Live {
         this.augmentList = data.augmentList;
         this.moveSpeed = data.moveSpeed;
         this.skillList = data.skillList;
-        this.bulletId = data.bulletId;
+        this.bulletId = 100101;    //data.bulletId;
 
         this.life = this.lifeMax;
     }
@@ -80,7 +80,7 @@ export class Monster extends Live {
         var stateId = this.stateMachine.state.id;
         switch (stateId) {
             case STATE_ENUM.IDLE:                
-                this.moveToHeadquarters();
+                //this.moveToHeadquarters();
                 break;
             case STATE_ENUM.ATTACK:
                 this.atkTarget();
@@ -116,7 +116,10 @@ export class Monster extends Live {
 
     findAllTargets() {
         var mercenaryMap = this.mercenaryMgr.mercenaryMap;
-        var targetList =  this.findTargetsByGroup(mercenaryMap);
+        var targetList = [];
+        mercenaryMap.forEach(mercenary => {
+            targetList.push(mercenary);
+        })
         return targetList;
     }
 

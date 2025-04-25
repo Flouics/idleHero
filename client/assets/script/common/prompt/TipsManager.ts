@@ -6,8 +6,8 @@
  */
 
 import { Node, tween, Vec3 } from "cc";
-import { UICallbacks } from "../.././oops/core/gui/layer/Defines";
-import { oops } from "../.././oops/core/Oops";
+import { UICallbacks } from "../../oops/core/gui/layer/Defines";
+import { oops } from "../../oops/core/Oops";
 import { UIID } from "../config/GameUIConfig";
 
 /** 提示窗口管理 */

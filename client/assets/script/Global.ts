@@ -5,7 +5,11 @@ import { Debug }   from "./utils/Debug";
 import { Component, Enum, game, js, Node, Size, Vec2 } from "cc";
 import { l10n } from "../../extensions/localization-editor/static/assets/l10n";
 
-
+let _UIID_ENUM_INDEX = 0;
+export let uuidIndex =() =>{
+    _UIID_ENUM_INDEX++;
+    return _UIID_ENUM_INDEX;
+}
 
 //global
 export type NodeEx = Node & {

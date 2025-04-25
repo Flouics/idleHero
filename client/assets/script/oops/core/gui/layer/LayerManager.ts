@@ -1,12 +1,13 @@
 import { Camera, Layers, Node, ResolutionPolicy, Widget, screen, view, warn } from "cc";
 import {Debug} from "../../../../../../assets/script/utils/Debug";
-import { oops } from "../../Oops";
 import { UICallbacks } from "./Defines";
 import { DelegateComponent } from "./DelegateComponent";
 import { LayerDialog } from "./LayerDialog";
 import { LayerNotify } from "./LayerNotify";
 import { LayerPopUp } from "./LayerPopup";
 import { LayerUI } from "./LayerUI";
+import { oops } from "../../Oops";
+
 
 /** 屏幕适配类型 */
 export enum ScreenAdapterType {

@@ -18,11 +18,12 @@ import { Monster } from "../../logic/Monster";
 import { DEBUG } from "cc/env";
 import { Mercenary } from "../../logic/Mercenary";
 import { MercenaryMgr } from "../../manager/battle/MercenaryMgr";
-import { oops } from "../.././oops/core/Oops";
+import { oops } from "../../oops/core/Oops";
 import { UIID_Map } from "./MapInit";
 import { Block } from "../../logic/Block";
 import { STATE_ENUM } from "../../logic/stateMachine/StateMachine";
 import { MineMgr } from "../../manager/battle/MineMgr";
+import { runInThisContext } from "vm";
 
 const {ccclass, property} = _decorator;
 @ccclass("BattleMainView")
@@ -39,8 +40,6 @@ export class BattleMainView extends BaseView {
     playerProxy:PlayerProxy = null;
     packageProxy:PackageProxy = null;
     
-    monsterEntryPos: Vec2 = v2(0, 0);
-    mercenaryEntryPos: Vec2 = v2(0, 0);
     moduleName = "map";
     centerPos: Vec2 = v2(0, 0);
     mapSize:Size = new Size(0,0);
@@ -53,8 +52,10 @@ export class BattleMainView extends BaseView {
     curWaveIndex:number = 0;
     curWaveData:any = null;
     waveList = [];
-    battleState:number = 0;          //简单处理，
+    battleState:number = 0;          //简单处理，0 未开战  1战斗准备状态 2战斗状态
     digBlock:Block;
+    curMercenary:Mercenary = null;
+    
 
     // use this for initialization
     onLoad() {
@@ -136,9 +137,7 @@ export class BattleMainView extends BaseView {
             return
         }
         this.proxy.isBattle = true;
-        this.initEntryPos();
         this.initMercenary();
-        this.initHeros();
         this.initMonsters();
 
         this.waveList = this.stageData.waveList;
@@ -165,23 +164,17 @@ export class BattleMainView extends BaseView {
         if(MonsterMgr.instance.checkAllMonstersAreClear()){
             if(!this.setWaveData()){
                 this.proxy.cmd.showWinView(this.curStageId);
-                this.digBlock && this.digBlock.onDig();               
+                this.digBlock && this.digBlock.onDig();   
+                return false;            
             }
-            this.curWaveIndex += 1;            
+            this.curWaveIndex += 1;
+            return true;           
         }else{
             if(this.curWaveIndex > 0 && empty(MercenaryMgr.instance.mercenaryMap)){
                 getMapProxy().cmd.showFailView();
             }
+            return false;     
         }           
-    }
-
-    initEntryPos() {
-        this.monsterEntryPos = this.proxy.monsterEntryPos;
-        this.mercenaryEntryPos = this.proxy.mercenaryEntryPos;
-    }
-    
-    initHeros() {
-        //let hero = HeroMgr.instance.create(2, 0);
     }
 
     initMercenary() {
@@ -190,22 +183,47 @@ export class BattleMainView extends BaseView {
         //不再通过计时器去生成，直接生成一个
         let mercenary = MercenaryMgr.instance.create(mercenaryId);
         mercenary.stateMachine.switchStateIdle();
+        this.curMercenary = mercenary;
     }
 
     initMonsters() {        
 
     }
 
-    initTowers(){
-/*         this.towerMgr.create(-30,-40,1001);
-        this.towerMgr.create(30,-40,1001); */
+    checkBattle(){
+        if(this.battleState == 1){
+            if(!MonsterMgr.instance.checkIsReady()){
+                return;
+            }
+            this.battleState = 2;
+            let monsterMap =  MonsterMgr.instance.monsterMap;
+            monsterMap.forEach(monster => {
+                monster.stateMachine.switchState(STATE_ENUM.ATTACK);
+            });
+            if(this.curMercenary.checkLive()){
+                this.curMercenary.stateMachine.switchState(STATE_ENUM.ATTACK);
+            }
+        }else{
+            this.checkWave();
+            this.battleState = 2;
+            let monsterMap =  MonsterMgr.instance.monsterMap;
+            monsterMap.forEach(monster => {
+                monster.stateMachine.switchState(STATE_ENUM.ATTACK);
+            });
+            if(this.curMercenary.checkLive()){
+                this.curMercenary.stateMachine.switchState(STATE_ENUM.ATTACK);
+            }
+        }
+
+
+
+
     }
-    clearHero(heroId: number) {
-        HeroMgr.instance.clearHero(heroId);
-    }
+
     clearMercenary(mercenaryId: number) {
         MercenaryMgr.instance.clearMercenary(mercenaryId);
     }
+
     clearMonster(monsterId: number) {
         MonsterMgr.instance.clearMonster(monsterId);
     }
@@ -215,24 +233,13 @@ export class BattleMainView extends BaseView {
         oops.gui.remove(UIID_Map.BattleMainView);
     }
 
-    updateAllRolesSiblingIndex(){
-        var children = this.nd_roleRoot.children;
-        children.sort((a,b)=>{
-            return Math.floor(b.position.y/10) - Math.floor(a.position.y/10);
-        });
-        children.forEach((node,index)=>{
-            node.setSiblingIndex(index);
-        });
-    }
-
     update(dt: number): void {
         if(this.proxy.isPause){
             return;
         }
         super.update(dt);
-        if(this.battleState == 1){
-            this.checkWave();
-            this.updateAllRolesSiblingIndex();
+        if(this.battleState > 0){
+            this.checkBattle();           
         }        
     }
 

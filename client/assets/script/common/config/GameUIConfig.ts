@@ -4,26 +4,23 @@
  * @LastEditTime: 2022-11-11 17:41:53
  */
 
-import { LayerType,UIConfig} from "../.././oops/core/gui/layer/LayerManager"
+import { LayerType,UIConfig} from "../../oops/core/gui/layer/LayerManager"
+import { UUID } from "../../utils/UUID";
 
-let _UIID_ENUM_INDEX = 0;
-export let uuidIndex =() =>{
-    _UIID_ENUM_INDEX++;
-    return _UIID_ENUM_INDEX;
-}
+
 /** 界面唯一标识 */
 export enum UIID {
     /** 资源加载界面 */
-    Loading = uuidIndex(),
-    LoadingAm = uuidIndex(),
+    Loading = UUID.UIID_INDEX,
+    LoadingAm = UUID.UIID_INDEX,
     /** 提示弹出窗口 */
-    Alert = uuidIndex() ,
+    Alert = UUID.UIID_INDEX ,
     /** 确认弹出窗口 */
-    Confirm = uuidIndex(),
+    Confirm = UUID.UIID_INDEX,
     /** 确认弹出窗口2 */
-    MsgBox = uuidIndex(),
+    MsgBox = UUID.UIID_INDEX,
     /** setting */
-    Setting = uuidIndex(),
+    Setting = UUID.UIID_INDEX,
 }
 /* loadingAm: "prefab/dialog/loadingAm",
 msgBox: "prefab/dialog/msgBox",

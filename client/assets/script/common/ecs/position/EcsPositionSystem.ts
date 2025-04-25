@@ -4,7 +4,7 @@
  * @LastEditors: dgflash
  * @LastEditTime: 2022-07-25 17:05:02
  */
-import { ecs } from "../../.././oops/libs/ecs/ECS";
+import { ecs } from "../../../oops/libs/ecs/ECS";
 import { MoveToSystem } from "./MoveTo";
 
 export class EcsPositionSystem extends ecs.System {

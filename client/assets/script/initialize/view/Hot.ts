@@ -1,5 +1,5 @@
 import { error, log, native, sys } from "cc";
-import { oops } from "../.././oops/core/Oops";
+import { oops } from "../../oops/core/Oops";
 
 /** 热更参数 */
 export class HotOptions {

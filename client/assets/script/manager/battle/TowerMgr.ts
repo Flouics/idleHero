@@ -1,6 +1,5 @@
 
 import {Tower} from "../../logic/tower/Tower";
-import {Tower_1001} from "../../logic/tower/Tower_1001";
 import {BaseClass} from "../../zero/BaseClass";
 import { serialize } from "../../utils/Decorator";
 import { Node, v2 } from "cc";
@@ -55,7 +54,7 @@ export class TowerMgr extends BaseClass{
     }
 
     initTowerTypeMap(){
-        this._towerTypeClassMap[1001] = Tower_1001;
+        //this._towerTypeClassMap[1001] = Tower_1001;
     }
 
     getTowerClass(type:number){

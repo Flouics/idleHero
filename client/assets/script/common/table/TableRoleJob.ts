@@ -1,5 +1,5 @@
 
-import { JsonUtil } from "../.././oops/core/utils/JsonUtil";
+import { JsonUtil } from "../../oops/core/utils/JsonUtil";
 
 export class TableRoleJob {
     static TableName: string = "RoleJob";

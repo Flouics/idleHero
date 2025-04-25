@@ -1,6 +1,6 @@
 
 
-import {Block, BLOCK_VALUE_ENUM} from "../../logic/Block";
+import {Block, BLOCK_FLAG_ENUM, BLOCK_VALUE_ENUM} from "../../logic/Block";
 import {TouchUtils, TouchUtilsEvent} from "../../utils/TouchUtils";
 import { Debug }   from "../../utils/Debug";
 import { MapProxy }  from "./MapProxy";
@@ -10,9 +10,6 @@ import {MapUtils} from "../../logic/MapUtils";
 import { AsyncTaskMgr } from "../../manager/AsyncTaskMgr";
 import { Hero } from "../../logic/Hero";
 import { HeroMgr } from "../../manager/battle/HeroMgr";
-import { MineMgr } from "../../manager/battle/MineMgr";
-import { Headquarters } from "../../logic/building/Headquarters";
-import { Building } from "../../logic/Building";
 import { DigTask } from "../../logic/task/DigTask";
 import { lang, getTimeFrame } from "../../Global";
 import { DEBUG } from "cc/env";
@@ -20,9 +17,10 @@ import { getPackageProxy } from "../package/PackageProxy";
 import { ITEM_ID_ENUM } from "../../logic/Item";
 import { toolKit } from "../../utils/ToolKit";
 import { App } from "../../App";
-import { UICallbacks } from "../.././oops/core/gui/layer/Defines";
+import { UICallbacks } from "../../oops/core/gui/layer/Defines";
 import { BattleMainView } from "./BattleMainView";
 import { UIID_Map } from "./MapInit";
+import { getPlayerProxy } from "../player/PlayerProxy";
 
 
 export enum OPERATION_ENUM {
@@ -45,9 +43,6 @@ export class MapMainView extends BaseView {
     nd_heroRoot: Node = null;  //人物的地图层
     @property(Node)
     nd_mineRoot: Node = null;  //矿产的地图层
-    @property(Node)
-    nd_buildingRoot: Node = null;  //建筑地图层  
-
 
     @property(Prefab)
     pb_block = null;            //瓦片资源
@@ -57,17 +52,14 @@ export class MapMainView extends BaseView {
     _blockSize: Size = null;
     _blockSizeVec2: Vec2 = null;         //size 转成矢量，方便转化真实尺寸。
     blockMap: { [k1: number]: { [k2: number]: Block } } = {};
-    buildingMap: { [key: number]: Building } = {};
 
     moduleName = "map";
     centerPos: Vec2 = v2(0, 0);
     mapSize:Size = new Size(0,0);
 
     operation: number = OPERATION_ENUM.COMMON;
-    testHero: Hero = null;
-    headquarters: Headquarters = null;
+    curHero: Hero = null;
     heroMgr: HeroMgr = null;
-    mineMgr: MineMgr = null;
 
     // use this for initialization
     onLoad() {
@@ -86,12 +78,10 @@ export class MapMainView extends BaseView {
     
     initMap() {
         this.heroMgr = HeroMgr.instance;
-        this.mineMgr = MineMgr.instance;
         this.margin_x = this.proxy.margin_x;
         this.margin_y = this.proxy.margin_y;             
         
         this.heroMgr.init(this.nd_heroRoot);
-        this.mineMgr.init(this.nd_mineRoot);
         this.initBlocks();
         this.initHeros();
 
@@ -101,6 +91,9 @@ export class MapMainView extends BaseView {
     enterStage(block:Block){
         //扣除体力
         let stageId = 1;
+        if (block.checkType(BLOCK_VALUE_ENUM.ELITE_ENTRY)){
+            stageId = 2001;
+        }
         let stageData = App.dataMgr.findById("stage",stageId);
         if(!stageData){
             toolKit.showTip(lang("stage.dataError"));
@@ -161,6 +154,7 @@ export class MapMainView extends BaseView {
                 this.blockMap[i][j] = block;
             }
         }
+        this.proxy.updateAllBlockFlag();
 
         //--UI初始化丢给异步
         for (let i = -this.margin_x; i <= this.margin_x; i++) {
@@ -176,18 +170,6 @@ export class MapMainView extends BaseView {
                 } 
             }
         }
-
-        //init Mine
-        let mineMapJson = this.proxy.mineMapJson || {}
-        for (let tx in mineMapJson) {
-            for (let ty in mineMapJson[tx]) {
-                let tilePos = v2(Number(tx),Number(ty));
-                let mine = this.proxy.mineMgr.create(tilePos.x,tilePos.y,0);
-                !this.proxy.mineMap[tilePos.x] && (this.proxy.mineMap[tilePos.x] = {});
-                this.proxy.mineMap[tilePos.x][tilePos.y] = mine;
-                mine.unserialize(this.proxy.getMineJson(tilePos.x,tilePos.y));
-            }
-        }
     }
 
     createBlock(i: number, j: number) {
@@ -199,18 +181,11 @@ export class MapMainView extends BaseView {
 
     initHeros() {
         let hero = this.heroMgr.create(0, 0);
-        this.testHero = hero;
+        this.curHero = hero;
     }
 
     clearHero(heroId: number) {
         this.heroMgr.clearHero(heroId);
-    }
-
-    initBuildings() {
-        let headquarters = new Headquarters();
-        this.createBuilding(headquarters, v2(0, 0));
-        this.buildingMap[headquarters.idx] = headquarters;
-        this.headquarters = headquarters;
     }
 
     checkBlock(pos: Vec2) {
@@ -222,13 +197,12 @@ export class MapMainView extends BaseView {
         let block = params.block || this.proxy.getBlock(tilePos.x,tilePos.y);
     }
 
-    buildTower(params:any){
-        //todo
-        Debug.log("随机建造炮台")
-    }
-
     // 地图触发了点击事件
     onMapClick(event: EventTouch) {
+        if(this.curHero.task){
+            toolKit.showTip("map.tip_2");
+            return;
+        }
         var touchEndPos = event.getUILocation();
         var viewPos = this.nd_mapRoot.getComponent(UITransform).convertToNodeSpaceAR(new Vec3(touchEndPos.x, touchEndPos.y,0));
         var tilePos = MapUtils.getTilePosByViewPos(viewPos);
@@ -237,13 +211,31 @@ export class MapMainView extends BaseView {
         // todo 应该弹出界面让玩家选择
         switch (block.id) {
             case BLOCK_VALUE_ENUM.BLOCK:
-                this.proxy.cmd.pushTask(new DigTask(tilePos.x, tilePos.y));
+                //this.proxy.cmd.pushTask(new DigTask(tilePos.x, tilePos.y));
+                if(block.checkFlag(BLOCK_FLAG_ENUM.MASK)){
+                    toolKit.showTip("map.tip_3");
+                }else{       
+                    //this.curHero.task = new DigTask(tilePos.x, tilePos.y);
+                    let cost = this.proxy.digBlockCost;
+                    if(toolKit.checkGold(cost)){
+                        if(getPackageProxy().reduceItemById(ITEM_ID_ENUM.GOLD,cost)){
+                            block.onDig();
+                        }
+                        this.curHero.moveToTilePos(block.tilePos);                     
+                    }
+                }
                 break;        
             case BLOCK_VALUE_ENUM.EMPTY:
                 //this.testHero.moveToTilePos(tilePos);    
                 //this.proxy.cmd.pushTask(new BuildTask(tilePos.x, tilePos.y));            
                 break;    
             case BLOCK_VALUE_ENUM.MONSTER_ENTRY:
+                toolKit.showMsgBox(lang("map.fightTip_1"),()=>{                    
+                    this.enterStage(block);
+                });
+                break;   
+
+            case BLOCK_VALUE_ENUM.ELITE_ENTRY:
                 toolKit.showMsgBox(lang("map.fightTip_1"),()=>{                    
                     this.enterStage(block);
                 });
@@ -259,15 +251,6 @@ export class MapMainView extends BaseView {
                 dealFunc(this.blockMap[i][j]);
             }
         }
-    }
-
-    createBuilding(building: Building, toPos: Vec2) {
-        building.createBuilding(this.nd_buildingRoot,toPos);
-        var maskArea = building.getRealArea();
-        maskArea.forEach((pos) => {
-            let block = this.proxy.getBlock(pos); 
-            block.createBuilding(building);     
-        })
     }
 
     // 地图移动时，地图重新显示

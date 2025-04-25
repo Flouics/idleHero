@@ -11,7 +11,7 @@ import { toolKit } from "../../utils/ToolKit";
 import { DamageRet } from "../../Interface";
 
 export class Bullet extends BoxBase {    
-    moveSpeed: number = 120;    //1秒
+    moveSpeed: number = 360;    //1秒
     zSpeed:number = 120;   //1秒
     _mainView: BattleMainView = null;    //地图组件
     ui:UIBullet = null;
@@ -57,7 +57,7 @@ export class Bullet extends BoxBase {
 
     init(){
         this.mapProxy  = getMapProxy();
-        this.bulletMgr = this.mapProxy.bulletMgr;  
+        this.bulletMgr = BulletMgr.instance;  
         if(this.data.duration > 0){
             this.duration = this.data.duration;
         }

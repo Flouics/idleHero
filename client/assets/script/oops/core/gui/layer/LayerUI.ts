@@ -70,7 +70,7 @@ export class LayerUI extends Node {
         else {
             // 优先加载配置的指定资源包中资源，如果没配置则加载默认资源包资源
             bundle = bundle || oops.res.defaultBundleName;
-            const res = await oops.res.loadAsync(bundle, vp.config.prefab, Prefab);
+            const res = await oops.res.loadAsync(bundle, vp.config.prefab, Prefab) as Prefab;
             if (res) {
                 const ui = instantiate(res);
                 vp.node = ui;

@@ -15,14 +15,15 @@ export enum BLOCK_VALUE_ENUM  {
     EMPTY = 0,
     BLOCK = 1,
     BUILDING,
-    MONSTER,
     MONSTER_ENTRY,
+    ELITE_ENTRY,
     MINE,
 }
 
 /** 标记 */
 export enum BLOCK_FLAG_ENUM {
     EMPTY = 0,
+    MASK,
     DIG,
 }
 /** 可以通过属性检查 */
@@ -71,16 +72,18 @@ export class Block extends BoxBase {
         //临时属性
         if(this.tx == 0 && this.ty == 0){
             this.id = BLOCK_VALUE_ENUM.EMPTY
+        }else{
+            this.setFlag(BLOCK_FLAG_ENUM.MASK)
         }
         if(this.id == null){
-            this.id = toolKit.getRand(1,10) > 2 ? BLOCK_VALUE_ENUM.BLOCK : BLOCK_VALUE_ENUM.EMPTY;
+            this.id = BLOCK_VALUE_ENUM.BLOCK;
         }
         if(this.checkType(BLOCK_VALUE_ENUM.BLOCK)){
             let value = toolKit.getRand(1,100)
             if(value < 30){
+                this._idPre = BLOCK_VALUE_ENUM.ELITE_ENTRY;
+            }else {
                 this._idPre = BLOCK_VALUE_ENUM.MONSTER_ENTRY;
-            }else if(value < 60){
-                this._idPre = BLOCK_VALUE_ENUM.MINE;
             }
         }  
         //   
@@ -111,6 +114,9 @@ export class Block extends BoxBase {
     checkType(value:number){
         return this.id == value;
     }
+    checkFlag(value:number){
+        return this.data_2 == value;
+    }
     setFlag(value:number){
         this.data_2 = value;
     }
@@ -125,6 +131,7 @@ export class Block extends BoxBase {
             this.id = this._idPre;
             this._idPre = 0;        // 只赋值一次
         }    
+        getMapProxy().updateBlockFlag(this);
         return true;
     }
 }
