@@ -70,6 +70,8 @@ export class Mercenary extends Live {
     onEnterState(params:any){
         var stateId = this.stateMachine.state.id;
         switch (stateId) {
+            case STATE_ENUM.MOVING:
+                break;
             default:
                 super.onEnterState(params)
                 break;
@@ -152,15 +154,7 @@ export class Mercenary extends Live {
     }
 
     findTarget() {
-        var monsterMap = this.monsterMgr.monsterMap;
-        var targetList =  this.findTargetsByGroup(monsterMap);
-        var target = targetList.shift();
-        if(!!target){
-            this.target = target;
-            this.targetExtraList = targetList;
-        }
-
-        return target;
+        return null;
     }
 
     findAllTargets() {

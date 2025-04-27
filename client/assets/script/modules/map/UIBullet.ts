@@ -42,6 +42,7 @@ export class UIBullet extends BaseUI {
                 self.loadSpt(self.spt_bullet,logicObj.data.icon,()=>{
                     self.spt_bullet.node.setPosition(0,0,0);
                     self.node.active = true;
+                    self.spt_bullet.node.active = true;
                     self._isReady = true;
                 });                
             },()=>{

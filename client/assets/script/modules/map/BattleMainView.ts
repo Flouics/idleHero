@@ -115,6 +115,10 @@ export class BattleMainView extends BaseView {
         this.close();
     }
 
+    againBattle(){
+        toolKit.showTip("暂时先屏蔽，看需求");
+    }
+
     stopBattle(){
         MonsterMgr.instance.clear();
         BulletMgr.instance.clear();    
@@ -165,13 +169,16 @@ export class BattleMainView extends BaseView {
             if(!this.setWaveData()){
                 this.proxy.cmd.showWinView(this.curStageId);
                 this.digBlock && this.digBlock.onDig();   
+                this.battleState = 0;
                 return false;            
             }
+            this.battleState = 1;
             this.curWaveIndex += 1;
             return true;           
         }else{
             if(this.curWaveIndex > 0 && empty(MercenaryMgr.instance.mercenaryMap)){
                 getMapProxy().cmd.showFailView();
+                this.battleState = 0;
             }
             return false;     
         }           
@@ -204,15 +211,17 @@ export class BattleMainView extends BaseView {
                 this.curMercenary.stateMachine.switchState(STATE_ENUM.ATTACK);
             }
         }else{
-            this.checkWave();
-            this.battleState = 2;
-            let monsterMap =  MonsterMgr.instance.monsterMap;
-            monsterMap.forEach(monster => {
-                monster.stateMachine.switchState(STATE_ENUM.ATTACK);
-            });
-            if(this.curMercenary.checkLive()){
-                this.curMercenary.stateMachine.switchState(STATE_ENUM.ATTACK);
-            }
+            if(this.checkWave()){  
+                if(this.battleState == 1){
+                    let monsterMap =  MonsterMgr.instance.monsterMap;
+                    monsterMap.forEach(monster => {
+                        monster.stateMachine.switchState(STATE_ENUM.IDLE);
+                    });
+                    if(this.curMercenary.checkLive()){
+                        this.curMercenary.stateMachine.switchState(STATE_ENUM.IDLE);
+                    }
+                }
+            }            
         }
 
 

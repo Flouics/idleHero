@@ -308,6 +308,27 @@ items:
     isVariant: false
     associations: []
     _variants: []
+  map.tip_1:
+    key: map.tip_1
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  map.tip_2:
+    key: map.tip_2
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  map.tip_3:
+    key: map.tip_3
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
 languageConfig:
   bcp47Tag: index
   translateFinished: 0

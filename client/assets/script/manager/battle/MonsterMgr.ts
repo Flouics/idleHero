@@ -3,7 +3,7 @@ import { Monster } from "../../logic/Monster";
 import {BaseClass} from "../../zero/BaseClass";
 import {App} from "../../App";
 import { Node, Vec2, Vec3 } from "cc";
-import { nullfun, getTimeFrame } from "../../Global";
+import { nullfun, getTimeFrame, empty } from "../../Global";
 import { Debug }   from "../../utils/Debug";
 import { MapProxy , getMapProxy, MapProxy_event } from "../../modules/map/MapProxy";
 import {MapUtils} from "../../logic/MapUtils";
@@ -104,14 +104,14 @@ export class MonsterMgr extends BaseClass {
                         offsetX = -perOffsetX
                     }else{
                         offsetX = -offsetX
-                        if(offsetX > 0){
+                        if(offsetX < 0){
                             offsetX += perOffsetX
                         }    
                     }                
                 }
                 let count = 1;
                 var monsterEntryPos = new Vec2(
-                                            self.proxy.monsterEntryPos.x + 0
+                                            self.proxy.monsterEntryPos.x + offsetX
                                             ,self.proxy.monsterEntryPos.y)
                 self.createMultiple(monsterId,count, monsterEntryPos, (monster: Monster) => {
                     monster.toTilePos = v2(monster.tx,self.proxy.monsterBattlePos.y);
@@ -135,9 +135,12 @@ export class MonsterMgr extends BaseClass {
         if(this.isReady){
             return true;
         }
+        if(empty(this.monsterMap)){
+            return false;
+        }
         let ret = true;
         this.monsterMap.forEach(monster => {
-            if (!monster.stateMachine.isState(STATE_ENUM.IDLE)){
+            if (monster.stateMachine.isState(STATE_ENUM.MOVING)){
                 ret = false;
             }
         })
@@ -161,7 +164,7 @@ export class MonsterMgr extends BaseClass {
 
     createMultiple(monsterType:number = 0,count:number = 1,tilePos:Vec2,task?:Function){
         for (let i = 0; i < count; i++) {
-            let offsetX = (i % 2 == 0 ? 1 : -1) * Math.floor((i + 1)/2) * 9;
+            let offsetX = 0;//(i % 2 == 0 ? 1 : -1) * Math.floor((i + 1)/2) * 9;
             App.asyncTaskMgr.newAsyncTask(()=>{
                 this.create(monsterType,new Vec2(tilePos.x + offsetX ,tilePos.y),task);      
             })           

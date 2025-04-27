@@ -308,9 +308,30 @@ items:
     isVariant: false
     associations: []
     _variants: []
+  map.tip_1:
+    key: map.tip_1
+    value: 无法前进的路线
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  map.tip_2:
+    key: map.tip_2
+    value: 执行任务中…
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
+  map.tip_3:
+    key: map.tip_3
+    value: 请先解锁前面的关卡
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
 languageConfig:
   bcp47Tag: zh-Hans-CN
   translateFinished: 0
   translateTotal: 0
   compileFinished: 0
-  compileTotal: 44
+  compileTotal: 47

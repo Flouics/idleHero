@@ -95,9 +95,12 @@ export class Live extends BoxBase {
     }
 
     onState(dt:number,params:any){  
+        /**
+         *  技能先屏蔽
         if (stateId != STATE_ENUM.STUN) {
             this.tryUseSkill(); //技能优先判断
-        }        
+        }      
+        */   
 
         var stateId = this.stateMachine.state.id;
         switch (stateId) {
@@ -442,7 +445,7 @@ export class Live extends BoxBase {
             return false;
         }        
         this.ui.playSkeletalAnimation(UILive.SKELETAL_ANIMATION_NAME.ATTACK);        
-        this.doAttack.bind(this)
+        this.doAttack(targetList);
         return true;
     }
 

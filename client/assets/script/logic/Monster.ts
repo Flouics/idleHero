@@ -9,7 +9,7 @@ import { MercenaryMgr } from "../manager/battle/MercenaryMgr";
 import { Mercenary } from "./Mercenary";
 import {UILive} from "../modules/map/UILive";
 export class Monster extends Live {
-    baseMoveSpeed: number = 30;    //1秒
+    baseMoveSpeed: number = 60;    //1秒
     static _idIndex = 100000;
     _pb_tag:string = POOL_TAG_ENUM.MONSTER.tag;
     target:Live|Building = null;
@@ -48,7 +48,7 @@ export class Monster extends Live {
         this.atkTargetCount = data.atkTargetCount;
         this.atkCount = data.atkCount;
         this.augmentList = data.augmentList;
-        this.moveSpeed = data.moveSpeed;
+        this.moveSpeed = 2.0;//data.moveSpeed;
         this.skillList = data.skillList;
         this.bulletId = 100101;    //data.bulletId;
 
@@ -70,6 +70,8 @@ export class Monster extends Live {
     onEnterState(params:any){
         var stateId = this.stateMachine.state.id;
         switch (stateId) {
+            case STATE_ENUM.MOVING:
+                break;
             default:
                 super.onEnterState(params)
                 break;
@@ -92,26 +94,7 @@ export class Monster extends Live {
     }
 
     findTarget() {
-        var mercenaryMap = this.mercenaryMgr.mercenaryMap;
-        var targetList = this.findTargetsByGroup(mercenaryMap);
-        var target = targetList.shift();
-
-        if(!target){            
-/*             if(this.checkCrossBuilding(this.mapProxy.headquarters)){
-                target = this.mapProxy.headquarters;
-                targetList = [];
-            } */
-            let tempTarget = mercenaryMap.values().next()?.value;
-            targetList = [];
-            tempTarget && (this.toTilePos = tempTarget.tilePos);
-        }
-
-        if(!!target){
-            this.target = target;
-            this.targetExtraList = targetList;
-        }
-        
-        return target;
+        return null;
     }
 
     findAllTargets() {
@@ -131,7 +114,6 @@ export class Monster extends Live {
     update(dt:number){
         super.update(dt);
     }
-
 
     getMoveRoute(toPos:Vec2):{route:Array<Vec2>,isPass:boolean}{       
         return {route:[toPos],isPass:true};             // 直接取终点。不存在障碍，直接取终点
