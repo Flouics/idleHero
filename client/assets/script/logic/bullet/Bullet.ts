@@ -10,8 +10,9 @@ import { g, Z_Max_2D } from "../../Global";
 import { toolKit } from "../../utils/ToolKit";
 import { DamageRet } from "../../Interface";
 
-export class Bullet extends BoxBase {    
-    moveSpeed: number = 360;    //1秒
+export class Bullet extends BoxBase {
+    baseMoveSpeed: number = 720;    //1秒    
+    moveSpeed: number = 0;    //1秒
     zSpeed:number = 120;   //1秒
     _mainView: BattleMainView = null;    //地图组件
     ui:UIBullet = null;
@@ -62,7 +63,7 @@ export class Bullet extends BoxBase {
             this.duration = this.data.duration;
         }
         this.clearTime = this.mapProxy.getMapTime() + this.duration;
-        this.moveSpeed = this.data.moveSpeed;
+        this.moveSpeed = this.baseMoveSpeed * this.data.moveSpeed;
         this.lifeMax = this.data.lifeMax;
         this.life = this.lifeMax;
         this._dirV2 = null;

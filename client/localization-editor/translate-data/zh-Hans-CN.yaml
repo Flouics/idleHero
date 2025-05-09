@@ -65,7 +65,7 @@ items:
     _variants: []
   mercenary.life:
     key: mercenary.life
-    value: 生命
+    value: 血量
     type: 4
     isVariant: false
     associations: []
@@ -329,9 +329,16 @@ items:
     isVariant: false
     associations: []
     _variants: []
+  mercenary.lifeMax:
+    key: mercenary.lifeMax
+    value: 血量上限
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
 languageConfig:
   bcp47Tag: zh-Hans-CN
   translateFinished: 0
   translateTotal: 0
   compileFinished: 0
-  compileTotal: 47
+  compileTotal: 48

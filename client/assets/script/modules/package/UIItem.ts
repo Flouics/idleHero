@@ -2,6 +2,8 @@ import {BaseUI} from "../../zero/BaseUI";
 
 import { _decorator, Sprite, Label} from 'cc';
 import {Item} from "../../logic/Item";
+import { UIOpacity } from "cc";
+import { v3 } from "cc";
 const {ccclass, property} = _decorator;
 
 @ccclass("UIItem")
@@ -18,6 +20,8 @@ export class UIItem extends BaseUI {
     }
     reuse(){
         this.node.setPosition(0,0,0);
+        this.node.getComponent(UIOpacity).opacity = 255;
+        this.node.setScale(v3(1,1,1));
     }
     updateUI(){
         var self = this;

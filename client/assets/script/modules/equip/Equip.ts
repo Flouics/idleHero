@@ -5,6 +5,8 @@ import { UIEquip } from "./UIEquip";
 import { App } from "../../App";
 import { uiKit } from "../../utils/UIKit";
 import { instantiate } from "cc";
+import { EquipProxy } from "./EquipProxy";
+import { Debug } from "../../utils/Debug";
 
 
 
@@ -22,17 +24,13 @@ export class Equip extends ItemBase {
     @serialize()
     _id:number = null;   // 道具类型 
     @serialize()
-    _count:number = 0;     // 数量
-    @serialize()
-    _kind:number = 0;       //道具类型
-    @serialize()
     idx: number = 0;    // 唯一的识别码，直接自增
 
     node:Node = null;
     ui:UIEquip = null;
 
     data:any = {};
-
+    pb_url = "";
     get id (){
         return this._id;
     }
@@ -41,48 +39,54 @@ export class Equip extends ItemBase {
         this._id = value;
         this.initData();            
     }
+
+    get equipPos(){
+        return this.data.pos;
+    }
     
-    get count(){
-        return this._count;
-    }
-    set count(value){
-        this._count = Number(value);       
-    }
-
-    get kind(){
-        return this._kind;
-    }
-    set kind(value){
-        this._kind = Number(value);       
-    }
-
     static _idIndex = 1;
 
-    constructor(id:number,count:number = 0) {
-        super()
-        this.idx = Equip._idIndex;
-        Equip._idIndex += 1;
+    constructor(id:number,idx:number = 0) {
+        super();
+        if (idx > 0 ){ 
+            if(idx > Equip._idIndex){
+                Equip._idIndex = idx + 1;
+            }               
+        }else{
+            idx = Equip._idIndex;
+            Equip._idIndex++;            
+        }
+        
+        this.idx = idx;           
         this.id = id;
-        this.count = count;
     }
 
     initData(){
         this.data = App.dataMgr.findById("equip",this.id)
     }
 
-    toData(){
-        return {id:this.id,count:this.count}
+    /**
+     * 升级
+     */
+    upgrade(){
+        let id = this.id + 1;
+        let data = App.dataMgr.findById("equip",id);
+        if(data){
+            this.id = id;
+            this.data = data;
+            return true;
+        }else{
+            Debug.error(`can't find equip conf by id ${id}`)
+            return false;
+        }
     }
 
-    add(count:number = 0){    
-        this.count += count;
-    }
-    reduce(count:number = 0){
-        this.count += -count;              
+    toData(){
+        return {id:this.id,idx:this.idx}
     }
 
     initUI(parent:Node,cb?:Function) {
-        let pb_url = "";
+        let pb_url = this.pb_url;
         uiKit.loadPrefab(pb_url,(prefab) => {
             let node = instantiate(prefab);
             node.parent = parent;   
@@ -100,7 +104,7 @@ export class Equip extends ItemBase {
     destroy(){
         //--todo表现
         super.destroy();
-        this.node.removeFromParent();
+        uiKit.isValid(this.node) && this.node.removeFromParent();
     }
     update(){
         

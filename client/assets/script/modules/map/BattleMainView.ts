@@ -24,6 +24,7 @@ import { Block } from "../../logic/Block";
 import { STATE_ENUM } from "../../logic/stateMachine/StateMachine";
 import { MineMgr } from "../../manager/battle/MineMgr";
 import { runInThisContext } from "vm";
+import { getMercenaryProxy } from "../mercenary/MercenaryProxy";
 
 const {ccclass, property} = _decorator;
 @ccclass("BattleMainView")
@@ -110,6 +111,7 @@ export class BattleMainView extends BaseView {
     exitBattle(){
         //this.resetMap();
         this.stopBattle();
+        this.clearBattle();
         getLobbyProxy().updateView("onExitBattle");
         this.proxy.isBattle = false;
         this.close();
@@ -119,10 +121,13 @@ export class BattleMainView extends BaseView {
         toolKit.showTip("暂时先屏蔽，看需求");
     }
 
-    stopBattle(){
+    clearBattle(){
         MonsterMgr.instance.clear();
         BulletMgr.instance.clear();    
         MercenaryMgr.instance.clear();
+    }
+
+    stopBattle(){
         this.battleState = 0;
     }
 
@@ -177,7 +182,7 @@ export class BattleMainView extends BaseView {
             return true;           
         }else{
             if(this.curWaveIndex > 0 && empty(MercenaryMgr.instance.mercenaryMap)){
-                getMapProxy().cmd.showFailView();
+                getMapProxy().cmd.showFailView(this.curStageId,this.curWaveIndex);
                 this.battleState = 0;
             }
             return false;     
@@ -185,7 +190,7 @@ export class BattleMainView extends BaseView {
     }
 
     initMercenary() {
-        var mercenaryId = 2;
+        var mercenaryId = getMercenaryProxy().curMercenaryId;
         MercenaryMgr.instance.addMercenaryGenPool(mercenaryId);
         //不再通过计时器去生成，直接生成一个
         let mercenary = MercenaryMgr.instance.create(mercenaryId);

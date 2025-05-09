@@ -1,10 +1,11 @@
 
 
 import {App} from "../../App";
-import {Item, ITEM_ID_ENUM} from "../../logic/Item";
+import {Item, ITEM_ID_ENUM, ITEM_TYPE_ENUM} from "../../logic/Item";
 import { serialize } from "../../utils/Decorator";
 import { toolKit } from "../../utils/ToolKit";
 import { Proxy }from "../base/Proxy";
+import { getEquipProxy } from "../equip/EquipProxy";
 import { getPlayerProxy } from "../player/PlayerProxy";
 import { getRewardProxy } from "../reward/RewardProxy";
 import { getTimeProxy } from "../time/TimeProxy";
@@ -72,25 +73,22 @@ export class PackageProxy extends Proxy {
     }    
 
     addItemList(itemDataList:any[]|Map<number,Item>){
-        var self = this;
         itemDataList.forEach(itemData =>{
-            self.addItem(itemData);
+            this.addItem(itemData);
         })
     }
 
     reduceItemList(itemDataList:any[]){
         if(this.checkItemList(itemDataList)){
-            var self = this;
             itemDataList.forEach(itemData =>{
-                self.reduceItemById(itemData.id,itemData.count);
+                this.reduceItemById(itemData.id,itemData.count);
             })
         }
     }
 
     checkItemList(itemDataList:any[]){
-        var self = this;
         var checkItem = itemDataList.some(itemData =>{
-            var item = self.getItemById(itemData.id);
+            var item = this.getItemById(itemData.id);
             if(item.count <  itemData.count){
                 return item;
             }
@@ -103,13 +101,21 @@ export class PackageProxy extends Proxy {
     }
 
     addItemById(id:number,count:number){
-        if (this.itemMap.get(id) == null){
-            this.itemMap.set(id, new Item(id));
+        var item = this.getItemById(id);
+        switch (item.type) {
+            case ITEM_TYPE_ENUM.COMMON:
+                item.add(count);
+                this.updateViewTask("updatePackageInfo"); //todo 有待优化
+                this.dumpToDb();
+                break;
+            case ITEM_TYPE_ENUM.EQUIP:
+                for (let i = 0; i < count; i++) {
+                    getEquipProxy().addEquip(id);
+                }                
+                break;
+            default:
+                break;
         }
-        var item = this.itemMap.get(id);
-        item.add(count);
-        this.updateViewTask("updatePackageInfo"); //todo 有待优化
-        this.dumpToDb();
         return item;
     }
 
@@ -119,19 +125,30 @@ export class PackageProxy extends Proxy {
 
     reduceItemById(id:number,count:number){
         var item = this.getItemById(id);
-        if(item.count < count){
-            return null;
+        switch (item.type) {
+            case ITEM_TYPE_ENUM.COMMON:
+                item.reduce(count);
+                this.updateViewTask("updatePackageInfo"); //todo 有待优化
+                this.dumpToDb();
+                break;
+            case ITEM_TYPE_ENUM.EQUIP:
+                getEquipProxy().addEquip(id);
+                break;
+            default:
+                break;
         }
-        item.reduce(count);
-        this.updateViewTask("updatePackageInfo"); //todo 有待优化
-        this.dumpToDb();
+
+
         return item;
     }
 
-
     getItemById(id:number){
         if (this.itemMap.get(id) == null){
-            this.itemMap.set(id, new Item(id));
+            let item = new Item(id);
+            if (item.type == ITEM_TYPE_ENUM.COMMON){     
+                this.itemMap.set(id, item);                         
+            }
+            return item;
         }
         return this.itemMap.get(id);
     }

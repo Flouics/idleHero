@@ -7,6 +7,7 @@ import { toolKit } from "../../utils/ToolKit";
 import { nullfun } from "../../Global";
 import { UIID_Map } from "./MapInit";
 import { Vec2 } from "cc";
+import { TowerMgr } from "../../manager/battle/TowerMgr";
 
 export class MapCommand extends Command{
     proxy:MapProxy;
@@ -26,38 +27,13 @@ export class MapCommand extends Command{
         }        
     }
 
-    buildTower(params:{tilePos?:Vec2,block?:Block}){
-        var tilePos = params?.tilePos;
-        var block = params.block || this.proxy.getBlock(tilePos.x,tilePos.y)
-        tilePos = tilePos || block.tilePos;
-        //todo 修改炮塔
-        if(block && block.checkType(BLOCK_VALUE_ENUM.EMPTY)){
-            //todo tower
-            var towerType = 1001;
-            this.proxy.towerMgr.create(tilePos.x,tilePos.y,towerType)
-            block.id = BLOCK_VALUE_ENUM.BUILDING;
-            this.proxy.updateView("buildTower", params);
-        }    
-    }
-
-    buildMine(params:{tilePos?:Vec2,block?:Block}){
-        var tilePos = params!.tilePos;
-        var block = params.block || this.proxy.getBlock(tilePos.x,tilePos.y)
-        tilePos = tilePos || block.tilePos;
-        if(block && block.checkType(BLOCK_VALUE_ENUM.EMPTY)){
-            let mine = this.proxy.mineMgr.create(tilePos.x,tilePos.y,block.data_1);
-            !this.proxy.mineMap[tilePos.x] && (this.proxy.mineMap[tilePos.x] = {});
-            this.proxy.mineMap[tilePos.x][tilePos.y] = mine;
-        }
-    }
-
     showWinView(stageId:number){
-        this.showView(UIID_Map.WinView,stageId);
+        this.showView(UIID_Map.WinView,{stageId:stageId});
         this.proxy.updateView("stopBattle");
     }
 
-    showFailView(){
-        this.showView(UIID_Map.FailView);
+    showFailView(stageId:number,waveIndex:number = 0){
+        this.showView(UIID_Map.FailView,{stageId:stageId,waveIndex:waveIndex});
         this.proxy.updateView("stopBattle");
         
     }

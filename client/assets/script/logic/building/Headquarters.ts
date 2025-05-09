@@ -28,7 +28,7 @@ export class Headquarters extends Building {
         if(this.isFail == false){
             if(!this.checkLive()) {
                 this.isFail = true;
-                getMapProxy().cmd.showFailView();
+                getMapProxy().cmd.showFailView(1);
             }
         }
     }

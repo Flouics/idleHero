@@ -47,7 +47,7 @@ export class App extends BaseClass{
 
     static accountInfo = new AccountInfo();
     
-    static scheduleTask:any = null;
+    private static scheduleTask:any = null;
 
     //mamager
     static config:Config;
@@ -205,6 +205,10 @@ export class App extends BaseClass{
         App.scheduleTask[key] = cb;
         App.ui.schedule(cb, interval / 1000);
         return true
+    }
+    // 不重复执行，只执行第一个
+    static taskDelayOnceTime(cb:Function, interval:number, key:string){
+        this.taskOnce(cb,interval,DELAY_TASK_KEY + "key");
     }
 
     static taskOnce (cb:Function, interval:number, key:string) {

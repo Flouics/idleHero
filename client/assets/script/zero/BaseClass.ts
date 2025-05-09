@@ -2,8 +2,8 @@ import { objToJson, jsonToObj } from "../utils/Decorator";
 import {UUID} from "../utils/UUID";
 
 export class BaseClass {
-    _classDbKey:string;
-    _classId: string = "";
+    private _classDbKey:string;
+    private _classId: string = "";
     _className:string = "";
     static _instance = null;       
     constructor(){

@@ -33,7 +33,7 @@ let getUIConfigData = () => {
 export class RewardInit extends Init {
     proxy:RewardProxy;
     cmd:RewardCommand;
-    moduleName:string = "reward";
+
     init(){
         this.moduleName = "reward";
         this.proxy = new RewardProxy();

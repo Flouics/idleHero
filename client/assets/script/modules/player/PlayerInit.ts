@@ -32,7 +32,6 @@ let getUIConfigData = () => {
 export class PlayerInit extends Init{
     proxy:PlayerProxy;
     cmd:PlayerCommand;
-    moduleName:string = "player";
 
     init(){
         this.moduleName = "player";

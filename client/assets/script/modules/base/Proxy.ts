@@ -7,6 +7,7 @@ import {Command} from "./Command";
 import { Emitter } from "../../zero/Emitter";
 import { EventDispatcher } from "../../oops/core/common/event/EventDispatcher";
 import { ListenerFunc } from "../../oops/core/common/event/EventMessage";
+import { DEBUG } from "cc/env";
 
 export class Proxy extends BaseClass {
     viewMap:{[key:string]:any} = {};
@@ -74,14 +75,16 @@ export class Proxy extends BaseClass {
     setCommand<T extends Command>(command:T){
         this.cmd = command as T;
         this.cmd.proxy = this;
-        Node
     }
 
     setModuleName(name:string) {
         this.moduleName = name;
         this._baseUrl = "texture/" + this.moduleName + "/";
         this._prefabUrl = "prefab/" + this.moduleName + "/";
-        window[this.moduleName + "Proxy"] = this;
+
+        //方便调试
+        DEBUG && (window[this.moduleName + "Proxy"] = this);
+        
         if(this.cmd){
             this.cmd.moduleName = this.moduleName;
         }

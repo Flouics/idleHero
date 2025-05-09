@@ -16,6 +16,7 @@ var UIConfigData: { [key: number]: UIConfig } = {
 export class TimeInit extends Init {
     proxy:TimeProxy;
     cmd:TimeCommand;
+    
     init(){
         this.moduleName = "time";
         this.proxy = new TimeProxy();

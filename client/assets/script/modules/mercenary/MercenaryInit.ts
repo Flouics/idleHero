@@ -25,7 +25,7 @@ let getUIConfigData = () => {
 export class MercenaryInit extends Init {
     proxy:MercenaryProxy;
     cmd:MercenaryCommand;
-    moduleName:string = "mercenary";
+
     init(){
         this.moduleName = "mercenary";
         this.proxy = new MercenaryProxy();

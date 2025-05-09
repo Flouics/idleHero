@@ -8,6 +8,7 @@ import { oops } from "../../oops/core/Oops";
 export enum UIID_Equip {
     /** 资源加载界面 */
     EquipView = UUID.UIID_INDEX,
+    EquipCombineView = UUID.UIID_INDEX,
 }
 
 /** 打开界面方式的配置数据 */
@@ -19,6 +20,13 @@ let getUIConfigData = () => {
                 , prefab: "/prefab/equip/EquipView"
                 , bundle: "resources" 
             },
+
+        [UIID_Equip.EquipCombineView]: 
+            { 
+                layer: LayerType.UI
+                , prefab: "/prefab/equip/EquipCombineView"
+                , bundle: "resources" 
+            },
     }
     return UIConfigData;
 }
@@ -26,7 +34,6 @@ let getUIConfigData = () => {
 export class EquipInit extends Init {
     proxy:EquipProxy;
     cmd:EquipCommand;
-    moduleName:string = "equip";
 
     init(){
         this.moduleName = "equip";

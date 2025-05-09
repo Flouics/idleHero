@@ -4,6 +4,7 @@ import { checkObjKey } from "../../Global";
 import { serialize } from "../../utils/Decorator";
 import { toolKit } from "../../utils/ToolKit";
 import { Proxy }from "../base/Proxy";
+import { getEquipProxy } from "../equip/EquipProxy";
 import {MercenaryCommand} from "./MercenaryCommand";
 /*
 
@@ -56,6 +57,10 @@ export class MercenaryData {
     quality:number = 0;
     bulletId:number = 0;
     data:any = null;
+    get useEquipPosMap (){
+        return getEquipProxy().useEquipPosMap;
+    }
+
 
     constructor(data:any,level = 1){
         this.level = level;
@@ -82,14 +87,31 @@ export class MercenaryData {
         this.skillList = data.skillList;
         this.bulletId = data.bulletId;
        
-        this.cacLevelAttrs();
+        this.cacAllAttrs();
         
         this.life = this.lifeMax;   
     }
 
-    cacLevelAttrs(){
-        var attrMap = this.getLevelAttrsAddTotalMap(this.level);
-        
+    cacAllAttrs(){
+        let attrMap = this.getLevelAttrsAddTotalMap(this.level);
+        let otherAttrMapList = [            
+            this.getEquipAllAttrs(),
+        ]
+
+        otherAttrMapList.forEach((otherAttrMap) => {
+            for (const key in attrMap) {
+                if (checkObjKey(otherAttrMap, key)){            
+                    if (Array.isArray(attrMap[key])){
+                        attrMap[key] = toolKit.arrayAdd(attrMap[key],otherAttrMap[key]);
+                    }else{
+                        var attr = toolKit.cacAttr(otherAttrMap[key]);
+                        attrMap[key].value += attr.value;
+                        attrMap[key].percent += attr.percent;
+                    }
+                }
+            }            
+        })
+                
         //加入属性
         for (const key in attrMap) {
             var attr = attrMap[key];
@@ -161,12 +183,83 @@ export class MercenaryData {
         return attrMap
     }
 
+    getEquipAllAttrs(){
+        let attrMap;
+        this.useEquipPosMap.forEach((equipIdx) => {            
+            if(equipIdx > 0){
+                var data = this.getEquipAttr(equipIdx);
+                if(attrMap == null){
+                    attrMap = data;
+                }else{
+                    for (const key in attrMap) {
+                        if (Array.isArray(attrMap[key])){
+                            attrMap[key] = toolKit.arrayAdd(attrMap[key],data[key]);
+                        }else{
+                            var attr = data[key];
+                            attrMap[key].value += attr.value;
+                            attrMap[key].percent += attr.percent;
+                        }
+                    }  
+                }  
+            }    
+        })
+        return attrMap || [];
+    }
+
+    getEquipAttr(equipIdx:number){
+        var attrMap = {     
+            coldTime:{value:0,percent:0}
+            ,lifeMax:{value:0,percent:0}
+            ,atk:{value:0,percent:0}
+            ,atkBuffList:[]
+            ,atkSpeed:{value:0,percent:0}
+            ,atkRange:{value:0,percent:0}
+            ,atkTargetCount:{value:0,percent:0}
+            ,atkCount:{value:0,percent:0}
+            ,moveSpeed:{value:0,percent:0}
+            ,skillList:[]
+        }
+
+        //汇总属性
+        let equip = getEquipProxy().getEquipByIdx(equipIdx);
+        if(!equip){
+            return attrMap;
+        }
+
+        let data = equip.data;
+        for (const key in attrMap) {
+            if (checkObjKey(data, key)){            
+                if (Array.isArray(attrMap[key])){
+                    attrMap[key] = toolKit.arrayAdd(attrMap[key],data[key]);
+                }else{
+                    var attr = toolKit.cacAttr(data[key]);
+                    attrMap[key].value += attr.value;
+                    attrMap[key].percent += attr.percent;
+                }
+            }
+        }
+        return attrMap
+    }
+
     getNextLevelData(){
         return getMercenaryLevelData(this.id,this.level + 1);
     }
 
     checkMaxLevel(){
         return this.getNextLevelData() == null;
+    }
+
+    upgrade(){
+        if(this.checkMaxLevel()){
+            return false;
+        }
+        this.level++;
+        this.cacAllAttrs();
+        return true;
+    }
+
+    setUseEquip(pos:number,equipIdx:number){
+        return getEquipProxy().setUseEquip(pos,equipIdx);
     }
 }
 
@@ -179,6 +272,9 @@ export class MercenaryProxy extends Proxy {
 
     @serialize()
     mercenaryJson:{[key:number]:any} = {};
+
+    //当前的追随者
+    curMercenaryId:number = 1;
 
     constructor(){       
         super();
@@ -196,6 +292,7 @@ export class MercenaryProxy extends Proxy {
 
     init(): void {
         this.loadMercenaryInfo();
+        this.curMercenaryId = 2;
     }
 
     loadMercenaryInfo(){
@@ -219,7 +316,10 @@ export class MercenaryProxy extends Proxy {
         //导出数据的预处理
         this.mercenaryJson = {}
         this.mercenaryMap.forEach(data=>{
-            this.mercenaryJson[data.id] = {id:data.id,level:data.level};
+            this.mercenaryJson[data.id] = {
+                id:data.id
+                ,level:data.level
+                };
         })
     }
 
@@ -231,7 +331,7 @@ export class MercenaryProxy extends Proxy {
 
             var data = this.mercenaryMap.get(Number(key));
             if(data){
-                data.level = json.level; 
+                data.level = json.level;
             }              
         }
     }

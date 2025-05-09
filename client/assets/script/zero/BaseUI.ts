@@ -11,6 +11,7 @@ import { oops } from ".././oops/core/Oops";
 import { DelegateComponent } from ".././oops/core/gui/layer/DelegateComponent";
 import { empty, isValid, NodeEx } from "../Global";
 import { UUID } from "../utils/UUID";
+import { Node } from "cc";
 const {ccclass, property} = _decorator;
 
 @ccclass("BaseUI")
@@ -20,12 +21,6 @@ export class BaseUI extends GameComponent {
     _prefabUrl: string = "";
     _logicObj: ItemBase = null;
     _pb_tag:string = ""; 
-    active:boolean = false;
-
-    @property({
-        tooltip: '切换场景的时候是否直接destroy'
-    })
-    is_destroy: boolean = true;    
 
     getId(){        
         return this.uuid
@@ -72,7 +67,6 @@ export class BaseUI extends GameComponent {
         if (this._logicObj){
             this._logicObj.onEnable(this)
         }
-        this.active = true;
     }
 
     onClose() {
@@ -85,7 +79,6 @@ export class BaseUI extends GameComponent {
         if (this._logicObj){
             this._logicObj.onDisable(this)
         }
-        this.active = false;
     }
 
     onDestroy() {
@@ -98,17 +91,18 @@ export class BaseUI extends GameComponent {
         return this._baseUrl + res_url;
     }
 
-    loadSpt(spt: Sprite, res_url: string = null, cb?: Function) {
+    loadSpt(spt: Sprite | Node, res_url: string = null, cb?: Function) {
         this.loadSptEx(spt,this.getResUrl(res_url),cb);
     };
 
-    loadSptEmpty(spt: Sprite) {
+    loadSptEmpty(spt: Sprite | Node) {
         this.loadSptEx(spt,null);
     };
     
-    loadSptEx(spt: Sprite, res_url: string = null, cb?: Function) {
-        if (!isValid(spt)) return;
-        let node = spt.node as NodeEx;
+    loadSptEx(_spt:Sprite | Node, res_url: string = null, cb?: Function) {
+        if (!isValid(_spt)) return;
+        let spt = _spt instanceof Node ? _spt.getComponent(Sprite) : _spt;
+         let node = spt.node as NodeEx;
         node.loadIndex = node.loadIndex || UUID.ID_AUTO;
         let loadIndex = node.loadIndex;
         if(empty(res_url)){
@@ -182,6 +176,12 @@ export class BaseUI extends GameComponent {
         }else{
             return this._logicObj.getClassName() + "." + key
         }        
+    }
+
+    taskDelayOnceTime(cb:Function,delay:number,key:string){
+        App.taskDelayOnceTime(() => {
+            this.isValid && cb();
+        },delay,key)
     }
 
     update(dt:number){

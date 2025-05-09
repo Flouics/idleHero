@@ -31,7 +31,7 @@ export function modeuleInit(){
     moduleMgr.load("map",new MapInit());
     moduleMgr.load("mercenary",new MercenaryInit());
     moduleMgr.load("reward",new RewardInit());
-    //moduleMgr.load("equip",new EquipInit());
+    moduleMgr.load("equip",new EquipInit());
     
     App.httpMgr.init();
     App.poolMgr.init();

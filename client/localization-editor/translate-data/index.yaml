@@ -329,6 +329,13 @@ items:
     isVariant: false
     associations: []
     _variants: []
+  mercenary.lifeMax:
+    key: mercenary.lifeMax
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
 languageConfig:
   bcp47Tag: index
   translateFinished: 0

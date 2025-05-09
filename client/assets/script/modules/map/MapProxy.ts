@@ -42,8 +42,8 @@ export class MapProxy extends Proxy {
     taskMap = {}
 
     monsterEntryPos = new Vec2(0, 8);          //tilePos
-    monsterBattlePos = new Vec2(0, 3);          //tilePos
-    mercenaryEntryPos = new Vec2(0, -3);       //tilePos
+    monsterBattlePos = new Vec2(0, 2);          //tilePos
+    mercenaryEntryPos = new Vec2(0, -2);       //tilePos
 
     isPause:boolean = false;
     isBattle:boolean = false;

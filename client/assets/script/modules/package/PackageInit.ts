@@ -25,6 +25,7 @@ let getUIConfigData = () => {
 export class PackageInit extends Init {
     proxy:PackageProxy;
     cmd:PackageCommand;
+    
     init(){
         this.moduleName = "package";
         this.proxy = new PackageProxy();

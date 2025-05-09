@@ -9,7 +9,7 @@ import { MercenaryMgr } from "../manager/battle/MercenaryMgr";
 import { Mercenary } from "./Mercenary";
 import {UILive} from "../modules/map/UILive";
 export class Monster extends Live {
-    baseMoveSpeed: number = 60;    //1秒
+    baseMoveSpeed: number = 120;    //1秒
     static _idIndex = 100000;
     _pb_tag:string = POOL_TAG_ENUM.MONSTER.tag;
     target:Live|Building = null;

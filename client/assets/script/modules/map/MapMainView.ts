@@ -92,7 +92,7 @@ export class MapMainView extends BaseView {
         //扣除体力
         let stageId = 1;
         if (block.checkType(BLOCK_VALUE_ENUM.ELITE_ENTRY)){
-            stageId = 2001;
+            stageId = 20001;
         }
         let stageData = App.dataMgr.findById("stage",stageId);
         if(!stageData){

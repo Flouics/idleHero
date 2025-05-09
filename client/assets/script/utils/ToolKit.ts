@@ -433,14 +433,14 @@ export class ToolKit {
     static getTargetPos(node:Node, target:Node) {
         if (!node || !target) {
             Debug.error('target or node is null.');
-            return v2(0, 0);
+            return v3(0, 0, 0);
         }
         if (!node.parent || !target.parent) {
             Debug.error('parent of target or node is null.');
-            return v2(0, 0);
+            return v3(0, 0, 0);
         }
 
-        var worldSpacePos = target.parent.getComponent(UITransform).convertToNodeSpaceAR(target.getPosition());
+        var worldSpacePos = target.parent.getComponent(UITransform).convertToWorldSpaceAR(target.getPosition());
         var nodeSpacePos = node.parent.getComponent(UITransform).convertToNodeSpaceAR(worldSpacePos);
         return nodeSpacePos;
     };

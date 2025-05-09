@@ -5,16 +5,23 @@ import {BaseView} from "../../zero/BaseView";
 import { _decorator, Button, instantiate, js, Label, Node, NodeEventType, RichText, ScrollView, Sprite, utils } from 'cc';
 import { MercenaryData, MercenaryProxy } from "./MercenaryProxy";
 import { toolKit } from "../../utils/ToolKit";
-import { lang } from "../../Global";
+import { empty, lang } from "../../Global";
 import { getPackageProxy } from "../package/PackageProxy";
 import { ITEM_ID_ENUM } from "../../logic/Item";
 import {MercenaryItem} from "./MercenaryItem";
+import { getEquipProxy } from "../equip/EquipProxy";
+import { Equip } from "../equip/Equip";
+import { EquipItem } from "../equip/EquipItem";
+import { UIID_Equip } from "../equip/EquipInit";
+import { UICallbacks } from "../../oops/core/gui/layer/Defines";
+import { EquipCombineView } from "../equip/EquipCombineView";
+import { uiKit } from "../../utils/UIKit";
 const {ccclass, property} = _decorator;
 
 @ccclass("MercenaryView")
 export class MercenaryView extends BaseView {
     moduleName = "mercenary"
-    proxys:any[] = [];
+    proxys:any[] = ["equip"];
     proxy:MercenaryProxy;
 
     @property(Sprite)
@@ -38,12 +45,32 @@ export class MercenaryView extends BaseView {
     lb_cost_3:Label;
 
     @property(ScrollView)
-    sv_mercenary:ScrollView;
+    sv_equipRoot:ScrollView;
 
     curMercenaryData:MercenaryData = null;
+    _curEquipData:Equip = null;
+    get curEquipData():Equip{
+        return this._curEquipData;
+    }
+
+    set curEquipData(data:Equip){
+        this._curEquipData = data;
+        this.taskDelayOnceTime(
+            () => {
+                this.updateUseEquipInfo();
+                this.updateEquipItemSelect();
+            }
+            ,0.5
+            ,"updateUseEquipInfo");
+        ;
+    }
+
+
+    equipMap:Map<number,Equip> = new Map();
     onLoad(): void {
         super.onLoad(); //BaseView继承的不要去掉这句
-        this.initMercenaryList();
+        this.initMercenary();
+        this.initEquipList();
     }
 
     init() {            //预加载就调用
@@ -53,9 +80,12 @@ export class MercenaryView extends BaseView {
     show() {            //显示时调用
         if(this.curMercenaryData){
             this.updateRoleInfo();
-            this.updateUpgradeInfo();
-            this.updateMercenaryList();     
+            this.updateUpgradeInfo();                 
         }   
+        this.taskDelayOnceTime(() => {
+            this.updateEquipList();
+        },0.5,"updateEquipList");        
+        this.updateUseEquipInfo();
     }
 
     hide() {            //隐藏后调用
@@ -74,6 +104,34 @@ export class MercenaryView extends BaseView {
             }
         this.updateDataToUI("role.name",data,() => {
             self.rt_nameInfo.string = js.formatStr("<color=#00ff00>%s</color><color=#0fffff>Lv.%s</color>",data.name,data.level);
+        });
+    }
+
+    updateUseEquipInfo(){
+        let curEquipDataIsEquip = false;
+        for (let i = 1; i < 5; i++) {
+            let root = this.getNode(`equipPos_${i}`);
+            let equip = getEquipProxy().getUseEquipByPos(i);
+            let resUrl = equip ? `texture/equip/${equip.id}` : null;       
+            this.loadSptEx(toolKit.getChild(root,"spt_equip"),resUrl);
+            toolKit.getChild(root,"btn_off").active = !!equip;
+            if (this.curEquipData && equip && this.curEquipData.idx == equip.idx){
+                curEquipDataIsEquip = true;
+            }
+        }
+        let isCanEquip = !!this.curEquipData && !curEquipDataIsEquip;
+        uiKit.setBtnGray(this.getNode("btn_on"),!isCanEquip);   
+    }
+
+    updateEquipItemSelect(){
+        var children = this.sv_equipRoot.content.children;
+        children.forEach((item)=> {
+            let ui = item.getComponent(EquipItem);
+            if(ui.data && this.curEquipData && ui.data.idx == this.curEquipData.idx){
+                ui.setSelected(true);
+            }else{
+                ui.setSelected(false);
+            }
         });
     }
 
@@ -177,43 +235,96 @@ export class MercenaryView extends BaseView {
         this.lb_cost_3.string = data.cost_3;
     }
 
-    initMercenaryList(){
-        var mercenaryMap = this.proxy.getMercenaryMap();
-        var self = this;
-        mercenaryMap.forEach(data => {
-            if(!self.curMercenaryData){
-                self.curMercenaryData = data;
-                self.onSwitchMercenary(data);
+    initEquipList(){
+        this.sv_equipRoot.content.removeAllChildren();
+    }
+
+    getEquipList(){
+        var equipMap = getEquipProxy().getAllEquips();
+        var list = [];
+        equipMap.forEach((equip) => {
+            list.push(equip);        
+        })
+
+        list.sort((a,b) => {
+            if(a.type == b.type){
+                return a.idx - b.idx;
+            }else{
+                return a.type - b.type;
             }
-            self.loadPrefab("items/MercenaryItem",function(item:Node){
-                self.sv_mercenary.content.addChild(item);
-                self.setItem(item,data);
-                item.on(NodeEventType.TOUCH_END,()=>{
-                    self.onSwitchMercenary(item.getComponent(MercenaryItem)?.data);
-                })
-            })             
-        });
+        })
+        return list;
     }
 
     setItem(item:Node,data:any){
-        item.getComponent(MercenaryItem)?.setItem(data,this.curMercenaryData.id == data.id);
+        item.getComponent(EquipItem)?.setItem(data);
     }
 
-    onSwitchMercenary(mercenaryData:MercenaryData){
-        this.curMercenaryData = mercenaryData;
+    initMercenary(){
+        this.curMercenaryData = this.proxy.getMercenaryById(this.proxy.curMercenaryId);
         this.updateRoleInfo();
         this.updateUpgradeInfo();
-        this.updateMercenaryList();
     }
 
-    updateMercenaryList(){
-        var children = this.sv_mercenary.content.children;
-        var self = this;
-        children.forEach(item => {
-            var data = self.proxy.getMercenaryById(item.getComponent(MercenaryItem)?.data.id);
-            self.setItem(item,data);
+    updateEquipList(){
+        var children = this.sv_equipRoot.content.children;
+        var list = this.getEquipList();
+        if(this.curEquipData == null 
+            || getEquipProxy().getEquipByIdx(this.curEquipData.idx) == null){
+            this.curEquipData = list[0];
+        }
+        children.forEach((item,i)=> {
+            var data = list[i];
+            if(!data){
+                item.removeFromParent();                
+            }else{
+                this.setItem(item,data);
+            }
         })
+        var len = this.sv_equipRoot.content.children.length;
+        for (let i = len; i < list.length; i++) {
+            let data = list[i];
+            this.loadPrefabEx("prefab/equip/items/EquipItem",(node:Node) => {
+                node.on(NodeEventType.TOUCH_END,() => {
+                    this.onClickEquip(node);
+                })
+                this.sv_equipRoot.content.addChild(node);
+                this.setItem(node,data);
+            });
+        }
     }
+
+    onClickEquip(item:Node){
+        let ui = item.getComponent(EquipItem);
+        this.curEquipData = ui.data;
+    }
+
+    onClickAutoCombine(){
+        let combineList = getEquipProxy().getCombineList(); 
+        if(empty(combineList)){
+            return;
+        }
+        let uic:UICallbacks = {
+            onAdded:(node:Node) => {
+                node.getComponent(EquipCombineView).setData(combineList);
+            }
+        }
+        getEquipProxy().cmd.showView(UIID_Equip.EquipCombineView,null,uic);
+    }
+
+    onClickEquipOff(event:string,customEventData:number){
+        let equipPos = customEventData;
+        getEquipProxy().cmd.setUseEquip(equipPos,0);
+    }
+
+    onClickEquipOn(){
+        let equip = this.curEquipData;
+        if(!equip){
+            return;
+        }
+        getEquipProxy().cmd.setUseEquip(equip.equipPos,equip.idx);
+    }
+
 
     onClickUpgrade(){
         var isMaxLevel = this.curMercenaryData.checkMaxLevel();
@@ -252,6 +363,12 @@ export class MercenaryView extends BaseView {
     upgradeResult(){
         this.updateRoleInfo();
         this.updateUpgradeInfo();
-        this.updateMercenaryList();
     }
+
+    setUseEquipResult(){
+        this.updateRoleInfo();
+        this.updateUseEquipInfo();
+    }
+
+    
 }

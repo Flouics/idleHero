@@ -16,15 +16,16 @@ export class BaseView extends BaseUI {
     proxys:any[] = [];
     proxy:Proxy;
     hasInit:boolean = false;
+    params:any;
 
     onLoad() {
         super.onLoad();
-        this._baseInit();
+        this._baseInit(); 
+        !this.proxy && this.tryInitProxy();            
     }
 
     _baseInit(): void {
-        this.initProxy();
-        var nd_close = find('close', this.node);
+        var nd_close = find('close', this.node) || find('btn_close', this.node);
         if (nd_close) {
             nd_close.on(NodeEventType.TOUCH_END, this.onClose.bind(this));
         }
@@ -32,7 +33,7 @@ export class BaseView extends BaseUI {
         this.node.on(NodeEventType.TOUCH_END, this.onBgClick.bind(this));
     }
 
-    initProxy() {
+    tryInitProxy() {
         if (!toolKit.empty(this.moduleName)){
             this.proxy = App.moduleMgr.getProxy(this.moduleName);
             if(!this.proxy){
@@ -64,15 +65,29 @@ export class BaseView extends BaseUI {
         }        
     }
 
-    show() {
+    onAdded(params:any){
+       this.params = params;   
+       !this.proxy && this.tryInitProxy();      
+    }
+
+    onBeforeRemove(){
+        this.hide();
+    }
+
+    show(params:any) {
+       
+    }
+    
+    hide() {
 
     }
-    hide(...args: any[]) {
-
+    start(): void {
+        super.start();        
     }
     onEnable() {
         super.onEnable();
         this.bindProxys();
+        this.show(this.params);
     }
 
     onClose() {

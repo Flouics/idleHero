@@ -26,7 +26,6 @@ let getUIConfigData = () => {
 export class TemplateInit extends Init {
     proxy:TemplateProxy;
     cmd:TemplateCommand;
-    moduleName:string = "template";
 
     init(){
         this.moduleName = "template";

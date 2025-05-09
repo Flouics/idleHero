@@ -25,7 +25,7 @@ return UIConfigData;
 export class LobbyInit extends Init {
     proxy:LobbyProxy;
     cmd:LobbyCommand;
-    moduleName:string = "lobby";
+
     init(){
         this.moduleName = "lobby";
         this.proxy = new LobbyProxy();

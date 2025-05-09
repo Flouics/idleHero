@@ -23,15 +23,11 @@ export class WinView extends BaseView {
     
     onLoad(){
         super.onLoad()
-        
-    }
-
-    init(stageId?:number,...args:any[]): void {
         this.mapProxy = this.proxy as MapProxy;
-        this.stageId = stageId;
     }
 
-    onEnable(): void {        
+    show(params:any): void {        
+        this.stageId = params.stageId;
         this.initData();
     }
 
@@ -48,8 +44,7 @@ export class WinView extends BaseView {
         rwdList.forEach(itemData=>{
             var item = new Item(itemData.id,itemData.count);
             item.initUI(self.sv_rwdListRoot.content)
-        })       
-   
+        })   
     }
 
     onClickComfirm(){

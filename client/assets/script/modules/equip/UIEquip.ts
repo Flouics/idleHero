@@ -2,14 +2,15 @@ import {BaseUI} from "../../zero/BaseUI";
 
 import { _decorator, Sprite, Label} from 'cc';
 import {Item} from "../../logic/Item";
+import { Priority } from "../../oops/libs/behavior-tree";
 const {ccclass, property} = _decorator;
 
 @ccclass("UIEquip")
 export class UIEquip extends BaseUI {
     @property(Sprite)
-    spt_item:Sprite = null;
+    spt_icon:Sprite = null;
     @property(Label)
-    lb_count:Label;
+    lb_name:Label;
 
     _baseUrl = "texture/equip/";
     _logicObj:Item = null;
@@ -26,7 +27,7 @@ export class UIEquip extends BaseUI {
             return;
         }
         var loadSpt = function(){
-            let spt = self.spt_item;
+            let spt = self.spt_icon;
             if(logicObj.id > 0){
                 self.loadSpt(spt, "equip/" + logicObj.id)
             }else{
@@ -35,8 +36,8 @@ export class UIEquip extends BaseUI {
         }
         this.updateDataToUI("equip.type",logicObj.id,loadSpt)
 
-        this.updateDataToUI("equip.count",logicObj.count,()=>{
-            self.lb_count.string = logicObj.count > 0 ? logicObj.count.toString() : "0";
+        this.updateDataToUI("equip.name",logicObj.name,()=>{
+            self.lb_name.string = logicObj.name;
         })
     }
 }

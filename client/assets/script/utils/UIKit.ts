@@ -3,6 +3,7 @@ import {BaseClass} from "../zero/BaseClass";
 import { assetManager, instantiate, js, Label, macro, Node, Prefab, resources, Sprite, SpriteAtlas, SpriteFrame, sys, Texture2D, Tween, tween, UITransform, v2, v3, Vec3 } from "cc";
 import { Debug }   from "./Debug";
 import { empty, NodeEx } from "../Global";
+import { Button } from "cc";
 
 
 class UIKit extends BaseClass {
@@ -143,6 +144,19 @@ class UIKit extends BaseClass {
         .union()
         .repeatForever()
         .start();
+    }
+
+    setBtnGray(node:Node,isGray:boolean){
+        if(!uiKit.isValid(node)){
+            return;
+        }
+        if (node.getComponent(Button)){
+            node.getComponent(Button).interactable = !isGray;
+        } 
+
+        if (node.getComponent(Sprite)){
+            node.getComponent(Sprite).grayscale = isGray;
+        } 
     }
 };
 

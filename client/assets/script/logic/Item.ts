@@ -21,13 +21,19 @@ export let ITEM_ID_ENUM = {
     STAMINA:5,          //体力    
 }
 
+//道具类型美剧
+export let ITEM_TYPE_ENUM = {
+    COMMON:1,             //普通道具
+    EQUIP:2,             //装备
+}
+
 export class Item extends ItemBase {
     @serialize()
     _id:number = null;   // 道具类型 
     @serialize()
     _count:number = 0;     // 数量
     @serialize()
-    _kind:number = 0;       //道具类型
+    _type:number = 1;       //道具类型
     @serialize()
     idx: number = 0;    // 唯一的识别码，直接自增
 
@@ -52,11 +58,11 @@ export class Item extends ItemBase {
         this._count = Number(value);       
     }
 
-    get kind(){
-        return this._kind;
+    get type(){
+        return this._type;
     }
-    set kind(value){
-        this._kind = Number(value);       
+    set type(value){
+        this._type = Number(value);       
     }
 
     static _idIndex = 1;
@@ -72,6 +78,7 @@ export class Item extends ItemBase {
 
     initData(){
         this.data = App.dataMgr.findById("item",this.id)
+        this.type = this.data.type;
     }
 
     toData(){
