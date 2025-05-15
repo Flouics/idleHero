@@ -104,7 +104,7 @@ export class MercenaryData {
                     if (Array.isArray(attrMap[key])){
                         attrMap[key] = toolKit.arrayAdd(attrMap[key],otherAttrMap[key]);
                     }else{
-                        var attr = toolKit.cacAttr(otherAttrMap[key]);
+                        var attr = otherAttrMap[key];
                         attrMap[key].value += attr.value;
                         attrMap[key].percent += attr.percent;
                     }
@@ -310,6 +310,16 @@ export class MercenaryProxy extends Proxy {
 
     getMercenaryMap(){
         return this.mercenaryMap;
+    }
+
+    updateCurMercenaryInfo(){
+        let mercenary = this.mercenaryMap.get(this.curMercenaryId);
+        mercenary.cacAllAttrs();
+    }
+
+    getCurMercenaryInfo(){
+        let mercenary = this.mercenaryMap.get(this.curMercenaryId);
+        return mercenary;
     }
 
     dumpPrepare(){

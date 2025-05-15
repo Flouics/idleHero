@@ -23,22 +23,40 @@ export class EquipCommand extends Command{
         if(resList.length != this.proxy.combineCount - 1){
             return false
         }
-        let hasError = resList.some((resIdx) => {
+        let error = 0;
+        resList.some((resIdx) => {
             let resEquip = this.proxy.getEquipByIdx(resIdx);
             if(!(resEquip && resEquip.id == equip.id)){
+                error = 1;
                 return true;
             }
-        }) && !resList.every((resIdx) => {
+
+            /**
+             * 装备正在使用
+             */
+            if(this.proxy.checkEquipIsUse(resIdx)){
+                error = 2;
+                return true;
+            }
+        }) 
+
+        if(error > 0){
+            return false;
+        }
+
+        let allDel = resList.every((resIdx) => {
             if(this.proxy.delEquip(resIdx)){
                 return true;
             }           
         })
-        if(hasError){
+
+        if(!allDel){
             return false;
-        }
+        } 
         
         if(equip.upgrade()){
             this.proxy.updateViewTask("updateEquipList");
+            this.proxy.updateViewTask("updateUpgradeInfo");
             return true;
         }
         return false;

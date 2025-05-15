@@ -48,7 +48,7 @@ const {ccclass, property} = _decorator;
 
     //data为对象数组，对象需要包含id
     //
-    init(scriptName?:any) {
+    setData(scriptName?:any) {
         this.scriptName = scriptName;
         this.itemPool = new NodePool(this.scriptName);
         this.initialize();

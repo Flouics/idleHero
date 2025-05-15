@@ -11,6 +11,7 @@ import { ScrollView } from "cc";
 import { getPackageProxy } from "../package/PackageProxy";
 import { getRewardProxy } from "../reward/RewardProxy";
 import { Item } from "../../logic/Item";
+import { toolKit } from "../../utils/ToolKit";
 const {ccclass, property} = _decorator;
 
 @ccclass("FailView")
@@ -37,26 +38,42 @@ export class FailView extends BaseView {
         this.mapProxy = this.proxy as MapProxy;
     }
 
+    parseRwd(rwd:{id:number,count:number},percent:number){
+        if(!rwd){
+            return null;
+        }
+        let ret = {id:rwd.id,count:0};
+        for (let i = 0; i < rwd.count; i++) {
+            if (toolKit.getRand(1,100) <= percent){
+                ret.count++;
+            }
+        }
+        return ret.count > 0 ? ret : null;
+    }
+
     initData(){
         var data = App.dataMgr.findById("stage",this.stageId);
         if(!data){
             return;
         }
         let waveCount = data.waveList.length;
-        let percent = this.waveIndex / waveCount;
+        let percent = this.waveIndex * 100 / waveCount;
         this.data = data;
-        var self = this;
         var rwdList = [];
         data.rwdList.forEach((rwd) => {
-            let count = Math.floor(rwd.count * percent);
-            count > 0 && rwdList.push({id:rwd.id,count:count})
+            let ret = this.parseRwd(rwd,percent);
+            ret && rwdList.push(ret);
         })
+
+        var randomRwd = toolKit.getRandFromArray(data.randomRwdList) as any;
+        let ret = this.parseRwd(randomRwd,percent);
+        ret && rwdList.push(ret);        
         
         getPackageProxy().cmd.addRwdList(rwdList);
         getRewardProxy().cmd.addRwdList(rwdList);
         rwdList.forEach(itemData=>{
             var item = new Item(itemData.id,itemData.count);
-            item.initUI(self.sv_rwdListRoot.content)
+            item.initUI(this.sv_rwdListRoot.content)
         })   
     }
 

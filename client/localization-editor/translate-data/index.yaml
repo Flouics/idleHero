@@ -336,6 +336,13 @@ items:
     isVariant: false
     associations: []
     _variants: []
+  equip.tip_1:
+    key: equip.tip_1
+    value: ""
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
 languageConfig:
   bcp47Tag: index
   translateFinished: 0

@@ -22,7 +22,7 @@ export class EquipItem extends BaseUI {
         super.onLoad();
     }
 
-    init() {            //预加载就调用
+    setData() {            //预加载就调用
         
     }
 

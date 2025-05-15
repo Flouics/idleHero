@@ -33,12 +33,12 @@ export class ToolKit {
     }
 
     /**
-     *获得N个不重复的随机成员。
+     *获得数组的随机成员。
      * @param array
      * @return member
      *
      */
-    static  getRandFromArray<T>(array: T[]): T {
+    static getRandFromArray<T>(array: T[]): T {
         var len = array.length;
         var randIndex = ToolKit.getRand(0,len - 1); 
         return array[randIndex];
@@ -51,7 +51,7 @@ export class ToolKit {
      * @return member
      *
      */
-    static  getRandArrayFromArray<T>(array: T[],count:number = 1): T[] {
+    static getRandArrayFromArray<T>(array: T[],count:number = 1): T[] {
         var len = array.length;
         var list = []
         for (var i = 0; i < len; i++) {

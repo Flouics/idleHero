@@ -22,7 +22,7 @@ export class PackageView extends BaseView {
         this.initItemList();
     }
 
-    init() {            //预加载就调用
+    setData() {            //预加载就调用
 
     }
 

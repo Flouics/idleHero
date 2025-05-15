@@ -21,11 +21,8 @@ export class RewardView extends BaseView {
         super.onLoad(); //BaseView继承的不要去掉这句
     }
 
-    init(rwdList:any[] = this.proxy.getRwd()) {            //预加载就调用
-        this.itemList = rwdList;   
-    }
-
-    show() {            //显示时调用     
+    show(params:any) {            //显示时调用     
+        this.itemList = params || this.proxy.getRwd();   
         this.initRwdList();
     }
     
@@ -38,10 +35,9 @@ export class RewardView extends BaseView {
         if(!itemList){
             return;
         }
-        var self = this;
         itemList.forEach(itemData => {
             var item = new Item(itemData.id,itemData.count);
-            item.initUI(self.sv_itemListRoot.content);
+            item.initUI(this.sv_itemListRoot.content);
         })
     }
 

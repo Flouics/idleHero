@@ -30,7 +30,7 @@ export class PlayerTopInfoView extends BaseView {
         super.onLoad(); //BaseView继承的不要去掉这句
     }
 
-    init() {            //预加载就调用
+    setData() {            //预加载就调用
 
     }
     

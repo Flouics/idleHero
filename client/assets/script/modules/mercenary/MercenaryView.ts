@@ -73,7 +73,7 @@ export class MercenaryView extends BaseView {
         this.initEquipList();
     }
 
-    init() {            //预加载就调用
+    setData() {            //预加载就调用
         
     }
 
@@ -93,17 +93,17 @@ export class MercenaryView extends BaseView {
     }
 
     updateRoleInfo(){
-        var self = this;
-        this.updateDataToUI("role.id",self.curMercenaryData.id,() => {
-            self.loadSpt(self.spt_role,""  + self.curMercenaryData.id);
+        this.curMercenaryData = this.proxy.getCurMercenaryInfo();        
+        this.updateDataToUI("role.id",this.curMercenaryData.id,() => {
+            this.loadSpt(this.spt_role,""  + this.curMercenaryData.id);
         });
 
         var data = {
-                name:self.curMercenaryData.name
-                ,level:self.curMercenaryData.level
+                name:this.curMercenaryData.name
+                ,level:this.curMercenaryData.level
             }
         this.updateDataToUI("role.name",data,() => {
-            self.rt_nameInfo.string = js.formatStr("<color=#00ff00>%s</color><color=#0fffff>Lv.%s</color>",data.name,data.level);
+            this.rt_nameInfo.string = js.formatStr("<color=#00ff00>%s</color><color=#0fffff>Lv.%s</color>",data.name,data.level);
         });
     }
 
@@ -148,17 +148,19 @@ export class MercenaryView extends BaseView {
         }
         this.lb_upgradeLabel.string = lang("common.upgrade");
 
-        var keyList= ["lifeMax","atk","atkRange","coldTime","skillList"] //必然显示属性
+        //var keyList= ["lifeMax","atk","atkRange","coldTime","skillList"] //必然显示属性
+        var keyList= ["lifeMax","atk","skillList"] 
         var otherKeyList = ["atkSpeed","atkTargetCount","atkCount","moveSpeed","atkBuffList"] //非必要属性
         
         keyList.forEach((key)=> {
-            var curValue = this.curMercenaryData[key];
-            if (Array.isArray(curValue)){
+            var curLevelValue = this.curMercenaryData.data[key];
+            var curAttrValue = this.curMercenaryData[key];
+            if (Array.isArray(curLevelValue)){
                 //todo
                 //数组先跳过
                 if(key == "skillList"){
                     var nextLevelSkillList = nextLevelAttrMap[key];
-                    var curLevelSkillList = curValue;
+                    var curLevelSkillList = curLevelAttrMap[key];
                     var addSkillList = toolKit.arrayMinus(nextLevelSkillList,curLevelSkillList);
                     curLevelSkillList.forEach((skillId) => {
                         var skillData = App.dataMgr.findById("skill",skillId);
@@ -193,11 +195,14 @@ export class MercenaryView extends BaseView {
                 var nextLevelAttr = nextLevelAttrMap[key];
                 var curLevelAttr = curLevelAttrMap[key];           
                 var originValue = this.curMercenaryData.data[key];
-                var value = curValue;
+                var nextLevelValue = curLevelValue;
                 if(nextLevelAttr){
-                    value = originValue * (100 + nextLevelAttr.percent)/100 + nextLevelAttr.value;
-                }                                
-                var deltaValue = value - curValue;
+                    nextLevelValue = originValue * (100 + nextLevelAttr.percent)/100 + nextLevelAttr.value;
+                }
+                if(curLevelAttr){
+                    curLevelValue = originValue * (100 + curLevelAttr.percent)/100 + curLevelAttr.value;
+                }                            
+                var deltaValue = nextLevelValue - curLevelValue;
                 var attrItem = instantiate(this.nd_attrItem);
                 attrItem.removeFromParent();
                 this.nd_upgradeInfoRoot.addChild(attrItem);
@@ -205,13 +210,13 @@ export class MercenaryView extends BaseView {
                 var sign = deltaValue < 0 ? "" : "+";
                 var content = deltaValue.toString();
                 if (key == "coldTime"){
-                    curValue = (Math.floor(curValue)/1000).toString() + lang("time.sec");
+                    curLevelValue = (Math.floor(curLevelValue)/1000).toString() + lang("time.sec");
                     content = (Math.floor(deltaValue)/1000).toString() + lang("time.sec");
                 }
                 var addContent = deltaValue == 0 ? "" : js.formatStr("(%s%s)",sign,content);
                 rt_attr.string = js.formatStr("<color=#ffffff>%s:%s</color><color=#0ff0f>%s</color>"
                                     ,lang("mercenary." + key)
-                                    ,curValue
+                                    ,curAttrValue
                                     ,addContent);            
             }
         });
@@ -261,7 +266,7 @@ export class MercenaryView extends BaseView {
     }
 
     initMercenary(){
-        this.curMercenaryData = this.proxy.getMercenaryById(this.proxy.curMercenaryId);
+        this.curMercenaryData = this.proxy.getCurMercenaryInfo();
         this.updateRoleInfo();
         this.updateUpgradeInfo();
     }
@@ -269,18 +274,29 @@ export class MercenaryView extends BaseView {
     updateEquipList(){
         var children = this.sv_equipRoot.content.children;
         var list = this.getEquipList();
+        if(!(
+                this.curEquipData 
+                && getEquipProxy().getEquipByIdx(this.curEquipData.idx)
+            )){
+            this.curEquipData = null;
+        }
         if(this.curEquipData == null 
             || getEquipProxy().getEquipByIdx(this.curEquipData.idx) == null){
             this.curEquipData = list[0];
         }
+        let toDelArray = [];
         children.forEach((item,i)=> {
             var data = list[i];
             if(!data){
-                item.removeFromParent();                
+                toDelArray.push(item);                                
             }else{
                 this.setItem(item,data);
             }
         })
+        toDelArray.forEach((item) => {
+            item.removeFromParent();
+        })
+
         var len = this.sv_equipRoot.content.children.length;
         for (let i = len; i < list.length; i++) {
             let data = list[i];
@@ -302,6 +318,7 @@ export class MercenaryView extends BaseView {
     onClickAutoCombine(){
         let combineList = getEquipProxy().getCombineList(); 
         if(empty(combineList)){
+            toolKit.showTip(lang("equip.tip_1"));
             return;
         }
         let uic:UICallbacks = {
@@ -313,7 +330,7 @@ export class MercenaryView extends BaseView {
     }
 
     onClickEquipOff(event:string,customEventData:number){
-        let equipPos = customEventData;
+        let equipPos = Number(customEventData);
         getEquipProxy().cmd.setUseEquip(equipPos,0);
     }
 
@@ -367,6 +384,7 @@ export class MercenaryView extends BaseView {
 
     setUseEquipResult(){
         this.updateRoleInfo();
+        this.updateUpgradeInfo();
         this.updateUseEquipInfo();
     }
 

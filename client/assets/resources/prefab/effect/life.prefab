@@ -221,12 +221,12 @@
     "_isUnderline": false,
     "_underlineHeight": 0,
     "_cacheMode": 0,
-    "_enableOutline": false,
+    "_enableOutline": true,
     "_outlineColor": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 235,
+      "g": 22,
+      "b": 107,
       "a": 255
     },
     "_outlineWidth": 2,
@@ -283,8 +283,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 90.09765625,
-      "height": 50.4
+      "width": 94.09765625,
+      "height": 54.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -426,7 +426,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 210.09765625,
+      "width": 214.09765625,
       "height": 54
     },
     "_anchorPoint": {
@@ -465,7 +465,6 @@
     "__prefab": {
       "__id__": 21
     },
-    "is_destroy": true,
     "lb_content": {
       "__id__": 4
     },

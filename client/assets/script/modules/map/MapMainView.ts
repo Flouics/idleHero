@@ -142,7 +142,7 @@ export class MapMainView extends BaseView {
         //touch触摸的尺寸。        
         let touchUtils = this.nd_contentRoot.getComponent(TouchUtils);
         if (touchUtils) {
-            touchUtils.init(this.mapSize);
+            touchUtils.setData(this.mapSize);
         }
 
         //先初始化数据

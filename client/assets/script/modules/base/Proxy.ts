@@ -119,10 +119,9 @@ export class Proxy extends BaseClass {
     }
 
     updateViewTask(funcName:string,params?:{}){
-        var self = this;
-        App.taskOnce(function () {
-            self.updateView(funcName,params);
-        },0,"delayTask_updateView_" + this.getClassName())
+        App.taskOnce(() => {
+            this.updateView(funcName,params);
+        },0,"delayTask_updateView_" + this.getClassName() + funcName);
     }
 
     getConf(filename:string,id?: number){

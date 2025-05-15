@@ -25,7 +25,7 @@ export class TouchUtils extends Component {
     onLoad() {
         //this.init();
     }
-    init(touchSize?: Size) {
+    setData(touchSize?: Size) {
         this.setSize(touchSize);
         this.addListener();
     }

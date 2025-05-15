@@ -29,7 +29,7 @@ export class BuildView extends BaseView {
         var conf = await App.dataMgr.getTable("building")
         var data = conf.all();
         this.listView = this.node.getComponent(ListViewSimple);
-        this.listView.init(this.setItem.bind(this))
+        this.listView.setData(this.setItem.bind(this))
         this.listView.updateContent(data);
     }
 

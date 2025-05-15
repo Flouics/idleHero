@@ -25,7 +25,7 @@ export class EquipCombineView extends BaseView {
         this.initCombineListView();
     }
 
-    init() {            
+    setData() {            
        if(this.hasInit == true) {
             return;
        }
@@ -44,5 +44,6 @@ export class EquipCombineView extends BaseView {
     }
     onClickComfirm(){
         this.proxy.cmd.autoCombineAll(this.combineList);
+        this.close();
     }
 }

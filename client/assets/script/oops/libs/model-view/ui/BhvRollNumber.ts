@@ -120,7 +120,7 @@ export class BhvRollNumber extends Component {
     }
 
     /** 初始化数值,不填写则全部按默认值处理 */
-    init(value?: number, target?: number, lerp?: number) {
+    setData(value?: number, target?: number, lerp?: number) {
         this.targetValue = target || 0;
         this.value = value || 0;
         this.lerp = lerp || 0.1;

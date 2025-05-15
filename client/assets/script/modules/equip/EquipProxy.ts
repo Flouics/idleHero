@@ -4,6 +4,7 @@ import {EquipCommand} from "./EquipCommand";
 import { serialize } from "../../utils/Decorator";
 import { Equip } from "./Equip";
 import { App } from "../../App";
+import { getMercenaryProxy } from "../mercenary/MercenaryProxy";
 
 export enum EQUIP_POS{
     WEAPON = 1,
@@ -53,7 +54,7 @@ export class EquipProxy extends Proxy {
         let equip = new Equip(id,idx);
         this.equipMap.set(equip.idx,equip);
         this.updateViewTask("updateEquipInfo");
-        this.dumpToDb();
+        this.dumpToDb(false);
     }
 
     /**
@@ -65,7 +66,7 @@ export class EquipProxy extends Proxy {
         if(equip){
             equip.clear();
             this.updateViewTask("updateEquipInfo");
-            this.dumpToDb();
+            this.dumpToDb(false);
         }
         this.equipMap.delete(idx);
         return true;
@@ -92,7 +93,17 @@ export class EquipProxy extends Proxy {
         let combineCount = this.combineCount;
         cacheMap.forEach((list) => {
             while (list.length >= combineCount) {
-                combineList.push(list.splice(0,combineCount));
+                let newList = list.splice(0,combineCount);
+                /**
+                 * 已装备的放到前面，作为主材料。
+                 */
+                newList.forEach((equipIdx,index) => {
+                    if (this.checkEquipIsUse(equipIdx)){
+                        newList.splice(index,1);
+                        newList.unshift(equipIdx);
+                    }
+                })
+                combineList.push(newList);
             }
         });
 
@@ -102,6 +113,20 @@ export class EquipProxy extends Proxy {
     getUseEquipByPos(pos:number){
         let equipIdx = this.useEquipPosMap.get(pos);
         return this.equipMap.get(equipIdx);
+    }
+
+    /**
+     * 检查装备时候否已经装备了
+     * @param equipIdx 装备唯一 索引
+     */
+    checkEquipIsUse(equipIdx:number){
+        let ret = false;
+        this.useEquipPosMap.forEach((useEquipIdx) => {
+            if (useEquipIdx == equipIdx){
+                ret = true;
+            }
+        })
+        return ret;
     }
 
 
@@ -120,7 +145,9 @@ export class EquipProxy extends Proxy {
             this.useEquipPosMap.set(pos,equipIdx);
         }
 
+        getMercenaryProxy().updateCurMercenaryInfo();
         this.updateViewTask("setUseEquipResult")
+        this.dumpToDb(false);
         return true;
     }
 
@@ -151,7 +178,7 @@ export class EquipProxy extends Proxy {
         for (const key in this.useEquipPosMapJson) {
             const json = this.useEquipPosMapJson[key];
             this.useEquipPosMap.set(json.pos,json.equipIdx);
-        }
+        }        
     }
 };
 

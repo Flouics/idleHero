@@ -16,7 +16,7 @@ export class PlayerView extends BaseView {
 
     }
 
-    init() {            //预加载就调用
+    setData() {            //预加载就调用
 
     }
 

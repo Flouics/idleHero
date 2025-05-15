@@ -99,7 +99,7 @@ export class Root extends Component {
             game.frameRate = oops.config.game.frameRate;                                         // 初始化每秒传输帧数
 
             this.enabled = true;
-            this.init();
+            this.setData();
             this.run();
 
             oops.res.release(config_name);
@@ -133,7 +133,7 @@ export class Root extends Component {
 
     }
 
-    init() {
+    setData() {
         this.initGui();
         this.initEcsSystem();
         oops.ecs.init();

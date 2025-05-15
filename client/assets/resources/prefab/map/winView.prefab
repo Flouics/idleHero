@@ -1362,10 +1362,6 @@
     "__prefab": {
       "__id__": 60
     },
-    "is_destroy": true,
-    "isNeedBg": true,
-    "index": 230,
-    "_hasBaseInit": false,
     "sv_rwdListRoot": {
       "__id__": 52
     },

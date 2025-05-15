@@ -27,7 +27,7 @@ export class MercenaryItem extends BaseView {
         this.setItem(data,isSelected)
     }
 
-    init() {            //预加载就调用
+    setData() {            //预加载就调用
         
     }
 

@@ -49,7 +49,7 @@ const {ccclass, property} = _decorator;
         }        
     }
 
-    init (itemFn:Function = nullfun) {
+    setData (itemFn:Function = nullfun) {
         this.itemFn = itemFn;
         this.items = [];
         this.updateTimer = 0;

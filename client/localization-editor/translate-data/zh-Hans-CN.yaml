@@ -336,9 +336,16 @@ items:
     isVariant: false
     associations: []
     _variants: []
+  equip.tip_1:
+    key: equip.tip_1
+    value: 暂无装备可合成
+    type: 4
+    isVariant: false
+    associations: []
+    _variants: []
 languageConfig:
   bcp47Tag: zh-Hans-CN
   translateFinished: 0
   translateTotal: 0
   compileFinished: 0
-  compileTotal: 48
+  compileTotal: 49

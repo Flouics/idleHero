@@ -34,6 +34,6 @@ export function modeuleInit(){
     moduleMgr.load("equip",new EquipInit());
     
     App.httpMgr.init();
-    App.poolMgr.init();
+    App.poolMgr.init();    
 }
 

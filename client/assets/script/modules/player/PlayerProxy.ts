@@ -98,9 +98,11 @@ export class PlayerProxy extends Proxy {
                 toolKit.arrayAdd(rwdList,levelData.rwdList)
             }
         }
-        getRewardProxy().cmd.showView(UIID_Reward.RewardView,levelData.rwdList);
-        this.updateViewTask("updatePlayerInfo")
-        this.dumpToDb();
+        if (!empty(rwdList)){
+            getRewardProxy().cmd.showView(UIID_Reward.RewardView,rwdList);
+            this.updateViewTask("updatePlayerInfo")
+            this.dumpToDb();
+        }
     }
 
     passStage(stageId:number){

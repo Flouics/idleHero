@@ -14,6 +14,8 @@ import { PackageView } from "../package/PackageView";
 import { MenuView } from "./MenuView";
 import { UIID_Mercenary } from "../mercenary/MercenaryInit";
 import { UIID_Package } from "../package/PackageInit";
+import { getMercenaryProxy } from "../mercenary/MercenaryProxy";
+
 const {ccclass, property} = _decorator;
 
 
@@ -47,6 +49,8 @@ export class LobbyView extends BaseView {
         this.playerTopInfoView = this.nd_playerTopInfo.getComponent(PlayerTopInfoView);             
         this.menuView = this.nd_menuRoot.getComponent(MenuView);
         this.menuIndex = LOBBY_MENU_ENUM.COMMON;
+
+        getMercenaryProxy().updateCurMercenaryInfo();
     }
 
     onEnterBattle(){

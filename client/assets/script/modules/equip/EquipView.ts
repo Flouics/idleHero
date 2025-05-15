@@ -15,7 +15,7 @@ export class EquipView extends BaseView {
         super.onLoad(); //BaseView继承的不要去掉这句
     }
 
-    init() {            
+    setData() {            
        if(this.hasInit == true) {
             return;
        }

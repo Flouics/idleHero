@@ -8,6 +8,9 @@ import { getPackageProxy } from "../package/PackageProxy";
 import {Item} from "../../logic/Item";
 import { getRewardProxy } from "../reward/RewardProxy";
 import { getPlayerProxy } from "../player/PlayerProxy";
+import { toolKit } from "../../utils/ToolKit";
+import { clone } from "../../Global";
+import { DEBUG } from "cc/env";
 const {ccclass, property} = _decorator;
 
 @ccclass("WinView")
@@ -24,6 +27,7 @@ export class WinView extends BaseView {
     onLoad(){
         super.onLoad()
         this.mapProxy = this.proxy as MapProxy;
+        DEBUG && (window["winView"] = this);
     }
 
     show(params:any): void {        
@@ -36,14 +40,16 @@ export class WinView extends BaseView {
         if(!data){
             return;
         }
-        this.data = data;
-        var self = this;
-        var rwdList = data.rwdList;
+        this.data = data;        
+        var rwdList = clone(data.rwdList);
+        var randomRwd = toolKit.getRandFromArray(data.randomRwdList);
+        rwdList.push(randomRwd)
+
         getPackageProxy().cmd.addRwdList(rwdList);
         getRewardProxy().cmd.addRwdList(rwdList);
         rwdList.forEach(itemData=>{
             var item = new Item(itemData.id,itemData.count);
-            item.initUI(self.sv_rwdListRoot.content)
+            item.initUI(this.sv_rwdListRoot.content)
         })   
     }
 
