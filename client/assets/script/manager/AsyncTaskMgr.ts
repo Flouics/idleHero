@@ -23,26 +23,25 @@ export class AsyncTaskMgr extends BaseClass {
     }
 
     process() {
-        var self = this;
-        this.timeRef = setTimeout(function () {
+        this.timeRef = setTimeout(() => {
             var task: Function|undefined;
-            if (self.tasks.length < 1 || (self.taskCount > 10 && self.lowTasks.length > 0)) {
-                self.taskCount = 0;
-                task = self.lowTasks.shift();
+            if (this.tasks.length < 1 || (this.taskCount > 10 && this.lowTasks.length > 0)) {
+                this.taskCount = 0;
+                task = this.lowTasks.shift();
             } else {
-                task = self.tasks.shift();
+                task = this.tasks.shift();
             }
             if (!!task) {
                 task();
-                self.process();
+                this.process();
             } else {
-                if (self.tasks.length > 0 || self.lowTasks.length > 0) {
+                if (this.tasks.length > 0 || this.lowTasks.length > 0) {
                     Debug.error('AsyncTaskMgr process has a error');
-                    self.process();
+                    this.process();
                 }
-                self.timeRef = null;
+                this.timeRef = null;
             }
-        }, self.timeInterval);
+        }, this.timeInterval);
     };
 
     newAsyncTask(cb: Function, isLow: boolean = false) {
@@ -62,6 +61,7 @@ export class AsyncTaskMgr extends BaseClass {
     };
 
     destroy() {
+        clearTimeout(this.timeRef);
         this.tasks = [];
     };
 };

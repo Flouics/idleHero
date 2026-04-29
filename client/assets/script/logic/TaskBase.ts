@@ -10,7 +10,7 @@ var TASK_VALUE_ENUM = {
 export class TaskBase extends BaseClass {
     static TASK_VALUE_ENUM = TASK_VALUE_ENUM;     //属性枚举
     id = 0;
-    priority:number = 1;
+    priority:number = 1; //优先级
     index:number = 0;
     static _idIndex = 1;
     type:number = 0;

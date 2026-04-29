@@ -100,7 +100,7 @@ export class PlayerProxy extends Proxy {
         }
         if (!empty(rwdList)){
             getRewardProxy().cmd.showView(UIID_Reward.RewardView,rwdList);
-            this.updateViewTask("updatePlayerInfo")
+            this.updateViewTask("updatePlayerInfo");
             this.dumpToDb();
         }
     }
