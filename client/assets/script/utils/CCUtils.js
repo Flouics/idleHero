@@ -22,17 +22,17 @@ var initFont =  function(cb){
 }
 
 cc.Label.prototype.onLoad = function () {
-    var self = this;
+
 
     //字体
     if (this.font == null){
         if (typeof App != 'undefined') {
-            App.initFont(function (font) {
-                self.font = font;
+            App.initFont((font) => {
+                this.font = font;
             });
         }else{
-            initFont(function (font) {
-                self.font = font;
+            initFont((font) => {
+                this.font = font;
             });
         }
     }

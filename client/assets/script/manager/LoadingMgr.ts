@@ -17,13 +17,12 @@ export class LoadingMgr extends BaseClass {
         this.is_play = true;
         this.play_id++;
         var play_id = this.play_id;
-        var self = this;
-        setTimeout(function () {
-            if (play_id == self.play_id) {
+        setTimeout(() => {
+            if (play_id == this.play_id) {
                 let uic:UICallbacks = {
                     onAdded:() => {
-                        if (self.is_play == false) {
-                            self.stopAnimation();
+                        if (this.is_play == false) {
+                            this.stopAnimation();
                         }
                     }
                 }
@@ -41,11 +40,10 @@ export class LoadingMgr extends BaseClass {
     playAnimationRes() {
         this.is_play = true;
         this.play_id++;
-        var self = this;
         let uic:UICallbacks = {
             onAdded:() => {
-                if (self.is_play == false) {
-                    self.stopAnimation();
+                if (this.is_play == false) {
+                    this.stopAnimation();
                 }
             }
         }

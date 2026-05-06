@@ -89,16 +89,15 @@ export class DataMgr extends BaseClass {
         this.callback = cb;
         this.maxLoad = this.loadTexts.length;
 
-        var self = this;
-        resources.load('data/fileKey', function (err: any, textAsset: any) {
+        resources.load('data/fileKey', (err: any, textAsset: any) => {
             if (!err) {
                 try {        
                     let mapData = textAsset.json       
-                    self.fileKeyMap = mapData;   
-                    for (var i = 0; i < self.maxLoad; ++i) {
-                        self.loadTable(self.loadTexts[i]);
+                    this.fileKeyMap = mapData;   
+                    for (var i = 0; i < this.maxLoad; ++i) {
+                        this.loadTable(this.loadTexts[i]);
                     }
-                    self.loadFileKeyTables();                                          
+                    this.loadFileKeyTables();                                          
                 } catch (error) {
                     Debug.error("data load failed by name->fileKey.json",error)
                 }                
@@ -107,39 +106,37 @@ export class DataMgr extends BaseClass {
     }
 
     loadFileKeyTables(){
-        var self = this;
-        var mapData = self.fileKeyMap;
+        var mapData = this.fileKeyMap;
         for (const key in mapData) {
             if (Object.prototype.hasOwnProperty.call(mapData, key)) {
                 const element = mapData[key];
-                self.loadTable(element);       
+                this.loadTable(element);       
                 this.maxLoad += 1;             
             }
         }           
     }
 
     loadTable(keyName: string) {
-        var self = this;
-        if (self.dataPool[keyName]) {
-            self.onLoadTable(keyName);
+        if (this.dataPool[keyName]) {
+            this.onLoadTable(keyName);
             return;
         }
-        var fileName = self.fileKeyMap[keyName]
+        var fileName = this.fileKeyMap[keyName]
         if (empty(fileName)) {            
             Debug.warn(js.formatStr("cannot find table key: %s",keyName));
             return;
         }
-        resources.load('data/' + fileName, function (err: any, textAsset: any) {
+        resources.load('data/' + fileName, (err: any, textAsset: any) => {
             if (!err) {
                 try {
                     let mapData = textAsset.json
                     for (const key in mapData) {
                         if (Object.prototype.hasOwnProperty.call(mapData, key)) {
                             const element = mapData[key];
-                            self.dataPool[key] = new Data(element);
+                            this.dataPool[key] = new Data(element);
                         }
                     }
-                    self.onLoadTable(keyName);
+                    this.onLoadTable(keyName);
                 } catch (error) {
                     Debug.error("data load failed by name->",keyName,error);
                 }                
@@ -165,22 +162,21 @@ export class DataMgr extends BaseClass {
         var keyList = ["name","desc"];
         var map = data.all();
         var reg = /\{.*?\}/g;   //匹配{}
-        var self = this;
-        var replaceRule = function(matachStr:string){
+        var replaceRule = (matachStr:string) => {
             var char = matachStr.slice(1,2);    //char提取
             const str = matachStr.slice(2,-1); //去掉匹配的字符如{},并去掉char
             var ret = "unmatch" + matachStr;
             switch (char) {
                 case "s":
-                    var conf = self.findById("skill",parseInt(str));
+                    var conf = this.findById("skill",parseInt(str));
                     ret = conf?.name || "";
                     break;
                 case "m":
-                    var conf = self.findById("mercenary",parseInt(str));
+                    var conf = this.findById("mercenary",parseInt(str));
                     ret = conf?.name || "";
                     break;                      
                 case "i":
-                    var conf = self.findById("item",parseInt(str));
+                    var conf = this.findById("item",parseInt(str));
                     ret = conf?.name || "";
                     break;  
                 default:
@@ -198,21 +194,20 @@ export class DataMgr extends BaseClass {
 
     // 废弃不用，异步太麻烦了。
     async parseData (keyName: string){
-        var self = this;
         return new Promise((resolve, reject) => {
-            var fileName = self.fileKeyMap[keyName]
-            resources.load('data/' + fileName, function (err: any, textAsset: any) {
+            var fileName = this.fileKeyMap[keyName]
+            resources.load('data/' + fileName, (err: any, textAsset: any) => {
                 if (!err) {
                     try {
                         let mapData = textAsset.json
                         for (const key in mapData) {
                             if (Object.prototype.hasOwnProperty.call(mapData, key)) {
                                 const element = mapData[key];
-                                self.dataPool[key] = new Data(element);
+                                this.dataPool[key] = new Data(element);
                             }
                         }
-                        self.onLoadTable(keyName);
-                        resolve(self.dataPool[keyName])
+                        this.onLoadTable(keyName);
+                        resolve(this.dataPool[keyName])
                     } catch (error) {
                         Debug.error("data load failed by name->",keyName);
                         reject(null)

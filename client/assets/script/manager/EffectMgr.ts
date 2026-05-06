@@ -52,13 +52,11 @@ export class EffectMgr extends BaseClass {
     };
 
     playEffect(effectName:string,param?:any):void {
-        var self = this;
         var prefabUrl = this._prefabUrl + effectName;
         this.playEffectEx(prefabUrl,param)
     };
 
     playEffectEx(prefabUrl:string,param?:any):void {
-        var self = this;
         var effectData = new EffectData(param);
         var root = effectData.root;
         if(param.root == null){
@@ -66,22 +64,17 @@ export class EffectMgr extends BaseClass {
             effectData.x = nodePos.x;
             effectData.y = nodePos.y;
         }
-        resources.load(prefabUrl,Prefab, function (err: any, prefab: any) {
+        this.loadPrefab(prefabUrl, (prefab: any) => {
             //Debug.log('[effect] create: ', prefabUrl, new Date());
-            if (err) {
-                Debug.error("[effect] create error",prefabUrl, err);
-            }
-            else {
-                var ui = instantiate(prefab);
-                ui.active = true;
-                var parent = effectData.root;
-                if (parent && parent.isValid) {
-                    ui.parent = parent;
-                }     
-                ui.uiName = prefabUrl;
-                ui.setPosition(effectData.x,effectData.y);
-                ui.getComponent(UIEffect).open(param)
-            }
+            var ui = instantiate(prefab);
+            ui.active = true;
+            var parent = effectData.root;
+            if (parent && parent.isValid) {
+                ui.parent = parent;
+            }     
+            ui.uiName = prefabUrl;
+            ui.setPosition(effectData.x,effectData.y);
+            ui.getComponent(UIEffect).open(param);            
         });
     };
 };

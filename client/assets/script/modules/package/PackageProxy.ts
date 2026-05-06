@@ -167,7 +167,6 @@ export class PackageProxy extends Proxy {
 
     //待机奖励，先写在这里了。
     addIdleItemList(itemDataList:any[]){
-        var self = this;
         itemDataList.forEach(itemData =>{
             var id = itemData.id;
             if (this.idleItemMap.get(id) == null){
@@ -200,11 +199,10 @@ export class PackageProxy extends Proxy {
 
     // 领取挂机奖励
     getIdleRwd(){
-        var self = this;
         this.lastIdleTimeStamp = getTimeProxy().getTime();
         try {
             this.idleItemMap.forEach(itemVo =>{
-                self.addItem(itemVo);
+                this.addItem(itemVo);
             })
             this.idleItemMap.clear();
             this.settleIdleCount = 0;
@@ -251,13 +249,12 @@ export class PackageProxy extends Proxy {
     dumpPrepare(){
         //导出数据的预处理
         this.itemJson = {}
-        var self = this;
         this.itemMap.forEach(item=>{
-            this.itemJson[item.id] = self.itemToData(item);
+            this.itemJson[item.id] = this.itemToData(item);
         })
 
         this.idleItemMap.forEach(item=>{
-            this.idleItemJson[item.id] = self.itemToData(item);
+            this.idleItemJson[item.id] = this.itemToData(item);
         })
     }
 

@@ -38,7 +38,6 @@ export class JsonOb<T> {
 
         // @ts-ignore  注：避免API生成工具报错
         Object.keys(obj).forEach((key) => {
-            let self = this;
             // @ts-ignore
             let oldVal = obj[key];
             let pathArray = path && path.slice();
@@ -52,16 +51,16 @@ export class JsonOb<T> {
                 get: function () {
                     return oldVal;
                 },
-                set: function (newVal) {
+                set: (newVal) => {
                     //cc.log(newVal);
                     if (oldVal !== newVal) {
                         if (OP.toString.call(newVal) === '[object Object]') {
-                            self.observe(newVal, pathArray);
+                            this.observe(newVal, pathArray);
                         }
 
                         const ov = oldVal;
                         oldVal = newVal;
-                        self._callback(newVal, ov, pathArray);
+                        this._callback(newVal, ov, pathArray);
                     }
                 }
             })
@@ -84,19 +83,18 @@ export class JsonOb<T> {
         var originalProto = Array.prototype;
         // 通过 Object.create 方法创建一个对象，该对象的原型是Array.prototype  
         var overrideProto = Object.create(Array.prototype);
-        var self = this;
         var result;
 
         // 遍历要重写的数组方法  
         OAM.forEach((method: any) => {
             Object.defineProperty(overrideProto, method, {
-                value: function () {
-                    var oldVal = this.slice();
+                value: (...args:any[]) => {
+                    var oldVal = array.slice();
                     //调用原始原型上的方法  
-                    result = originalProto[method].apply(this, arguments);
+                    result = originalProto[method].apply(array, args);
                     //继续监听新数组  
-                    self.observe(this, path);
-                    self._callback(this, oldVal, path);
+                    this.observe(array, path);
+                    this._callback(array, oldVal, path);
                     return result;
                 }
             })

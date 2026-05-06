@@ -71,7 +71,6 @@ const {ccclass, property} = _decorator;
         if (!data) {
             return;
         }
-        var self = this;
         this.data = data;
         this.totalCount = data.length;
         if (this.isVert) {

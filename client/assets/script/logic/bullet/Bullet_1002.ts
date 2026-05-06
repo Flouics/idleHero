@@ -11,11 +11,10 @@ export class Bullet_1002 extends Bullet {
 
     checkTargetIntoRange_1002(){
         var targetMap = this.getTargetMap();
-        var self = this;
         if(targetMap){
             for (const target of targetMap.values()) {
                 if(target && target.checkLive()){
-                    if(self.checkTargetIntoRange(target)){
+                    if(this.checkTargetIntoRange(target)){
                         this.target = target;
                         return true;
                     }

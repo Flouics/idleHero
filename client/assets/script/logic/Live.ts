@@ -405,7 +405,6 @@ export class Live extends BoxBase {
     }
 
     useSkill():boolean{
-        var self = this;
         var targetList = this.findAllTargets();
         var flag = false;
         this.skillMap.forEach(skillData =>{
@@ -621,19 +620,17 @@ export class Live extends BoxBase {
 
     checkBuff(){
         var nowTimeStamp = this.mapProxy.getMapTime();
-        var self = this;
         this.buffMap.forEach(buffData =>{
             if(buffData.clearTime < nowTimeStamp){
-                self.buffMap.delete(buffData.type);
-                BuffMgr.instance.clearBuff(self,buffData);
+                this.buffMap.delete(buffData.type);
+                BuffMgr.instance.clearBuff(this,buffData);
             } 
         });
     }
 
     dealBuff(){
-        var self = this;
         this.buffMap.forEach(buffData =>{   
-            BuffMgr.instance.dealBuff(self,buffData);        //交给buffMg
+            BuffMgr.instance.dealBuff(this,buffData);        //交给buffMg
         });
     }
 

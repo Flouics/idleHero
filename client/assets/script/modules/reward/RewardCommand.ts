@@ -12,7 +12,6 @@ export class RewardCommand extends Command{
     floatItemList:Array<Item> = new Array();
 
     addRwdList(itemDataList:any[]){
-        var self = this;
         var rwdItemList = [];
         itemDataList.forEach(itemData=>{
             rwdItemList.push(new Item(itemData.id,itemData.count));
@@ -22,18 +21,17 @@ export class RewardCommand extends Command{
     }
 
     float(){        
-        var self = this;
         var doFloatAction;
         var taskKey = "doFloatAction";
-        self.proxy.itemList.forEach((item)=>{
-            self.floatItemList.push(item)
+        this.proxy.itemList.forEach((item)=>{
+            this.floatItemList.push(item)
         })
-        self.proxy.clearRwd();
+        this.proxy.clearRwd();
         App.dumpToDb();
-        doFloatAction = function (){
-            var item = self.floatItemList.shift();
+        doFloatAction = () => {
+            var item = this.floatItemList.shift();
             if(item){
-                self.isFloating = true;
+                this.isFloating = true;
                 item.initUI(App.getPopupRoot());
                 tween(item.node)
                 .by(0.8,
@@ -49,11 +47,11 @@ export class RewardCommand extends Command{
                 }).start();
                 App.taskOnce(doFloatAction,800,taskKey);
             }else{
-                self.isFloating = false;
+                this.isFloating = false;
             }            
         }
 
-        if(!self.isFloating){
+        if(!this.isFloating){
             doFloatAction();
         }
     }

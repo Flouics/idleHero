@@ -21,23 +21,22 @@ export class UIEquip extends BaseUI {
         this.node.setPosition(0,0,0);
     }
     updateUI(){
-        var self = this;
         var logicObj = this._logicObj
         if(!logicObj){
             return;
         }
-        var loadSpt = function(){
-            let spt = self.spt_icon;
+        var loadSpt = () => {
+            let spt = this.spt_icon;
             if(logicObj.id > 0){
-                self.loadSpt(spt, "equip/" + logicObj.id)
+                this.loadSpt(spt, "equip/" + logicObj.id)
             }else{
-                self.loadSptEmpty(spt);
+                this.loadSptEmpty(spt);
             }   
         }
         this.updateDataToUI("equip.type",logicObj.id,loadSpt)
 
         this.updateDataToUI("equip.name",logicObj.name,()=>{
-            self.lb_name.string = logicObj.name;
+            this.lb_name.string = logicObj.name;
         })
     }
 }

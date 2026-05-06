@@ -29,21 +29,16 @@ export class Building extends BoxBase {
     }
 
     initUI(parent:Node,cb?:Function) {
-        let self = this;
         if(this._pb_url == "") {
             return;
         }
-        resources.load(this._pb_url, Prefab, function (err: any, prefab: any) {
-            if (err) {
-                Debug.error(self._pb_url, err);
-            }else{
-                let node = instantiate(prefab);
-                let viewPos = self.pos;
-                parent.addChild(node);
-                node.setPosition(viewPos.x, viewPos.y);
-                self.bindUI(node.getComponent(UIBuilding));
-            }
-        })
+        this.loadPrefab(this._pb_url, (prefab: any) => {
+            let node = instantiate(prefab);
+            let viewPos = this.pos;
+            parent.addChild(node);
+            node.setPosition(viewPos.x, viewPos.y);
+            this.bindUI(node.getComponent(UIBuilding));            
+        });
     }
 
     createBuilding(parent:Node,toPos:Vec2){
@@ -52,10 +47,9 @@ export class Building extends BoxBase {
         this.x = toPos.x;
         this.y = toPos.y;        
         this.initUI(parent);       
-        var self = this; 
         this.realArea = this.area.map((pos)=>{
-            var x = pos.x + self.tilePos.x;
-            var y = pos.y + self.tilePos.y;
+            var x = pos.x + this.tilePos.x;
+            var y = pos.y + this.tilePos.y;
             return  new Vec2(x,y);
         })
     }    

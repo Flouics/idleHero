@@ -16,23 +16,22 @@ export class UIHeadquarters extends UIBuilding {
     onBeAtked(damage:number){
         if(this._beAtkedAction) return;
         var duration = 0.5;
-        var self = this;
         this._beAtkedAction = tween(this.node)
         .to(duration,
             { },{
-                onUpdate(){
-                    self.spt_face.color = Color.RED;
-                }
+                onUpdate: () => {
+                    this.spt_face.color = Color.RED;
+                },
             })
         .to(duration,
             { },{
-                onUpdate(){
-                    self.spt_face.color = Color.WHITE;
-                }
+                onUpdate: () => {
+                    this.spt_face.color = Color.WHITE;
+                },
             })
         .call(() => {                
             //todo
-            self.stopBeAtkedAction();
+            this.stopBeAtkedAction();
         })
         this._beAtkedAction.start();
         App.effectMgr.playEffectLife({root:this.node,value:-damage})
@@ -50,7 +49,6 @@ export class UIHeadquarters extends UIBuilding {
     }
 
     updateUI(){
-        var self = this;
         var logicObj = this._logicObj
         if(!logicObj){
             return;

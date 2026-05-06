@@ -49,24 +49,23 @@ export class UILive extends BaseUI {
         if(!this.sa_role){
             return;
         }
-        var self = this;
-        var lastFrameFunc = function (type:string,skeletalAnimationState:SkeletalAnimationState){
-            if(self.lastAnimName == SKELETAL_ANIMATION_NAME.MOVING){
+        var lastFrameFunc = (type:string,skeletalAnimationState:SkeletalAnimationState) => {
+            if(this.lastAnimName == SKELETAL_ANIMATION_NAME.MOVING){
                 return;
             }
 
-            if(self.lastAnimName == SKELETAL_ANIMATION_NAME.DIE){             
-                self.destory();
+            if(this.lastAnimName == SKELETAL_ANIMATION_NAME.DIE){             
+                this.destory();
                 return;
             }
-            var lastAnimName = self.lastAnimName;
-            self.lastAnimName = "";
-            if(!empty(self.nextAnimName)){             
-                self.playSkeletalAnimation(self.nextAnimName);
+            var lastAnimName = this.lastAnimName;
+            this.lastAnimName = "";
+            if(!empty(this.nextAnimName)){             
+                this.playSkeletalAnimation(this.nextAnimName);
             }else{
                 //没有下一组动画，就进入闲置     
                 if(lastAnimName == SKELETAL_ANIMATION_NAME.ATTACK){                    
-                    self.playSkeletalAnimation(SKELETAL_ANIMATION_NAME.IDLE);
+                    this.playSkeletalAnimation(SKELETAL_ANIMATION_NAME.IDLE);
                 }
             }
         }
@@ -177,7 +176,6 @@ export class UILive extends BaseUI {
     onBeAtked(damage:number){
         if(this._beAtkedAction) return;
         var duration = 0.5;
-        var self = this;
         this._beAtkedAction = tween(this.spt_role.node)
         .to(duration,
             { },{
@@ -193,7 +191,7 @@ export class UILive extends BaseUI {
             })
         .call(() => {                
             //todo
-            self.stopBeAtkedAction();
+            this.stopBeAtkedAction();
         })
         this._beAtkedAction.start();
 
@@ -215,7 +213,6 @@ export class UILive extends BaseUI {
     playDirectAction(angle:number):void {
         if(!!this._directAction) return;
         var duration = toolKit.limitNum(0.3 * Math.abs(angle) / 90,0,0.3);
-        var self = this;
         var eulerAngle = new Vec3(0,0,angle);
         eulerAngle.z = uiKit.getDeltaAngle(this.node.eulerAngles.z,eulerAngle.z);
         this._directAction = tween(this.node)
@@ -223,7 +220,7 @@ export class UILive extends BaseUI {
             { eulerAngles: eulerAngle})
         .call(() => {                
             //todo
-            self.stopDirectAction();
+            this.stopDirectAction();
         })
         this._directAction.start();
     }
@@ -239,9 +236,8 @@ export class UILive extends BaseUI {
 
     updateSiblingIndex(){
         var index = 1334 - Math.floor(this.node.position.y/10);
-        var self = this;
         this.updateDataToUI("Live.updateSiblingIndex",index,()=>{
-            self.node.setSiblingIndex(index);
+            this.node.setSiblingIndex(index);
         });        
     }
     update(dt:number){

@@ -160,17 +160,16 @@ export class BoxBase extends ItemBase {
 
     //通用寻找目标 //特殊的各类单独实现
     findTargetsByGroup(map:Map<number,any>) {
-        var self = this;
         var list = [];
         map.forEach(target =>{
-            if (self.getViewDistance(target.pos) < self.searchRange){
+            if (this.getViewDistance(target.pos) < this.searchRange){
                 list.push(target);
             }   
         });
 
         if(list.length > 0){
             list.sort((a,b)=>{
-                return self.getViewDistance(a.pos) - self.getViewDistance(b.pos);
+                return this.getViewDistance(a.pos) - this.getViewDistance(b.pos);
             })
         }
         return list;

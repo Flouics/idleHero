@@ -262,20 +262,19 @@ export class HttpMgr extends BaseClass {
         var url = obj.url;
         var cb = obj.cb;
         var errCb = obj.errCb;
-        var self = this;
-        function callback(res: any) {
+        const callback = (res: any) => {
             if (!!cb) cb(res);
             if(!!obj && obj.isWaiting){
-                self._isReqHttpIng = false;
+                this._isReqHttpIng = false;
                 if (is_queue) {
-                    self.httpReq();
+                    this.httpReq();
                 }
             }
         };
 
-        function callback_error(res: any) {
+        const callback_error = (res: any) => {
             if(!!obj && obj.isWaiting){
-                self._isReqHttpIng = false;
+                this._isReqHttpIng = false;
                 if (!!errCb) errCb(res);
             }
         };
@@ -308,18 +307,17 @@ export class HttpMgr extends BaseClass {
         }
 
         var t1: any;// 用来作超时处理
-        var self = this;
         _method = _method.toUpperCase();
-        xmlhttp.onreadystatechange = function () {
+        xmlhttp.onreadystatechange = () => {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                self._isReqHttpIng = false;
+                this._isReqHttpIng = false;
                 App.loadingMgr.stopAnimation();
 
                 if (_method == "POST") {
                     try {
                         var ret:any;
                         if(true){
-                            ret = self.parse( Buffer.from(xmlhttp.responseText,"base64") );
+                            ret = this.parse( Buffer.from(xmlhttp.responseText,"base64") );
                         }else{
                             ret = JSON.parse(xmlhttp.responseText);
                         }                        
@@ -355,7 +353,7 @@ export class HttpMgr extends BaseClass {
             xmlhttp.send();
         }
 
-        var connecttoFail = function () {
+        var connecttoFail = () => {
             if (xmlhttp)
                 xmlhttp.abort();
             Debug.error('time out', _url, _data);
@@ -372,8 +370,7 @@ export class HttpMgr extends BaseClass {
             Debug.error("Init xmlhttprequest fail");
             return;
         }
-        var self = this;
-        xmlhttp.onreadystatechange = function () {
+        xmlhttp.onreadystatechange = () => {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 var ret = xmlhttp.responseText
                 if (!!_cb) _cb(ret);   

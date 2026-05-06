@@ -57,9 +57,8 @@ export class PlayerTopInfoView extends BaseView {
 
     updatePackageInfo(){
         var packageProxy = getPackageProxy();      
-        var self = this;
         this.packageItemIdList.forEach((value,index) => {
-            var root = toolKit.getChild(self.node,"res_" + index);
+            var root = toolKit.getChild(this.node,"res_" + index);
             if(root){
                 var lb_cost = toolKit.getChild(root,"lb_cost").getComponent(Label);
                 var itemVo = packageProxy.getItemById(value);
@@ -74,7 +73,6 @@ export class PlayerTopInfoView extends BaseView {
         }
         this.packageItemIdList = itemIdList;
         var startIndex = this.packageItemIdList.length;        
-        var self = this;
         for (let i = startIndex; i < 4; i++) {            
             var root = toolKit.getChild(this.node,"res_" + i);
             if(root){
@@ -82,10 +80,10 @@ export class PlayerTopInfoView extends BaseView {
             }
         }
         this.packageItemIdList.forEach((value,index) => {
-            var root = toolKit.getChild(self.node,"res_" + index);
+            var root = toolKit.getChild(this.node,"res_" + index);
             if(root){
                 var spt_icon = toolKit.getChild(root,"spt_icon").getComponent(Sprite);
-                self.loadSptEx(spt_icon,"texture/package/item/" + value)
+                this.loadSptEx(spt_icon,"texture/package/item/" + value)
             }
         })
         this.show();

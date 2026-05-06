@@ -89,16 +89,15 @@ export class MonsterMgr extends BaseClass {
     }
 
     checkWave(){
-        var self = this;              
-        if (!self.waveData){
+        if (!this.waveData){
             return;
         }
         this.isReady = false;
-        var createMonster = function(){
-            let isEven = self.waveData.monsterList.length % 2 == 0
+        var createMonster = () => {
+            let isEven = this.waveData.monsterList.length % 2 == 0
             let perOffsetX = 2
             let offsetX = 0;
-            self.waveData.monsterList.forEach((monsterId:number,index:number)=> {          
+            this.waveData.monsterList.forEach((monsterId:number,index:number)=> {          
                 if (index > 0 || isEven){
                     if(offsetX == 0){
                         offsetX = -perOffsetX
@@ -111,20 +110,20 @@ export class MonsterMgr extends BaseClass {
                 }
                 let count = 1;
                 var monsterEntryPos = new Vec2(
-                                            self.proxy.monsterEntryPos.x + offsetX
-                                            ,self.proxy.monsterEntryPos.y)
-                self.createMultiple(monsterId,count, monsterEntryPos, (monster: Monster) => {
-                    monster.toTilePos = v2(monster.tx,self.proxy.monsterBattlePos.y);
+                                            this.proxy.monsterEntryPos.x + offsetX
+                                            ,this.proxy.monsterEntryPos.y)
+                this.createMultiple(monsterId,count, monsterEntryPos, (monster: Monster) => {
+                    monster.toTilePos = v2(monster.tx,this.proxy.monsterBattlePos.y);
                     monster.stateMachine.switchState(STATE_ENUM.MOVING);
                 });  
             });             
         }      
         
-        var cmp = function(){
-            self.isWaveEnd = true;
+        var cmp = () => {
+            this.isWaveEnd = true;
         }
 
-        this.addScheduleTask(self.waveData.count,self.waveData.coldTime,{},createMonster,"createMonster",cmp);
+        this.addScheduleTask(this.waveData.count,this.waveData.coldTime,{},createMonster,"createMonster",cmp);
     }
 
     checkAllMonstersAreClear(){

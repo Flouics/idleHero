@@ -108,7 +108,6 @@ export class Bullet extends BoxBase {
 
     //重新获取目标
     resetTarget() {
-        var self = this;
         var targetRet = null;
         var distanceRet = -1;
         if(this.shooter){
@@ -116,7 +115,7 @@ export class Bullet extends BoxBase {
             if(targetMap && targetMap.size > 0){
                 targetMap.forEach(target => {
                     if(target && target.checkLive() ){
-                        var distance = self.getViewDistance(target);
+                        var distance = this.getViewDistance(target);
                         if(distanceRet == -1){
                             targetRet = target;
                             distanceRet = distance;

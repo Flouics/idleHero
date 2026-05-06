@@ -163,7 +163,7 @@ export class SkillMgr extends BaseClass {
                 var angle = data.data_2;
                 for (var i = 0; i < count;i++){
                     // 交给子弹
-                    owner.genBullet(data.bulletId,function(bullet:Bullet){  
+                    owner.genBullet(data.bulletId,(bullet:Bullet) => {  
                         if(dirV2 == null){
                             bullet.updateDirectionByTarget();
                             dirV2 = bullet.dirV2;
@@ -203,7 +203,7 @@ export class SkillMgr extends BaseClass {
                 var count =  data.data_1;
                 var radian = 2 * Math.PI / count;
                 for(let i = 0;i < count; i++){
-                    owner.genBullet(data.bulletId,function( bullet:Bullet_1020){
+                    owner.genBullet(data.bulletId,( bullet:Bullet_1020) => {
                         bullet.radian = i * radian;
                         bullet.r =  bullet.data.data_1;
                         if(bullet.r > 0){
@@ -219,15 +219,13 @@ export class SkillMgr extends BaseClass {
 
     //冲锋
     skillFunc_3001(owner:Live,targetList:Live[],data:SkillData,cb?:Function){
-            var self = this;
             if(data.power > 0){
                 var target = targetList[0];
                 var dirV2 = target.pos.subtract(owner.pos);
                 var dirValue = toolKit.parseVec2ToNumNormalize(dirV2);
-                var self = this;
                 owner.stateMachine.switchState(STATE_ENUM.ASSAULT,null,{cb:()=>{
-                    self.baseSkillAtk(owner,[target],data);        
-                    self.baseSkillBuff(owner,[target],data,dirValue);
+                    this.baseSkillAtk(owner,[target],data);        
+                    this.baseSkillBuff(owner,[target],data,dirValue);
                     owner.stateMachine.switchState(STATE_ENUM.ATTACK)
                 }});
             }

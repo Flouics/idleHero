@@ -33,27 +33,24 @@ class UIKit extends BaseClass {
     setLayerLevelByParent(parent:Node){
         var layerLevel = parent.layer;
         var children = parent.children;
-        var self = this;
         children.forEach( (child) => {
-            self.setLayerLevel(child,layerLevel);
+            this.setLayerLevel(child,layerLevel);
         });
     }
 
     setLayerLevel(node:Node,layerLevel:number){
         node.layer = layerLevel;
         var children = node.children;
-        var self = this;
         children.forEach( (child) => {
-            self.setLayerLevel(child,layerLevel);
+            this.setLayerLevel(child,layerLevel);
         });
     }
 
     setMercenaryImg(spt:Sprite,mercenaryId:number,cb?: Function){
         var res_url = "texture/mercenary/" + mercenaryId;
-        var self = this;           
         spt.node.active = false;  
-        var loadSptEx = function(spt: Sprite, res_url: string = null, cb?: Function) {
-            resources.load(res_url + "/spriteFrame", SpriteFrame, function (err, spriteFrame) {
+        var loadSptEx = (spt: Sprite, res_url: string = null, cb?: Function) => {
+            resources.load(res_url + "/spriteFrame", SpriteFrame, (err, spriteFrame) => {
                 if (!spt?.node) return; 
                 spt.node.active = true;  
                 if (!err && spt && spt.node) {
@@ -70,10 +67,9 @@ class UIKit extends BaseClass {
 
     setMonsterImg(spt:Sprite,monsterId:number,cb?: Function){
         var res_url = "texture/monster/" + monsterId;
-        var self = this;     
         spt.node.active = false;        
-        var loadSptEx = function(spt: Sprite, res_url: string = null, cb?: Function) {
-            resources.load(res_url + "/spriteFrame", SpriteFrame, function (err, spriteFrame) {
+        var loadSptEx = (spt: Sprite, res_url: string = null, cb?: Function) => {
+            resources.load(res_url + "/spriteFrame", SpriteFrame, (err, spriteFrame) => {
                 spt.node.active = true;  
                 if (!err && spt && spt.node) {
                     spt.spriteFrame = spriteFrame ;
@@ -103,7 +99,7 @@ class UIKit extends BaseClass {
     loadSpt(spt: Sprite, res_url: string = null, cb?: Function) {
         if (!res_url) return;
         spt.node.active = false;
-        resources.load(res_url + "/spriteFrame", SpriteFrame, function (err, spriteFrame) {
+        resources.load(res_url + "/spriteFrame", SpriteFrame, (err, spriteFrame) => {
             if (!err && spt && spt.node) {
                 spt.spriteFrame = spriteFrame;
                 spt.node.active = true;
@@ -115,7 +111,7 @@ class UIKit extends BaseClass {
     };   
 
     loadPrefab(pb_url:string, cb?:Function){        
-        resources.load(pb_url, Prefab, function (err: any, prefab: any) {
+        resources.load(pb_url, Prefab, (err: any, prefab: any) => {
             if (err) {
                 Debug.warn(pb_url, err);
             }else{

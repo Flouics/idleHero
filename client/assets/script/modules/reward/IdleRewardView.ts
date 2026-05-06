@@ -33,10 +33,9 @@ export class IdleRewardView extends BaseView {
             return;
         }
         this.itemList = [];   
-        var self = this;
         var proxy = getPackageProxy();
         proxy.idleItemMap.forEach((item)=>{
-            self.itemList.push(item.toData());
+            this.itemList.push(item.toData());
         })
     }
 
@@ -57,9 +56,8 @@ export class IdleRewardView extends BaseView {
 
     updateReward(){
         this.setData();
-        var self = this;
         this.updateDataToUI("IdleRewardView.itemList",this.itemList,()=>{
-            self.initRwdList();
+            this.initRwdList();
         });
     }
 
@@ -68,11 +66,10 @@ export class IdleRewardView extends BaseView {
         if(!itemList){
             return;
         }
-        var self = this;
-        self.sv_itemListRoot.content.removeAllChildren();
+        this.sv_itemListRoot.content.removeAllChildren();
         itemList.forEach(itemData => {
             var item = new Item(itemData.id,itemData.count);
-            item.initUI(self.sv_itemListRoot.content);
+            item.initUI(this.sv_itemListRoot.content);
         })
     }
 

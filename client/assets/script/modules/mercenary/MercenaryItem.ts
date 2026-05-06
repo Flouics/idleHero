@@ -41,18 +41,17 @@ export class MercenaryItem extends BaseView {
 
     setItem(data:any,isSelected = false){
         this.data = data;
-        var self = this;
         this.updateDataToUI("role.id",data.id,()=>{
-            self.loadSptEx(self.spt_role,"texture/mercenary/"  + data.id);
+            this.loadSptEx(this.spt_role,"texture/mercenary/"  + data.id);
         })
 
         this.updateDataToUI("role.name",data.name,()=>{
-            self.lb_name.string = data.name;
+            this.lb_name.string = data.name;
         })
 
         this.updateDataToUI("role.level",data.level,()=>{
-            self.lb_level.string = "Lv." + data.level;
+            this.lb_level.string = "Lv." + data.level;
         })
-        self.nd_select.active = isSelected;
+        this.nd_select.active = isSelected;
     }
 }

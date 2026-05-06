@@ -146,11 +146,10 @@ export class Proxy extends BaseClass {
         if (!this.isDump) {
             return
         }
-        var self = this;
-        var doAction = function(){
-            self.dumpPrepare()
-            var key = self.getDbKey();
-            var json = self.serialize();
+        var doAction = () => {
+            this.dumpPrepare()
+            var key = this.getDbKey();
+            var json = this.serialize();
             Debug.log("dumpToDb",key)
             App.dbMgr.setItem(key,json);
         }

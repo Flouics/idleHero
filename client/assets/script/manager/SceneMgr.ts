@@ -24,7 +24,7 @@ export class SceneMgr extends BaseClass {
         }else{
             let instance = new SceneMgr();
             return instance
-        }
+        };
     }
 
 
@@ -39,12 +39,11 @@ export class SceneMgr extends BaseClass {
         this.isLoading = true;
         Debug.log('[Scene] preScene ', director.getScene().name, ' -> nextScene ', sceneName);
 
-        var self = this;
-        function sceneAction() {
+        const sceneAction = () => {
             Debug.log('endAction, start loadScene', new Date().getTime());
             // 停止当前音乐
-            self.isLoading = director.loadScene(sceneName, function () {
-                self.isLoading = false;
+            this.isLoading = director.loadScene(sceneName, () => {
+                this.isLoading = false;
                 App.loadingMgr.stopAnimation();
                 Debug.log('end loadScene', sceneName, new Date().getTime());
                 if (cb) {
@@ -53,9 +52,9 @@ export class SceneMgr extends BaseClass {
             });
         }
         App.loadingMgr.playAnimation(0.2);
-        director.preloadScene(sceneName, function (error) {
+        director.preloadScene(sceneName, (error) => {
             if (error) {
-                self.isLoading = false;
+                this.isLoading = false;
                 Debug.error("preloadScene error",error);
                 return;
             } else {
@@ -64,4 +63,3 @@ export class SceneMgr extends BaseClass {
         });
     };
 };
-

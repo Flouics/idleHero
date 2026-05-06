@@ -24,23 +24,22 @@ export class UIItem extends BaseUI {
         this.node.setScale(v3(1,1,1));
     }
     updateUI(){
-        var self = this;
         var logicObj = this._logicObj
         if(!logicObj){
             return;
         }
-        var loadSpt = function(){
-            let spt = self.spt_item;
+        var loadSpt = () => {
+            let spt = this.spt_item;
             if(logicObj.id > 0){
-                self.loadSpt(spt, "item/" + logicObj.id)
+                this.loadSpt(spt, "item/" + logicObj.id)
             }else{
-                self.loadSptEmpty(spt);
+                this.loadSptEmpty(spt);
             }   
         }
         this.updateDataToUI("item.type",logicObj.id,loadSpt)
 
         this.updateDataToUI("item.count",logicObj.count,()=>{
-            self.lb_count.string = logicObj.count > 0 ? logicObj.count.toString() : "0";
+            this.lb_count.string = logicObj.count > 0 ? logicObj.count.toString() : "0";
         })
     }
 }

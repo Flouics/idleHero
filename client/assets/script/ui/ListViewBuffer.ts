@@ -122,7 +122,6 @@ const {ccclass, property} = _decorator;
         if (!data) {
             return;
         }
-        var self = this;
         this.data = data;
         this.clearContent();
         this.scheduleOnce(this.addContent.bind(this), 0);
@@ -139,7 +138,6 @@ const {ccclass, property} = _decorator;
     }
 
     createItem(data, index) {
-        var self = this;
         var item = null;
         if (!data) {
             Debug.log('ListViewBuffer createItem failed by null');

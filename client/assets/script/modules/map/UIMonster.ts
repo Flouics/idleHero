@@ -30,7 +30,6 @@ export class UIMonster extends UILive {
     playDirectAction(angle:number):void {
         if(!!this._directAction) return;
         var duration = toolKit.limitNum(0.3 * Math.abs(angle) / 90,0,0.3);
-        var self = this;
         if(this.sa_role){
             var eulerAngle = new Vec3(0,uiKit.getDeltaAngle(0,angle + 180),0);            
             this.sa_role.node.setRotationFromEuler(eulerAngle);
@@ -41,7 +40,7 @@ export class UIMonster extends UILive {
                 {eulerAngles:eulerAngle})
             .call(() => {                
                 //todo
-                self.stopDirectAction();
+                this.stopDirectAction();
             })                     
         }else{
             var eulerAngle = new Vec3(0,0,angle);
@@ -50,10 +49,10 @@ export class UIMonster extends UILive {
                 { eulerAngles: eulerAngle})
             .call(() => {                
                 //todo
-                self.stopDirectAction();
+                this.stopDirectAction();
             })
         }   
-        self.stopDirectAction();
+        this.stopDirectAction();
         //this._directAction.start();        
     }
 
@@ -62,23 +61,22 @@ export class UIMonster extends UILive {
             return
         }
 
-        var self = this;
         var logicObj = this._logicObj
 
-        var loadSpt = function(){
-            let spt = self.spt_role;
+        var loadSpt = () => {
+            let spt = this.spt_role;
             if(logicObj.id > 0){
                 //self.loadSpt(spt, "" + logicObj.id)
                 uiKit.setMonsterImg(spt,logicObj.id,(actor:Node)=>{
                     if(actor){
-                        self.resetSkeletalAnimationRole(actor);
-                        self.regSkeletalAnimationEvent();
-                        self.playSkeletalAnimationByState(logicObj.stateMachine.state.id);                             
-                        self.updateDirection();
+                        this.resetSkeletalAnimationRole(actor);
+                        this.regSkeletalAnimationEvent();
+                        this.playSkeletalAnimationByState(logicObj.stateMachine.state.id);                             
+                        this.updateDirection();
                     }
                 });
             }else{
-                self.loadSptEmpty(spt);
+                this.loadSptEmpty(spt);
             }       
         }
         this.updateDataToUI("monster.type",logicObj.id,()=>{

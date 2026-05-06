@@ -7,9 +7,8 @@ import { PackageProxy } from "./PackageProxy";
 export class PackageCommand extends Command{
     proxy:PackageProxy;
     addRwdList(itemDataList:any[]){
-        var self = this;
         itemDataList.forEach(itemData=>{
-            self.proxy.addItem(itemData);
+            this.proxy.addItem(itemData);
         })
     }
 }

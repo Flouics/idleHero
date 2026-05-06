@@ -32,9 +32,8 @@ export class RewardProxy extends Proxy {
     }
 
     addRwd(items:Item[]){
-        var self = this;
         items.forEach(item => {
-            self.itemList.push(item);
+            this.itemList.push(item);
         })
     }
 

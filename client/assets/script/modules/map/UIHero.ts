@@ -9,16 +9,7 @@ export class UIHero extends UILive {
     _baseUrl = "texture/hero/";
     _logicObj:Hero = null;
     updateUI(){
-        var self = this;
         var logicObj = this._logicObj
-        var loadSpt = function(){
-            let spt = self.spt_role;
-            if(logicObj.id > 0){
-                self.loadSpt(spt, "" + logicObj.id)
-            }else{
-                self.loadSptEmpty(spt);
-            }       
-        }
         this.updateDataToUI("hero.type",logicObj.id,()=>{
             //loadSpt()           
         })

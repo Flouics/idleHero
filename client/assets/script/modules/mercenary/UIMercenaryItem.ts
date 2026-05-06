@@ -20,17 +20,16 @@ export class UIMercenaryItem extends BaseUI {
         
     }
     updateUI(){
-        var self = this;
         var logicObj = this._logicObj
         if(!logicObj){
             return;
         }
-        var loadSpt = function(){
-            let spt = self.spt_role;
+        var loadSpt = () => {
+            let spt = this.spt_role;
             if(logicObj.id > 0){
-                self.loadSpt(spt, "" + logicObj.id)
+                this.loadSpt(spt, "" + logicObj.id)
             }else{
-                self.loadSptEmpty(spt);
+                this.loadSptEmpty(spt);
             }       
         }
         this.updateDataToUI("mercenary.type",logicObj.id,()=>{

@@ -160,14 +160,13 @@ export class HotUpdate extends BaseWin {
     };
 
     init (callback, force) {
-        var self = this;
         this.nd_panel.active = false;
         this.nd_btnRoot.active = true;
-        this.cb = function () {
-            self.hasInit = true;
-            self.nd_panel.active = false;
+        this.cb = () => {
+            this.hasInit = true;
+            this.nd_panel.active = false;
             if (callback) callback();
-            App.windowMgr.closeUI(self);
+            App.windowMgr.closeUI(this);
         };
         if (!force && this.hasInit) {
             if (this.cb) this.cb();

@@ -35,15 +35,14 @@ export class UIBullet extends BaseUI {
 
     updateUI() {
         if(!this._logicObj) return;
-        var self = this;
         var logicObj = this._logicObj;
         if(logicObj.data && logicObj.data.icon > 0){
             this.updateDataToUI("icon", logicObj.data.icon, () => {
-                self.loadSpt(self.spt_bullet,logicObj.data.icon,()=>{
-                    self.spt_bullet.node.setPosition(0,0,0);
-                    self.node.active = true;
-                    self.spt_bullet.node.active = true;
-                    self._isReady = true;
+                this.loadSpt(this.spt_bullet,logicObj.data.icon,()=>{
+                    this.spt_bullet.node.setPosition(0,0,0);
+                    this.node.active = true;
+                    this.spt_bullet.node.active = true;
+                    this._isReady = true;
                 });                
             },()=>{
 /*                 if(self.isReady == false){

@@ -19,13 +19,12 @@ export class Bullet_1020 extends Bullet {
     }
 
     checkTargets(){
-        var self = this;
         var targetMap = this.getTargetMap();
         if(targetMap && targetMap.size > 0){
             targetMap.forEach(target => {
                 if(target && target.checkLive()){
-                    if(self.checkTargetIntoRange(target)){                    
-                        target.onBeAtked(self.getDamageRet(),self.shooter);            
+                    if(this.checkTargetIntoRange(target)){                    
+                        target.onBeAtked(this.getDamageRet(),this.shooter);            
                     }
                 }
             });

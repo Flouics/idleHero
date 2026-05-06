@@ -95,10 +95,9 @@ export class MercenaryMgr extends BaseClass{
 
     checkGen(){
         var nowTime = this.proxy.getMapTime();
-        var self = this;
         this.mercenaryGenPool.forEach((data,key,map)=> {
             if(nowTime > data.lastGenTime){
-                if(self.create(data.id)){
+                if(this.create(data.id)){
                     data.lastGenTime = nowTime + data.coldTime;
                 }                
             }  

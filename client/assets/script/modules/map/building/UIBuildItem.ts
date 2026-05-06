@@ -18,13 +18,12 @@ export class UIBuildItem extends BaseUI {
     }
 
     updateUI(){
-        var self = this;
         var logicObj = this._logicObj
         if(!logicObj){
             return;
         }
         this.updateDataToUI("buildItem.id",logicObj.id,()=>{
-            self.loadSpt(this.spt_build,"building/building_" + logicObj.id);
+            this.loadSpt(this.spt_build,"building/building_" + logicObj.id);
         });
     }
 }

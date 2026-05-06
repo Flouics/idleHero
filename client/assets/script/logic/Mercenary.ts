@@ -61,9 +61,8 @@ export class Mercenary extends Live {
         this.coldTime = data.coldTime;
 
         this.life = this.lifeMax;
-        var self = this;
         this.skillList.forEach(skillId => {
-            self.addSkill(skillId);
+            this.addSkill(skillId);
         })               
     }
         

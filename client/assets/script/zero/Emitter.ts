@@ -54,11 +54,10 @@ export class Emitter {
     * @api public
     */
     once(event:string, cb:Function = nullfun) {
-        var self = this;
-        function on() {
-            self.off(event, on);
-            cb.apply(this, arguments);
-        }
+        const on = (...args:any[]) => {
+            this.off(event, on);
+            cb.apply(this, args);
+        };
         this.on(event, cb.toString(),on);
     };
 
@@ -194,4 +193,3 @@ export class Emitter {
         return this.getListeners(event).length > 0;
     };
 };
-

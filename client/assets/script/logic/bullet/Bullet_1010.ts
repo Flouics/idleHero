@@ -15,13 +15,12 @@ export class Bullet_1010 extends Bullet {
     }
 
     initUI(parent:Node,cb?:Function) {        
-        var self = this;
         super.initUI(parent,()=>{
-            var size = new Size(self.data_1,self.data_2);          
-            self.ui.resetSize(size);
-            self.updateDirectionByTarget();
-            self.ui.updatePosition();
-            self.ui.updateDirection();
+            var size = new Size(this.data_1,this.data_2);          
+            this.ui.resetSize(size);
+            this.updateDirectionByTarget();
+            this.ui.updatePosition();
+            this.ui.updateDirection();
         });       
     }
     
@@ -30,13 +29,12 @@ export class Bullet_1010 extends Bullet {
     }
 
     checkTargets(){
-        var self = this;
         var targetMap = this.getTargetMap();
         if(targetMap && targetMap.size > 0){
             targetMap.forEach(target => {
                 if(target && target.checkLive()){
-                    if(self.checkTargetIntoRange(target)){                    
-                        target.onBeAtked(self.getDamageRet(),self.shooter);            
+                    if(this.checkTargetIntoRange(target)){                    
+                        target.onBeAtked(this.getDamageRet(),this.shooter);            
                     }
                 }
             });

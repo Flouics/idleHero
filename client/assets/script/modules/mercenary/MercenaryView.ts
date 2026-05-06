@@ -136,7 +136,6 @@ export class MercenaryView extends BaseView {
     }
 
     updateUpgradeInfo(){
-        var self = this;
         var nextLevelAttrMap = this.curMercenaryData.getLevelAttrsAddTotalMap(this.curMercenaryData.level + 1);
         var curLevelAttrMap = this.curMercenaryData.getLevelAttrsAddTotalMap(this.curMercenaryData.level);
         var isMaxLevel = this.curMercenaryData.checkMaxLevel();
