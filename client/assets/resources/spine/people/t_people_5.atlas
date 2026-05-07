@@ -1,0 +1,132 @@
+
+t_people_5_.png
+size: 410,276
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+n15/n15_1
+  rotate: true
+  xy: 143, 50
+  size: 44, 67
+  orig: 44, 67
+  offset: 0, 0
+  index: -1
+n15/n15_2
+  rotate: false
+  xy: 351, 212
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+n15/n15_3
+  rotate: false
+  xy: 142, 139
+  size: 154, 135
+  orig: 154, 135
+  offset: 0, 0
+  index: -1
+n15/n15_4
+  rotate: false
+  xy: 2, 2
+  size: 69, 118
+  orig: 69, 118
+  offset: 0, 0
+  index: -1
+n15/n15_5
+  rotate: false
+  xy: 367, 148
+  size: 38, 62
+  orig: 38, 62
+  offset: 0, 0
+  index: -1
+n15/n15_6
+  rotate: false
+  xy: 353, 84
+  size: 47, 58
+  orig: 47, 58
+  offset: 0, 0
+  index: -1
+n15/n15_7
+  rotate: true
+  xy: 143, 4
+  size: 30, 48
+  orig: 30, 48
+  offset: 0, 0
+  index: -1
+n16/n16_1
+  rotate: false
+  xy: 264, 5
+  size: 53, 47
+  orig: 53, 47
+  offset: 0, 0
+  index: -1
+n16/n16_2
+  rotate: true
+  xy: 2, 122
+  size: 152, 138
+  orig: 152, 138
+  offset: 0, 0
+  index: -1
+n16/n16_2_1
+  rotate: false
+  xy: 298, 144
+  size: 67, 54
+  orig: 67, 54
+  offset: 0, 0
+  index: -1
+n16/n16_3
+  rotate: false
+  xy: 298, 200
+  size: 51, 74
+  orig: 51, 74
+  offset: 0, 0
+  index: -1
+n16/n16_3_1
+  rotate: false
+  xy: 320, 36
+  size: 31, 106
+  orig: 31, 108
+  offset: 0, 0
+  index: -1
+n16/n16_4
+  rotate: false
+  xy: 73, 7
+  size: 68, 113
+  orig: 68, 113
+  offset: 0, 0
+  index: -1
+n16/n16_5
+  rotate: true
+  xy: 193, 8
+  size: 40, 69
+  orig: 40, 69
+  offset: 0, 0
+  index: -1
+n16/n16_6
+  rotate: false
+  xy: 353, 28
+  size: 35, 54
+  orig: 35, 54
+  offset: 0, 0
+  index: -1
+n16/n16_7
+  rotate: true
+  xy: 212, 54
+  size: 40, 66
+  orig: 40, 66
+  offset: 0, 0
+  index: -1
+n16/n16_8
+  rotate: false
+  xy: 280, 66
+  size: 33, 28
+  orig: 33, 28
+  offset: 0, 0
+  index: -1
+yingzi
+  rotate: false
+  xy: 143, 96
+  size: 175, 41
+  orig: 177, 43
+  offset: 1, 1
+  index: -1

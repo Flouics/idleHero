@@ -11,7 +11,7 @@ export class UIHero extends UILive {
     updateUI(){
         var logicObj = this._logicObj
         this.updateDataToUI("hero.type",logicObj.id,()=>{
-            //loadSpt()           
+                       
         })
     }
 }

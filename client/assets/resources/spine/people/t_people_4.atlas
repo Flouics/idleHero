@@ -1,0 +1,153 @@
+
+t_people_4_.png
+size: 219,524
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+n25/n25_1
+  rotate: false
+  xy: 124, 6
+  size: 41, 78
+  orig: 41, 78
+  offset: 0, 0
+  index: -1
+n25/n25_10
+  rotate: false
+  xy: 80, 6
+  size: 42, 78
+  orig: 42, 78
+  offset: 0, 0
+  index: -1
+n25/n25_1_1
+  rotate: false
+  xy: 41, 2
+  size: 37, 95
+  orig: 41, 95
+  offset: 0, 0
+  index: -1
+n25/n25_2
+  rotate: false
+  xy: 164, 450
+  size: 9, 29
+  orig: 9, 29
+  offset: 0, 0
+  index: -1
+n25/n25_3
+  rotate: true
+  xy: 164, 358
+  size: 39, 45
+  orig: 39, 45
+  offset: 0, 0
+  index: -1
+n25/n25_4
+  rotate: false
+  xy: 2, 349
+  size: 160, 130
+  orig: 160, 130
+  offset: 0, 0
+  index: -1
+n25/n25_5
+  rotate: true
+  xy: 2, 128
+  size: 81, 107
+  orig: 81, 107
+  offset: 0, 0
+  index: -1
+n25/n25_6
+  rotate: true
+  xy: 164, 399
+  size: 42, 45
+  orig: 43, 45
+  offset: 0, 0
+  index: -1
+n25/n25_7
+  rotate: false
+  xy: 158, 233
+  size: 54, 41
+  orig: 54, 41
+  offset: 0, 0
+  index: -1
+n25/n25_8
+  rotate: true
+  xy: 167, 6
+  size: 41, 32
+  orig: 41, 32
+  offset: 0, 0
+  index: -1
+n25/n25_9
+  rotate: false
+  xy: 167, 49
+  size: 41, 35
+  orig: 41, 35
+  offset: 0, 0
+  index: -1
+n26/n26_1
+  rotate: false
+  xy: 2, 211
+  size: 154, 136
+  orig: 154, 136
+  offset: 0, 0
+  index: -1
+n26/n26_2
+  rotate: false
+  xy: 164, 276
+  size: 44, 80
+  orig: 44, 80
+  offset: 0, 0
+  index: -1
+n26/n26_3
+  rotate: true
+  xy: 111, 86
+  size: 81, 104
+  orig: 81, 104
+  offset: 0, 0
+  index: -1
+n26/n26_4
+  rotate: true
+  xy: 179, 482
+  size: 40, 38
+  orig: 41, 38
+  offset: 0, 0
+  index: -1
+n26/n26_5
+  rotate: true
+  xy: 158, 169
+  size: 62, 44
+  orig: 65, 44
+  offset: 0, 0
+  index: -1
+n26/n26_6
+  rotate: true
+  xy: 111, 169
+  size: 40, 41
+  orig: 42, 41
+  offset: 0, 0
+  index: -1
+n26/n26_7
+  rotate: false
+  xy: 179, 443
+  size: 38, 37
+  orig: 38, 37
+  offset: 0, 0
+  index: -1
+n26/n26_8
+  rotate: false
+  xy: 2, 5
+  size: 37, 79
+  orig: 37, 81
+  offset: 0, 2
+  index: -1
+npc1_17
+  rotate: false
+  xy: 41, 99
+  size: 66, 27
+  orig: 68, 29
+  offset: 1, 1
+  index: -1
+yingzi
+  rotate: false
+  xy: 2, 481
+  size: 175, 41
+  orig: 177, 43
+  offset: 1, 1
+  index: -1

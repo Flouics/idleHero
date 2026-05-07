@@ -368,7 +368,8 @@ export class GameComponent extends Component {
         // 自定义按钮批量绑定触摸事件
         if (bindRootEvent) {
             this.node.on(Node.EventType.TOUCH_END, (event: EventTouch) => {
-                const func = (this as any)[event.target.name];
+                const self: any = this;
+                const func = self[event.target.name];
                 if (func) {
                     func.call(this, event);
                 }
@@ -384,7 +385,8 @@ export class GameComponent extends Component {
         const buttons = this.node.getComponentsInChildren<Button>(Button);
         buttons.forEach((b: Button) => {
             const node = b.node;
-            const func = (this as any)[node.name];
+            const self: any = this;
+            const func = self[node.name];
             if (func) {
                 const event = new EventHandler();
                 event.target = this.node;
@@ -407,8 +409,9 @@ export class GameComponent extends Component {
      *  onGlobal(event: string, args: any) { console.log(args) };
      */
     protected setEvent(...args: string[]) {
+        const self: any = this;
         for (const name of args) {
-            const func = (this as any)[name];
+            const func = self[name];
             if (func)
                 this.on(name, func, this);
             else
