@@ -6,4 +6,8 @@ import { LobbyProxy }  from "./LobbyProxy";
 
 export class LobbyCommand extends Command{
     proxy:LobbyProxy;
+    constructor(){
+        super();
+        LobbyCommand._instance = this;
+    }
 }

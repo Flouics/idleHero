@@ -2,13 +2,13 @@ import { Node } from "cc";
 import { UICallbacks } from "../../oops/core/gui/layer/Defines";
 import { oops } from "../../oops/core/Oops";
 import {App} from "../../App";
-import { nullfun } from "../../Global";
 import { Proxy }from "./Proxy";
 
 export class Command{
     app:App;
     proxy:Proxy;
     moduleName:String = "";
+    static _instance = null;
     constructor(){
         this.app = App.getInstance(App);
     }

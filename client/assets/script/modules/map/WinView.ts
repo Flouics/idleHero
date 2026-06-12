@@ -11,6 +11,7 @@ import { getPlayerProxy } from "../player/PlayerProxy";
 import { toolKit } from "../../utils/ToolKit";
 import { clone } from "../../Global";
 import { DEBUG } from "cc/env";
+import { MapEvent } from "./MapEvent";
 const {ccclass, property} = _decorator;
 
 @ccclass("WinView")
@@ -54,7 +55,7 @@ export class WinView extends BaseView {
     }
 
     onClickComfirm(){
-        this.mapProxy.updateView("exitBattle");
+        this.mapProxy.dispatchEvent(MapEvent.Map_ExitBattle);
         getRewardProxy().cmd.float();
 
         var data = this.data;

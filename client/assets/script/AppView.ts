@@ -19,12 +19,12 @@ const {ccclass, property} = _decorator;
 export class AppView extends Root{
    
     start () {
-        if (DEBUG) profiler.showStats();
+        if (DEBUG && App.config?.ishowState) profiler.showStats();
     }
 
     /** 加载完引擎配置文件后执行 */
     protected run() {
-        App.appInit(this);
+        App.init(this);
         App.onLoad();
         smc.initialize = ecs.getEntity<Initialize>(Initialize);
         if (JSB) {

@@ -35,6 +35,6 @@ export class UIEffectLife extends UIEffect {
     }
 
     close() {
-        this.node.removeFromParent();
+        this.node.destroy();
     }
 }

@@ -6,7 +6,7 @@
  */
 
 import { JsonAsset } from "cc";
-import { resLoader } from "../common/loader/ResLoader";
+import { oops } from "../Oops";
 
 /** 资源路径 */
 const path: string = "config/game/";
@@ -35,14 +35,14 @@ export class JsonUtil {
             callback(data.get(name));
         else {
             const url = path + name;
-            resLoader.load(url, JsonAsset, (err: Error | null, content: JsonAsset) => {
+            oops.res.load(url, JsonAsset, (err: Error | null, content: JsonAsset) => {
                 if (err) {
                     console.warn(err.message);
                     callback(null);
                 }
                 else {
                     data.set(name, content.json);
-                    resLoader.release(url);
+                    oops.res.release(url);
                     callback(content.json);
                 }
             });
@@ -60,14 +60,14 @@ export class JsonUtil {
             }
             else {
                 const url = path + name;
-                resLoader.load(url, JsonAsset, (err: Error | null, content: JsonAsset) => {
+                oops.res.load(url, JsonAsset, (err: Error | null, content: JsonAsset) => {
                     if (err) {
                         console.warn(err.message);
                         resolve(null);
                     }
                     else {
                         data.set(name, content.json);
-                        resLoader.release(url);
+                        oops.res.release(url);
                         resolve(content.json);
                     }
                 });
@@ -78,7 +78,7 @@ export class JsonUtil {
     /** 加载所有配置表数据到缓存中 */
     static loadDirAsync(): Promise<boolean> {
         return new Promise((resolve, reject) => {
-            resLoader.loadDir(path, (err: Error | null, assets: JsonAsset[]) => {
+            oops.res.loadDir(path, (err: Error | null, assets: JsonAsset[]) => {
                 if (err) {
                     console.warn(err.message);
                     resolve(false);
@@ -87,7 +87,7 @@ export class JsonUtil {
                     assets.forEach(asset => {
                         data.set(asset.name, asset.json);
                     });
-                    resLoader.releaseDir(path);
+                    oops.res.releaseDir(path);
                     resolve(true);
                 }
             });

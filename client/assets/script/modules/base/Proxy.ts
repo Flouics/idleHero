@@ -34,6 +34,9 @@ export class Proxy extends BaseClass {
             return instance
         }
     }
+    get baseUrl(){
+        return this._baseUrl;
+    }
 
     /** 全局事件管理器 */
     get event(): EventDispatcher {
@@ -101,27 +104,24 @@ export class Proxy extends BaseClass {
         Debug.log(cmd,data);
     }
 
-    bindView(view:BaseView){
-        this.viewMap[view.getId()] = view;
+    /**
+     * 延时一帧发射事件
+     * @param event 
+     * @param params 
+     */
+    emitTask(event:string,params?:{}){
+        this.dispatchEventTask(event,params)
     }
-    unbindView(view:BaseView){
-        delete this.viewMap[view.getId()];
-    }
-    updateView(funcName:string,params?:{}){
-        for (var uuid in this.viewMap) {
-            if (this.viewMap.hasOwnProperty(uuid)) {
-                let  ui = this.viewMap[uuid];
-                if(ui[funcName] && typeof(ui[funcName]) == "function"){
-                    ui[funcName](params)
-                }
-            }
-        }
-    }
-
-    updateViewTask(funcName:string,params?:{}){
+    
+    /**
+     * 延时一帧发射事件
+     * @param event 
+     * @param params 
+     */
+    dispatchEventTask(event:string,params?:{}){
         App.taskOnce(() => {
-            this.updateView(funcName,params);
-        },0,"delayTask_updateView_" + this.getClassName() + funcName);
+            this.dispatchEvent(event, params);
+        },0,"delayTask_dispatchEventTask_" + this.getClassName() + event);
     }
 
     getConf(filename:string,id?: number){
@@ -142,7 +142,12 @@ export class Proxy extends BaseClass {
 
     }
 
-    dumpToDb(isImmediate = true){
+    /**
+     * 数据持久化到数据库
+     * @param isImmediate 是否立即执行，默认为true，如果为false则会在delayTime时间后执行
+     * @param delayTime 延迟执行的时间，单位为秒，默认为0
+     */
+    dumpToDb(isImmediate = true,delayTime = 0){
         if (!this.isDump) {
             return
         }
@@ -157,7 +162,7 @@ export class Proxy extends BaseClass {
             doAction();
         }else{
             // 延时1秒
-            App.taskOnce(doAction,1.0,DELAY_TASK_KEY + "dumpToDb_" + this.getClassName());
+            App.taskOnce(doAction,delayTime,DELAY_TASK_KEY + "dumpToDb_" + this.getClassName());
         }       
     }
     

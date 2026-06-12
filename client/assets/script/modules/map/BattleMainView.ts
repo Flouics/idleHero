@@ -12,7 +12,6 @@ import {MapUtils} from "../../logic/MapUtils";
 import { clone, empty, lang } from "../../Global";
 import { PlayerProxy,  getPlayerProxy } from "../player/PlayerProxy";
 import { getPackageProxy, PackageProxy } from "../package/PackageProxy";
-import { ITEM_ID_ENUM } from "../../logic/Item";
 import { getLobbyProxy } from "../lobby/LobbyProxy";
 import { Monster } from "../../logic/Monster";
 import { DEBUG } from "cc/env";
@@ -25,6 +24,8 @@ import { STATE_ENUM } from "../../logic/stateMachine/StateMachine";
 import { MineMgr } from "../../manager/battle/MineMgr";
 import { runInThisContext } from "vm";
 import { getMercenaryProxy } from "../mercenary/MercenaryProxy";
+import { MapEvent } from "./MapEvent";
+import { LobbyEvent } from "../lobby/LobbyEvent";
 
 const {ccclass, property} = _decorator;
 @ccclass("BattleMainView")
@@ -112,7 +113,7 @@ export class BattleMainView extends BaseView {
         //this.resetMap();
         this.stopBattle();
         this.clearBattle();
-        getLobbyProxy().updateView("onExitBattle");
+        getLobbyProxy().dispatchEvent(LobbyEvent.Lobby_OnExitBattle);
         this.proxy.isBattle = false;
         this.close();
     }
@@ -152,9 +153,21 @@ export class BattleMainView extends BaseView {
         this.waveList = this.stageData.waveList;
         this.curWaveIndex = 0;
         this.battleState = 1;
-        this.proxy.updateView("onEnterBattle");
-        getLobbyProxy().updateView("onEnterBattle");  
+        this.proxy.dispatchEvent(MapEvent.Map_EnterBattle);
+        getLobbyProxy().dispatchEvent(LobbyEvent.Lobby_OnEnterBattle);
         this.checkWave();      
+    }
+
+    onMsg(): void {
+        this.on(MapEvent.Map_StopBattle, this.stopBattle, this);
+        this.on(MapEvent.Map_ExitBattle, this.exitBattle, this);
+        this.on(MapEvent.Map_AgainBattle, this.againBattle, this);
+    }
+
+    offMsg(): void {
+        this.off(MapEvent.Map_StopBattle, this.stopBattle);
+        this.off(MapEvent.Map_ExitBattle, this.exitBattle);
+        this.off(MapEvent.Map_AgainBattle, this.againBattle);
     }
 
     setWaveData(){

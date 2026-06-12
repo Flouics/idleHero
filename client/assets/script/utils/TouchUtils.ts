@@ -11,6 +11,8 @@ export let TouchUtilsEvent =  {
 
 @ccclass("TouchUtils")
 export class TouchUtils extends Component {
+    @property(Node)
+    nd_view:Node;
     _touchStartPos: Vec2 = null;
     _touchId:any = null;    //用于处理多点触摸的
     _deltaPos: Vec2 = Vec2.ZERO.clone();
@@ -25,29 +27,43 @@ export class TouchUtils extends Component {
     onLoad() {
         //this.init();
     }
+
     setData(touchSize?: Size) {
-        this.setSize(touchSize);
-        this.addListener();
-    }
-    setSize(touchSize?:Size){
         if (!touchSize) {
             touchSize = this.node.getComponent(UITransform).contentSize;
         }else{
             this.node.getComponent(UITransform).contentSize = touchSize;
         }
         this._touchSize.width = touchSize.width;
-        this._touchSize.height = touchSize.height;
-        this._viewSize = this.node.parent?.getComponent(UITransform)?.contentSize;
+        this._touchSize.height = touchSize.height;        
+        this.addListener();
+    }
+
+    start(){
+        this.setSize();
+    }
+    
+    setSize(){
+        if(!this._touchSize){
+            return;
+        }
+        this.nd_view = this.nd_view || this.node.parent;
+        this._viewSize = this.nd_view.getComponent(UITransform)?.contentSize;
         this._x_min = -this._touchSize.width/2 + this._viewSize.width/2;
         this._x_max = this._touchSize.width/2 - this._viewSize.width/2;
         this._y_min = -this._touchSize.height/2 + this._viewSize.height/2;
         this._y_max =  this._touchSize.height/2 - this._viewSize.height/2;
+    }
+    onWidgetResize(){
+        this.setSize();
     }
     addListener() {
         this.node.on(NodeEventType.TOUCH_START, this.onTouchStart, this);
         this.node.on(NodeEventType.TOUCH_MOVE, this.onTouchMove, this);
         this.node.on(NodeEventType.TOUCH_END, this.onTouchEnd, this);
         this.node.on(NodeEventType.TOUCH_CANCEL, this.onTouchEnd, this);
+        this.nd_view = this.nd_view || this.node.parent;
+        this.nd_view.on(NodeEventType.SIZE_CHANGED, this.onWidgetResize, this);
     }
 
     onTouchStart(event: EventTouch) {

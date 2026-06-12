@@ -1,31 +1,9 @@
-import {MapMainView} from "../modules/map/MapMainView";
-import {MapUtils} from "./MapUtils";
-import { MapProxy }  from "../modules/map/MapProxy";
 import { serialize } from "../utils/Decorator";
 import {PoolMgr, POOL_TAG_ENUM} from "../manager/PoolMgr";
 import {App} from "../App";
-import {DataMgr} from "../manager/DataMgr";
 import {UIItem} from "../modules/package/UIItem";
-import { empty } from "../Global";
-import {BaseUI} from "../zero/BaseUI";
 import { Node } from "cc";
 import { ItemBase } from "./ItemBase";
-
-
-// 常用资源ID
-export let ITEM_ID_ENUM = {
-    GOLD:1,             //金币
-    COIN:2,             //铜币
-    SOUL:3,             //灵魂
-    DIAMOND:4,          //钻石
-    STAMINA:5,          //体力    
-}
-
-//道具类型美剧
-export let ITEM_TYPE_ENUM = {
-    COMMON:1,             //普通道具
-    EQUIP:2,             //装备
-}
 
 export class Item extends ItemBase {
     @serialize()
@@ -78,7 +56,7 @@ export class Item extends ItemBase {
 
     initData(){
         this.data = App.dataMgr.findById("item",this.id)
-        this.type = this.data.type;
+        this.type = this.data?.type;
     }
 
     toData(){
@@ -99,6 +77,7 @@ export class Item extends ItemBase {
         this.node = node;
         this.ui = this.node.getComponent(UIItem);
         this.ui.bindBox(this);
+        this.ui.updateUI();
         if(!!cb) cb(this);
     }
 

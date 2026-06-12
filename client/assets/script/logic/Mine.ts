@@ -117,7 +117,7 @@ export class Mine extends BoxBase {
         //--todo表现
         super.destroy();     
         if(this.node){
-            this.node.removeFromParent();
+            this.node.destroy();
         }   
     }
 

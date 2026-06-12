@@ -19,7 +19,10 @@ export default abstract class L10nComponent extends Component {
         super();
     }
 
-    @property({ readonly: true })
+    @property({
+        readonly: true,
+        tooltip: 'i18n:localization-editor.component.string'
+    })
     get string() {
         return this.label?.string || '';
     }
@@ -45,9 +48,6 @@ export default abstract class L10nComponent extends Component {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             cce.Engine.repaintInEditMode();
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            this.label._string = originalString;
         }
     }
 }

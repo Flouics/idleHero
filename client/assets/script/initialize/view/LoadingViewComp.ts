@@ -13,9 +13,8 @@ import { App } from "../../App";
 import { GameEvent } from "../../common/config/GameEvent";
 import { UIID } from "../../common/config/GameUIConfig";
 import { smc } from "../../common/ecs/SingletonModuleComp";
-import { TableRoleJob } from "../../common/table/TableRoleJob";
-import { TableRoleLevelUp } from "../../common/table/TableRoleLevelUp";
 import { UIID_Lobby } from "../../modules/lobby/LobbyInit";
+import { lang } from "../../Global";
 
 
 const { ccclass, property } = _decorator;
@@ -78,11 +77,9 @@ export class LoadingViewComp extends CCVMParentComp {
     /** 加载游戏本地JSON数据（自定义内容） */
     private loadCustom() {
         // 加载游戏本地JSON数据的多语言提示文本
-        this.data.prompt = oops.language.getLangByID("loading_load_json");
+        this.data.prompt = lang("loading_load_json");
 
         return new Promise(async (resolve, reject) => {
-            //await JsonUtil.loadAsync(TableRoleJob.TableName);
-            //await JsonUtil.loadAsync(TableRoleLevelUp.TableName);
             resolve(null);
         });
     }
@@ -90,7 +87,7 @@ export class LoadingViewComp extends CCVMParentComp {
     /** 加载初始游戏内容资源 */
     private loadGameRes() {
         // 加载初始游戏内容资源的多语言提示文本
-        this.data.prompt = oops.language.getLangByID("loading_load_game");
+        this.data.prompt = lang("loading_load_game");
 
         oops.res.loadDir("dialog", this.onProgressCallback.bind(this), this.onCompleteCallback.bind(this));
     }
@@ -110,7 +107,7 @@ export class LoadingViewComp extends CCVMParentComp {
     /** 加载完成事件 */
     private onCompleteCallback() {
         // 获取用户信息的多语言提示文本
-        this.data.prompt = oops.language.getLangByID("loading_load_player");
+        this.data.prompt = lang("loading_load_player");
 
         // 初始化帐号模块
         smc.account.connect();

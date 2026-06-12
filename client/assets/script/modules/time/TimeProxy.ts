@@ -14,12 +14,7 @@ export class TimeProxy extends Proxy {
     }
 
     static get instance ():TimeProxy{
-        if( TimeProxy._instance){
-            return TimeProxy._instance as TimeProxy;
-        }else{
-            let instance = new TimeProxy();
-            return instance
-        }
+        return App.getInstance(TimeProxy);
     }
 
     //方法
@@ -39,6 +34,26 @@ export class TimeProxy extends Proxy {
     updateServerTimeDiff(server_timestamp: number) {
         App.timeMgr.updateServerTimeDiff(server_timestamp);
     };
+    
+    /**
+     * 根据模版返回显示的时间
+     * @param leftSec 
+     * @param template 返回模版格式 hh:mm:ss hh时mm分ss秒 mm:ss mm分ss秒
+     * @returns string
+     */
+    formatLeftSec(leftSec: number = 0,template: string = "hh:mm:ss"): string {
+        leftSec = leftSec > 0 ? leftSec : 0;
+        const hours = Math.floor(leftSec / 3600);
+        const minutes = Math.floor((leftSec % 3600) / 60);
+        const seconds = Math.floor(leftSec % 60);
+
+        // 使用 padStart(2, '0') 确保不足两位时前面补 0
+        const pad = (num) => String(num).padStart(2, '0');
+        return template
+            .replace('hh', pad(hours))
+            .replace('mm', pad(minutes))
+            .replace('ss', pad(seconds));
+    }
 };
 
 export function getTimeProxy(): TimeProxy {

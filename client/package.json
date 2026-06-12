@@ -4,12 +4,12 @@
   "version": "3.0.0",
   "_sourceId": "c30b28da-749e-479b-bcb6-cecd8d7be9e3",
   "creator": {
-    "version": "3.8.2",
+    "version": "3.8.6",
     "registry": {
       "remote": {}
     },
     "dependencies": {
-      "localization-editor": "1.0.1"
+      "localization-editor": "1.0.2"
     }
   },
   "dependencies": {},

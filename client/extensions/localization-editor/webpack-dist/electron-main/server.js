@@ -82,7 +82,7 @@ var Reflect;
         };
         // Load global or shim versions of Map, Set, and WeakMap
         var functionPrototype = Object.getPrototypeOf(Function);
-        var usePolyfill = typeof process === "object" && process.env && process.env["REFLECT_METADATA_USE_MAP_POLYFILL"] === "true";
+        var usePolyfill = typeof process === "object" && process["env" + ""] && process["env" + ""]["REFLECT_METADATA_USE_MAP_POLYFILL"] === "true";
         var _Map = !usePolyfill && typeof Map === "function" && typeof Map.prototype.entries === "function" ? Map : CreateMapPolyfill();
         var _Set = !usePolyfill && typeof Set === "function" && typeof Set.prototype.entries === "function" ? Set : CreateSetPolyfill();
         var _WeakMap = !usePolyfill && typeof WeakMap === "function" ? WeakMap : CreateWeakMapPolyfill();
@@ -1171,13 +1171,13 @@ Object.defineProperty(exports, "default", ({
 }));
 var _tsyringe = __webpack_require__(/*! tsyringe */ "./node_modules/tsyringe/dist/esm5/index.js");
 var _global = __webpack_require__(/*! ../service/util/global */ "./src/lib/core/service/util/global.ts");
-function _arrayLikeToArray(arr, len) {
+function _array_like_to_array(arr, len) {
     if (len == null || len > arr.length) len = arr.length;
     for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
     return arr2;
 }
-function _arrayWithoutHoles(arr) {
-    if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+function _array_without_holes(arr) {
+    if (Array.isArray(arr)) return _array_like_to_array(arr);
 }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
     try {
@@ -1193,7 +1193,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
         Promise.resolve(value).then(_next, _throw);
     }
 }
-function _asyncToGenerator(fn) {
+function _async_to_generator(fn) {
     return function() {
         var self = this, args = arguments;
         return new Promise(function(resolve, reject) {
@@ -1208,35 +1208,49 @@ function _asyncToGenerator(fn) {
         });
     };
 }
-function _classCallCheck(instance, Constructor) {
+function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
-function _iterableToArray(iter) {
+function _defineProperties(target, props) {
+    for(var i = 0; i < props.length; i++){
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+    }
+}
+function _create_class(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+}
+function _iterable_to_array(iter) {
     if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
-function _nonIterableSpread() {
+function _non_iterable_spread() {
     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
-function _toConsumableArray(arr) {
-    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+function _to_consumable_array(arr) {
+    return _array_without_holes(arr) || _iterable_to_array(arr) || _unsupported_iterable_to_array(arr) || _non_iterable_spread();
 }
-function _unsupportedIterableToArray(o, minLen) {
+function _unsupported_iterable_to_array(o, minLen) {
     if (!o) return;
-    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+    if (typeof o === "string") return _array_like_to_array(o, minLen);
     var n = Object.prototype.toString.call(o).slice(8, -1);
     if (n === "Object" && o.constructor) n = o.constructor.name;
     if (n === "Map" || n === "Set") return Array.from(n);
-    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
 }
-var __decorate = (void 0) && (void 0).__decorate || function(decorators, target, key, desc) {
+function _ts_decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for(var i = decorators.length - 1; i >= 0; i--)if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __generator = (void 0) && (void 0).__generator || function(thisArg, body) {
+}
+function _ts_generator(thisArg, body) {
     var f, y, t, g, _ = {
         label: 0,
         sent: function() {
@@ -1330,522 +1344,689 @@ var __generator = (void 0) && (void 0).__generator || function(thisArg, body) {
             done: true
         };
     }
-};
+}
 var MainIPC = /*#__PURE__*/ function() {
     "use strict";
     function MainIPC() {
-        _classCallCheck(this, MainIPC);
+        _class_call_check(this, MainIPC);
     }
-    var _proto = MainIPC.prototype;
-    _proto.executeMainScript = function executeMainScript(method) {
-        for(var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++){
-            args[_key - 1] = arguments[_key];
-        }
-        return _asyncToGenerator(function() {
-            var _Editor_Message;
-            return __generator(this, function(_state) {
-                switch(_state.label){
-                    case 0:
-                        return [
-                            4,
-                            (_Editor_Message = Editor.Message).request.apply(_Editor_Message, [
-                                _global.MainName,
-                                method
-                            ].concat(_toConsumableArray(args)))
-                        ];
-                    case 1:
+    _create_class(MainIPC, [
+        {
+            key: "executeMainScript",
+            value: function executeMainScript(method) {
+                for(var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++){
+                    args[_key - 1] = arguments[_key];
+                }
+                return _async_to_generator(function() {
+                    var _Editor_Message;
+                    return _ts_generator(this, function(_state) {
+                        switch(_state.label){
+                            case 0:
+                                return [
+                                    4,
+                                    (_Editor_Message = Editor.Message).request.apply(_Editor_Message, [
+                                        _global.MainName,
+                                        method
+                                    ].concat(_to_consumable_array(args)))
+                                ];
+                            case 1:
+                                return [
+                                    2,
+                                    _state.sent()
+                                ];
+                        }
+                    });
+                })();
+            }
+        },
+        {
+            key: "getDirty",
+            value: function getDirty() {
+                var _this = this;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        switch(_state.label){
+                            case 0:
+                                return [
+                                    4,
+                                    _this.executeMainScript('get-dirty')
+                                ];
+                            case 1:
+                                return [
+                                    2,
+                                    !!_state.sent()
+                                ];
+                        }
+                    });
+                })();
+            }
+        },
+        {
+            key: "setDirty",
+            value: function setDirty(dirty) {
+                var _this = this;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
                         return [
                             2,
-                            _state.sent()
+                            _this.executeMainScript('set-dirty', dirty)
                         ];
-                }
-            });
-        })();
-    };
-    _proto.toggle = function toggle() {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "toggle"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.enableChanged = function enableChanged() {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "enable-changed"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.getEnable = function getEnable() {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "get-enable"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.openPanel = function openPanel() {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "open-panel"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.previewBy = function previewBy(locale) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "preview-by"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.scan = function scan(scanOptions) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "scan"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.uninstall = function uninstall() {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "uninstall"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.readConfig = function readConfig() {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "read-config"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.getIndexData = function getIndexData() {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "get-index-data"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.getLocalLanguage = function getLocalLanguage() {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "get-local-language"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.getTranslateData = function getTranslateData(locale) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "get-translate-data"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.getTranslateDataObject = function getTranslateDataObject(locale) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "get-translate-data-object"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.saveTranslateData = function saveTranslateData(locale, translateItems, mergeOption) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "save-translate-data"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.clearTranslateData = function clearTranslateData() {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "clear-translate-data"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.setLocalLanguageLocale = function setLocalLanguageLocale(locale) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "set-local-language-locale"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.setLanguageConfig = function setLanguageConfig(languageConfig) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "set-language-config"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.getLanguageConfig = function getLanguageConfig(locale) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "get-language-config"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.getAllLanguageConfigs = function getAllLanguageConfigs() {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "get-all-language-configs"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.addTargetLanguage = function addTargetLanguage(locale) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "add-target-language"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.removeTargetLanguage = function removeTargetLanguage(locale) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "remove-target-language"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.getTranslateProviders = function getTranslateProviders() {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "get-translate-providers"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.getTranslateProviderSupportedLanguages = function getTranslateProviderSupportedLanguages(provider) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "get-translate-provider-supported-languages"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.getCurrentTranslateProvider = function getCurrentTranslateProvider() {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "get-current-translate-provider"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.getTranslateProvider = function getTranslateProvider(configType) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "get-translate-provider"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.setCurrentTranslateProvider = function setCurrentTranslateProvider(providerConfig) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "set-current-translate-provider"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.clearTranslateProvider = function clearTranslateProvider() {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "clear-translate-provider"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.changeValue = function changeValue(locale, key, value) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "change-value"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.getScanOptions = function getScanOptions() {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "get-scan-options"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.autoTranslate = function autoTranslate(toTag) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "auto-translate"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.importMediaFiles = function importMediaFiles(toTag, fromPattern, toPattern) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "import-media-files"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.compile = function compile(locales) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "compile"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.addAssociation = function addAssociation(key, association) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "add-association"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.removeAssociation = function removeAssociation(key, association) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "remove-association"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.getResourceList = function getResourceList() {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "get-resource-list"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.getResourceBundle = function getResourceBundle(locals) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "get-resource-bundle"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.importTranslateFile = function importTranslateFile(filePath, translateFileType, locale) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "import-translate-file"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
-    _proto.exportTranslateFile = function exportTranslateFile(filePath, translateFileType, locale) {
-        var _this = this, _arguments = arguments;
-        return _asyncToGenerator(function() {
-            return __generator(this, function(_state) {
-                return [
-                    2,
-                    _this.executeMainScript.apply(_this, [
-                        "export-translate-file"
-                    ].concat(_toConsumableArray(_arguments)))
-                ];
-            });
-        })();
-    };
+                    });
+                })();
+            }
+        },
+        {
+            key: "toggle",
+            value: function toggle() {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'toggle'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "enableChanged",
+            value: function enableChanged() {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'enable-changed'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "getEnable",
+            value: function getEnable() {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'get-enable'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "openPanel",
+            value: function openPanel() {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'open-panel'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "closePanel",
+            value: function closePanel() {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'close-panel'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "previewBy",
+            value: function previewBy(locale) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'preview-by'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "scan",
+            value: function scan(scanOptions) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'scan'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "uninstall",
+            value: function uninstall() {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'uninstall'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "readConfig",
+            value: function readConfig() {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'read-config'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "getIndexData",
+            value: function getIndexData() {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'get-index-data'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "getLocalLanguage",
+            value: function getLocalLanguage() {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'get-local-language'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "getTranslateData",
+            value: function getTranslateData(locale) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'get-translate-data'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "getTranslateDataObject",
+            value: function getTranslateDataObject(locale) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'get-translate-data-object'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "saveTranslateData",
+            value: function saveTranslateData(locale, translateItems, mergeOption) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'save-translate-data'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "clearTranslateData",
+            value: function clearTranslateData() {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'clear-translate-data'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "setLocalLanguageLocale",
+            value: function setLocalLanguageLocale(locale) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'set-local-language-locale'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "setLanguageConfig",
+            value: function setLanguageConfig(languageConfig) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'set-language-config'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "getLanguageConfig",
+            value: function getLanguageConfig(locale) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'get-language-config'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "getAllLanguageConfigs",
+            value: function getAllLanguageConfigs() {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'get-all-language-configs'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "addTargetLanguage",
+            value: function addTargetLanguage(locale) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'add-target-language'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "removeTargetLanguage",
+            value: function removeTargetLanguage(locale) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'remove-target-language'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "getTranslateProviders",
+            value: function getTranslateProviders() {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'get-translate-providers'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "getTranslateProviderSupportedLanguages",
+            value: function getTranslateProviderSupportedLanguages(provider) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'get-translate-provider-supported-languages'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "getCurrentTranslateProvider",
+            value: function getCurrentTranslateProvider() {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'get-current-translate-provider'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "getTranslateProvider",
+            value: function getTranslateProvider(configType) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'get-translate-provider'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "setCurrentTranslateProvider",
+            value: function setCurrentTranslateProvider(providerConfig) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'set-current-translate-provider'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "clearTranslateProvider",
+            value: function clearTranslateProvider() {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'clear-translate-provider'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "changeValue",
+            value: function changeValue(locale, key, value) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'change-value'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "getScanOptions",
+            value: function getScanOptions() {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'get-scan-options'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "autoTranslate",
+            value: function autoTranslate(toTag) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'auto-translate'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "importMediaFiles",
+            value: function importMediaFiles(toTag, fromPattern, toPattern) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'import-media-files'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "compile",
+            value: function compile(locales) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'compile'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "addAssociation",
+            value: function addAssociation(key, association) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'add-association'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "removeAssociation",
+            value: function removeAssociation(key, association) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'remove-association'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "getResourceList",
+            value: function getResourceList() {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'get-resource-list'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "getResourceBundle",
+            value: function getResourceBundle(locals) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'get-resource-bundle'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "importTranslateFile",
+            value: function importTranslateFile(filePath, translateFileType, locale) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'import-translate-file'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        },
+        {
+            key: "exportTranslateFile",
+            value: function exportTranslateFile(filePath, translateFileType, locale) {
+                var _this = this, _arguments = arguments;
+                return _async_to_generator(function() {
+                    return _ts_generator(this, function(_state) {
+                        return [
+                            2,
+                            _this.executeMainScript.apply(_this, [
+                                'export-translate-file'
+                            ].concat(_to_consumable_array(_arguments)))
+                        ];
+                    });
+                })();
+            }
+        }
+    ]);
     return MainIPC;
 }();
-MainIPC = __decorate([
+MainIPC = _ts_decorate([
     (0, _tsyringe.singleton)()
 ], MainIPC);
 
@@ -1870,6 +2051,15 @@ function _export(target, all) {
     });
 }
 _export(exports, {
+    ALLOW_NAMESPACE: function() {
+        return ALLOW_NAMESPACE;
+    },
+    ASSET_NAMESPACE: function() {
+        return ASSET_NAMESPACE;
+    },
+    DEFAULT_NAMESPACE: function() {
+        return DEFAULT_NAMESPACE;
+    },
     MainName: function() {
         return MainName;
     },
@@ -1879,30 +2069,21 @@ _export(exports, {
     RuntimeBundleName: function() {
         return RuntimeBundleName;
     },
-    resourceListPath: function() {
-        return resourceListPath;
-    },
     resourceBundlePath: function() {
         return resourceBundlePath;
     },
-    DEFAULT_NAMESPACE: function() {
-        return DEFAULT_NAMESPACE;
-    },
-    ASSET_NAMESPACE: function() {
-        return ASSET_NAMESPACE;
-    },
-    ALLOW_NAMESPACE: function() {
-        return ALLOW_NAMESPACE;
+    resourceListPath: function() {
+        return resourceListPath;
     }
 });
 var _path = __webpack_require__(/*! path */ "path");
-var MainName = "localization-editor";
-var ProjectAssetPath = (0, _path.join)(Editor.Project.path, "assets");
-var RuntimeBundleName = "l10n";
-var resourceListPath = "resource-list";
-var resourceBundlePath = "resource-bundle";
-var DEFAULT_NAMESPACE = "translation";
-var ASSET_NAMESPACE = "asset";
+var MainName = 'localization-editor';
+var ProjectAssetPath = (0, _path.join)(Editor.Project.path, 'assets');
+var RuntimeBundleName = 'l10n';
+var resourceListPath = 'resource-list';
+var resourceBundlePath = 'resource-bundle';
+var DEFAULT_NAMESPACE = 'translation';
+var ASSET_NAMESPACE = 'asset';
 var ALLOW_NAMESPACE = [
     DEFAULT_NAMESPACE,
     ASSET_NAMESPACE
@@ -1931,7 +2112,7 @@ Object.defineProperty(exports, "get", ({
 __webpack_require__(/*! reflect-metadata */ "./node_modules/reflect-metadata/Reflect.js");
 var _global = __webpack_require__(/*! ../core/service/util/global */ "./src/lib/core/service/util/global.ts");
 var _tsyringe = __webpack_require__(/*! tsyringe */ "./node_modules/tsyringe/dist/esm5/index.js");
-var _mainIPC = /*#__PURE__*/ _interopRequireDefault(__webpack_require__(/*! ../core/ipc/MainIPC */ "./src/lib/core/ipc/MainIPC.ts"));
+var _MainIPC = /*#__PURE__*/ _interop_require_default(__webpack_require__(/*! ../core/ipc/MainIPC */ "./src/lib/core/ipc/MainIPC.ts"));
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
     try {
         var info = gen[key](arg);
@@ -1946,7 +2127,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
         Promise.resolve(value).then(_next, _throw);
     }
 }
-function _asyncToGenerator(fn) {
+function _async_to_generator(fn) {
     return function() {
         var self = this, args = arguments;
         return new Promise(function(resolve, reject) {
@@ -1961,12 +2142,12 @@ function _asyncToGenerator(fn) {
         });
     };
 }
-function _interopRequireDefault(obj) {
+function _interop_require_default(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
     };
 }
-var __generator = (void 0) && (void 0).__generator || function(thisArg, body) {
+function _ts_generator(thisArg, body) {
     var f, y, t, g, _ = {
         label: 0,
         sent: function() {
@@ -2060,18 +2241,18 @@ var __generator = (void 0) && (void 0).__generator || function(thisArg, body) {
             done: true
         };
     }
-};
-var mainIPC = _tsyringe.container.resolve(_mainIPC.default);
+}
+var mainIPC = _tsyringe.container.resolve(_MainIPC.default);
 var get = [
     {
         url: "/".concat(_global.MainName, "/resource-list"),
         handle: function handle(req, res, next) {
-            return _asyncToGenerator(function() {
+            return _async_to_generator(function() {
                 var resourceList;
-                return __generator(this, function(_state) {
+                return _ts_generator(this, function(_state) {
                     switch(_state.label){
                         case 0:
-                            console.debug("request resource-list");
+                            console.debug('request resource-list');
                             return [
                                 4,
                                 mainIPC.getResourceList()
@@ -2091,12 +2272,12 @@ var get = [
     {
         url: "/".concat(_global.MainName, "/resource-bundle"),
         handle: function handle(req, res, next) {
-            return _asyncToGenerator(function() {
+            return _async_to_generator(function() {
                 var resourceBundle;
-                return __generator(this, function(_state) {
+                return _ts_generator(this, function(_state) {
                     switch(_state.label){
                         case 0:
-                            console.debug("request resource-bundle");
+                            console.debug('request resource-bundle');
                             return [
                                 4,
                                 mainIPC.getResourceBundle([])
@@ -2118,261 +2299,6 @@ var get = [
 
 /***/ }),
 
-/***/ "./node_modules/tslib/tslib.es6.js":
-/*!*****************************************!*\
-  !*** ./node_modules/tslib/tslib.es6.js ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "__assign": () => (/* binding */ __assign),
-/* harmony export */   "__asyncDelegator": () => (/* binding */ __asyncDelegator),
-/* harmony export */   "__asyncGenerator": () => (/* binding */ __asyncGenerator),
-/* harmony export */   "__asyncValues": () => (/* binding */ __asyncValues),
-/* harmony export */   "__await": () => (/* binding */ __await),
-/* harmony export */   "__awaiter": () => (/* binding */ __awaiter),
-/* harmony export */   "__classPrivateFieldGet": () => (/* binding */ __classPrivateFieldGet),
-/* harmony export */   "__classPrivateFieldSet": () => (/* binding */ __classPrivateFieldSet),
-/* harmony export */   "__createBinding": () => (/* binding */ __createBinding),
-/* harmony export */   "__decorate": () => (/* binding */ __decorate),
-/* harmony export */   "__exportStar": () => (/* binding */ __exportStar),
-/* harmony export */   "__extends": () => (/* binding */ __extends),
-/* harmony export */   "__generator": () => (/* binding */ __generator),
-/* harmony export */   "__importDefault": () => (/* binding */ __importDefault),
-/* harmony export */   "__importStar": () => (/* binding */ __importStar),
-/* harmony export */   "__makeTemplateObject": () => (/* binding */ __makeTemplateObject),
-/* harmony export */   "__metadata": () => (/* binding */ __metadata),
-/* harmony export */   "__param": () => (/* binding */ __param),
-/* harmony export */   "__read": () => (/* binding */ __read),
-/* harmony export */   "__rest": () => (/* binding */ __rest),
-/* harmony export */   "__spread": () => (/* binding */ __spread),
-/* harmony export */   "__spreadArrays": () => (/* binding */ __spreadArrays),
-/* harmony export */   "__values": () => (/* binding */ __values)
-/* harmony export */ });
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return extendStatics(d, b);
-};
-
-function __extends(d, b) {
-    extendStatics(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-}
-
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    }
-    return __assign.apply(this, arguments);
-}
-
-function __rest(s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-}
-
-function __decorate(decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-}
-
-function __param(paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-}
-
-function __metadata(metadataKey, metadataValue) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
-}
-
-function __awaiter(thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-}
-
-function __generator(thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-}
-
-function __createBinding(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}
-
-function __exportStar(m, exports) {
-    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-
-function __values(o) {
-    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-    if (m) return m.call(o);
-    if (o && typeof o.length === "number") return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-}
-
-function __read(o, n) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator];
-    if (!m) return o;
-    var i = m.call(o), r, ar = [], e;
-    try {
-        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-    }
-    catch (error) { e = { error: error }; }
-    finally {
-        try {
-            if (r && !r.done && (m = i["return"])) m.call(i);
-        }
-        finally { if (e) throw e.error; }
-    }
-    return ar;
-}
-
-function __spread() {
-    for (var ar = [], i = 0; i < arguments.length; i++)
-        ar = ar.concat(__read(arguments[i]));
-    return ar;
-}
-
-function __spreadArrays() {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
-
-function __await(v) {
-    return this instanceof __await ? (this.v = v, this) : new __await(v);
-}
-
-function __asyncGenerator(thisArg, _arguments, generator) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var g = generator.apply(thisArg, _arguments || []), i, q = [];
-    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
-    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
-    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-    function fulfill(value) { resume("next", value); }
-    function reject(value) { resume("throw", value); }
-    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-}
-
-function __asyncDelegator(o) {
-    var i, p;
-    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
-    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
-}
-
-function __asyncValues(o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-}
-
-function __makeTemplateObject(cooked, raw) {
-    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
-    return cooked;
-};
-
-function __importStar(mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result.default = mod;
-    return result;
-}
-
-function __importDefault(mod) {
-    return (mod && mod.__esModule) ? mod : { default: mod };
-}
-
-function __classPrivateFieldGet(receiver, privateMap) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to get private field on non-instance");
-    }
-    return privateMap.get(receiver);
-}
-
-function __classPrivateFieldSet(receiver, privateMap, value) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to set private field on non-instance");
-    }
-    privateMap.set(receiver, value);
-    return value;
-}
-
-
-/***/ }),
-
 /***/ "./node_modules/tsyringe/dist/esm5/decorators/auto-injectable.js":
 /*!***********************************************************************!*\
   !*** ./node_modules/tsyringe/dist/esm5/decorators/auto-injectable.js ***!
@@ -2384,7 +2310,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ "./node_modules/tsyringe/node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _reflection_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../reflection-helpers */ "./node_modules/tsyringe/dist/esm5/reflection-helpers.js");
 /* harmony import */ var _dependency_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dependency-container */ "./node_modules/tsyringe/dist/esm5/dependency-container.js");
 /* harmony import */ var _providers_injection_token__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../providers/injection-token */ "./node_modules/tsyringe/dist/esm5/providers/injection-token.js");
@@ -2410,7 +2336,9 @@ function autoInjectable() {
                         if ((0,_providers_injection_token__WEBPACK_IMPORTED_MODULE_2__.isTokenDescriptor)(type)) {
                             if ((0,_providers_injection_token__WEBPACK_IMPORTED_MODULE_2__.isTransformDescriptor)(type)) {
                                 return type.multiple
-                                    ? (_a = _dependency_container__WEBPACK_IMPORTED_MODULE_1__.instance.resolve(type.transform)).transform.apply(_a, (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__spread)([_dependency_container__WEBPACK_IMPORTED_MODULE_1__.instance.resolveAll(type.token)], type.transformArgs)) : (_b = _dependency_container__WEBPACK_IMPORTED_MODULE_1__.instance.resolve(type.transform)).transform.apply(_b, (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__spread)([_dependency_container__WEBPACK_IMPORTED_MODULE_1__.instance.resolve(type.token)], type.transformArgs));
+                                    ? (_a = _dependency_container__WEBPACK_IMPORTED_MODULE_1__.instance
+                                        .resolve(type.transform)).transform.apply(_a, (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__spread)([_dependency_container__WEBPACK_IMPORTED_MODULE_1__.instance.resolveAll(type.token)], type.transformArgs)) : (_b = _dependency_container__WEBPACK_IMPORTED_MODULE_1__.instance
+                                    .resolve(type.transform)).transform.apply(_b, (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__spread)([_dependency_container__WEBPACK_IMPORTED_MODULE_1__.instance.resolve(type.token)], type.transformArgs));
                             }
                             else {
                                 return type.multiple
@@ -2419,7 +2347,8 @@ function autoInjectable() {
                             }
                         }
                         else if ((0,_providers_injection_token__WEBPACK_IMPORTED_MODULE_2__.isTransformDescriptor)(type)) {
-                            return (_c = _dependency_container__WEBPACK_IMPORTED_MODULE_1__.instance.resolve(type.transform)).transform.apply(_c, (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__spread)([_dependency_container__WEBPACK_IMPORTED_MODULE_1__.instance.resolve(type.token)], type.transformArgs));
+                            return (_c = _dependency_container__WEBPACK_IMPORTED_MODULE_1__.instance
+                                .resolve(type.transform)).transform.apply(_c, (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__spread)([_dependency_container__WEBPACK_IMPORTED_MODULE_1__.instance.resolve(type.token)], type.transformArgs));
                         }
                         return _dependency_container__WEBPACK_IMPORTED_MODULE_1__.instance.resolve(type);
                     }
@@ -2447,15 +2376,15 @@ function autoInjectable() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "autoInjectable": () => (/* reexport safe */ _auto_injectable__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   "inject": () => (/* reexport safe */ _inject__WEBPACK_IMPORTED_MODULE_1__["default"]),
-/* harmony export */   "injectAll": () => (/* reexport safe */ _inject_all__WEBPACK_IMPORTED_MODULE_5__["default"]),
-/* harmony export */   "injectAllWithTransform": () => (/* reexport safe */ _inject_all_with_transform__WEBPACK_IMPORTED_MODULE_6__["default"]),
-/* harmony export */   "injectWithTransform": () => (/* reexport safe */ _inject_with_transform__WEBPACK_IMPORTED_MODULE_7__["default"]),
-/* harmony export */   "injectable": () => (/* reexport safe */ _injectable__WEBPACK_IMPORTED_MODULE_2__["default"]),
-/* harmony export */   "registry": () => (/* reexport safe */ _registry__WEBPACK_IMPORTED_MODULE_3__["default"]),
-/* harmony export */   "scoped": () => (/* reexport safe */ _scoped__WEBPACK_IMPORTED_MODULE_8__["default"]),
-/* harmony export */   "singleton": () => (/* reexport safe */ _singleton__WEBPACK_IMPORTED_MODULE_4__["default"])
+/* harmony export */   autoInjectable: () => (/* reexport safe */ _auto_injectable__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   inject: () => (/* reexport safe */ _inject__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   injectAll: () => (/* reexport safe */ _inject_all__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   injectAllWithTransform: () => (/* reexport safe */ _inject_all_with_transform__WEBPACK_IMPORTED_MODULE_6__["default"]),
+/* harmony export */   injectWithTransform: () => (/* reexport safe */ _inject_with_transform__WEBPACK_IMPORTED_MODULE_7__["default"]),
+/* harmony export */   injectable: () => (/* reexport safe */ _injectable__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   registry: () => (/* reexport safe */ _registry__WEBPACK_IMPORTED_MODULE_3__["default"]),
+/* harmony export */   scoped: () => (/* reexport safe */ _scoped__WEBPACK_IMPORTED_MODULE_8__["default"]),
+/* harmony export */   singleton: () => (/* reexport safe */ _singleton__WEBPACK_IMPORTED_MODULE_4__["default"])
 /* harmony export */ });
 /* harmony import */ var _auto_injectable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./auto-injectable */ "./node_modules/tsyringe/dist/esm5/decorators/auto-injectable.js");
 /* harmony import */ var _inject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./inject */ "./node_modules/tsyringe/dist/esm5/decorators/inject.js");
@@ -2617,7 +2546,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/tsyringe/node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _dependency_container__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../dependency-container */ "./node_modules/tsyringe/dist/esm5/dependency-container.js");
 
 
@@ -2699,10 +2628,10 @@ function singleton() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   "instance": () => (/* binding */ instance),
-/* harmony export */   "typeInfo": () => (/* binding */ typeInfo)
+/* harmony export */   instance: () => (/* binding */ instance),
+/* harmony export */   typeInfo: () => (/* binding */ typeInfo)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! tslib */ "./node_modules/tsyringe/node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _providers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./providers */ "./node_modules/tsyringe/dist/esm5/providers/index.js");
 /* harmony import */ var _providers_provider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./providers/provider */ "./node_modules/tsyringe/dist/esm5/providers/provider.js");
 /* harmony import */ var _providers_injection_token__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./providers/injection-token */ "./node_modules/tsyringe/dist/esm5/providers/injection-token.js");
@@ -3128,9 +3057,9 @@ var instance = new InternalDependencyContainer();
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "formatErrorCtor": () => (/* binding */ formatErrorCtor)
+/* harmony export */   formatErrorCtor: () => (/* binding */ formatErrorCtor)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tsyringe/node_modules/tslib/tslib.es6.js");
 
 function formatDependency(params, idx) {
     if (params === null) {
@@ -3161,9 +3090,9 @@ function formatErrorCtor(ctor, paramIdx, error) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "instanceCachingFactory": () => (/* reexport safe */ _instance_caching_factory__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   "instancePerContainerCachingFactory": () => (/* reexport safe */ _instance_per_container_caching_factory__WEBPACK_IMPORTED_MODULE_1__["default"]),
-/* harmony export */   "predicateAwareClassFactory": () => (/* reexport safe */ _predicate_aware_class_factory__WEBPACK_IMPORTED_MODULE_2__["default"])
+/* harmony export */   instanceCachingFactory: () => (/* reexport safe */ _instance_caching_factory__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   instancePerContainerCachingFactory: () => (/* reexport safe */ _instance_per_container_caching_factory__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   predicateAwareClassFactory: () => (/* reexport safe */ _predicate_aware_class_factory__WEBPACK_IMPORTED_MODULE_2__["default"])
 /* harmony export */ });
 /* harmony import */ var _instance_caching_factory__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./instance-caching-factory */ "./node_modules/tsyringe/dist/esm5/factories/instance-caching-factory.js");
 /* harmony import */ var _instance_per_container_caching_factory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./instance-per-container-caching-factory */ "./node_modules/tsyringe/dist/esm5/factories/instance-per-container-caching-factory.js");
@@ -3266,26 +3195,26 @@ function predicateAwareClassFactory(predicate, trueConstructor, falseConstructor
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Lifecycle": () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_0__.Lifecycle),
-/* harmony export */   "autoInjectable": () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.autoInjectable),
-/* harmony export */   "container": () => (/* reexport safe */ _dependency_container__WEBPACK_IMPORTED_MODULE_5__.instance),
-/* harmony export */   "delay": () => (/* reexport safe */ _lazy_helpers__WEBPACK_IMPORTED_MODULE_4__.delay),
-/* harmony export */   "inject": () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.inject),
-/* harmony export */   "injectAll": () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.injectAll),
-/* harmony export */   "injectAllWithTransform": () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.injectAllWithTransform),
-/* harmony export */   "injectWithTransform": () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.injectWithTransform),
-/* harmony export */   "injectable": () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.injectable),
-/* harmony export */   "instanceCachingFactory": () => (/* reexport safe */ _factories__WEBPACK_IMPORTED_MODULE_2__.instanceCachingFactory),
-/* harmony export */   "instancePerContainerCachingFactory": () => (/* reexport safe */ _factories__WEBPACK_IMPORTED_MODULE_2__.instancePerContainerCachingFactory),
-/* harmony export */   "isClassProvider": () => (/* reexport safe */ _providers__WEBPACK_IMPORTED_MODULE_3__.isClassProvider),
-/* harmony export */   "isFactoryProvider": () => (/* reexport safe */ _providers__WEBPACK_IMPORTED_MODULE_3__.isFactoryProvider),
-/* harmony export */   "isNormalToken": () => (/* reexport safe */ _providers__WEBPACK_IMPORTED_MODULE_3__.isNormalToken),
-/* harmony export */   "isTokenProvider": () => (/* reexport safe */ _providers__WEBPACK_IMPORTED_MODULE_3__.isTokenProvider),
-/* harmony export */   "isValueProvider": () => (/* reexport safe */ _providers__WEBPACK_IMPORTED_MODULE_3__.isValueProvider),
-/* harmony export */   "predicateAwareClassFactory": () => (/* reexport safe */ _factories__WEBPACK_IMPORTED_MODULE_2__.predicateAwareClassFactory),
-/* harmony export */   "registry": () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.registry),
-/* harmony export */   "scoped": () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.scoped),
-/* harmony export */   "singleton": () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.singleton)
+/* harmony export */   Lifecycle: () => (/* reexport safe */ _types__WEBPACK_IMPORTED_MODULE_0__.Lifecycle),
+/* harmony export */   autoInjectable: () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.autoInjectable),
+/* harmony export */   container: () => (/* reexport safe */ _dependency_container__WEBPACK_IMPORTED_MODULE_5__.instance),
+/* harmony export */   delay: () => (/* reexport safe */ _lazy_helpers__WEBPACK_IMPORTED_MODULE_4__.delay),
+/* harmony export */   inject: () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.inject),
+/* harmony export */   injectAll: () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.injectAll),
+/* harmony export */   injectAllWithTransform: () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.injectAllWithTransform),
+/* harmony export */   injectWithTransform: () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.injectWithTransform),
+/* harmony export */   injectable: () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.injectable),
+/* harmony export */   instanceCachingFactory: () => (/* reexport safe */ _factories__WEBPACK_IMPORTED_MODULE_2__.instanceCachingFactory),
+/* harmony export */   instancePerContainerCachingFactory: () => (/* reexport safe */ _factories__WEBPACK_IMPORTED_MODULE_2__.instancePerContainerCachingFactory),
+/* harmony export */   isClassProvider: () => (/* reexport safe */ _providers__WEBPACK_IMPORTED_MODULE_3__.isClassProvider),
+/* harmony export */   isFactoryProvider: () => (/* reexport safe */ _providers__WEBPACK_IMPORTED_MODULE_3__.isFactoryProvider),
+/* harmony export */   isNormalToken: () => (/* reexport safe */ _providers__WEBPACK_IMPORTED_MODULE_3__.isNormalToken),
+/* harmony export */   isTokenProvider: () => (/* reexport safe */ _providers__WEBPACK_IMPORTED_MODULE_3__.isTokenProvider),
+/* harmony export */   isValueProvider: () => (/* reexport safe */ _providers__WEBPACK_IMPORTED_MODULE_3__.isValueProvider),
+/* harmony export */   predicateAwareClassFactory: () => (/* reexport safe */ _factories__WEBPACK_IMPORTED_MODULE_2__.predicateAwareClassFactory),
+/* harmony export */   registry: () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.registry),
+/* harmony export */   scoped: () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.scoped),
+/* harmony export */   singleton: () => (/* reexport safe */ _decorators__WEBPACK_IMPORTED_MODULE_1__.singleton)
 /* harmony export */ });
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./node_modules/tsyringe/dist/esm5/types/index.js");
 /* harmony import */ var _decorators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./decorators */ "./node_modules/tsyringe/dist/esm5/decorators/index.js");
@@ -3315,11 +3244,11 @@ if (typeof Reflect === "undefined" || !Reflect.getMetadata) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "PostResolutionInterceptors": () => (/* binding */ PostResolutionInterceptors),
-/* harmony export */   "PreResolutionInterceptors": () => (/* binding */ PreResolutionInterceptors),
+/* harmony export */   PostResolutionInterceptors: () => (/* binding */ PostResolutionInterceptors),
+/* harmony export */   PreResolutionInterceptors: () => (/* binding */ PreResolutionInterceptors),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/tsyringe/node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _registry_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./registry-base */ "./node_modules/tsyringe/dist/esm5/registry-base.js");
 
 
@@ -3360,10 +3289,10 @@ var Interceptors = (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "DelayedConstructor": () => (/* binding */ DelayedConstructor),
-/* harmony export */   "delay": () => (/* binding */ delay)
+/* harmony export */   DelayedConstructor: () => (/* binding */ DelayedConstructor),
+/* harmony export */   delay: () => (/* binding */ delay)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tsyringe/node_modules/tslib/tslib.es6.js");
 
 var DelayedConstructor = (function () {
     function DelayedConstructor(wrap) {
@@ -3434,7 +3363,7 @@ function delay(wrappedConstructor) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "isClassProvider": () => (/* binding */ isClassProvider)
+/* harmony export */   isClassProvider: () => (/* binding */ isClassProvider)
 /* harmony export */ });
 function isClassProvider(provider) {
     return !!provider.useClass;
@@ -3452,7 +3381,7 @@ function isClassProvider(provider) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "isFactoryProvider": () => (/* binding */ isFactoryProvider)
+/* harmony export */   isFactoryProvider: () => (/* binding */ isFactoryProvider)
 /* harmony export */ });
 function isFactoryProvider(provider) {
     return !!provider.useFactory;
@@ -3470,11 +3399,11 @@ function isFactoryProvider(provider) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "isClassProvider": () => (/* reexport safe */ _class_provider__WEBPACK_IMPORTED_MODULE_0__.isClassProvider),
-/* harmony export */   "isFactoryProvider": () => (/* reexport safe */ _factory_provider__WEBPACK_IMPORTED_MODULE_1__.isFactoryProvider),
-/* harmony export */   "isNormalToken": () => (/* reexport safe */ _injection_token__WEBPACK_IMPORTED_MODULE_2__.isNormalToken),
-/* harmony export */   "isTokenProvider": () => (/* reexport safe */ _token_provider__WEBPACK_IMPORTED_MODULE_3__.isTokenProvider),
-/* harmony export */   "isValueProvider": () => (/* reexport safe */ _value_provider__WEBPACK_IMPORTED_MODULE_4__.isValueProvider)
+/* harmony export */   isClassProvider: () => (/* reexport safe */ _class_provider__WEBPACK_IMPORTED_MODULE_0__.isClassProvider),
+/* harmony export */   isFactoryProvider: () => (/* reexport safe */ _factory_provider__WEBPACK_IMPORTED_MODULE_1__.isFactoryProvider),
+/* harmony export */   isNormalToken: () => (/* reexport safe */ _injection_token__WEBPACK_IMPORTED_MODULE_2__.isNormalToken),
+/* harmony export */   isTokenProvider: () => (/* reexport safe */ _token_provider__WEBPACK_IMPORTED_MODULE_3__.isTokenProvider),
+/* harmony export */   isValueProvider: () => (/* reexport safe */ _value_provider__WEBPACK_IMPORTED_MODULE_4__.isValueProvider)
 /* harmony export */ });
 /* harmony import */ var _class_provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./class-provider */ "./node_modules/tsyringe/dist/esm5/providers/class-provider.js");
 /* harmony import */ var _factory_provider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./factory-provider */ "./node_modules/tsyringe/dist/esm5/providers/factory-provider.js");
@@ -3499,10 +3428,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "isConstructorToken": () => (/* binding */ isConstructorToken),
-/* harmony export */   "isNormalToken": () => (/* binding */ isNormalToken),
-/* harmony export */   "isTokenDescriptor": () => (/* binding */ isTokenDescriptor),
-/* harmony export */   "isTransformDescriptor": () => (/* binding */ isTransformDescriptor)
+/* harmony export */   isConstructorToken: () => (/* binding */ isConstructorToken),
+/* harmony export */   isNormalToken: () => (/* binding */ isNormalToken),
+/* harmony export */   isTokenDescriptor: () => (/* binding */ isTokenDescriptor),
+/* harmony export */   isTransformDescriptor: () => (/* binding */ isTransformDescriptor)
 /* harmony export */ });
 /* harmony import */ var _lazy_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../lazy-helpers */ "./node_modules/tsyringe/dist/esm5/lazy-helpers.js");
 
@@ -3535,7 +3464,7 @@ function isConstructorToken(token) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "isProvider": () => (/* binding */ isProvider)
+/* harmony export */   isProvider: () => (/* binding */ isProvider)
 /* harmony export */ });
 /* harmony import */ var _class_provider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./class-provider */ "./node_modules/tsyringe/dist/esm5/providers/class-provider.js");
 /* harmony import */ var _value_provider__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./value-provider */ "./node_modules/tsyringe/dist/esm5/providers/value-provider.js");
@@ -3564,7 +3493,7 @@ function isProvider(provider) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "isTokenProvider": () => (/* binding */ isTokenProvider)
+/* harmony export */   isTokenProvider: () => (/* binding */ isTokenProvider)
 /* harmony export */ });
 function isTokenProvider(provider) {
     return !!provider.useToken;
@@ -3582,7 +3511,7 @@ function isTokenProvider(provider) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "isValueProvider": () => (/* binding */ isValueProvider)
+/* harmony export */   isValueProvider: () => (/* binding */ isValueProvider)
 /* harmony export */ });
 function isValueProvider(provider) {
     return provider.useValue != undefined;
@@ -3600,9 +3529,9 @@ function isValueProvider(provider) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "INJECTION_TOKEN_METADATA_KEY": () => (/* binding */ INJECTION_TOKEN_METADATA_KEY),
-/* harmony export */   "defineInjectionTokenMetadata": () => (/* binding */ defineInjectionTokenMetadata),
-/* harmony export */   "getParamInfo": () => (/* binding */ getParamInfo)
+/* harmony export */   INJECTION_TOKEN_METADATA_KEY: () => (/* binding */ INJECTION_TOKEN_METADATA_KEY),
+/* harmony export */   defineInjectionTokenMetadata: () => (/* binding */ defineInjectionTokenMetadata),
+/* harmony export */   getParamInfo: () => (/* binding */ getParamInfo)
 /* harmony export */ });
 var INJECTION_TOKEN_METADATA_KEY = "injectionTokens";
 function getParamInfo(target) {
@@ -3694,7 +3623,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/tsyringe/node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _registry_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./registry-base */ "./node_modules/tsyringe/dist/esm5/registry-base.js");
 
 
@@ -3741,7 +3670,7 @@ var ResolutionContext = (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "isDisposable": () => (/* binding */ isDisposable)
+/* harmony export */   isDisposable: () => (/* binding */ isDisposable)
 /* harmony export */ });
 function isDisposable(value) {
     if (typeof value.dispose !== "function")
@@ -3765,7 +3694,7 @@ function isDisposable(value) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Lifecycle": () => (/* reexport safe */ _lifecycle__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */   Lifecycle: () => (/* reexport safe */ _lifecycle__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
 /* harmony import */ var _lifecycle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lifecycle */ "./node_modules/tsyringe/dist/esm5/types/lifecycle.js");
 
@@ -3792,6 +3721,261 @@ var Lifecycle;
     Lifecycle[Lifecycle["ContainerScoped"] = 3] = "ContainerScoped";
 })(Lifecycle || (Lifecycle = {}));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Lifecycle);
+
+
+/***/ }),
+
+/***/ "./node_modules/tsyringe/node_modules/tslib/tslib.es6.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/tsyringe/node_modules/tslib/tslib.es6.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   __assign: () => (/* binding */ __assign),
+/* harmony export */   __asyncDelegator: () => (/* binding */ __asyncDelegator),
+/* harmony export */   __asyncGenerator: () => (/* binding */ __asyncGenerator),
+/* harmony export */   __asyncValues: () => (/* binding */ __asyncValues),
+/* harmony export */   __await: () => (/* binding */ __await),
+/* harmony export */   __awaiter: () => (/* binding */ __awaiter),
+/* harmony export */   __classPrivateFieldGet: () => (/* binding */ __classPrivateFieldGet),
+/* harmony export */   __classPrivateFieldSet: () => (/* binding */ __classPrivateFieldSet),
+/* harmony export */   __createBinding: () => (/* binding */ __createBinding),
+/* harmony export */   __decorate: () => (/* binding */ __decorate),
+/* harmony export */   __exportStar: () => (/* binding */ __exportStar),
+/* harmony export */   __extends: () => (/* binding */ __extends),
+/* harmony export */   __generator: () => (/* binding */ __generator),
+/* harmony export */   __importDefault: () => (/* binding */ __importDefault),
+/* harmony export */   __importStar: () => (/* binding */ __importStar),
+/* harmony export */   __makeTemplateObject: () => (/* binding */ __makeTemplateObject),
+/* harmony export */   __metadata: () => (/* binding */ __metadata),
+/* harmony export */   __param: () => (/* binding */ __param),
+/* harmony export */   __read: () => (/* binding */ __read),
+/* harmony export */   __rest: () => (/* binding */ __rest),
+/* harmony export */   __spread: () => (/* binding */ __spread),
+/* harmony export */   __spreadArrays: () => (/* binding */ __spreadArrays),
+/* harmony export */   __values: () => (/* binding */ __values)
+/* harmony export */ });
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    }
+    return __assign.apply(this, arguments);
+}
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+function __param(paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+}
+
+function __metadata(metadataKey, metadataValue) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+function __createBinding(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}
+
+function __exportStar(m, exports) {
+    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+
+function __values(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+}
+
+function __read(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+}
+
+function __spread() {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        ar = ar.concat(__read(arguments[i]));
+    return ar;
+}
+
+function __spreadArrays() {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
+
+function __await(v) {
+    return this instanceof __await ? (this.v = v, this) : new __await(v);
+}
+
+function __asyncGenerator(thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+}
+
+function __asyncDelegator(o) {
+    var i, p;
+    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+}
+
+function __asyncValues(o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+}
+
+function __makeTemplateObject(cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
+};
+
+function __importStar(mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result.default = mod;
+    return result;
+}
+
+function __importDefault(mod) {
+    return (mod && mod.__esModule) ? mod : { default: mod };
+}
+
+function __classPrivateFieldGet(receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+}
+
+function __classPrivateFieldSet(receiver, privateMap, value) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to set private field on non-instance");
+    }
+    privateMap.set(receiver, value);
+    return value;
+}
 
 
 /***/ }),
@@ -3880,7 +4064,7 @@ module.exports = require("path");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("c7d7db329f832a80ec56")
+/******/ 		__webpack_require__.h = () => ("2cf709b2c11b43318245")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
@@ -3920,7 +4104,6 @@ module.exports = require("path");
 /******/ 		var currentUpdateApplyHandlers;
 /******/ 		var queuedInvalidatedModules;
 /******/ 		
-/******/ 		// eslint-disable-next-line no-unused-vars
 /******/ 		__webpack_require__.hmrD = currentModuleData;
 /******/ 		
 /******/ 		__webpack_require__.i.push(function (options) {
@@ -3981,8 +4164,8 @@ module.exports = require("path");
 /******/ 					Object.defineProperty(fn, name, createPropertyDescriptor(name));
 /******/ 				}
 /******/ 			}
-/******/ 			fn.e = function (chunkId) {
-/******/ 				return trackBlockingPromise(require.e(chunkId));
+/******/ 			fn.e = function (chunkId, fetchPriority) {
+/******/ 				return trackBlockingPromise(require.e(chunkId, fetchPriority));
 /******/ 			};
 /******/ 			return fn;
 /******/ 		}
@@ -4087,7 +4270,7 @@ module.exports = require("path");
 /******/ 					if (idx >= 0) registeredStatusHandlers.splice(idx, 1);
 /******/ 				},
 /******/ 		
-/******/ 				//inherit from previous dispose call
+/******/ 				// inherit from previous dispose call
 /******/ 				data: currentModuleData[moduleId]
 /******/ 			};
 /******/ 			currentChildModule = undefined;
@@ -4101,7 +4284,7 @@ module.exports = require("path");
 /******/ 			for (var i = 0; i < registeredStatusHandlers.length; i++)
 /******/ 				results[i] = registeredStatusHandlers[i].call(null, newStatus);
 /******/ 		
-/******/ 			return Promise.all(results);
+/******/ 			return Promise.all(results).then(function () {});
 /******/ 		}
 /******/ 		
 /******/ 		function unblock() {
@@ -4174,17 +4357,15 @@ module.exports = require("path");
 /******/ 									updatedModules
 /******/ 								);
 /******/ 								return promises;
-/******/ 							},
-/******/ 							[])
+/******/ 							}, [])
 /******/ 						).then(function () {
 /******/ 							return waitForBlockingPromises(function () {
 /******/ 								if (applyOnUpdate) {
 /******/ 									return internalApply(applyOnUpdate);
-/******/ 								} else {
-/******/ 									return setStatus("ready").then(function () {
-/******/ 										return updatedModules;
-/******/ 									});
 /******/ 								}
+/******/ 								return setStatus("ready").then(function () {
+/******/ 									return updatedModules;
+/******/ 								});
 /******/ 							});
 /******/ 						});
 /******/ 					});
@@ -4424,15 +4605,12 @@ module.exports = require("path");
 /******/ 				if (__webpack_require__.o(currentUpdate, moduleId)) {
 /******/ 					var newModuleFactory = currentUpdate[moduleId];
 /******/ 					/** @type {TODO} */
-/******/ 					var result;
-/******/ 					if (newModuleFactory) {
-/******/ 						result = getAffectedModuleEffects(moduleId);
-/******/ 					} else {
-/******/ 						result = {
-/******/ 							type: "disposed",
-/******/ 							moduleId: moduleId
-/******/ 						};
-/******/ 					}
+/******/ 					var result = newModuleFactory
+/******/ 						? getAffectedModuleEffects(moduleId)
+/******/ 						: {
+/******/ 								type: "disposed",
+/******/ 								moduleId: moduleId
+/******/ 							};
 /******/ 					/** @type {Error|false} */
 /******/ 					var abortError = false;
 /******/ 					var doApply = false;
@@ -4683,17 +4861,17 @@ module.exports = require("path");
 /******/ 										moduleId: moduleId,
 /******/ 										module: __webpack_require__.c[moduleId]
 /******/ 									});
-/******/ 								} catch (err2) {
+/******/ 								} catch (err1) {
 /******/ 									if (options.onErrored) {
 /******/ 										options.onErrored({
 /******/ 											type: "self-accept-error-handler-errored",
 /******/ 											moduleId: moduleId,
-/******/ 											error: err2,
+/******/ 											error: err1,
 /******/ 											originalError: err
 /******/ 										});
 /******/ 									}
 /******/ 									if (!options.ignoreErrored) {
-/******/ 										reportError(err2);
+/******/ 										reportError(err1);
 /******/ 										reportError(err);
 /******/ 									}
 /******/ 								}

@@ -25,6 +25,7 @@ export class Setting extends BaseUI {
         toolKit.showMsgBox(lang("setting_clear_cache_1"),()=>{
             App.dbMgr.clear();
             toolKit.showTip(lang("setting_clear_cache_2"));
+            App.restart();
         },nullfun);
     }   
     

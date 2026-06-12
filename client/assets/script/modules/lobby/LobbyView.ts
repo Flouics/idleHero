@@ -15,6 +15,11 @@ import { MenuView } from "./MenuView";
 import { UIID_Mercenary } from "../mercenary/MercenaryInit";
 import { UIID_Package } from "../package/PackageInit";
 import { getMercenaryProxy } from "../mercenary/MercenaryProxy";
+import { LobbyEvent } from "./LobbyEvent";
+import { MapCommand } from "../map/MapCommand";
+import { GardenView } from "../garden/GardenView";
+import { UIID } from "../../common/config/GameUIConfig";
+import { UIID_Garden } from "../garden/GardenInit";
 
 const {ccclass, property} = _decorator;
 
@@ -26,23 +31,17 @@ export class LobbyView extends BaseView {
     bgMusicName:string = ""
 
     @property(Node)
-    nd_mapRoot: Node = null;  //基础的地图层
-    @property(Node)
-    nd_mercenary: Node = null;  
-    @property(Node)
-    nd_package: Node = null;  
+    nd_root: Node = null;  
     @property(Node)
     nd_menuRoot: Node = null;  //菜单
     @property(Node)
     nd_playerTopInfo:Node = null;
 
     playerTopInfoView:PlayerTopInfoView;
-    mapMainView:MapMainView;
-    mercenaryView:MercenaryView;
-    packageView:PackageView;
     menuView:MenuView;
 
     menuIndex: number = 0;
+    menuViewNodeMap:{[key:number]:Node} = {};   
 
     onLoad(): void {
         super.onLoad(); //BaseView继承的不要去掉这句        
@@ -68,19 +67,23 @@ export class LobbyView extends BaseView {
             return;
         }
 
-        this.nd_mapRoot && (this.nd_mapRoot.active = false);        
-        this.nd_mercenary && (this.nd_mercenary.active = false);
-        this.nd_package && (this.nd_package.active = false);
-
         this.menuIndex = value;
-        if (this.menuIndex == LOBBY_MENU_ENUM.BATTLE){                 
-           this.nd_mapRoot.active = true;      
-            if(!this.mapMainView){
+        let viewNode = this.menuViewNodeMap[this.menuIndex]
+    
+        for(let key in this.menuViewNodeMap){
+            let node = this.menuViewNodeMap[key];
+            let value = Number(key);
+            node && (node.active = this.menuIndex == value || value == LOBBY_MENU_ENUM.GARDEN );
+        } 
+
+        
+        if (this.menuIndex == LOBBY_MENU_ENUM.BATTLE){              
+            if(!viewNode?.isValid){
                 let uic:UICallbacks = {
                     onCompleted:(node:Node) => {
                         node.removeFromParent();
-                        node.parent = this.nd_mapRoot;
-                        this.mapMainView = node.getComponent(MapMainView);
+                        node.parent = this.nd_root;
+                        this.menuViewNodeMap[value] = node;
                     }
                 }
                 oops.gui.open(UIID_Map.MapMainView,null,uic);
@@ -96,16 +99,14 @@ export class LobbyView extends BaseView {
             return;
         }
 
-
         if (this.menuIndex == LOBBY_MENU_ENUM.MERCENARY){        
             this.playerTopInfoView.setPackageItemIdList_common();
-            this.nd_mercenary.active = true;    
-            if(!this.mercenaryView){
+            if(!viewNode?.isValid){
                 let uic:UICallbacks = {
                     onCompleted:(node:Node) => {
                         node.removeFromParent();
-                        node.parent = this.nd_mercenary;
-                        this.mercenaryView = node.getComponent(MercenaryView);
+                        node.parent = this.nd_root;
+                        this.menuViewNodeMap[value] = node;
                     }
                 }
                 oops.gui.open(UIID_Mercenary.MercenaryView,null,uic);
@@ -115,20 +116,42 @@ export class LobbyView extends BaseView {
 
         if (this.menuIndex == LOBBY_MENU_ENUM.PACKAGE){       
             this.playerTopInfoView.setPackageItemIdList_common(); 
-            this.nd_package.active = true;   
-            if(!this.packageView){
+            if(!viewNode?.isValid){
                 let uic:UICallbacks = {
                     onCompleted:(node:Node) => {
                         node.removeFromParent();
-                        node.parent = this.nd_package;
-                        this.packageView = node.getComponent(PackageView);
+                        node.parent = this.nd_root;
+                        this.menuViewNodeMap[value] = node;
                     }
                 }
                 oops.gui.open(UIID_Package.PackageView,null,uic);
             }else{
-                this.packageView.updateItemList();
+                viewNode.getComponent(PackageView)?.updateItemList();
             }
             return;
         }
+
+        if (this.menuIndex == LOBBY_MENU_ENUM.GARDEN){       
+            this.playerTopInfoView.setPackageItemIdList_common(); 
+            if(!viewNode?.isValid){
+                let uic:UICallbacks = {
+                    onCompleted:(node:Node) => {
+                        node.removeFromParent();
+                        node.parent = this.nd_root;
+                        this.menuViewNodeMap[value] = node;
+                    }
+                }
+                oops.gui.open(UIID_Garden.GardenView,null,uic);
+            }else{
+                viewNode.getComponent(GardenView)?.updateGardenInfo();
+            }
+            return;
+        }
+    }
+
+    onMsg(): void {
+        this.onAuto(LobbyEvent.Lobby_OnEnterBattle, this.onEnterBattle, this);
+        this.onAuto(LobbyEvent.Lobby_OnExitBattle, this.onExitBattle, this);
+        this.onAuto(LobbyEvent.Lobby_SwitchMenu, this.switchMenu, this);
     }
 }

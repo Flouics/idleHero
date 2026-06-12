@@ -29,7 +29,7 @@
     "bundle": {
         "enable": false,
         "server": "http://localhost",
-        "default": "resources",
+        "default": "bundles",
         "packages": {
             "bundle": ""
         }

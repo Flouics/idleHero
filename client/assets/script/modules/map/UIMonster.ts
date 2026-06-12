@@ -30,12 +30,12 @@ export class UIMonster extends UILive {
     playDirectAction(angle:number):void {
         if(!!this._directAction) return;
         var duration = toolKit.limitNum(0.3 * Math.abs(angle) / 90,0,0.3);
-        if(this.sa_role){
+        if(false && this.sp_role){
             var eulerAngle = new Vec3(0,uiKit.getDeltaAngle(0,angle + 180),0);            
-            this.sa_role.node.setRotationFromEuler(eulerAngle);
-            eulerAngle.y = uiKit.getDeltaAngle(this.sa_role.node.eulerAngles.y,eulerAngle.y);
+            this.sp_role.node.setRotationFromEuler(eulerAngle);
+            eulerAngle.y = uiKit.getDeltaAngle(this.sp_role.node.eulerAngles.y,eulerAngle.y);
             var duration = toolKit.limitNum(0.3 * Math.abs(eulerAngle.y) / 90,0,0.3);
-            this._directAction = tween(this.sa_role.node)
+            this._directAction = tween(this.sp_role.node)
             .by(duration,
                 {eulerAngles:eulerAngle})
             .call(() => {                
@@ -69,9 +69,9 @@ export class UIMonster extends UILive {
                 //self.loadSpt(spt, "" + logicObj.id)
                 uiKit.setMonsterImg(spt,logicObj.id,(actor:Node)=>{
                     if(actor){
-                        this.resetSkeletalAnimationRole(actor);
-                        this.regSkeletalAnimationEvent();
-                        this.playSkeletalAnimationByState(logicObj.stateMachine.state.id);                             
+                        this.resetSpineRole(actor);
+                        this.regSpineEvent();
+                        this.playAnimationByState(logicObj.stateMachine.state.id);                             
                         this.updateDirection();
                     }
                 });

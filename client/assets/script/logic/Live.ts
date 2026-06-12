@@ -73,18 +73,18 @@ export class Live extends BoxBase {
         var stateId = this.stateMachine.state.id;
         switch (stateId) {
             case STATE_ENUM.IDLE:
-                this.ui?.playSkeletalAnimationByState(stateId);
+                this.ui?.playAnimationByState(stateId);
                 break;
             case STATE_ENUM.MOVING:
                 this.moveStep();
-                this.ui?.playSkeletalAnimationByState(stateId);
+                this.ui?.playAnimationByState(stateId);
                 break;
             case STATE_ENUM.ATTACK:
                 this.atkTarget();  
                 //this.updateDirectionByTarget();
                 break;
             default:
-                this.ui?.playSkeletalAnimationByState(stateId);
+                this.ui?.playAnimationByState(stateId);
                 break;
         }
 
@@ -138,7 +138,7 @@ export class Live extends BoxBase {
                 this.toTilePos = null;
                 break;
             case STATE_ENUM.STUN:
-                this.ui?.resumeSkeletalAnimation();
+                this.ui?.resumeAnimation();
                 break;
             case STATE_ENUM.ASSAULT:
             default:
@@ -443,7 +443,7 @@ export class Live extends BoxBase {
         if (!targetList){
             return false;
         }        
-        this.ui.playSkeletalAnimation(UILive.SKELETAL_ANIMATION_NAME.ATTACK);        
+        this.ui.playAnimation(UILive.SKELETAL_ANIMATION_NAME.ATTACK);        
         this.doAttack(targetList);
         return true;
     }
@@ -467,7 +467,7 @@ export class Live extends BoxBase {
         var targetList = this.findAllTargets()
         if(targetList.length > 0){
             //发起施展技能
-            this.ui.playSkeletalAnimation(UILive.SKELETAL_ANIMATION_NAME.SKILL);   
+            this.ui.playAnimation(UILive.SKELETAL_ANIMATION_NAME.SKILL);   
             //先直接做延时，不绑定帧了
             this.ui.scheduleOnce(this.useSkill.bind(this),15 * getTimeFrame());
             this.lastAttackTime = nowTimeStamp + this.atkColdTime / this.atkSpeed;  
@@ -510,14 +510,16 @@ export class Live extends BoxBase {
     }
 
     onBeAtked(damageRet:DamageRet,atker:BoxBase){     
-        this.onDamaged(damageRet.damage)
+        this.onDamaged(damageRet.damage) 
+
+        super.onBeAtked(damageRet,atker);
+        if(this.ui){
+            this.ui.onBeAtked(damageRet.damage);
+        }        
+
         if(!this.checkLive()) {
             this.clear();
         }
-        if(this.ui){
-            this.ui.onBeAtked(damageRet.damage);
-        }
-        super.onBeAtked(damageRet,atker);
     }
 
     onDamaged(damage:number){
@@ -639,7 +641,7 @@ export class Live extends BoxBase {
         this.buffMap.clear();
         super.destroy();
         if(isAction){
-            this.ui?.playSkeletalAnimation(UILive.SKELETAL_ANIMATION_NAME.DIE);
+            this.ui?.playAnimation(UILive.SKELETAL_ANIMATION_NAME.DIE);
         }else{
             this.ui.destory();
         };

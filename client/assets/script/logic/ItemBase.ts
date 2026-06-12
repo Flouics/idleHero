@@ -3,6 +3,7 @@ import { serialize } from "../utils/Decorator";
 import {BaseUI} from "../zero/BaseUI";
 import { Node, Rect, UITransform, v2, Vec2, Vec3 } from "cc";
 import {BaseClass} from "../zero/BaseClass";
+import { LogicUI } from "../zero/LogicUI";
 
 export class ItemBase extends BaseClass {
     @serialize()
@@ -102,9 +103,9 @@ export class ItemBase extends BaseClass {
     name:string = "";
     isDestroy:boolean = false;
     node:Node = null;
-    ui:BaseUI = null;
+    ui:LogicUI = null;
 
-    bindUI(ui:BaseUI){
+    bindUI(ui:LogicUI){
         if (ui == null) {
             return
         }

@@ -2,6 +2,7 @@
 import { createInstance, i18n, InitOptions as I18NextInitOptions } from 'i18next';
 // @ts-ignore
 import { EDITOR, BUILD, PREVIEW } from 'cc/env';
+// @ts-ignore
 import { game, assetManager } from 'cc';
 import type { L10nOptions, ResourceData, L10nKey, L10nValue, ResourceItem } from './l10n-options';
 import {
@@ -125,7 +126,7 @@ export class L10nManager {
         console.log(`[${pluginName}] will change language to`, language);
         if (this._intl) {
             if (this.currentLanguage) {
-                this.releaseOverrideMap(this.resourceBundle[this.currentLanguage][L10nManager.ASSET_NAMESPACE]);
+                this.releaseOverrideMap();
             }
             await this._intl.changeLanguage(language);
             this.setAssetOverrideMap(this.resourceBundle[language][L10nManager.ASSET_NAMESPACE]);
@@ -244,10 +245,8 @@ export class L10nManager {
         }
     }
 
-    protected releaseOverrideMap(assetNamespace: Readonly<ResourceItem>) {
-        for (const key of Object.keys(assetNamespace)) {
-            assetManager.assetsOverrideMap.delete(key);
-        }
+    protected releaseOverrideMap() {
+        assetManager.assetsOverrideMap.clear();
     }
 }
 

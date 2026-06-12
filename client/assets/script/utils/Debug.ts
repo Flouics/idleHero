@@ -12,23 +12,32 @@ export class Debug {
     }
 
     static dump(...args: any[]){
-        log("===================  dump  =====================");
-        log(args);
-        log("================================================")
+        Debug.log("===================  dump  =====================");
+        Debug.log(args);
+        Debug.log("================================================")
+    }
+    
+    static trace(...args: any[]){
+        const backLog = console.warn || warn;
+        backLog(...args);
     }
 
     static warn(...args: any[]){
-        warn(...args);
+        const backLog = console.warn || warn;
+        backLog("warning:",...args);
     }
 
     static log(...args: any[]){
-        log(...args);
+        const backLog = console.log || log;
+        backLog(...args);
     }
 
     static error(...args: any[]){
-        error(...args);
+        const backLog = console.error || error;
+        backLog("error:",...args);
     }
     static assert(condition: boolean, message?: string,...args: __private._cocos_core_platform_debug__StringSubstitution[]){
-        return assert(condition,message,...args);
+        const backLog = console.log || log;
+        return backLog(condition,"asset:" + message,...args);
     }
 }

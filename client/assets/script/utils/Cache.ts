@@ -66,4 +66,4 @@ class Cache extends BaseClass {
     }
 }
 
-export let cache = new Cache(Cache);
+export let cache = new Cache();

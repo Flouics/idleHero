@@ -5,20 +5,8 @@ import { UIEquip } from "./UIEquip";
 import { App } from "../../App";
 import { uiKit } from "../../utils/UIKit";
 import { instantiate } from "cc";
-import { EquipProxy } from "./EquipProxy";
 import { Debug } from "../../utils/Debug";
 
-
-
-
-// 常用资源ID
-export let ITEM_ID_ENUM = {
-    GOLD:1,             //金币
-    COIN:2,             //铜币
-    SOUL:3,             //灵魂
-    DIAMOND:4,          //钻石
-    STAMINA:5,          //体力    
-}
 
 export class Equip extends ItemBase {
     @serialize()
@@ -104,7 +92,7 @@ export class Equip extends ItemBase {
     destroy(){
         //--todo表现
         super.destroy();
-        uiKit.isValid(this.node) && this.node.removeFromParent();
+        uiKit.isValid(this.node) && this.node.destroy();
     }
     update(){
         

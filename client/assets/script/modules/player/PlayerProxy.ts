@@ -3,14 +3,15 @@
  */
 import {App} from "../../App";
 import { clone, empty, merge, nullfun } from "../../Global";
-import { ITEM_ID_ENUM } from "../../logic/Item";
 import { serialize } from "../../utils/Decorator";
 import { toolKit } from "../../utils/ToolKit";
 import {UUID} from "../../utils/UUID";
 import { Proxy }from "../base/Proxy";
+import { ITEM_ID_ENUM } from "../package/ItemEnum";
 import { getPackageProxy } from "../package/PackageProxy";
 import { UIID_Reward } from "../reward/RewardInit";
 import { getRewardProxy } from "../reward/RewardProxy";
+import { PlayerEvent } from "./PlayerEvent";
 
 export class PlayerProxy extends Proxy {
     _className = "PlayerProxy";  
@@ -46,12 +47,7 @@ export class PlayerProxy extends Proxy {
     }
 
     static get instance ():PlayerProxy{
-        if( PlayerProxy._instance){
-            return PlayerProxy._instance as PlayerProxy;
-        }else{
-            let instance = new PlayerProxy();
-            return instance
-        }
+        return App.getInstance(PlayerProxy);
     }
 
     //方法
@@ -100,8 +96,17 @@ export class PlayerProxy extends Proxy {
         }
         if (!empty(rwdList)){
             getRewardProxy().cmd.showView(UIID_Reward.RewardView,rwdList);
-            this.updateViewTask("updatePlayerInfo");
+            this.emitTask(PlayerEvent.Player_UpdatePlayerInfo);
             this.dumpToDb();
+        }
+    }
+
+    getExpPercent(exp:number = this.exp,level:number = this.level){
+        var levelData = this.getLevelData(level);
+        if(levelData && levelData.exp > 0){
+            return (exp * 100 / levelData.exp).toFixed(2);
+        }else{
+            return 100;
         }
     }
 

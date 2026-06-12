@@ -8,12 +8,15 @@ import {MercenaryInit} from "./modules/mercenary/MercenaryInit";
 import {RewardInit} from "./modules/reward/RewardInit";
 import {LobbyInit} from "./modules/lobby/LobbyInit";
 import { EquipInit } from "./modules/equip/EquipInit";
+import { oops } from "./oops/core/Oops";
+import { GardenInit } from "./modules/garden/GardenInit";
 
 export function appInit(){
+    // 暂时无用
     
     App.initFont();
 
-    //配表记载
+//配表记载
     App.dataMgr.loadTexts = [
         'config'
         , 'base'
@@ -32,6 +35,7 @@ export function modeuleInit(){
     moduleMgr.load("mercenary",new MercenaryInit());
     moduleMgr.load("reward",new RewardInit());
     moduleMgr.load("equip",new EquipInit());
+    moduleMgr.load("garden",new GardenInit());
     
     App.httpMgr.init();
     App.poolMgr.init();    

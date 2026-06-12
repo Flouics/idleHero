@@ -16,7 +16,7 @@ let getUIConfigData = () => {
             { 
                 layer: LayerType.UI
                 , prefab: "/prefab/package/PackageView"
-                , bundle: "resources" 
+                , bundle: "bundles" 
             },
     }
     return UIConfigData;

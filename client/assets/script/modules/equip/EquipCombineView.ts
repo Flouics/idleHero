@@ -25,15 +25,8 @@ export class EquipCombineView extends BaseView {
         this.initCombineListView();
     }
 
-    setData() {            
-       if(this.hasInit == true) {
-            return;
-       }
-       this.hasInit = true;
-    }
-
     initCombineListView(){
-        this.sv_combine.content.removeAllChildren();
+        this.sv_combine.content.destroyAllChildren();
         this.combineList.forEach((list) => {
             this.loadPrefab("items/CombineItem",(node:Node) => {
                 let ui = node.getComponent(CombineItem)

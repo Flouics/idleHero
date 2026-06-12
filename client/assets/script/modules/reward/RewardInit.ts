@@ -17,13 +17,13 @@ let getUIConfigData = () => {
             { 
                 layer: LayerType.UI
                 , prefab: "/prefab/reward/RewardView"
-                , bundle: "resources" 
+                , bundle: "bundles" 
             },
         [UIID_Reward.IdleRewardView]: 
             { 
                 layer: LayerType.UI
                 , prefab: "/prefab/reward/IdleRewardView"
-                , bundle: "resources" 
+                , bundle: "bundles" 
             },
     }
     return UIConfigData;

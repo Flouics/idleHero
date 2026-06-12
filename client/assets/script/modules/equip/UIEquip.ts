@@ -3,10 +3,11 @@ import {BaseUI} from "../../zero/BaseUI";
 import { _decorator, Sprite, Label} from 'cc';
 import {Item} from "../../logic/Item";
 import { Priority } from "../../oops/libs/behavior-tree";
+import { LogicUI } from "../../zero/LogicUI";
 const {ccclass, property} = _decorator;
 
 @ccclass("UIEquip")
-export class UIEquip extends BaseUI {
+export class UIEquip extends LogicUI {
     @property(Sprite)
     spt_icon:Sprite = null;
     @property(Label)

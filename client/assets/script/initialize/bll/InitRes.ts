@@ -62,7 +62,8 @@ export class InitResSystem extends ecs.ComblockSystem implements ecs.IEntityEnte
     private loadCustom(queue: AsyncQueue) {
         queue.push(async (next: NextFunction, params: any, args: any) => {
             // 加载多语言对应字体
-            oops.res.load("language/font/" + oops.language.current, next);
+            // oops.res.load("language/font/" + oops.language.current, next);
+            next();
         });
     }
 

@@ -4,7 +4,8 @@ import {BaseClass} from "../../zero/BaseClass";
 import { serialize } from "../../utils/Decorator";
 import { Node, v2 } from "cc";
 import {MapUtils} from "../../logic/MapUtils";
-import { getMapProxy, MapProxy_event } from "../../modules/map/MapProxy";
+import { getMapProxy } from "../../modules/map/MapProxy";
+import { MapEvent } from "../../modules/map/MapEvent";
 
 
 // 怪物管理器
@@ -35,12 +36,12 @@ export class TowerMgr extends BaseClass{
     }
     
     initSchedule(){
-        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
-        getMapProxy().on(MapProxy_event.MapProxy_update,this.update,this);
+        getMapProxy().off(MapEvent.Map_Update,this.update);
+        getMapProxy().on(MapEvent.Map_Update,this.update,this);
     }
     
     clear(){
-        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
+        getMapProxy().off(MapEvent.Map_Update,this.update);
     }
 
     reset(){

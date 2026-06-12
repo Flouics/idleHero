@@ -1,13 +1,14 @@
-import {BaseUI} from "../../zero/BaseUI";
+
 import {Block, BLOCK_VALUE_ENUM} from "../../logic/Block";
 
 import { _decorator, Sprite} from 'cc';
 import { Label } from "cc";
 import { getMapProxy } from "./MapProxy";
+import { LogicUI } from "../../zero/LogicUI";
 const {ccclass, property} = _decorator;
 
 @ccclass("UIBlock")
-export class UIBlock extends BaseUI {
+export class UIBlock extends LogicUI {
     @property(Sprite)
     spt_floor:Sprite = null;
     @property(Sprite)

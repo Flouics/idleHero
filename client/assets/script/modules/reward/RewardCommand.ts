@@ -11,6 +11,15 @@ export class RewardCommand extends Command{
     isFloating:boolean = false;
     floatItemList:Array<Item> = new Array();
 
+    constructor(){
+        super();
+        RewardCommand._instance = this;
+    }
+
+    static get instance ():RewardCommand{
+        return App.getInstance(RewardCommand);
+    }
+
     addRwdList(itemDataList:any[]){
         var rwdItemList = [];
         itemDataList.forEach(itemData=>{

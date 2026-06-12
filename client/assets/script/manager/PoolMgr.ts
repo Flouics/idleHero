@@ -7,14 +7,16 @@ import { instantiate, Node, NodePool, Prefab, resources } from "cc";
 import {BaseClass} from "../zero/BaseClass";
 import { Debug }   from "../utils/Debug";
 import { empty } from "../Global";
+import { oops } from "../oops/core/Oops";
+import { fork } from "child_process";
 
 class Pool {
     _scriptName: string;
-    _pb_item: any;
+    _pb_item: Node | Prefab;
     buffMinCount: number = 5;
     buffMaxCount: number = 10;
     _pool: NodePool;
-    constructor(pb_item: any, scriptName: string, buffMinCount: number = 5, buffMaxCount: number = 10) {
+    constructor(pb_item: Node | Prefab, scriptName: string, buffMinCount: number = 5, buffMaxCount: number = 10) {
         if (!pb_item) {
             return;
         }
@@ -27,14 +29,14 @@ class Pool {
 
     initialize() {
         for (var i = 0; i < this.buffMinCount; i++) {
-            this._pool.put(instantiate(this._pb_item));
+            this._pool.put(instantiate(this._pb_item as any));
         }
     };
 
     getItem(data: any) {
         //有奇怪的BUG。
         if (this._pool.size() < this.buffMinCount) {
-            this._pool.put(instantiate(this._pb_item));
+            this._pool.put(instantiate(this._pb_item as any));
         }
         var item = this._pool.get(data);
         (item as any).itemPool = this;
@@ -70,6 +72,11 @@ class Pool {
         }
         return this.recycleItem(itemScriptComp.node);
     };
+
+    clear() {
+        this._pool.clear();
+        this._pb_item
+    }
 
 };
 
@@ -112,7 +119,15 @@ export class PoolMgr extends BaseClass {
     }
 
     
-    //生成一个缓冲池
+    /**
+     * 生成一个缓存池
+     * @param tag 
+     * @param pb_item 
+     * @param scriptName 
+     * @param buffMinCount 
+     * @param buffMaxCount 
+     * @returns 
+     */
     genPool(tag: string, pb_item: any, scriptName?: string, buffMinCount?: number, buffMaxCount?: number) {
         var pool = this.poolMap[tag];
         if (!pool) {
@@ -130,7 +145,7 @@ export class PoolMgr extends BaseClass {
             var prefabUrl = tagItem.prefabUrl;
             var scriptName = tagItem.scriptName;
             var self = this;
-            resources.load(prefabUrl,Prefab, function (err: any, prefab: any) {
+            oops.res.load(prefabUrl,Prefab, function (err: any, prefab: any) {
                 if (err) {
                     Debug.error("[genPool] create error",prefabUrl, err);
                 }
@@ -162,6 +177,8 @@ export class PoolMgr extends BaseClass {
     }
 
     clearPool(tag:string){
-        delete this.poolMap[tag]
+        let pool = this.poolMap[tag];
+        pool && pool._pool.clear();
+        delete this.poolMap[tag];
     }
 };

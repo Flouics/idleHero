@@ -2,6 +2,7 @@
 import { Proxy }from "../base/Proxy";
 import {TemplateCommand} from "./TemplateCommand";
 import { serialize } from "../../utils/Decorator";
+import { App } from "../../App";
 /*
 
  */
@@ -15,12 +16,7 @@ export class TemplateProxy extends Proxy {
     }
 
     static get instance ():TemplateProxy{
-        if( TemplateProxy._instance){
-            return TemplateProxy._instance as TemplateProxy;
-        }else{
-            let instance = new TemplateProxy();
-            return instance
-        }
+        return App.getInstance(TemplateProxy);
     }
 
 

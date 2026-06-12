@@ -61,7 +61,7 @@ export class Root extends Component {
         oops.res = resLoader;
 
         const config_name = "config";
-        const config = await oops.res.loadAsync(config_name, JsonAsset);
+        const config = await oops.res.loadAsync("resources",config_name, JsonAsset);
         if (config) {
             // oops.config.btc = new BuildTimeConstants();
             oops.config.query = new GameQueryConfig();

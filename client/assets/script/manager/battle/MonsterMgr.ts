@@ -5,12 +5,13 @@ import {App} from "../../App";
 import { Node, Vec2, Vec3 } from "cc";
 import { nullfun, getTimeFrame, empty } from "../../Global";
 import { Debug }   from "../../utils/Debug";
-import { MapProxy , getMapProxy, MapProxy_event } from "../../modules/map/MapProxy";
+import { MapProxy , getMapProxy } from "../../modules/map/MapProxy";
 import {MapUtils} from "../../logic/MapUtils";
 import { toolKit } from "../../utils/ToolKit";
 import { STATE_ENUM } from "../../logic/stateMachine/StateMachine";
 import { off } from "process";
 import { v2 } from "cc";
+import { MapEvent } from "../../modules/map/MapEvent";
 
 // 怪物管理器
 class ScheduleTask  {
@@ -63,8 +64,8 @@ export class MonsterMgr extends BaseClass {
     }
     
     initSchedule(){
-        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
-        getMapProxy().on(MapProxy_event.MapProxy_update,this.update,this);
+        getMapProxy().off(MapEvent.Map_Update,this.update);
+        getMapProxy().on(MapEvent.Map_Update,this.update,this);
     }
 
     clear(){
@@ -74,7 +75,7 @@ export class MonsterMgr extends BaseClass {
         });
         this.monsterMap.clear();
 
-        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
+        getMapProxy().off(MapEvent.Map_Update,this.update);
     }
 
     reset(){

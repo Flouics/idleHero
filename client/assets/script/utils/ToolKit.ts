@@ -6,7 +6,7 @@ import { oops } from "../oops/core/Oops";
 import { UIID } from "../common/config/GameUIConfig";
 import { UICallbacks } from "../oops/core/gui/layer/Defines";
 import { getPackageProxy } from "../modules/package/PackageProxy";
-import { ITEM_ID_ENUM } from "../logic/Item";
+import { ITEM_ID_ENUM } from "../modules/package/ItemEnum";
 
 
 export class ToolKit {   
@@ -573,7 +573,7 @@ export class ToolKit {
     
     static loadSptEx(spt: Sprite, res_url: string = null, cb?: Function) {
         if (!res_url) return;
-        resources.load(res_url + "/spriteFrame", SpriteFrame, function (err, spriteFrame) {
+        oops.res.load(res_url + "/spriteFrame", SpriteFrame, function (err, spriteFrame) {
             if (!err && spt && spt.node) {
                 spt.spriteFrame = spriteFrame ;
                 if (!!cb) cb( spriteFrame);

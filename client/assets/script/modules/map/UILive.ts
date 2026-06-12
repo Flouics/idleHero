@@ -1,248 +1,335 @@
-import {App} from "../../App";
-import {BaseUI} from "../../zero/BaseUI";
+import { App } from "../../App";
+import { BaseUI } from "../../zero/BaseUI";
 
-import { _decorator, Color, Node, Sprite, tween, Tween, UITransform, v2, Vec2, Vec3, SkeletalAnimation, SkeletalAnimationState} from 'cc';
-import {STATE_ENUM} from "../../logic/stateMachine/StateMachine";
+import { _decorator, Color, Node, Sprite, tween, Tween, UITransform, Vec2, Vec3, sp } from "cc";
+import { STATE_ENUM } from "../../logic/stateMachine/StateMachine";
 import { Debug } from "../../utils/Debug";
 import { empty } from "../../Global";
 import { toolKit } from "../../utils/ToolKit";
 import { uiKit } from "../../utils/UIKit";
 import { Live } from "../../logic/Live";
-const {ccclass, property} = _decorator;
+import { LogicUI } from "../../zero/LogicUI";
+import { v3 } from "cc";
 
-var SKELETAL_ANIMATION_NAME = {
-    ATTACK:"attack"
-    ,IDLE:"idle"
-    ,MOVING:"run"
-    ,DIE:"die"
-    ,REVIVE:"revive"
-    ,SKILL:"attack"
-    
-}
+const { ccclass, property } = _decorator;
+
+const SKELETAL_ANIMATION_NAME = {
+    ATTACK: "attack",
+    IDLE: "idle",
+    MOVING: "run",
+    DIE: "die",
+    REVIVE: "revive",
+    SKILL: "attack",
+};
+
 @ccclass("UILive")
-export class UILive extends BaseUI {
+export class UILive extends LogicUI {
     static SKELETAL_ANIMATION_NAME = SKELETAL_ANIMATION_NAME;
     _logicObj: Live = null;
 
     @property(Sprite)
-    spt_role:Sprite = null;   
+    spt_role: Sprite = null;
 
-    sa_role:SkeletalAnimation = null;
-    lastAnimName:string = "";
-    nextAnimName:string = "";
+    /** spine 组件（sp.Skeleton） */
+    sp_role: sp.Skeleton = null;
+
+    private _spineResPath: string = "";
+    private _spineReady: boolean = false;
+
+    lastAnimName: string = "";
+    nextAnimName: string = "";
+
+    protected _onSpineEvent?: (trackEntry: any, event: any) => void;
+    protected _onSpineComplete?: (trackEntry: any) => void;
 
     _baseUrl = "texture/hero/";
-    _moveAction:Tween<Node>;
-    _beAtkedAction:Tween<Node>;
-    _directAction:Tween<Node>;
+    _moveAction: Tween<Node>;
+    _beAtkedAction: Tween<Node>;
+    _directAction: Tween<Node>;
 
-    reuse(data:any){
+    reuse(data: any) {
         this.lastAnimName = "";
-        this.sa_role = null;
-    }
-    resetSkeletalAnimationRole(actorNode:Node){        
-        this.sa_role = actorNode.getComponent(SkeletalAnimation);
-        this.lastAnimName = "";
+        this.nextAnimName = "";
+        this._spineResPath = "";
+        this._spineReady = false;
+        this._onSpineEvent = undefined;
+        this._onSpineComplete = undefined;
+        this.stopBeAtkedAction();
+
+        if (this.sp_role?.node?.isValid) {
+            this.sp_role.node.destroy();
+        }
+        this.sp_role = null;
     }
 
-    regSkeletalAnimationEvent(){
-        if(!this.sa_role){
+    /** 创建 spine 节点，并把 sp_role 挂在该节点上 */
+    resetSpineRole(actorNode: Node) {
+        if (!actorNode?.isValid) return;
+
+        if (!this.sp_role?.node?.isValid) {
+            const node = new Node("sp_role");
+            actorNode.addChild(node);
+            if (this.spt_role) this.spt_role.spriteFrame = null;
+            this.spt_role.node.scale = v3(0.3,0.3,0.3)
+            this.sp_role = node.addComponent(sp.Skeleton);
+        }
+
+        this.lastAnimName = "";
+        this.nextAnimName = "";
+    }
+
+    /**
+     * 加载 spine 资源
+     * @param resPath 例如：`spine/people/t_people_1`
+     */
+    loadLiveSpine(resPath: string, cb?: (skeleton: sp.Skeleton | null) => void) {
+        if (!this.sp_role?.node?.isValid) {
+            cb?.(null);
             return;
         }
-        var lastFrameFunc = (type:string,skeletalAnimationState:SkeletalAnimationState) => {
-            if(this.lastAnimName == SKELETAL_ANIMATION_NAME.MOVING){
+        if (empty(resPath)) {
+            cb?.(null);
+            return;
+        }
+        if (this._spineResPath === resPath && this._spineReady) {
+            cb?.(this.sp_role);
+            return;
+        }
+
+        this._spineResPath = resPath;
+        this._spineReady = false;
+
+        this.load(resPath, sp.SkeletonData, (err, sd) => {
+            if (!this.node?.isValid) return;
+            if (err) {
+                cb?.(null);
                 return;
             }
+            if (this._spineResPath !== resPath) return;
+            if (!this.sp_role?.isValid) return;
 
-            if(this.lastAnimName == SKELETAL_ANIMATION_NAME.DIE){             
+            this.sp_role.skeletonData = sd;
+            this._spineReady = true;
+            this.regSpineEvent();
+            cb?.(this.sp_role);
+        });
+    }
+
+    /** 重写：注册 spine 动画事件/完成事件，并做动画衔接 */
+    regSpineEvent() {
+        if (!this.sp_role || !this._spineReady) return;
+
+        const onAnimFinished = () => {
+            if (this.lastAnimName === SKELETAL_ANIMATION_NAME.MOVING) return;
+
+            if (this.lastAnimName === SKELETAL_ANIMATION_NAME.DIE) {
                 this.destory();
                 return;
             }
-            var lastAnimName = this.lastAnimName;
+
+            const lastAnimName = this.lastAnimName;
             this.lastAnimName = "";
-            if(!empty(this.nextAnimName)){             
-                this.playSkeletalAnimation(this.nextAnimName);
-            }else{
-                //没有下一组动画，就进入闲置     
-                if(lastAnimName == SKELETAL_ANIMATION_NAME.ATTACK){                    
-                    this.playSkeletalAnimation(SKELETAL_ANIMATION_NAME.IDLE);
+
+            if (!empty(this.nextAnimName)) {
+                const next = this.nextAnimName;
+                this.nextAnimName = "";
+                this.playAnimation(next);
+            } else {
+                if (lastAnimName === SKELETAL_ANIMATION_NAME.ATTACK) {
+                    this.playAnimation(SKELETAL_ANIMATION_NAME.IDLE);
                 }
             }
-        }
-        this.sa_role.on(SkeletalAnimation.EventType.LASTFRAME,lastFrameFunc);
+        };
+
+        this._onSpineEvent =
+            this._onSpineEvent ||
+            ((trackEntry: any, event: any) => {
+                // 抛给外部：trackEntry + event
+                this.node.emit("spine-event", trackEntry, event);
+            });
+
+        this._onSpineComplete =
+            this._onSpineComplete ||
+            ((trackEntry: any) => {
+                if (trackEntry?.trackIndex === 0) onAnimFinished();
+                this.node.emit("spine-complete", trackEntry);
+            });
+
+        // setXxxListener 会覆盖旧 listener，每次调用都安全
+        this.sp_role.setEventListener(this._onSpineEvent);
+        this.sp_role.setCompleteListener(this._onSpineComplete);
     }
 
-    playSkeletalAnimation(animName:string){
-        if(!this.sa_role){
-            return;
-        }
-        if(this.lastAnimName == animName){
-            return;
-        }
-        if(empty(this.lastAnimName) 
-            || this.lastAnimName == SKELETAL_ANIMATION_NAME.MOVING
-            || this.lastAnimName == SKELETAL_ANIMATION_NAME.IDLE
-            ){
-            var logicObj = this._logicObj;
-            if(animName == SKELETAL_ANIMATION_NAME.ATTACK && logicObj && logicObj.atkSpeed){
-                const animationState = this.sa_role.getState(animName);
-                animationState.frameRate = 3.0 * this._logicObj.atkSpeed;
-            }
-            this.lastAnimName = animName;   
-            this.sa_role.play(animName);
-        }else{
+    playAnimation(animName: string,isLoop:boolean = true) {
+        if (!this.sp_role) return;
+        if (!this._spineReady) {
             this.nextAnimName = animName;
-        }           
-    }
-
-    pauseSkeletalAnimation(){
-        this.sa_role.pause();
-    }
-
-    resumeSkeletalAnimation(){
-        this.sa_role.resume();
-    }
-
-    playSkeletalAnimationByState(stateId:number){
-        return;
-        if(this.lastAnimName == ""){
-            Debug.log("playSkeletalAnimationByState",this._logicObj.idx,stateId);
+            return;
         }
-        
+        if (this.lastAnimName === animName) return;
+
+        if (
+            empty(this.lastAnimName) ||
+            this.lastAnimName === SKELETAL_ANIMATION_NAME.MOVING ||
+            this.lastAnimName === SKELETAL_ANIMATION_NAME.IDLE
+        ) {
+            const logicObj = this._logicObj;
+            if (animName === SKELETAL_ANIMATION_NAME.ATTACK && logicObj?.atkSpeed) {
+                this.sp_role.timeScale = 3.0 * this._logicObj.atkSpeed;
+            } else {
+                this.sp_role.timeScale = 1.0;
+            }
+            this.lastAnimName = animName;
+            this.sp_role.setAnimation(0, animName, isLoop);
+        } else {
+            this.nextAnimName = animName;
+        }
+    }
+
+    pauseAnimation() {
+        if (this.sp_role) this.sp_role.paused = true;
+    }
+
+    resumeAnimation() {
+        if (this.sp_role) this.sp_role.paused = false;
+    }
+
+    playAnimationByState(stateId: number) {
+        return;
+        if (this.lastAnimName == "") {
+            Debug.log("playSkeletalAnimationByState", this._logicObj.idx, stateId);
+        }
+
         switch (stateId) {
-            case STATE_ENUM.IDLE:                
-                this.playSkeletalAnimation(SKELETAL_ANIMATION_NAME.IDLE);
+            case STATE_ENUM.IDLE:
+                this.playAnimation(SKELETAL_ANIMATION_NAME.IDLE);
                 break;
             case STATE_ENUM.ATTACK:
-                this.playSkeletalAnimation(SKELETAL_ANIMATION_NAME.ATTACK);
+                this.playAnimation(SKELETAL_ANIMATION_NAME.ATTACK);
                 break;
             case STATE_ENUM.MOVING:
-                this.playSkeletalAnimation(SKELETAL_ANIMATION_NAME.MOVING);
+                this.playAnimation(SKELETAL_ANIMATION_NAME.MOVING);
                 break;
             case STATE_ENUM.DIE:
-                this.playSkeletalAnimation(SKELETAL_ANIMATION_NAME.DIE);
+                this.playAnimation(SKELETAL_ANIMATION_NAME.DIE);
                 break;
             case STATE_ENUM.STUN:
-                this.pauseSkeletalAnimation();
+                this.pauseAnimation();
                 break;
             default:
-                this.playSkeletalAnimation(SKELETAL_ANIMATION_NAME.MOVING);
+                this.playAnimation(SKELETAL_ANIMATION_NAME.MOVING);
                 break;
         }
     }
-    
-    /** 
-     * 废弃不用
-     */
-    moveStep(duration:number,toPos:Vec2,cb?:Function) {
+
+    /** 已废弃不用 */
+    moveStep(duration: number, toPos: Vec2, cb?: Function) {
         this.stopMoveAction();
         this._moveAction = tween(this.node)
-            .to(duration,
-                { position: new Vec3(toPos.x,toPos.y)})
-            .call(() => {                
-                if (!!cb) cb()
-            })
+            .to(duration, { position: new Vec3(toPos.x, toPos.y) })
+            .call(() => {
+                if (!!cb) cb();
+            });
         this._moveAction.start();
         this.updateDirection(toPos);
     }
 
-    removeTweenAction(actionTween:Tween<Node>){
-        if(actionTween){
-            actionTween.stop()
-            actionTween.removeSelf()
-        }       
+    removeTweenAction(actionTween: Tween<Node>) {
+        if (actionTween) {
+            actionTween.stop();
+            actionTween.removeSelf();
+        }
     }
 
-    stopMoveAction(){
+    stopMoveAction() {
         this.removeTweenAction(this._moveAction);
         this._moveAction = null;
     }
 
-    updateDirection(dirV2:Vec2){
+    updateDirection(dirV2: Vec2) {
         // todo 方向
     }
 
-    updatePosition(){
-        if(!!this._moveAction){     //正在位移，就同步坐标
+    updatePosition() {
+        if (!!this._moveAction) {
             return;
         }
-        if(!this._logicObj){
-            return
+        if (!this._logicObj) {
+            return;
         }
-        var logicObj = this._logicObj;
-        this.node.setPosition(logicObj.x,logicObj.y);
+        const logicObj = this._logicObj;
+        this.node.setPosition(logicObj.x, logicObj.y);
     }
 
-    onBeAtked(damage:number){
-        if(this._beAtkedAction) return;
-        var duration = 0.5;
+    onBeAtked(damage: number) {
+        if (this._beAtkedAction) return;
+        if (!this.spt_role?.node?.isValid) return;
+
+        const duration = 0.5;
         this._beAtkedAction = tween(this.spt_role.node)
-        .to(duration,
-            { },{
-                onUpdate(tar:Node){
-                    tar.getComponent(Sprite).color = Color.RED;
+            .to(
+                duration,
+                {},
+                {
+                    onUpdate(tar: Node) {
+                        const spt = tar.getComponent(Sprite);
+                        if (spt) spt.color = Color.RED;
+                    },
                 }
-            })
-        .to(duration,
-            { },{
-                onUpdate(tar:Node){
-                    tar.getComponent(Sprite).color = Color.WHITE;
+            )
+            .to(
+                duration,
+                {},
+                {
+                    onUpdate(tar: Node) {
+                        const spt = tar.getComponent(Sprite);
+                        if (spt) spt.color = Color.WHITE;
+                    },
                 }
-            })
-        .call(() => {                
-            //todo
-            this.stopBeAtkedAction();
-        })
+            )
+            .call(() => {
+                this.stopBeAtkedAction();
+            });
         this._beAtkedAction.start();
 
-        //播放特效
-        var worldPos =  this.node.getComponent(UITransform).convertToWorldSpaceAR(new Vec3(0,0,0));
-        var param = {
-            value:-damage,
-            x:worldPos.x,
-            y:worldPos.y,
-        }
+        const worldPos = this.node.getComponent(UITransform).convertToWorldSpaceAR(new Vec3(0, 0, 0));
+        const param = { value: -damage, x: worldPos.x, y: worldPos.y };
         App.effectMgr.playEffectLife(param);
     }
 
-    stopBeAtkedAction(){
+    stopBeAtkedAction() {
         this.removeTweenAction(this._beAtkedAction);
         this._beAtkedAction = null;
     }
-     
-    playDirectAction(angle:number):void {
-        if(!!this._directAction) return;
-        var duration = toolKit.limitNum(0.3 * Math.abs(angle) / 90,0,0.3);
-        var eulerAngle = new Vec3(0,0,angle);
-        eulerAngle.z = uiKit.getDeltaAngle(this.node.eulerAngles.z,eulerAngle.z);
+
+    playDirectAction(angle: number): void {
+        if (!!this._directAction) return;
+        const duration = toolKit.limitNum((0.3 * Math.abs(angle)) / 90, 0, 0.3);
+        const eulerAngle = new Vec3(0, 0, angle);
+        eulerAngle.z = uiKit.getDeltaAngle(this.node.eulerAngles.z, eulerAngle.z);
         this._directAction = tween(this.node)
-        .to(duration,
-            { eulerAngles: eulerAngle})
-        .call(() => {                
-            //todo
-            this.stopDirectAction();
-        })
+            .to(duration, { eulerAngles: eulerAngle })
+            .call(() => {
+                this.stopDirectAction();
+            });
         this._directAction.start();
     }
-    
+
     stopDirectAction(): void {
         this._directAction = null;
-        //this.node.angle = 0;
     }
 
-    updateUI(){
-       
-    }
+    updateUI() {}
 
-    updateSiblingIndex(){
-        var index = 1334 - Math.floor(this.node.position.y/10);
-        this.updateDataToUI("Live.updateSiblingIndex",index,()=>{
+    updateSiblingIndex() {
+        const index = 1334 - Math.floor(this.node.position.y / 10);
+        this.updateDataToUI("Live.updateSiblingIndex", index, () => {
             this.node.setSiblingIndex(index);
-        });        
+        });
     }
-    update(dt:number){
+
+    update(dt: number) {
         this.updateUI();
         this.updatePosition();
-    //this.updateSiblingIndex();  //需要知道所有节点的index才能使用。
     }
 }

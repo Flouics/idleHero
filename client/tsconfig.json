@@ -4,6 +4,15 @@
 
   /* Add your custom configuration here. */
   "compilerOptions": {
-    "strict": false
+    "strict": false,
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    
+    "paths": {
+      "db://assets/*": ["assets/*"],
+      "@/*": ["assets/script/*"],
+    }
   }
+}
 }

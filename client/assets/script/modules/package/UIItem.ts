@@ -4,10 +4,11 @@ import { _decorator, Sprite, Label} from 'cc';
 import {Item} from "../../logic/Item";
 import { UIOpacity } from "cc";
 import { v3 } from "cc";
+import { LogicUI } from "../../zero/LogicUI";
 const {ccclass, property} = _decorator;
 
 @ccclass("UIItem")
-export class UIItem extends BaseUI {
+export class UIItem extends LogicUI {
     @property(Sprite)
     spt_item:Sprite = null;
     @property(Label)
@@ -22,6 +23,7 @@ export class UIItem extends BaseUI {
         this.node.setPosition(0,0,0);
         this.node.getComponent(UIOpacity).opacity = 255;
         this.node.setScale(v3(1,1,1));
+        this.loadSptEmpty(this.spt_item);
     }
     updateUI(){
         var logicObj = this._logicObj

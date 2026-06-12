@@ -8,9 +8,12 @@ import {LobbyCommand} from "./LobbyCommand";
 
 export enum LOBBY_MENU_ENUM {
     COMMON =  0,
-    BATTLE,
-    MERCENARY,
-    PACKAGE,
+    BATTLE = 1,
+    MERCENARY  = 2,
+    PACKAGE = 3,
+    GARDEN  = 4,
+    FRIEND  = 5,
+    GUILD  = 6,
 }
 
 export class LobbyProxy extends Proxy {

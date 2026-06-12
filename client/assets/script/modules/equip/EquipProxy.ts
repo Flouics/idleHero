@@ -5,6 +5,7 @@ import { serialize } from "../../utils/Decorator";
 import { Equip } from "./Equip";
 import { App } from "../../App";
 import { getMercenaryProxy } from "../mercenary/MercenaryProxy";
+import { EquipEvent } from "./EquipEvent";
 
 export enum EQUIP_POS{
     WEAPON = 1,
@@ -53,7 +54,7 @@ export class EquipProxy extends Proxy {
     addEquip(id:number,idx?:number){
         let equip = new Equip(id,idx);
         this.equipMap.set(equip.idx,equip);
-        this.updateViewTask("updateEquipInfo");
+        this.emitTask(EquipEvent.Equip_UpdateEquipInfo);
         this.dumpToDb(false);
     }
 
@@ -65,7 +66,7 @@ export class EquipProxy extends Proxy {
         let equip = this.equipMap.get(idx);
         if(equip){
             equip.clear();
-            this.updateViewTask("updateEquipInfo");
+            this.emitTask(EquipEvent.Equip_UpdateEquipInfo);
             this.dumpToDb(false);
         }
         this.equipMap.delete(idx);
@@ -146,7 +147,7 @@ export class EquipProxy extends Proxy {
         }
 
         getMercenaryProxy().updateCurMercenaryInfo();
-        this.updateViewTask("setUseEquipResult")
+        this.emitTask(EquipEvent.Equip_SetUseEquipResult)
         this.dumpToDb(false);
         return true;
     }

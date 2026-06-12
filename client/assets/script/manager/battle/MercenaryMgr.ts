@@ -2,12 +2,13 @@ import {BaseClass} from "../../zero/BaseClass";
 import { serialize } from "../../utils/Decorator";
 import { toolKit } from "../../utils/ToolKit";
 import { merge, getTimeFrame, empty } from "../../Global";
-import { MapProxy , getMapProxy, MapProxy_event } from "../../modules/map/MapProxy";
+import { MapProxy , getMapProxy } from "../../modules/map/MapProxy";
 import { Debug }   from "../../utils/Debug";
 import {MapUtils} from "../../logic/MapUtils";
 import { Mercenary } from "../../logic/Mercenary";
 import { getMercenaryProxy } from "../../modules/mercenary/MercenaryProxy";
 import { Node, v2 } from "cc";
+import { MapEvent } from "../../modules/map/MapEvent";
 
 
 // 角色管理器
@@ -79,8 +80,8 @@ export class MercenaryMgr extends BaseClass{
     }
 
     initSchedule(){
-        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
-        getMapProxy().on(MapProxy_event.MapProxy_update,this.update,this);
+        getMapProxy().off(MapEvent.Map_Update,this.update);
+        getMapProxy().on(MapEvent.Map_Update,this.update,this);
     }
 
     clear(){
@@ -90,7 +91,7 @@ export class MercenaryMgr extends BaseClass{
         this.mercenaryMap.clear();
         this.mercenaryGenPool.clear();
 
-        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
+        getMapProxy().off(MapEvent.Map_Update,this.update);
     }
 
     checkGen(){

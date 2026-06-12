@@ -4,10 +4,11 @@ import {BaseUI} from "../../zero/BaseUI";
 
 import { _decorator, Node, Sprite, tween, Tween} from 'cc';
 import { DamageRet } from "../../Interface";
+import { LogicUI } from "../../zero/LogicUI";
 const {ccclass, property} = _decorator;
 
 @ccclass("UIBuilding")
-export class UIBuilding extends BaseUI {
+export class UIBuilding extends LogicUI {
     @property(Sprite)
     spt_face:Sprite = null;
     _baseUrl = "texture/map/";

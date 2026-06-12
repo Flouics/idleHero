@@ -23,7 +23,8 @@
           "url": "db://assets/scenes/errorprint.scene",
           "uuid": "5db6e65d-a8d5-42b8-ad71-3147646014cd"
         }
-      ]
+      ],
+      "name": "helloworld"
     },
     "taskOptionsMap": {
       "1721304193074": {
@@ -33,8 +34,16 @@
         },
         "cullEngineAsmJsModule": false,
         "__version__": "1.0.1"
+      },
+      "1779777330395": {
+        "useWebGPU": false,
+        "resolution": {
+          "designWidth": 1280,
+          "designHeight": 960
+        },
+        "__version__": "1.0.1"
       }
     },
-    "__version__": "1.3.7"
+    "__version__": "1.3.9"
   }
 }

@@ -3,15 +3,23 @@ import {Command} from "../base/Command"
 import { MapProxy }  from "./MapProxy";
 import { Block, BLOCK_VALUE_ENUM} from "../../logic/Block";
 import {TaskBase} from "../../logic/TaskBase";
-import { toolKit } from "../../utils/ToolKit";
-import { nullfun } from "../../Global";
 import { UIID_Map } from "./MapInit";
 import { Vec2 } from "cc";
-import { TowerMgr } from "../../manager/battle/TowerMgr";
+import { MapEvent } from "./MapEvent";
+import { App } from "../../App";
 
 export class MapCommand extends Command{
     proxy:MapProxy;
     moduleName:String = "map";
+
+    constructor(){
+        super();
+        MapCommand._instance = this;
+    }
+
+    static get instance ():MapCommand{
+        return App.getInstance(MapCommand);
+    }
 
     pushTask(task:TaskBase){
         this.proxy.pushTask(task)
@@ -23,22 +31,22 @@ export class MapCommand extends Command{
         tilePos = tilePos || block.tilePos;
         if(block && block.checkType(BLOCK_VALUE_ENUM.BLOCK)){
             block.onDig()
-            this.proxy.updateView("digBlock", params);
+            this.proxy.dispatchEvent(MapEvent.Map_DigBlock, params);
         }        
     }
 
     showWinView(stageId:number){
         this.showView(UIID_Map.WinView,{stageId:stageId});
-        this.proxy.updateView("stopBattle");
+        this.proxy.dispatchEvent(MapEvent.Map_StopBattle);
     }
 
     showFailView(stageId:number,waveIndex:number = 0){
         this.showView(UIID_Map.FailView,{stageId:stageId,waveIndex:waveIndex});
-        this.proxy.updateView("stopBattle");
+        this.proxy.dispatchEvent(MapEvent.Map_StopBattle);
         
     }
     
     reloadMapView(){
-        this.proxy.updateView("reloadMapView");
+        this.proxy.dispatchEvent(MapEvent.Map_ReloadMapView);
     }
 }

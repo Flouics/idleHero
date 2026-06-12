@@ -17,13 +17,13 @@ let getUIConfigData = () => {
             { 
                 layer: LayerType.UI
                 , prefab: "/prefab/player/PlayerView"
-                , bundle: "resources" 
+                , bundle: "bundles" 
             },
         [UIID_Player.PlayerTopInfoView]: 
             { 
                 layer: LayerType.UI
                 , prefab: "/prefab/player/PlayerTopInfoView"
-                , bundle: "resources" 
+                , bundle: "bundles" 
             },
     }
     return UIConfigData;

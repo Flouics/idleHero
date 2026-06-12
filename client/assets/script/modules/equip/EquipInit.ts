@@ -18,14 +18,14 @@ let getUIConfigData = () => {
             { 
                 layer: LayerType.UI
                 , prefab: "/prefab/equip/EquipView"
-                , bundle: "resources" 
+                , bundle: "bundles" 
             },
 
         [UIID_Equip.EquipCombineView]: 
             { 
                 layer: LayerType.UI
                 , prefab: "/prefab/equip/EquipCombineView"
-                , bundle: "resources" 
+                , bundle: "bundles" 
             },
     }
     return UIConfigData;

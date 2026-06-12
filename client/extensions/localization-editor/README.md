@@ -1,29 +1,29 @@
-# Localization Editor Api
+# Localization Editor API
 
-## 快速开始
+## Quick Start
 
-### [核心功能 `l10n`](#l10n)
+### [Core Features `l10n`](#l10n)
 
-l10n提供了核心翻译功能以及icu功能，同时也提供的切换语言的功能。
+l10n provides the core translation function and icu function, as well as the function to switch languages.
 
-我们会将切换后的目标语言存储于`localStorage`中，同时也会自动重启项目运行时，并在下次启动时读取`localStorage`配置以完成整个语言切换流程。
+We will store the switched target language in `localStorage` and also automatically restart the project runtime and read the `localStorage` configuration at the next start to complete the whole language switching process.
 
-> ***因此我们希望用户在切换语言之前务必处理好数据持久化工作***
+> ***So we want users to make sure to handle data persistence before switching languages***
 
-### 导入[`l10n`](#l10n)模块
+### Import the [`l10n`](#l10n) module
 
-localization-editor所提供的所有api都将从db://localization-editor/l10n进行具名导入
+All api's provided by localization-editor will be imported by name from db://localization-editor/l10n
 
 ```typescript
 import { l10n } from 'db://localization-editor/l10n'
 ```
 
-### 使用翻译api
+### Use the translation api
 
 ```typescript
-// 任意component组件代码中
+// in the code of any component component
 
-// l10n是localization的核心功能
+// l10n is the core functionality of localization
 import { l10n } from 'db://localization-editor/l10n'
 import { _decorator, Label, Component } from 'cc';
 
@@ -31,111 +31,112 @@ import { _decorator, Label, Component } from 'cc';
 class SomeComponent extends Component {
     // ......
     someMethod() {
-        // 将返回this_is_an_apple所对应文案
+        // will return the text corresponding to this_is_an_apple
         const text = l10n.t("this_is_an_apple")
     }
     // ......
 }
 ```
 
-### API详细说明
+### API details
 
-- 类:[`L10nManager`](#l10nmanager)
-
----
-
-- 接口:[`ResourceList`](#resourcelist)
-
-- 接口:[`ResourceBundle`](#resourcebundle)
-
-- 接口:[`ResourceData`](#resourcedata)
-
-- 接口:[`ResourceItem`](#resourceitem)
-
-- 接口:[`FallbackLanguageObjectList`](#fallbacklanguageobjectlist)
-
-- 接口:[`L10nOptions`](#l10noptions)
-
-- 接口:[`StandardOption`](#standardoption)
+- Class:[`L10nManager`](#l10nmanager)
 
 ---
 
-- 枚举:[`L10nListenEvent`](#l10nlistenevent)
+- Interface:[`ResourceList`](#resourcelist)
+
+- Interface:[`ResourceBundle`](#resourcebundle)
+
+- Interface:[`ResourceData`](#resourcedata)
+
+- Interface:[`ResourceItem`](#resourceitem)
+
+- Interface:[`FallbackLanguageObjectList`](#fallbacklanguageobjectlist)
+
+- Interface:[`L10nOptions`](#l10noptions)
+
+- Interface:[`StandardOption`](#standardoption)
 
 ---
 
-- 别名:[`L10nKey`](#别名)
+- Enumerations:[`L10nListenEvent`](#l10nlistenevent)
 
-- 别名:[`L10nValue`](#别名)
+---
 
-- 别名:[`TextInfoDirection`](#别名)
+- Alias:[`L10nKey`](#alternate name)
 
-- 别名:[`FallbackLanguage`](#别名)
+- Alias:[`L10nValue`](#alternate)
+
+- Alias:[`TextInfoDirection`](# alias)
+
+- Alias:[`FallbackLanguage`](# alias)
 
 ---
 
 # `L10nManager`
 
-导入示例：
+Import example.
 
 ```ts
 import { L10nManager } from 'db://localization-editor/l10n'
+
 ```
 
-描述：
+Description.
 
-通常我们不建议您自行使用或构造该类型。
+Normally we do not recommend that you use or construct this type yourself.
 
-而我们提供了[`l10n`](#l10n)作为全局单例以使用翻译功能。
+Instead, we provide [``l10n``](#l10n) as a global singleton to use the translation functionality.
 
 ---
 
-## 索引
+## Index
 
-### 构造函数
+### Constructor
 
 - `L10nManager` **private**
 
 ---
 
-### 全局变量
+### Global variables
 
 #### `l10n`
 
-定义: `const l10n: L10nManager`
+Definition: `const l10n: L10nManager`
 
 ---
 
-### 静态属性
+### Static properties
 
 #### `LOCAL_STORAGE_LANGUAGE_KEY`
 
-定义: `static LOCAL_STORAGE_LANGUAGE_KEY: string`
+Definition: `static LOCAL_STORAGE_LANGUAGE_KEY: string`
 
-描述: 当调用[`changeLanguage`](#changelanguage)切换游戏语言时，将使用`localStorage`
-存储所切换的目标语言标记，并且使用[`LOCAL_STORAGE_LANGUAGE_KEY`](#localstoragelanguagekey)作为`localStorage`的key
+Description: When calling [`changeLanguage`](#changelanguage) to switch the game language, `localStorage` is used to
+and use [`LOCAL_STORAGE_LANGUAGE_KEY`](#localstoragelanguagekey) as the key of `localStorage`.
 
-备注：
+Remarks.
 
-| 默认值 | localization-editor/language |
+| default | localization-editor/language |
 |-----|------------------------------|
 ---
 
-### 实例方法
+### Instance methods
 
 #### `config`
 
-定义: `config(options: L10nOptions): void`
+Definition: `config(options: L10nOptions): void`
 
-描述: 用于配置l10n的某些设置，探索更多选项可以查看[`L10nOptions`](#l10noptions)
+Description: Used to configure certain settings of l10n, see [`L10nOptions`](#l10noptions) for more options.
 
-用例:
+Use case:
 
 ```ts
 l10n.config({
-    // 用于在默认语言没有找到相应翻译时，以该值进行补充显示
+    // Used to display the default language with this value if no translation is found
     fallbackLanguage: 'zh-Hans-CN',
-    // 如果不喜欢LOCAL_STORAGE_LANGUAGE_KEY的默认值，可以在此修改，但是需要确保在changeLanguage之前
+    // If you don't like the default value of LOCAL_STORAGE_LANGUAGE_KEY, you can change it here, but make sure it's before changeLanguage
     localStorageLanguageKey: 'localization-editor/langauge'
 })
 
@@ -145,48 +146,48 @@ l10n.config({
 
 #### `changeLanguage`
 
-定义: `changeLanguage(language: Intl.BCP47LanguageTag): void`
+Definition: `changeLanguage(language: Intl.BCP47LanguageTag): void`
 
-描述: 用于动态切换语言，请查看[`BCP47 Language Tag`](https://www.techonthenet.com/js/language_tags.php)以获得更多信息
+Description: Used to dynamically switch languages, see [``BCP47 Language Tag``](https://www.techonthenet.com/js/language_tags.php) for more information
 
-用例:
+Use case:
 
 ```ts
 l10n.changeLanguage('zh-Hans-CN')
 ```
 
-> ***注意: 在调用此方法后，会自动重启游戏，请务必做好数据持久化工作***
+> ***Note: After calling this method, the game will be restarted automatically, please make sure to do the data persistence work***
 
 ---
 
 #### `t`
 
-定义: `t(key: L10nKey, options?: StandardOption): L10nValue`
+Definition: `t(key: L10nKey, options?: StandardOption): L10nValue`
 
-描述: 根据传入的L10nKey，返回当前语言数据中所对应的L10nValue，探索更多选项可以查看[`StandardOption`](#standardoption)
+Description: Returns the L10nValue corresponding to the current language data according to the incoming L10nKey, see [`StandardOption`](#standardoption) for more options.
 
-用例:
+Use case:
 
 ```ts
 console.log(l10n.t('this_is_apple'))
-// 这是一个苹果
+// This is an apple
 ```
 
-> ***注意: 语言数据需要配合Localization Editor插件在编译后生成。***
+> ***Note: The language data needs to be generated after compilation with the Localization Editor plugin.***
 >
-> ***无法在静态初始化中使用l10n.t， 比如`static name = l10n.t('xxx_name')`***
+> ***Cannot use l10n.t in static initialization, e.g. `static name = l10n.t('xxx_name')`***
 >
-> ***变量作为参数时无法扫描，比如`let name = 'this_is_apple'; l10n.t(name)`***
+> ***Unable to scan when variable is used as parameter, e.g. `let name = 'this_is_apple'; l10n.t(name)`***
 
 ---
 
 #### `exists`
 
-定义: `exists(key: L10nKey): boolean`
+Definition: `exists(key: L10nKey): boolean`
 
-描述: 返回是否存在key
+Description: Returns whether the key exists or not
 
-用例:
+Use case:
 
 ```ts
 console.log(l10n.exists('test_key'))
@@ -196,11 +197,11 @@ console.log(l10n.exists('test_key'))
 
 #### `currentLanguage`
 
-定义: `get currentLanguage(): Intl.BCP47LanguageTag`
+Definition: `get currentLanguage(): Intl.BCP47LanguageTag`
 
-描述: 返回当前语言的[`BCP47 Language Tag`](https://www.techonthenet.com/js/language_tags.php)
+Description: Returns the [``BCP47 Language Tag``](https://www.techonthenet.com/js/language_tags.php) for the current language.
 
-用例:
+Use case:
 
 ```ts
 console.log(l10n.currentLanguage)
@@ -211,11 +212,11 @@ console.log(l10n.currentLanguage)
 
 #### `languages`
 
-定义: `get languages(): readonly Intl.BCP47LanguageTag[]`
+Definition: `get languages(): readonly Intl.BCP47LanguageTag[]`
 
-描述: 返回当前可用语言的[`BCP47 Language Tag`](https://www.techonthenet.com/js/language_tags.php)数组，可利用该方法作为切换语言下拉框的数据源
+Description: Returns an array of [``BCP47 Language Tag``](https://www.techonthenet.com/js/language_tags.php) for the currently available languages, which can be used as a data source for switching language dropdown boxes
 
-用例:
+Use case:
 
 ```ts
 console.log(l10n.languages)
@@ -226,11 +227,11 @@ console.log(l10n.languages)
 
 #### `direction`
 
-定义: `direction(language?: Intl.BCP47LanguageTag): TextInfoDirection`
+Definition: `direction(language?: Intl. BCP47LanguageTag): TextInfoDirection`
 
-描述: 绝大多数语言都尊崇从左到右的阅读习惯，但某些语言却例外比如阿拉伯语，此方法可以得知所传入语言的[TextInfoDirection](#textinfodirection)
+Description: Most languages respect the left-to-right reading convention, but some languages are exceptions such as Arabic, this method learns the [TextInfoDirection](#textinfodirection) of the incoming language.
 
-用例:
+Use case:
 
 ```ts
 console.log(l10n.direction('ar'))
@@ -241,111 +242,111 @@ console.log(l10n.direction('ar'))
 
 #### `on`
 
-定义: `on(event: L10nListenEvent, callback: (...args: any[]) => void)`
+Definition: `on(event: L10nListenEvent, callback: (. .args: any[]) => void)`
 
-描述: 用于注册[l10n](#l10n)的[L10nListenEvent](#l10nlistenevent)事件回调，比如`languageChanged`
+Description: Used to register [L10nListenEvent](#l10n) event callbacks for [l10n](#l10nlistenevent), such as `languageChanged`.
 
-用例:
+use case:
 
 ```ts
-l10n.on(L10nListenEvent.languageChanged, (...args: any[]) => {
-    //在切换语言后的一些操作，某些数据可以放在这里持久化，之后便会重启整个游戏场景
+l10n.on(L10nListenEvent.languageChanged, (. .args: any[]) => {
+    // some actions after switching language, some data can be persisted here and the whole game scene will be restarted afterwards
 })
 ```
 
----
+--
 
 #### `off`
 
-定义: `off(event: L10nListenEvent, callback: (...args: any[]) => void)`
+Definition: `off(event: L10nListenEvent, callback: (.. .args: any[]) => void)`
 
-描述: 用于反注册[l10n](#l10n)的[L10nListenEvent](#L10nListenEvent)事件回调
+Description: Callback for the [L10nListenEvent](#L10n) event used to counter-register [l10n](#L10nListenEvent)
 
-> ***请务必使on与off成对出现，确保正确的销毁无用数据***
+> ***Make sure to make on and off appear in pairs to ensure proper destruction of useless data***
 
 ---
 
-# 别名
+# Alias
 
-| 别名                  | 原类型                                                                                                                                                       |
+| alias | original type |
 |---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `L10nKey`           | `string`                                                                                                                                                  |
-| `L10nValue`         | `string`                                                                                                                                                  |
-| `TextInfoDirection` | `'ltr' / 'rtl'`                                                                                                                                           |
-| `FallbackLanguage`  | `string / readonly string[] / FallbackLanguageObjectList / ((language: Intl.BCP47LanguageTag) => string / readonly string[] / FallbackLanguageObjectList` |
+| `L10nKey` | `string` |
+| `L10nValue` | `string` |
+| `TextInfoDirection` | `'ltr' / 'rtl'` |
+| `FallbackLanguage` | `string / readonly string[] / FallbackLanguageObjectList / ((language: Intl.BCP47LanguageTag) => string / readonly string[] / FallbackLanguageObjectList` |
 ---
 
-# 接口
+# Interface
 
 ## `L10nOptions`
 
-| 函数/变量名                    | 类型                                  | 可选  |
+| function/variable name | type | optional |
 |---------------------------|-------------------------------------|-----|
-| `fallbackLanguage`        | `false` / [`FallbackLanguage`](#别名) | 是   |
-| `localStorageLanguageKey` | `string`                            | 是   |
-| `beforeTranslate`         | `(key: L10nKey) => L10nValue`       | 是   |
-| `afterTranslate`          | `(key: L10nKey) => L10nValue`       | 是   |
-| `returnNull`              | `boolean`                           | 是   |
-| `returnEmptyString`       | `boolean`                           | 是   |
+| `fallbackLanguage` | `false` / [`FallbackLanguage`](# alias) | yes |
+| `localStorageLanguageKey` | `string` | yes |
+| `beforeTranslate` | `(key: L10nKey) => L10nValue` | yes |
+| `afterTranslate` | `(key: L10nKey) => L10nValue` | yes |
+| `returnNull` | `boolean` | yes |
+| `returnEmptyString` | `boolean` | yes |
 
 ---
 
 ## `ResourceList`
 
-| 函数/变量名             | 类型                        | 可选  |
+| function/variable name | type | optional |
 |--------------------|---------------------------|-----|
-| `defaultLanguage`  | `Intl.BCP47LanguageTag`   | 是   |
-| `fallbackLanguage` | `Intl.BCP47LanguageTag`   | 是   |
-| `languages`        | `Intl.BCP47LanguageTag[]` | 否   |
+| `defaultLanguage` | `Intl.BCP47LanguageTag` | yes |
+| `fallbackLanguage` | `Intl.BCP47LanguageTag` | yes |
+| `languages` | `Intl.BCP47LanguageTag[]` | no |
 
 ## `ResourceBundle`
 
-| 函数/变量名                              | 类型                              | 可选  |
+| function/variable name | type | optional |
 |-------------------------------------|---------------------------------|-----|
-| `[language: Intl.BCP47LanguageTag]` | [`ResourceData`](#resourcedata) | 否   |
+| `[language: Intl.BCP47LanguageTag]` | [`ResourceData`](#resourcedata) | no |
 
 ---
 
 ## `ResourceData`
 
-| 函数/变量名                | 类型                              | 可选  |
+| function/variable name | type | optional |
 |-----------------------|---------------------------------|-----|
-| `[namespace: string]` | [`ResourceItem`](#resourceitem) | 否   |
+| `[namespace: string]` | [`ResourceItem`](#resourceitem) | no |
 
 ---
 
 ## `ResourceItem`
 
-| 函数/变量名          | 类型    | 可选  |
+| function/variable name | type | optional |
 |-----------------|-------|-----|
-| `[key: string]` | `any` | 否   |
+| `[key: string]` | `any` | no |
 
 ---
 
 ## `FallbackLanguageObjectList`
 
-| 函数/变量名               | 类型                  | 可选  |
+| function/variable name | type | optional |
 |----------------------|---------------------|-----|
-| `[language: string]` | `readonly string[]` | 否   |
+| `[language: string]` | `readonly string[]` | no |
 
 ---
 
 ## `StandardOption`
 
-| 函数/变量名             | 类型                        | 可选  |
+| function/variable name | type | optional |
 |--------------------|---------------------------|-----|
-| `count`            | `number`                  | 是   |
-| `defaultValue`     | `L10nValue`               | 是   |
-| `language`         | `Intl.BCP47LanguageTag`   | 是   |
-| `fallbackLanguage` | [`FallbackLanguage`](#别名) | 是   |
+| `count` | `number` | yes |
+| `defaultValue` | `L10nValue` | yes |
+| `language` | `Intl.BCP47LanguageTag` | yes |
+| `fallbackLanguage` | [`FallbackLanguage`](# alias) | yes |
 
 ---
 
-# 枚举
+# Enumerations
 
 ## `L10nListenEvent`
 
-| 函数/变量名            | 类型                |
+| function/variable name | type |
 |-------------------|-------------------|
 | `languageChanged` | `languageChanged` |
-| `onMissingKey`    | `missingKey`      |
+| `onMissingKey` | `missingKey` |

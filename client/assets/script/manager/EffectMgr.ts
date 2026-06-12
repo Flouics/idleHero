@@ -8,6 +8,7 @@ import {UIEffect} from "../effect/UIEffect";
 import {BaseClass} from "../zero/BaseClass";
 import { Node, Prefab, resources,instantiate, Vec2, UITransform, Vec3} from "cc";
 import { Debug }   from "../utils/Debug";
+import { uiKit } from "../utils/UIKit";
 
 export var EFFECT_COMMON = {
     LIFE:"Life"
@@ -64,7 +65,7 @@ export class EffectMgr extends BaseClass {
             effectData.x = nodePos.x;
             effectData.y = nodePos.y;
         }
-        this.loadPrefab(prefabUrl, (prefab: any) => {
+        uiKit.loadPrefab(prefabUrl, (prefab: any) => {
             //Debug.log('[effect] create: ', prefabUrl, new Date());
             var ui = instantiate(prefab);
             ui.active = true;

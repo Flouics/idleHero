@@ -66,7 +66,7 @@ export class IdleRewardView extends BaseView {
         if(!itemList){
             return;
         }
-        this.sv_itemListRoot.content.removeAllChildren();
+        this.sv_itemListRoot.content.destroyAllChildren();
         itemList.forEach(itemData => {
             var item = new Item(itemData.id,itemData.count);
             item.initUI(this.sv_itemListRoot.content);

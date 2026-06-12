@@ -4,6 +4,7 @@ import {BaseClass} from "../zero/BaseClass";
 import { clone, empty } from "../Global";
 import { Debug }   from "../utils/Debug";
 import { toolKit } from "../utils/ToolKit";
+import { oops } from "../oops/core/Oops";
 
 class Data {
     map: { [key: string]: any } = {};
@@ -89,14 +90,18 @@ export class DataMgr extends BaseClass {
         this.callback = cb;
         this.maxLoad = this.loadTexts.length;
 
-        resources.load('data/fileKey', (err: any, textAsset: any) => {
+        oops.res.load('data/fileKey', (err: any, textAsset: any) => {
             if (!err) {
                 try {        
                     let mapData = textAsset.json       
-                    this.fileKeyMap = mapData;   
+                    this.fileKeyMap = mapData;
+                    this.curLoad = 0;
+                    this.maxLoad = this.loadTexts.length;
+                    //如果this.loadTexts有值，优先加载this.loadTexts中的表，加载完就会先进入游戏了。
                     for (var i = 0; i < this.maxLoad; ++i) {
-                        this.loadTable(this.loadTexts[i]);
+                        this.loadTableFile(this.loadTexts[i]);
                     }
+                    
                     this.loadFileKeyTables();                                          
                 } catch (error) {
                     Debug.error("data load failed by name->fileKey.json",error)
@@ -106,27 +111,19 @@ export class DataMgr extends BaseClass {
     }
 
     loadFileKeyTables(){
-        var mapData = this.fileKeyMap;
+        var mapData = Object.values(toolKit.ArrayToMap(Object.values(this.fileKeyMap)));
+        this.curLoad = 0;
+        this.maxLoad = mapData.length;
         for (const key in mapData) {
             if (Object.prototype.hasOwnProperty.call(mapData, key)) {
                 const element = mapData[key];
-                this.loadTable(element);       
-                this.maxLoad += 1;             
+                this.loadTableFile(element);             
             }
         }           
     }
 
-    loadTable(keyName: string) {
-        if (this.dataPool[keyName]) {
-            this.onLoadTable(keyName);
-            return;
-        }
-        var fileName = this.fileKeyMap[keyName]
-        if (empty(fileName)) {            
-            Debug.warn(js.formatStr("cannot find table key: %s",keyName));
-            return;
-        }
-        resources.load('data/' + fileName, (err: any, textAsset: any) => {
+    loadTableFile(fileName: string) {
+        oops.res.load('data/' + fileName, (err: any, textAsset: any) => {
             if (!err) {
                 try {
                     let mapData = textAsset.json
@@ -134,11 +131,12 @@ export class DataMgr extends BaseClass {
                         if (Object.prototype.hasOwnProperty.call(mapData, key)) {
                             const element = mapData[key];
                             this.dataPool[key] = new Data(element);
+                            this.parseDataText(this.dataPool[key]);
                         }
                     }
-                    this.onLoadTable(keyName);
+                    this.onLoadTableFileCmp();
                 } catch (error) {
-                    Debug.error("data load failed by name->",keyName,error);
+                    Debug.error("file load failed by name->",fileName,error);
                 }                
             }else{
                 Debug.error("file load failed by name->",fileName,err);
@@ -146,14 +144,11 @@ export class DataMgr extends BaseClass {
         });
     };
 
-    onLoadTable(keyName: string) {
+    onLoadTableFileCmp() {
         this.curLoad += 1;
         if (this.curLoad == this.maxLoad) {
-            for (const key in this.dataPool) {
-                const element = this.dataPool[key];
-                this.parseDataText(element);
-            }
             this.callback && this.callback();
+            this.callback = null;
         }
     };
 
@@ -192,11 +187,11 @@ export class DataMgr extends BaseClass {
         })
     }
 
-    // 废弃不用，异步太麻烦了。
+    // 废弃不用，异步其实也是promise的形式 
     async parseData (keyName: string){
         return new Promise((resolve, reject) => {
             var fileName = this.fileKeyMap[keyName]
-            resources.load('data/' + fileName, (err: any, textAsset: any) => {
+            oops.res.load('data/' + fileName, (err: any, textAsset: any) => {
                 if (!err) {
                     try {
                         let mapData = textAsset.json
@@ -204,9 +199,9 @@ export class DataMgr extends BaseClass {
                             if (Object.prototype.hasOwnProperty.call(mapData, key)) {
                                 const element = mapData[key];
                                 this.dataPool[key] = new Data(element);
+                                this.parseDataText(this.dataPool[key]);
                             }
                         }
-                        this.onLoadTable(keyName);
                         resolve(this.dataPool[keyName])
                     } catch (error) {
                         Debug.error("data load failed by name->",keyName);

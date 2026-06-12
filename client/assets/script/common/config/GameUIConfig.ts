@@ -30,10 +30,10 @@ mask:"prefab/dialog/mask", */
 
 /** 打开界面方式的配置数据 */
 export var UIConfigData: { [key: number]: UIConfig } = {
-    [UIID.Loading]: { layer: LayerType.UI, prefab: "prefab/loading/loading", bundle: "resources" },
-    [UIID.LoadingAm]: { layer: LayerType.Dialog, prefab: "prefab/dialog/loadingAm", bundle: "resources" },
-    [UIID.Alert]: { layer: LayerType.Dialog, prefab: "prefab/dialog/alert", mask: true },
-    [UIID.Confirm]: { layer: LayerType.Dialog, prefab: "prefab/dialog/confirm", mask: true },
-    [UIID.MsgBox]: { layer: LayerType.Dialog, prefab: "prefab/dialog/msgBox", mask: true },
-    [UIID.Setting]: { layer: LayerType.Dialog, prefab: "prefab/dialog/setting",mask: true },
+    [UIID.Loading]: { layer: LayerType.UI, prefab: "prefab/loading/loading", bundle: "bundles" },
+    [UIID.LoadingAm]: { layer: LayerType.Dialog, prefab: "prefab/dialog/loadingAm", bundle: "bundles" },
+    [UIID.Alert]: { layer: LayerType.Dialog, prefab: "prefab/dialog/alert", mask: true,bundle: "bundles"},
+    [UIID.Confirm]: { layer: LayerType.Dialog, prefab: "prefab/dialog/confirm", mask: true,bundle: "bundles" },
+    [UIID.MsgBox]: { layer: LayerType.Dialog, prefab: "prefab/dialog/msgBox", mask: true,bundle: "bundles" },
+    [UIID.Setting]: { layer: LayerType.UI, prefab: "prefab/dialog/setting",mask: true ,bundle: "bundles"},
 }

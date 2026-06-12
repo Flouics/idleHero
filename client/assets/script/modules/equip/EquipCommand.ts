@@ -4,9 +4,19 @@ import {App} from "../../App";
 import {Command} from "../base/Command"
 import { Equip } from "./Equip";
 import { EquipProxy }  from "./EquipProxy";
+import { EquipEvent } from "./EquipEvent";
+import { TemplateCommand } from "../template/TemplateCommand";
 
 export class EquipCommand extends Command{
     proxy:EquipProxy;
+    constructor(){
+        super();
+        EquipCommand._instance = this;
+    }
+
+    static get instance ():EquipCommand{
+        return App.getInstance(EquipCommand);
+    }
 
     /**
      * 合成
@@ -55,8 +65,8 @@ export class EquipCommand extends Command{
         } 
         
         if(equip.upgrade()){
-            this.proxy.updateViewTask("updateEquipList");
-            this.proxy.updateViewTask("updateUpgradeInfo");
+            this.proxy.emitTask(EquipEvent.Equip_UpdateEquipList);
+            this.proxy.emitTask(EquipEvent.Equip_UpdateUpgradeInfo);
             return true;
         }
         return false;

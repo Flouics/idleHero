@@ -74,7 +74,7 @@ export class App extends BaseClass{
         App.onMsg();
     }
 
-    static appInit (ui?:AppView) {
+    static init (ui?:AppView) {
         if (ui) {
             App.ui = ui;
         }
@@ -97,10 +97,13 @@ export class App extends BaseClass{
         App.effectMgr = new EffectMgr();  
         App.keyWordMgr = new KeyWordMgr();
 
+        // 修改为配置的 bundle
+        oops.res.defaultBundleName = App.bundleDir() + "";
+
         //账号信息
         App.initAccount()
         
-        //需要初始化的模块
+        //需要初始化的内容,独立处理
         //appInit();
         
         //全局变量
@@ -230,8 +233,14 @@ export class App extends BaseClass{
     }
 
     //单例
-    static getInstance(_Class:any){
-        return _Class?.instance
+    public static getInstance<T>(_Class: { new(): T; _instance?: T }){
+        if (_Class._instance) {
+            return _Class._instance;
+        }else{
+            let instance = new _Class();
+            _Class._instance = instance;
+            return instance as T;
+        }
     }
 
     static getPopupRoot(){
@@ -249,6 +258,10 @@ export class App extends BaseClass{
     static getEffectRoot() {
         return oops.gui.effect;
     };
+    
+    static bundleDir(){
+        return "bundles";
+    }
 
     //加载字体
     static initFont(cb?:Function){
@@ -258,7 +271,7 @@ export class App extends BaseClass{
             }
             return;
         }
-        resources.load("font/base", function (err, font) {
+        oops.res.load("font/base", function (err, font) {
             App.font = font;
             if (!!cb) {
                 cb(App.font);

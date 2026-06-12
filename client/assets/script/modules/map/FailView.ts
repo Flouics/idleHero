@@ -12,6 +12,7 @@ import { getPackageProxy } from "../package/PackageProxy";
 import { getRewardProxy } from "../reward/RewardProxy";
 import { Item } from "../../logic/Item";
 import { toolKit } from "../../utils/ToolKit";
+import { MapEvent } from "./MapEvent";
 const {ccclass, property} = _decorator;
 
 @ccclass("FailView")
@@ -78,12 +79,12 @@ export class FailView extends BaseView {
     }
 
     onClickComfirm(){
-        this.mapProxy.updateView("exitBattle");
+        this.mapProxy.dispatchEvent(MapEvent.Map_ExitBattle);
         this.close();
     }
 
     onClickAgain(){
-        this.mapProxy.updateView("againBattle");
+        this.mapProxy.dispatchEvent(MapEvent.Map_AgainBattle);
         this.close();
     }
 }

@@ -25,6 +25,8 @@ export class Config {
      */
     device_id:string = "aa.bb.ddc004";
 
+    ishowState = false;
+
 };
 
 

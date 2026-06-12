@@ -112,7 +112,7 @@ export class DBMgr extends BaseClass {
         }
     };
 
-    destroy() {
+    clear() {
         oops.storage.clear();
     };
 

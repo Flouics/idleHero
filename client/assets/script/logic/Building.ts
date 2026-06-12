@@ -5,6 +5,7 @@ import { assetManager, instantiate, loader, Node, Prefab, resources, v2, Vec2 } 
 import { Debug }   from "../utils/Debug";
 import { DamageRet } from "../Interface";
 import { MapMainView } from "../modules/map/MapMainView";
+import { uiKit } from "../utils/UIKit";
 
 var BUILDING_VALUE_ENUM = {
     EMPTY:0,
@@ -32,7 +33,7 @@ export class Building extends BoxBase {
         if(this._pb_url == "") {
             return;
         }
-        this.loadPrefab(this._pb_url, (prefab: any) => {
+        uiKit.loadPrefab(this._pb_url, (prefab: any) => {
             let node = instantiate(prefab);
             let viewPos = this.pos;
             parent.addChild(node);
@@ -76,7 +77,7 @@ export class Building extends BoxBase {
     destroy(){
         super.destroy();
         if(this.node){
-            this.node.removeFromParent();
+            this.node.destroy();
         }        
     }
     update(){

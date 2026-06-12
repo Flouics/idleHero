@@ -12,11 +12,8 @@ import {BuildTask} from "../../logic/task/BuildTask";
 import { Debug }   from "../../utils/Debug";
 import { js, Vec2 } from "cc";
 import {MapCommand} from "./MapCommand";
+import { MapEvent } from "../../modules/map/MapEvent";
 
-
-export let MapProxy_event = {
-    MapProxy_update : "MapProxy_update",
-}
 
 //四个方向
 let dirs = [[0, 1], [0, -1], [1, 0], [-1, 0]];
@@ -80,7 +77,7 @@ export class MapProxy extends Proxy {
     update(dt:number){
         !this.isPause && (this.battleTimeStamp += dt);
 
-        this.emit(MapProxy_event.MapProxy_update,dt);
+        this.emit(MapEvent.Map_Update,dt);
     }
 
     /**

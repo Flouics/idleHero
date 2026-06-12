@@ -80,6 +80,9 @@ export class GameComponent extends Component {
 
     /** 通过节点名获取预制上的节点，整个预制不能有重名节点 */
     getNode(name: string): Node | undefined {
+        if(!this.nodes){
+            this.nodeTreeInfoLite();
+        }
         if (this.nodes) {
             return this.nodes.get(name);
         }
@@ -88,6 +91,9 @@ export class GameComponent extends Component {
 
     /** 平摊所有节点存到Map<string, Node>中通过get(name: string)方法获取 */
     nodeTreeInfoLite() {
+        if(this.nodes){
+            return;
+        }
         this.nodes = new Map();
         ViewUtil.nodeTreeInfoLite(this.node, this.nodes);
     }

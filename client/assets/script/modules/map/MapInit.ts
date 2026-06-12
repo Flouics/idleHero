@@ -19,26 +19,26 @@ let getUIConfigData = () => {
             { 
                 layer: LayerType.UI
                 , prefab: "/prefab/map/MapMainView"
-                , bundle: "resources" 
+                , bundle: "bundles" 
             },
         [UIID_Map.BattleMainView]: 
             { 
                 layer: LayerType.UI
                 , prefab: "/prefab/map/BattleMainView"
-                , bundle: "resources" 
+                , bundle: "bundles" 
             },
 
         [UIID_Map.FailView]: 
             { 
                 layer: LayerType.Dialog
                 , prefab: "/prefab/map/FailView"
-                , bundle: "resources" 
+                , bundle: "bundles" 
             },
         [UIID_Map.WinView]: 
             { 
                 layer: LayerType.Dialog
                 , prefab: "/prefab/map/WinView"
-                , bundle: "resources" 
+                , bundle: "bundles" 
             },
     }
     return UIConfigData;

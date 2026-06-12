@@ -4,6 +4,7 @@ import { assetManager, instantiate, js, Label, macro, Node, Prefab, resources, S
 import { Debug }   from "./Debug";
 import { empty, NodeEx } from "../Global";
 import { Button } from "cc";
+import { oops } from "../oops/core/Oops";
 
 
 class UIKit extends BaseClass {
@@ -50,7 +51,7 @@ class UIKit extends BaseClass {
         var res_url = "texture/mercenary/" + mercenaryId;
         spt.node.active = false;  
         var loadSptEx = (spt: Sprite, res_url: string = null, cb?: Function) => {
-            resources.load(res_url + "/spriteFrame", SpriteFrame, (err, spriteFrame) => {
+            oops.res.load(res_url + "/spriteFrame", SpriteFrame, (err, spriteFrame) => {
                 if (!spt?.node) return; 
                 spt.node.active = true;  
                 if (!err && spt && spt.node) {
@@ -69,7 +70,7 @@ class UIKit extends BaseClass {
         var res_url = "texture/monster/" + monsterId;
         spt.node.active = false;        
         var loadSptEx = (spt: Sprite, res_url: string = null, cb?: Function) => {
-            resources.load(res_url + "/spriteFrame", SpriteFrame, (err, spriteFrame) => {
+            oops.res.load(res_url + "/spriteFrame", SpriteFrame, (err, spriteFrame) => {
                 spt.node.active = true;  
                 if (!err && spt && spt.node) {
                     spt.spriteFrame = spriteFrame ;
@@ -99,7 +100,7 @@ class UIKit extends BaseClass {
     loadSpt(spt: Sprite, res_url: string = null, cb?: Function) {
         if (!res_url) return;
         spt.node.active = false;
-        resources.load(res_url + "/spriteFrame", SpriteFrame, (err, spriteFrame) => {
+        oops.res.load(res_url + "/spriteFrame", SpriteFrame, (err, spriteFrame) => {
             if (!err && spt && spt.node) {
                 spt.spriteFrame = spriteFrame;
                 spt.node.active = true;
@@ -111,7 +112,7 @@ class UIKit extends BaseClass {
     };   
 
     loadPrefab(pb_url:string, cb?:Function){        
-        resources.load(pb_url, Prefab, (err: any, prefab: any) => {
+        oops.res.load(pb_url, Prefab, (err: any, prefab: any) => {
             if (err) {
                 Debug.warn(pb_url, err);
             }else{

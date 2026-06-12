@@ -1,5 +1,5 @@
 {
-  "__version__": "1.3.7",
+  "__version__": "1.3.9",
   "log": {
     "level": 4
   },
@@ -20,7 +20,7 @@
     ],
     "startScene": "431e0475-73a8-419f-a415-e85a3206ce9f",
     "sourceMaps": true,
-    "name": "idleHero"
+    "name": "helloworld"
   },
   "BuildTaskManager": {
     "taskMap": {
@@ -30,10 +30,10 @@
         "progress": 1,
         "state": "success",
         "stage": "build",
-        "message": "2025-3-13 14:12:01 build success in 4 min 9 s!",
-        "detailMessage": "// ---- build task cocos-service：onAfterBuild ----\r",
+        "message": "2026-5-26 11:53:38 build success in 2 min 7 s!",
+        "detailMessage": "builder:build-project-total (127371ms)\r",
         "options": {
-          "name": "idleHero",
+          "name": "helloworld",
           "server": "",
           "platform": "web-mobile",
           "buildPath": "project://build",
@@ -58,9 +58,8 @@
           "taskName": "web-mobile",
           "scenes": [
             {
-              "url": "db://assets/resources/scenes/game.scene",
-              "uuid": "431e0475-73a8-419f-a415-e85a3206ce9f",
-              "bundle": "db://assets/resources"
+              "url": "db://assets/scene/game.scene",
+              "uuid": "431e0475-73a8-419f-a415-e85a3206ce9f"
             }
           ],
           "packages": {},
@@ -72,6 +71,9 @@
               "physics": "inherit-project-setting",
               "physics-2d": "inherit-project-setting",
               "gfx-webgl2": "inherit-project-setting"
+            },
+            "macroConfig": {
+              "cleanupImageCache": "inherit-project-setting"
             }
           },
           "nativeCodeBundleMode": "both",
@@ -81,9 +83,154 @@
             "replaceOnly": [],
             "handleTemplateMd5Link": true
           },
-          "wasmCompressionMode": false
+          "wasmCompressionMode": false,
+          "engineModulesConfigKey": "migrationsConfig",
+          "mangleProperties": false,
+          "inlineEnum": true
         },
-        "time": "2025-3-13 14:07:52",
+        "time": "2026-5-26 11:51:30",
+        "dirty": false
+      },
+      "1779777330395": {
+        "type": "build",
+        "id": "1779777330395",
+        "progress": 1,
+        "state": "success",
+        "stage": "build",
+        "message": "2026-5-26 14:39:06 build success in 3 min 35 s!",
+        "detailMessage": "builder:build-project-total (215301ms)\r",
+        "options": {
+          "name": "helloworld",
+          "server": "",
+          "engineModulesConfigKey": "migrationsConfig",
+          "platform": "web-desktop",
+          "buildPath": "project://build",
+          "debug": false,
+          "buildMode": "normal",
+          "mangleProperties": false,
+          "md5Cache": false,
+          "skipCompressTexture": false,
+          "sourceMaps": false,
+          "overwriteProjectSettings": {
+            "includeModules": {
+              "gfx-webgl2": "on",
+              "physics": "inherit-project-setting",
+              "physics-2d": "inherit-project-setting"
+            },
+            "macroConfig": {
+              "cleanupImageCache": "inherit-project-setting"
+            }
+          },
+          "nativeCodeBundleMode": "both",
+          "polyfills": {
+            "asyncFunctions": true
+          },
+          "experimentalEraseModules": false,
+          "startSceneAssetBundle": false,
+          "bundleConfigs": [],
+          "inlineEnum": true,
+          "useBuiltinServer": false,
+          "md5CacheOptions": {
+            "excludes": [],
+            "includes": [],
+            "replaceOnly": [],
+            "handleTemplateMd5Link": true
+          },
+          "mainBundleIsRemote": false,
+          "mainBundleCompressionType": "merge_dep",
+          "useSplashScreen": true,
+          "bundleCommonChunk": false,
+          "packAutoAtlas": true,
+          "startScene": "431e0475-73a8-419f-a415-e85a3206ce9f",
+          "outputName": "web-desktop",
+          "taskName": "web-desktop",
+          "scenes": [
+            {
+              "url": "db://assets/scene/game.scene",
+              "uuid": "431e0475-73a8-419f-a415-e85a3206ce9f"
+            },
+            {
+              "url": "db://assets/scene/splash.scene",
+              "uuid": "5b31075d-97a6-4740-b9dd-4fa386308f46"
+            }
+          ],
+          "wasmCompressionMode": false,
+          "packages": {},
+          "__version__": "1.3.9",
+          "logDest": "project://temp/builder/log/web-desktop2026-5-26 14-35.log"
+        },
+        "time": "2026-5-26 14:35:30",
+        "dirty": false
+      },
+      "1779779257584": {
+        "type": "build",
+        "id": "1779779257584",
+        "progress": 1,
+        "state": "failure",
+        "stage": "build",
+        "message": "2026-5-26 15:07:38 build task failed! Error: 找不到 Android NDK/SDK 路径，请到 偏好设置 -> 外部程序 中设置\n    at generateOptions (D:\\cocos-dashboard-editors\\Creator\\3.8.6\\resources\\app.asar\\modules\\platform-extensions\\extensions\\android\\dist\\builder\\hooks.ccc:1:2282)\n    at BuildTask.onAfterInit (D:\\cocos-dashboard-editors\\Creator\\3.8.6\\resources\\app.asar\\modules\\platform-extensions\\extensions\\android\\dist\\builder\\hooks.ccc:1:2381)\n    at BuildTask.handleHook (D:\\cocos-dashboard-editors\\Creator\\3.8.6\\resources\\app.asar\\builtin\\builder\\dist\\worker\\builder\\index.ccc:1:13689)\n    at BuildTask.runPluginTask (D:\\cocos-dashboard-editors\\Creator\\3.8.6\\resources\\app.asar\\builtin\\builder\\dist\\worker\\builder\\manager\\task-base.ccc:1:1272)\n    at BuildTask.run (D:\\cocos-dashboard-editors\\Creator\\3.8.6\\resources\\app.asar\\builtin\\builder\\dist\\worker\\builder\\index.ccc:1:3689)\n    at build (D:\\cocos-dashboard-editors\\Creator\\3.8.6\\resources\\app.asar\\builtin\\builder\\dist\\worker\\index.ccc:1:4259)\n    at Ipc.<anonymous> (D:\\cocos-dashboard-editors\\Creator\\3.8.6\\resources\\app.asar\\builtin\\builder\\dist\\worker\\msg-util.ccc:1:210)",
+        "detailMessage": "Native engine root:D:\\cocos-dashboard-editors\\Creator\\3.8.6\\resources\\resources\\3d\\engine\\native\r",
+        "options": {
+          "name": "helloworld",
+          "server": "",
+          "engineModulesConfigKey": "migrationsConfig",
+          "platform": "android",
+          "buildPath": "project://build",
+          "debug": false,
+          "buildMode": "normal",
+          "mangleProperties": false,
+          "md5Cache": false,
+          "skipCompressTexture": false,
+          "sourceMaps": false,
+          "overwriteProjectSettings": {
+            "macroConfig": {
+              "cleanupImageCache": "inherit-project-setting"
+            },
+            "includeModules": {
+              "physics": "inherit-project-setting",
+              "physics-2d": "inherit-project-setting",
+              "gfx-webgl2": "off"
+            }
+          },
+          "nativeCodeBundleMode": "wasm",
+          "polyfills": {
+            "asyncFunctions": false
+          },
+          "experimentalEraseModules": false,
+          "startSceneAssetBundle": false,
+          "bundleConfigs": [],
+          "inlineEnum": true,
+          "useBuiltinServer": false,
+          "md5CacheOptions": {
+            "excludes": [],
+            "includes": [],
+            "replaceOnly": [],
+            "handleTemplateMd5Link": true
+          },
+          "mainBundleIsRemote": false,
+          "mainBundleCompressionType": "merge_dep",
+          "useSplashScreen": true,
+          "bundleCommonChunk": false,
+          "packAutoAtlas": true,
+          "startScene": "431e0475-73a8-419f-a415-e85a3206ce9f",
+          "outputName": "android",
+          "taskName": "android",
+          "scenes": [
+            {
+              "url": "db://assets/scene/game.scene",
+              "uuid": "431e0475-73a8-419f-a415-e85a3206ce9f"
+            },
+            {
+              "url": "db://assets/scene/splash.scene",
+              "uuid": "5b31075d-97a6-4740-b9dd-4fa386308f46"
+            }
+          ],
+          "wasmCompressionMode": false,
+          "packages": {},
+          "__version__": "1.3.9",
+          "logDest": "project://temp/builder/log/android2026-5-26 15-07.log"
+        },
+        "time": "2026-5-26 15:07:37",
         "dirty": false
       }
     }

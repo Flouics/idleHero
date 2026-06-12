@@ -14,21 +14,14 @@ import { DigTask } from "../../logic/task/DigTask";
 import { lang, getTimeFrame } from "../../Global";
 import { DEBUG } from "cc/env";
 import { getPackageProxy } from "../package/PackageProxy";
-import { ITEM_ID_ENUM } from "../../logic/Item";
 import { toolKit } from "../../utils/ToolKit";
 import { App } from "../../App";
 import { UICallbacks } from "../../oops/core/gui/layer/Defines";
 import { BattleMainView } from "./BattleMainView";
 import { UIID_Map } from "./MapInit";
 import { getPlayerProxy } from "../player/PlayerProxy";
-
-
-export enum OPERATION_ENUM {
-    COMMON =  0,
-    DIG =  1,
-    BUILD = 2,
-}
-
+import { MapEvent, OPERATION_ENUM } from "./MapEvent";
+import { ITEM_ID_ENUM } from "../package/ItemEnum";
 
 const {ccclass, property} = _decorator;
 @ccclass("MapMainView")
@@ -74,6 +67,11 @@ export class MapMainView extends BaseView {
     reloadMapView(){
         this.blockMap = this.proxy.blockMap;
         this.initMap();
+        
+    }
+
+    initEvents(){
+
     }
     
     initMap() {
@@ -86,6 +84,20 @@ export class MapMainView extends BaseView {
         this.initHeros();
 
         this.nd_contentRoot.on(TouchUtilsEvent.click, this.onMapClick.bind(this));
+    }
+
+    onMsg(): void {
+        this.on(MapEvent.Map_DigBlock,this.digBlock,this);
+        this.on(MapEvent.Map_ReloadMapView, this.reloadMapView, this);
+        this.on(MapEvent.Map_EnterBattle, this.onEnterBattle, this);
+        this.on(MapEvent.Map_ExitBattle, this.onExitBattle, this);
+    }
+
+    offMsg(): void {
+        this.off(MapEvent.Map_DigBlock,this.digBlock);
+        this.off(MapEvent.Map_ReloadMapView, this.reloadMapView);
+        this.off(MapEvent.Map_EnterBattle, this.onEnterBattle);
+        this.off(MapEvent.Map_ExitBattle, this.onExitBattle);
     }
 
     enterStage(block:Block){

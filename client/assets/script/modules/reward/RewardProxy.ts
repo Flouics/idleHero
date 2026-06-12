@@ -18,12 +18,7 @@ export class RewardProxy extends Proxy {
     }
 
     static get instance ():RewardProxy{
-        if( RewardProxy._instance){
-            return RewardProxy._instance as RewardProxy;
-        }else{
-            let instance = new RewardProxy();
-            return instance
-        }
+        return App.getInstance(RewardProxy);
     }
 
 

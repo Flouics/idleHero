@@ -12,28 +12,23 @@ import { DelegateComponent } from ".././oops/core/gui/layer/DelegateComponent";
 import { empty, isValid, NodeEx } from "../Global";
 import { UUID } from "../utils/UUID";
 import { Node } from "cc";
+import { ListenerFunc } from "../oops/core/common/event/EventMessage";
 const {ccclass, property} = _decorator;
 
 @ccclass("BaseUI")
 export class BaseUI extends GameComponent {
-    _bindData: { [key: string]: any } = {};
-    _baseUrl: string = "";
-    _prefabUrl: string = "";
-    _logicObj: ItemBase = null;
-    _pb_tag:string = ""; 
+    private _bindData: { [key: string]: any } = {};
+    _baseUrl: string = "";      //texture基础路径
+    _prefabUrl: string = "";    //预制体基础路径
+    _pb_tag:string = "";    //预制体标签，方便对象池管理 在PoolMgr中枚举 POOL_TAG_ENUM
+    //onAuto事件，Disable时会自动调用来取消监听，只需注册onMsg
+    //如果不需要自动取消监听，请用on
+    private onAutoEventMap: Map<string, { event: string, listener: ListenerFunc, target: any }> = new Map();
 
     getId(){        
         return this.uuid
     }
 
-    bindBox(box: ItemBase) {
-        if(this._logicObj == box){
-            return;
-        }
-        this._logicObj = box;
-        this._bindData = {};
-        this._pb_tag = box._pb_tag;
-    }
     setBaseUrl(baseUrl:string){
         this._baseUrl = baseUrl;        
     }
@@ -45,6 +40,7 @@ export class BaseUI extends GameComponent {
     start(){
         this.updateUI();
     }
+
     updateUI() {
         //todo需要重写
     /*         var self = this;
@@ -58,39 +54,53 @@ export class BaseUI extends GameComponent {
     onLoad() {
         this.nodeTreeInfoLite();
         this.clearData();
-        if (this._logicObj){
-            this._logicObj.onLoad(this)
-        }
     }
 
     onEnable() {
-        if (this._logicObj){
-            this._logicObj.onEnable(this)
-        }
+        this.onMsg();
     }
 
     onClose() {
-        if (this._logicObj){
-            this._logicObj.onClose(this)
-        }
+
     }
 
     onDisable() {
-        if (this._logicObj){
-            this._logicObj.onDisable(this)
-        }
+        this.offMsg();
+        this.offMsgAuto();
+    }
+
+    onMsg(){
+
+    }
+    offMsg(){
+        
+    }
+    onAuto(event: string, listener: ListenerFunc, target: any) {
+        this.on(event, listener, target);        
+        this.onAutoEventMap.set(event, { event, listener, target });
+    }
+    
+    protected offMsgAuto(){
+        this.onAutoEventMap.forEach((item) => {
+            this.off(item.event, item.listener);
+        });
+        this.onAutoEventMap.clear();
     }
 
     onDestroy() {
-        if (this._logicObj){
-            this._logicObj.onDestroy(this)
-        }
+
     } 
 
     getResUrl(res_url:string){
         return this._baseUrl + res_url;
     }
 
+    /**
+     * 会拼接this._baseUrl + res_url
+     * @param spt 
+     * @param res_url 
+     * @param cb 
+     */
     loadSpt(spt: Sprite | Node, res_url: string = null, cb?: Function) {
         this.loadSptEx(spt,this.getResUrl(res_url),cb);
     };
@@ -99,18 +109,26 @@ export class BaseUI extends GameComponent {
         this.loadSptEx(spt,null);
     };
     
+    /**
+     * 不拼接res_url
+     * @param _spt 
+     * @param res_url 
+     * @param cb 
+     * @returns 
+     */
     loadSptEx(_spt:Sprite | Node, res_url: string = null, cb?: Function) {
         if (!isValid(_spt)) return;
         let spt = _spt instanceof Node ? _spt.getComponent(Sprite) : _spt;
-         let node = spt.node as NodeEx;
-        node.loadIndex = node.loadIndex || UUID.ID_AUTO;
-        let loadIndex = node.loadIndex;
+
         if(empty(res_url)){
             spt.spriteFrame = null;
             if (!!cb) cb( null );
             return;
         }
-        resources.load(res_url + "/spriteFrame", SpriteFrame, function (err, spriteFrame) {
+        let node = spt.node as NodeEx;
+        node.loadIndex = node.loadIndex || UUID.ID_AUTO;
+        let loadIndex = node.loadIndex;
+        this.load(res_url + "/spriteFrame", SpriteFrame, function (err, spriteFrame) {
             if (!err && spt && spt.isValid) {
                 if(node.loadIndex == loadIndex){
                     spt.spriteFrame = spriteFrame;                    
@@ -133,7 +151,7 @@ export class BaseUI extends GameComponent {
     }
 
     loadPrefabEx(pb_url:string, cb?:Function){        
-        resources.load(pb_url, Prefab, function (err: any, prefab: any) {
+        this.load(pb_url, Prefab, function (err: any, prefab: any) {
             if (err) {
                 Debug.warn(pb_url, err);
             }else{
@@ -171,11 +189,7 @@ export class BaseUI extends GameComponent {
     }
 
     getDataKey(key:string){
-        if(!this._logicObj){
-            return key
-        }else{
-            return this._logicObj.getClassName() + "." + key
-        }        
+        return key;      
     }
 
     taskDelayOnceTime(cb:Function,delay:number,key:string){
@@ -186,6 +200,7 @@ export class BaseUI extends GameComponent {
 
     update(dt:number){
         if(!EDITOR){
+            //不希望自动updateUI 就重写update
             this.updateUI();
         }        
     }
@@ -210,7 +225,7 @@ export class BaseUI extends GameComponent {
             pool.recycleItem(this.node);
         }else{
             if(this.node.parent){
-                this.node.removeFromParent();
+                this.node.destroy();
             }            
         }        
     }

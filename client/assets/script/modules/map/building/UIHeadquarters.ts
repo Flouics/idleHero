@@ -1,4 +1,5 @@
 import {App} from "../../../App";
+import { DamageRet } from "../../../Interface";
 import { toolKit } from "../../../utils/ToolKit";
 import {UIBuilding} from "../UIBuilding";
 
@@ -13,8 +14,9 @@ export class UIHeadquarters extends UIBuilding {
     lifeBar:ProgressBar = null;
     @property(Label)
     lb_life:Label = null;
-    onBeAtked(damage:number){
+    onBeAtked(damageRet:DamageRet){
         if(this._beAtkedAction) return;
+        const damage = damageRet.damage;
         var duration = 0.5;
         this._beAtkedAction = tween(this.node)
         .to(duration,

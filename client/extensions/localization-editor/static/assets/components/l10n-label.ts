@@ -1,4 +1,5 @@
-import { _decorator, CCInteger, Label } from 'cc';
+// @ts-ignore
+import { _decorator } from 'cc';
 // @ts-ignore
 import { EDITOR } from 'cc/env';
 import l10n from '../core/l10n-manager';
@@ -9,16 +10,20 @@ const {
     property,
     executeInEditMode,
     menu,
+    help,
 } = _decorator;
 
 @ccclass('L10nLabel')
 @executeInEditMode(true)
 @menu('LocalizationEditor/L10nLabel')
+@help('i18n:localization-editor.component.help')
 export default class L10nLabel extends L10nComponent {
     @property({ visible: false })
-        _key = '';
+    _key = '';
 
-    @property({ visible: true })
+    @property({
+        tooltip: 'i18n:localization-editor.component.key1'
+    })
     set key(value: string) {
         this._key = value;
         this.render();
@@ -28,10 +33,9 @@ export default class L10nLabel extends L10nComponent {
         return this._key;
     }
     @property({ visible: false })
-        _count = 0;
+    _count = 0;
     @property({
-        type: CCInteger,
-        visible: true,
+        tooltip: 'i18n:localization-editor.component.count'
     })
     set count(value: number) {
         this._count = value;

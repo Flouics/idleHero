@@ -16,6 +16,6 @@ export class UIEffect extends BaseUI {
     }
     
     close() {
-        this.node.removeFromParent();
+        this.node.destroy();
     }
 }

@@ -8,9 +8,10 @@ const {ccclass, property} = _decorator;
 
 @ccclass("TemplateView")
 export class TemplateView extends BaseView {
-    moduleName = "template"
+    moduleName = "template";
     proxy:TemplateProxy;
     bgMusicName:string = ""
+    _baseUrl = "texture/template/";
     onLoad(): void {
         super.onLoad(); //BaseView继承的不要去掉这句
     }

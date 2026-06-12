@@ -10,7 +10,8 @@ import { Bullet_1020 } from "../../logic/bullet/Bullet_1020";
 import { Debug }   from "../../utils/Debug";
 import { Bullet_1002 } from "../../logic/bullet/Bullet_1002";
 import { getTimeFrame } from "../../Global";
-import { getMapProxy, MapProxy_event } from "../../modules/map/MapProxy";
+import { getMapProxy } from "../../modules/map/MapProxy";
+import { MapEvent } from "../../modules/map/MapEvent";
 
 // 子弹管理器
 export class BulletMgr extends BaseClass {
@@ -34,8 +35,8 @@ export class BulletMgr extends BaseClass {
     }
     
     initSchedule(){
-        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
-        getMapProxy().on(MapProxy_event.MapProxy_update,this.update,this);
+        getMapProxy().off(MapEvent.Map_Update,this.update);
+        getMapProxy().on(MapEvent.Map_Update,this.update,this);
     }
     
     clear(){
@@ -44,7 +45,7 @@ export class BulletMgr extends BaseClass {
         });
         this.bulletMap.clear();
 
-        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
+        getMapProxy().off(MapEvent.Map_Update,this.update);
     }
 
     init(root:Node){

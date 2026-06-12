@@ -1,7 +1,7 @@
 
 
 import {App} from "../../App";
-import {Item, ITEM_ID_ENUM, ITEM_TYPE_ENUM} from "../../logic/Item";
+import {Item} from "../../logic/Item";
 import { serialize } from "../../utils/Decorator";
 import { toolKit } from "../../utils/ToolKit";
 import { Proxy }from "../base/Proxy";
@@ -9,7 +9,9 @@ import { getEquipProxy } from "../equip/EquipProxy";
 import { getPlayerProxy } from "../player/PlayerProxy";
 import { getRewardProxy } from "../reward/RewardProxy";
 import { getTimeProxy } from "../time/TimeProxy";
+import { ITEM_ID_ENUM, ITEM_TYPE_ENUM } from "./ItemEnum";
 import {PackageCommand} from "./PackageCommand";
+import { PackageEvent } from "./PackageEvent";
 /*
  * 背包数据
  */
@@ -104,9 +106,10 @@ export class PackageProxy extends Proxy {
         var item = this.getItemById(id);
         switch (item.type) {
             case ITEM_TYPE_ENUM.COMMON:
+            case ITEM_TYPE_ENUM.GARDEN:
                 item.add(count);
-                this.updateViewTask("updatePackageInfo"); //todo 有待优化
-                this.dumpToDb();
+                this.emitTask(PackageEvent.Package_UpdatePackageInfo); //todo 有待优化
+                this.dumpToDb(false,0);
                 break;
             case ITEM_TYPE_ENUM.EQUIP:
                 for (let i = 0; i < count; i++) {
@@ -125,11 +128,17 @@ export class PackageProxy extends Proxy {
 
     reduceItemById(id:number,count:number){
         var item = this.getItemById(id);
+        if(!item) return null;
         switch (item.type) {
             case ITEM_TYPE_ENUM.COMMON:
-                item.reduce(count);
-                this.updateViewTask("updatePackageInfo"); //todo 有待优化
-                this.dumpToDb();
+            case ITEM_TYPE_ENUM.GARDEN:
+                if(item.count > count){
+                    item.reduce(count);
+                    this.emitTask(PackageEvent.Package_UpdatePackageInfo); //todo 有待优化
+                    this.dumpToDb();
+                }else{
+                    item = null;
+                } 
                 break;
             case ITEM_TYPE_ENUM.EQUIP:
                 getEquipProxy().addEquip(id);
@@ -138,15 +147,16 @@ export class PackageProxy extends Proxy {
                 break;
         }
 
-
         return item;
     }
 
     getItemById(id:number){
         if (this.itemMap.get(id) == null){
             let item = new Item(id);
-            if (item.type == ITEM_TYPE_ENUM.COMMON){     
-                this.itemMap.set(id, item);                         
+            if(item.data){  //存在表配置的道具才会进入itemMap 否则就返回一个item 如果有必要在返回null
+                if (item.type != ITEM_TYPE_ENUM.EQUIP){     //装备有特殊模块进行处理
+                    this.itemMap.set(id, item);                         
+                }
             }
             return item;
         }

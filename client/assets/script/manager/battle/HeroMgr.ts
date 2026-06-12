@@ -4,8 +4,9 @@ import { serialize } from "../../utils/Decorator";
 import { Node } from "cc";
 import {BattleMainView} from "../../modules/map/BattleMainView";
 import { MapMainView } from "../../modules/map/MapMainView";
-import { getMapProxy, MapProxy_event } from "../../modules/map/MapProxy";
+import { getMapProxy } from "../../modules/map/MapProxy";
 import { empty } from "../../Global";
+import { MapEvent } from "../../modules/map/MapEvent";
 
 
 // 角色管理器
@@ -39,8 +40,8 @@ export class HeroMgr extends BaseClass{
     }
 
     initSchedule(){        
-        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
-        getMapProxy().on(MapProxy_event.MapProxy_update,this.update,this);
+        getMapProxy().off(MapEvent.Map_Update,this.update);
+        getMapProxy().on(MapEvent.Map_Update,this.update,this);
     }
 
     clear(){
@@ -48,7 +49,7 @@ export class HeroMgr extends BaseClass{
             hero.destroy();
         });
         this.heroMap.clear();
-        getMapProxy().off(MapProxy_event.MapProxy_update,this.update);
+        getMapProxy().off(MapEvent.Map_Update,this.update);
     }
 
     create( x: number = 0, y: number = 0){

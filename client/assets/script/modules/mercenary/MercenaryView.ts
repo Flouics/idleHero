@@ -7,8 +7,6 @@ import { MercenaryData, MercenaryProxy } from "./MercenaryProxy";
 import { toolKit } from "../../utils/ToolKit";
 import { empty, lang } from "../../Global";
 import { getPackageProxy } from "../package/PackageProxy";
-import { ITEM_ID_ENUM } from "../../logic/Item";
-import {MercenaryItem} from "./MercenaryItem";
 import { getEquipProxy } from "../equip/EquipProxy";
 import { Equip } from "../equip/Equip";
 import { EquipItem } from "../equip/EquipItem";
@@ -16,12 +14,14 @@ import { UIID_Equip } from "../equip/EquipInit";
 import { UICallbacks } from "../../oops/core/gui/layer/Defines";
 import { EquipCombineView } from "../equip/EquipCombineView";
 import { uiKit } from "../../utils/UIKit";
+import { MercenaryEvent } from "./MercenaryEvent";
+import { EquipEvent } from "../equip/EquipEvent";
+import { ITEM_ID_ENUM } from "../package/ItemEnum";
 const {ccclass, property} = _decorator;
 
 @ccclass("MercenaryView")
 export class MercenaryView extends BaseView {
     moduleName = "mercenary"
-    proxys:any[] = ["equip"];
     proxy:MercenaryProxy;
 
     @property(Sprite)
@@ -139,7 +139,7 @@ export class MercenaryView extends BaseView {
         var nextLevelAttrMap = this.curMercenaryData.getLevelAttrsAddTotalMap(this.curMercenaryData.level + 1);
         var curLevelAttrMap = this.curMercenaryData.getLevelAttrsAddTotalMap(this.curMercenaryData.level);
         var isMaxLevel = this.curMercenaryData.checkMaxLevel();
-        this.nd_upgradeInfoRoot.removeAllChildren();
+        this.nd_upgradeInfoRoot.destroyAllChildren();
         if(isMaxLevel){
             this.btn_upgrade.interactable = false;
             this.lb_upgradeLabel.string = lang("common.maxLevel");
@@ -240,7 +240,7 @@ export class MercenaryView extends BaseView {
     }
 
     initEquipList(){
-        this.sv_equipRoot.content.removeAllChildren();
+        this.sv_equipRoot.content.destroyAllChildren();
     }
 
     getEquipList(){
@@ -293,7 +293,7 @@ export class MercenaryView extends BaseView {
             }
         })
         toDelArray.forEach((item) => {
-            item.removeFromParent();
+            item.destroy();
         })
 
         var len = this.sv_equipRoot.content.children.length;
@@ -374,6 +374,22 @@ export class MercenaryView extends BaseView {
             //升级
             this.command("upgrade",this.curMercenaryData.id)
         }      
+    }
+
+    onMsg(): void {
+        this.on(MercenaryEvent.Mercenary_UpgradeResult, this.upgradeResult, this);
+        this.on(EquipEvent.Equip_UpdateEquipInfo, this.updateEquipList, this);
+        this.on(EquipEvent.Equip_UpdateEquipList, this.updateEquipList, this);
+        this.on(EquipEvent.Equip_UpdateUpgradeInfo, this.updateUpgradeInfo, this);
+        this.on(EquipEvent.Equip_SetUseEquipResult, this.setUseEquipResult, this);
+    }
+
+    offMsg(): void {
+        this.off(MercenaryEvent.Mercenary_UpgradeResult, this.upgradeResult);
+        this.off(EquipEvent.Equip_UpdateEquipInfo, this.updateEquipList);
+        this.off(EquipEvent.Equip_UpdateEquipList, this.updateEquipList);
+        this.off(EquipEvent.Equip_UpdateUpgradeInfo, this.updateUpgradeInfo);
+        this.off(EquipEvent.Equip_SetUseEquipResult, this.setUseEquipResult);
     }
 
     upgradeResult(){

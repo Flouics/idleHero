@@ -13,12 +13,12 @@ export class ModuleMgr extends BaseClass{
     }
 
     static get instance ():ModuleMgr{
-        if( ModuleMgr._instance){
-            return ModuleMgr._instance as ModuleMgr;
-        }else{
-            let instance = new ModuleMgr();
-            return instance
-        }
+            if( ModuleMgr._instance){
+                return ModuleMgr._instance as ModuleMgr;
+            }else{
+                let instance = new ModuleMgr();
+                return instance
+            }
     }
 
 

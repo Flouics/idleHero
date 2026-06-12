@@ -5,10 +5,11 @@ import { uiKit } from "../../utils/UIKit";
 import {BaseUI} from "../../zero/BaseUI";
 
 import { _decorator, Label, Sprite} from 'cc';
+import { LogicUI } from "../../zero/LogicUI";
 const {ccclass, property} = _decorator;
 
 @ccclass("UIMine")
-export class UIMine extends BaseUI {
+export class UIMine extends LogicUI {
     @property(Sprite)
     spt_face:Sprite = null;
     @property(Sprite)
