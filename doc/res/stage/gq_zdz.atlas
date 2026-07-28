@@ -1,0 +1,13 @@
+
+gq_zdz_.png
+size: 120,39
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+zdz
+  rotate: false
+  xy: 2, 2
+  size: 116, 35
+  orig: 116, 35
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,76 @@
+
+boss_sj_.png
+size: 695,330
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tx/sj_yw1/sjyw_00000
+  rotate: false
+  xy: 475, 22
+  size: 23, 16
+  orig: 200, 200
+  offset: 86, 87
+  index: -1
+tx/sj_yw1/sjyw_00001
+  rotate: false
+  xy: 608, 101
+  size: 85, 65
+  orig: 200, 200
+  offset: 58, 61
+  index: -1
+tx/sj_yw1/sjyw_00002
+  rotate: false
+  xy: 475, 40
+  size: 131, 126
+  orig: 200, 200
+  offset: 36, 28
+  index: -1
+tx/sj_yw1/sjyw_00003
+  rotate: true
+  xy: 167, 5
+  size: 159, 146
+  orig: 200, 200
+  offset: 24, 21
+  index: -1
+tx/sj_yw1/sjyw_00004
+  rotate: false
+  xy: 179, 169
+  size: 176, 159
+  orig: 200, 200
+  offset: 15, 16
+  index: -1
+tx/sj_yw1/sjyw_00005
+  rotate: false
+  xy: 2, 166
+  size: 175, 162
+  orig: 200, 200
+  offset: 13, 17
+  index: -1
+tx/sj_yw1/sjyw_00006
+  rotate: false
+  xy: 2, 2
+  size: 163, 162
+  orig: 200, 200
+  offset: 22, 17
+  index: -1
+tx/sj_yw1/sjyw_00007
+  rotate: true
+  xy: 315, 2
+  size: 164, 158
+  orig: 200, 200
+  offset: 22, 21
+  index: -1
+tx/sj_yw1/sjyw_00008
+  rotate: false
+  xy: 357, 168
+  size: 164, 160
+  orig: 200, 200
+  offset: 22, 19
+  index: -1
+tx/sj_yw1/sjyw_00009
+  rotate: false
+  xy: 523, 168
+  size: 163, 160
+  orig: 200, 200
+  offset: 23, 19
+  index: -1

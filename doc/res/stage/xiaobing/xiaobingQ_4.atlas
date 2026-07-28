@@ -1,0 +1,55 @@
+
+xiaobingQ_4_.png
+size: 223,223
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lx_8_1
+  rotate: true
+  xy: 2, 5
+  size: 84, 107
+  orig: 84, 108
+  offset: 0, 1
+  index: -1
+npc1_10
+  rotate: false
+  xy: 2, 192
+  size: 78, 29
+  orig: 78, 29
+  offset: 0, 0
+  index: -1
+xb4_1
+  rotate: false
+  xy: 93, 91
+  size: 115, 83
+  orig: 115, 83
+  offset: 0, 0
+  index: -1
+xb4_2
+  rotate: false
+  xy: 111, 2
+  size: 101, 87
+  orig: 101, 87
+  offset: 0, 0
+  index: -1
+xb4_3
+  rotate: false
+  xy: 2, 103
+  size: 89, 80
+  orig: 89, 80
+  offset: 0, 0
+  index: -1
+xb4_4
+  rotate: false
+  xy: 122, 176
+  size: 58, 45
+  orig: 58, 45
+  offset: 0, 0
+  index: -1
+xb4_5
+  rotate: true
+  xy: 82, 185
+  size: 36, 38
+  orig: 36, 38
+  offset: 0, 0
+  index: -1

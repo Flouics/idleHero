@@ -1,0 +1,83 @@
+
+book_Q4_.png
+size: 609,338
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bagua
+  rotate: true
+  xy: 2, 3
+  size: 333, 334
+  orig: 340, 341
+  offset: 2, 4
+  index: -1
+bzg_1
+  rotate: false
+  xy: 338, 172
+  size: 159, 164
+  orig: 159, 164
+  offset: 0, 0
+  index: -1
+bzg_2
+  rotate: true
+  xy: 338, 16
+  size: 57, 65
+  orig: 57, 65
+  offset: 0, 0
+  index: -1
+bzg_2_1
+  rotate: true
+  xy: 566, 68
+  size: 47, 41
+  orig: 47, 41
+  offset: 0, 0
+  index: -1
+bzg_3
+  rotate: false
+  xy: 499, 214
+  size: 94, 122
+  orig: 94, 122
+  offset: 0, 0
+  index: -1
+bzg_4
+  rotate: false
+  xy: 508, 52
+  size: 56, 63
+  orig: 56, 68
+  offset: 0, 0
+  index: -1
+bzg_4_1
+  rotate: false
+  xy: 405, 19
+  size: 43, 54
+  orig: 43, 54
+  offset: 0, 0
+  index: -1
+bzg_4_2
+  rotate: true
+  xy: 508, 2
+  size: 48, 75
+  orig: 48, 75
+  offset: 0, 0
+  index: -1
+bzg_5
+  rotate: false
+  xy: 508, 117
+  size: 87, 95
+  orig: 87, 95
+  offset: 0, 0
+  index: -1
+bzg_6
+  rotate: true
+  xy: 338, 75
+  size: 95, 111
+  orig: 95, 111
+  offset: 0, 0
+  index: -1
+npc1_10
+  rotate: true
+  xy: 451, 20
+  size: 150, 55
+  orig: 150, 55
+  offset: 0, 0
+  index: -1

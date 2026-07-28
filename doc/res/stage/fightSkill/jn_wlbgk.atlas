@@ -1,0 +1,90 @@
+
+jn_wlbgk_.png
+size: 998,433
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+kunbang
+  rotate: true
+  xy: 2, 8
+  size: 56, 605
+  orig: 56, 605
+  offset: 0, 0
+  index: -1
+tx/gunbang/3
+  rotate: false
+  xy: 95, 86
+  size: 13, 96
+  orig: 13, 96
+  offset: 0, 0
+  index: -1
+tx/gunbang/dl/4_0013
+  rotate: true
+  xy: 2, 66
+  size: 365, 58
+  orig: 398, 59
+  offset: 18, 1
+  index: -1
+tx/gunbang/kunbang_g
+  rotate: true
+  xy: 110, 126
+  size: 56, 605
+  orig: 56, 605
+  offset: 0, 0
+  index: -1
+tx/gunbang/kunbang_g1
+  rotate: true
+  xy: 110, 68
+  size: 56, 605
+  orig: 56, 605
+  offset: 0, 0
+  index: -1
+tx/gunbang/sj/2_0000
+  rotate: true
+  xy: 717, 2
+  size: 200, 176
+  orig: 252, 205
+  offset: 0, 1
+  index: -1
+tx/gunbang/sj/2_0001
+  rotate: true
+  xy: 646, 204
+  size: 227, 183
+  orig: 252, 205
+  offset: 6, 8
+  index: -1
+tx/gunbang/sj/2_0002
+  rotate: true
+  xy: 62, 184
+  size: 247, 197
+  orig: 252, 205
+  offset: 5, 8
+  index: -1
+tx/gunbang/sj/2_0003
+  rotate: true
+  xy: 261, 194
+  size: 237, 187
+  orig: 252, 205
+  offset: 6, 0
+  index: -1
+tx/gunbang/sj/2_0004
+  rotate: true
+  xy: 450, 199
+  size: 232, 194
+  orig: 252, 205
+  offset: 6, 11
+  index: -1
+tx/gunbang/sj/2_0005
+  rotate: true
+  xy: 831, 227
+  size: 204, 165
+  orig: 252, 205
+  offset: 29, 14
+  index: -1
+tx/gunbang/sj/2_0006
+  rotate: true
+  xy: 62, 77
+  size: 105, 31
+  orig: 252, 205
+  offset: 106, 120
+  index: -1

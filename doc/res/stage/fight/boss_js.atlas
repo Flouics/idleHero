@@ -1,0 +1,41 @@
+
+boss_js_.png
+size: 533,330
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tx/jtg
+  rotate: false
+  xy: 431, 228
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+tx/tx_hx1
+  rotate: true
+  xy: 431, 105
+  size: 63, 51
+  orig: 68, 53
+  offset: 3, 0
+  index: -1
+tx/tx_hx2
+  rotate: false
+  xy: 431, 170
+  size: 61, 56
+  orig: 64, 59
+  offset: 0, 3
+  index: -1
+tx/tx_hx3
+  rotate: false
+  xy: 431, 57
+  size: 49, 46
+  orig: 56, 52
+  offset: 3, 3
+  index: -1
+tx/tx_sdx
+  rotate: true
+  xy: 2, 2
+  size: 326, 427
+  orig: 327, 466
+  offset: 1, 8
+  index: -1

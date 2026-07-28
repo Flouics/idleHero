@@ -1,0 +1,153 @@
+
+jn_eb_.png
+size: 796,796
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+kunbang
+  rotate: false
+  xy: 2, 189
+  size: 56, 605
+  orig: 56, 605
+  offset: 0, 0
+  index: -1
+tx/glow
+  rotate: false
+  xy: 317, 52
+  size: 54, 54
+  orig: 64, 64
+  offset: 5, 5
+  index: -1
+tx/gunbang/6
+  rotate: true
+  xy: 492, 576
+  size: 36, 241
+  orig: 36, 241
+  offset: 0, 0
+  index: -1
+tx/gunbang/qi/qi_00000
+  rotate: true
+  xy: 317, 108
+  size: 143, 83
+  orig: 225, 215
+  offset: 54, 10
+  index: -1
+tx/gunbang/qi/qi_00001
+  rotate: true
+  xy: 2, 7
+  size: 180, 160
+  orig: 225, 215
+  offset: 36, 5
+  index: -1
+tx/gunbang/qi/qi_00002
+  rotate: false
+  xy: 282, 589
+  size: 208, 205
+  orig: 225, 215
+  offset: 11, 0
+  index: -1
+tx/gunbang/qi/qi_00003
+  rotate: false
+  xy: 60, 594
+  size: 220, 200
+  orig: 225, 215
+  offset: 3, 12
+  index: -1
+tx/gunbang/qi/qi_00004
+  rotate: false
+  xy: 60, 390
+  size: 214, 202
+  orig: 225, 215
+  offset: 10, 12
+  index: -1
+tx/gunbang/qi/qi_00005
+  rotate: false
+  xy: 60, 200
+  size: 210, 188
+  orig: 225, 215
+  offset: 13, 23
+  index: -1
+tx/gunbang/qi/qi_00006
+  rotate: false
+  xy: 492, 614
+  size: 184, 180
+  orig: 225, 215
+  offset: 38, 28
+  index: -1
+tx/gunbang/qi/qi_00007
+  rotate: false
+  xy: 276, 414
+  size: 181, 173
+  orig: 225, 215
+  offset: 36, 34
+  index: -1
+tx/gunbang/qi/qi_00008
+  rotate: true
+  xy: 164, 20
+  size: 178, 151
+  orig: 225, 215
+  offset: 35, 57
+  index: -1
+tx/gunbang/qi/qi_00009
+  rotate: false
+  xy: 678, 654
+  size: 98, 140
+  orig: 225, 215
+  offset: 104, 57
+  index: -1
+tx/gunbang/qi/qi_00010
+  rotate: false
+  xy: 715, 149
+  size: 41, 90
+  orig: 225, 215
+  offset: 155, 59
+  index: -1
+tx/sj/sj1_00000
+  rotate: true
+  xy: 639, 397
+  size: 177, 154
+  orig: 184, 180
+  offset: 0, 22
+  index: -1
+tx/sj/sj1_00001
+  rotate: false
+  xy: 452, 251
+  size: 170, 157
+  orig: 184, 180
+  offset: 1, 18
+  index: -1
+tx/sj/sj1_00002
+  rotate: false
+  xy: 624, 241
+  size: 170, 154
+  orig: 184, 180
+  offset: 2, 19
+  index: -1
+tx/sj/sj1_00003
+  rotate: false
+  xy: 276, 253
+  size: 174, 159
+  orig: 184, 180
+  offset: 4, 16
+  index: -1
+tx/sj/sj1_00004
+  rotate: false
+  xy: 459, 410
+  size: 178, 164
+  orig: 184, 180
+  offset: 6, 10
+  index: -1
+tx/sj/sj1_00005
+  rotate: false
+  xy: 402, 82
+  size: 170, 167
+  orig: 184, 180
+  offset: 7, 6
+  index: -1
+tx/sj/sj1_00006
+  rotate: false
+  xy: 574, 102
+  size: 139, 137
+  orig: 184, 180
+  offset: 14, 36
+  index: -1

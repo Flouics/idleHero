@@ -1,0 +1,20 @@
+
+addArmy_.png
+size: 83,83
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tx/lg
+  rotate: false
+  xy: 2, 48
+  size: 55, 33
+  orig: 55, 34
+  offset: 0, 0
+  index: -1
+tx/lz_lv
+  rotate: true
+  xy: 59, 58
+  size: 23, 22
+  orig: 26, 26
+  offset: 2, 2
+  index: -1

@@ -1,0 +1,111 @@
+
+book_Q2_.png
+size: 364,364
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cf_1
+  rotate: false
+  xy: 2, 192
+  size: 147, 170
+  orig: 147, 170
+  offset: 0, 0
+  index: -1
+cf_10
+  rotate: true
+  xy: 292, 35
+  size: 70, 64
+  orig: 70, 64
+  offset: 0, 0
+  index: -1
+cf_2
+  rotate: false
+  xy: 231, 5
+  size: 58, 67
+  orig: 58, 67
+  offset: 0, 0
+  index: -1
+cf_3
+  rotate: true
+  xy: 238, 193
+  size: 78, 79
+  orig: 78, 79
+  offset: 0, 0
+  index: -1
+cf_4
+  rotate: false
+  xy: 319, 225
+  size: 36, 46
+  orig: 36, 46
+  offset: 0, 0
+  index: -1
+cf_5
+  rotate: false
+  xy: 91, 2
+  size: 60, 52
+  orig: 60, 52
+  offset: 0, 0
+  index: -1
+cf_6
+  rotate: false
+  xy: 231, 74
+  size: 59, 59
+  orig: 59, 60
+  offset: 0, 0
+  index: -1
+cf_7
+  rotate: true
+  xy: 151, 277
+  size: 85, 98
+  orig: 85, 98
+  offset: 0, 0
+  index: -1
+cf_8
+  rotate: true
+  xy: 2, 5
+  size: 75, 87
+  orig: 75, 87
+  offset: 0, 0
+  index: -1
+cf_9
+  rotate: true
+  xy: 2, 82
+  size: 108, 136
+  orig: 108, 136
+  offset: 0, 0
+  index: -1
+npc1_10
+  rotate: false
+  xy: 140, 135
+  size: 150, 55
+  orig: 150, 55
+  offset: 0, 0
+  index: -1
+tx/dj1/dj1
+  rotate: false
+  xy: 292, 107
+  size: 69, 84
+  orig: 100, 100
+  offset: 15, 10
+  index: -1
+tx/dj1/dj2
+  rotate: true
+  xy: 151, 197
+  size: 78, 85
+  orig: 100, 100
+  offset: 5, 4
+  index: -1
+tx/dj1/dj3
+  rotate: true
+  xy: 140, 56
+  size: 77, 89
+  orig: 100, 100
+  offset: 3, 1
+  index: -1
+tx/dj1/dj4
+  rotate: false
+  xy: 251, 273
+  size: 83, 89
+  orig: 100, 100
+  offset: 0, 3
+  index: -1

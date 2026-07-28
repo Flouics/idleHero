@@ -1,0 +1,90 @@
+
+bossQ_4_.png
+size: 342,342
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hyxs_1
+  rotate: true
+  xy: 2, 13
+  size: 107, 153
+  orig: 107, 153
+  offset: 0, 0
+  index: -1
+hyxs_2
+  rotate: false
+  xy: 215, 45
+  size: 68, 80
+  orig: 68, 80
+  offset: 0, 0
+  index: -1
+hyxs_3
+  rotate: true
+  xy: 215, 249
+  size: 63, 91
+  orig: 63, 91
+  offset: 0, 0
+  index: -1
+hyxs_4
+  rotate: true
+  xy: 214, 127
+  size: 85, 74
+  orig: 85, 74
+  offset: 0, 0
+  index: -1
+hyxs_5
+  rotate: false
+  xy: 290, 107
+  size: 37, 36
+  orig: 37, 36
+  offset: 0, 0
+  index: -1
+hyxs_6
+  rotate: false
+  xy: 290, 145
+  size: 50, 67
+  orig: 50, 67
+  offset: 0, 0
+  index: -1
+mohu
+  rotate: false
+  xy: 2, 122
+  size: 210, 218
+  orig: 210, 218
+  offset: 0, 0
+  index: -1
+npc1_10
+  rotate: false
+  xy: 215, 214
+  size: 90, 33
+  orig: 90, 33
+  offset: 0, 0
+  index: -1
+yw/yw_00004
+  rotate: true
+  xy: 314, 248
+  size: 92, 25
+  orig: 100, 29
+  offset: 4, 2
+  index: -1
+yw/yw_00006
+  rotate: false
+  xy: 215, 314
+  size: 97, 26
+  orig: 100, 29
+  offset: 2, 1
+  index: -1
+yw/yw_00008
+  rotate: true
+  xy: 157, 22
+  size: 98, 27
+  orig: 100, 29
+  offset: 1, 1
+  index: -1
+yw/yw_00009
+  rotate: true
+  xy: 186, 23
+  size: 97, 27
+  orig: 100, 29
+  offset: 2, 1
+  index: -1

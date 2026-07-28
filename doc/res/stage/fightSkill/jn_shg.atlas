@@ -1,0 +1,174 @@
+
+jn_shg_.png
+size: 1008,1008
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tx/hedongshihuo/bk/baokuoa_0000
+  rotate: false
+  xy: 688, 419
+  size: 100, 215
+  orig: 150, 247
+  offset: 43, 19
+  index: -1
+tx/hedongshihuo/bk/baokuoa_0001
+  rotate: true
+  xy: 457, 38
+  size: 102, 219
+  orig: 150, 247
+  offset: 40, 18
+  index: -1
+tx/hedongshihuo/bk/baokuoa_0002
+  rotate: true
+  xy: 463, 372
+  size: 105, 223
+  orig: 150, 247
+  offset: 36, 16
+  index: -1
+tx/hedongshihuo/bk/baokuoa_0003
+  rotate: true
+  xy: 242, 367
+  size: 110, 219
+  orig: 150, 247
+  offset: 31, 14
+  index: -1
+tx/hedongshihuo/bk/baokuoa_0004
+  rotate: true
+  xy: 231, 23
+  size: 115, 224
+  orig: 150, 247
+  offset: 27, 11
+  index: -1
+tx/hedongshihuo/bk/baokuoa_0005
+  rotate: true
+  xy: 774, 765
+  size: 118, 229
+  orig: 150, 247
+  offset: 23, 9
+  index: -1
+tx/hedongshihuo/bk/baokuoa_0006
+  rotate: true
+  xy: 774, 885
+  size: 121, 232
+  orig: 150, 247
+  offset: 19, 7
+  index: -1
+tx/hedongshihuo/bk/baokuoa_0007
+  rotate: true
+  xy: 2, 13
+  size: 122, 227
+  orig: 150, 247
+  offset: 15, 6
+  index: -1
+tx/hedongshihuo/bo
+  rotate: false
+  xy: 2, 682
+  size: 495, 324
+  orig: 495, 324
+  offset: 0, 0
+  index: -1
+tx/hedongshihuo/glow
+  rotate: false
+  xy: 678, 31
+  size: 54, 54
+  orig: 64, 64
+  offset: 5, 5
+  index: -1
+tx/hedongshihuo/shizi/sz_00000
+  rotate: true
+  xy: 499, 866
+  size: 140, 273
+  orig: 147, 273
+  offset: 0, 0
+  index: -1
+tx/hedongshihuo/shizi/sz_00001
+  rotate: true
+  xy: 499, 761
+  size: 103, 263
+  orig: 147, 273
+  offset: 0, 10
+  index: -1
+tx/hedongshihuo/shizi/sz_00002
+  rotate: true
+  xy: 2, 575
+  size: 105, 246
+  orig: 147, 273
+  offset: 0, 14
+  index: -1
+tx/hedongshihuo/shizi/sz_00003
+  rotate: true
+  xy: 499, 636
+  size: 123, 253
+  orig: 147, 273
+  offset: 0, 11
+  index: -1
+tx/hedongshihuo/shizi/sz_00004
+  rotate: false
+  xy: 2, 137
+  size: 147, 228
+  orig: 147, 273
+  offset: 0, 21
+  index: -1
+tx/hedongshihuo/shizi/sz_00005
+  rotate: true
+  xy: 764, 636
+  size: 127, 242
+  orig: 147, 273
+  offset: 5, 16
+  index: -1
+tx/hedongshihuo/sj2/8_0003
+  rotate: false
+  xy: 798, 461
+  size: 204, 173
+  orig: 214, 239
+  offset: 10, 43
+  index: -1
+tx/hedongshihuo/sj2/8_0004
+  rotate: false
+  xy: 367, 142
+  size: 213, 223
+  orig: 214, 239
+  offset: 1, 10
+  index: -1
+tx/hedongshihuo/sj2/8_0005
+  rotate: false
+  xy: 151, 140
+  size: 214, 225
+  orig: 214, 239
+  offset: 0, 9
+  index: -1
+tx/hedongshihuo/sj2/8_0006
+  rotate: true
+  xy: 250, 479
+  size: 201, 239
+  orig: 214, 239
+  offset: 13, 0
+  index: -1
+tx/hedongshihuo/sj2/8_0007
+  rotate: true
+  xy: 2, 367
+  size: 206, 238
+  orig: 214, 239
+  offset: 5, 0
+  index: -1
+tx/hedongshihuo/sj2/8_0008
+  rotate: false
+  xy: 582, 150
+  size: 214, 220
+  orig: 214, 239
+  offset: 0, 0
+  index: -1
+tx/hedongshihuo/sj2/8_0009
+  rotate: true
+  xy: 798, 246
+  size: 213, 191
+  orig: 214, 239
+  offset: 1, 26
+  index: -1
+tx/hedongshihuo/sj2/8_0010
+  rotate: true
+  xy: 798, 87
+  size: 157, 181
+  orig: 214, 239
+  offset: 26, 34
+  index: -1

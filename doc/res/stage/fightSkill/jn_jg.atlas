@@ -1,0 +1,83 @@
+
+jn_jg_.png
+size: 717,717
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tx/menke2/glow
+  rotate: false
+  xy: 661, 116
+  size: 54, 54
+  orig: 64, 64
+  offset: 5, 5
+  index: -1
+tx/menke2/gx/gx_00000
+  rotate: true
+  xy: 665, 405
+  size: 310, 41
+  orig: 400, 128
+  offset: 32, 32
+  index: -1
+tx/menke2/gx/gx_00001
+  rotate: true
+  xy: 540, 359
+  size: 356, 123
+  orig: 400, 128
+  offset: 24, 4
+  index: -1
+tx/menke2/gx/gx_00002
+  rotate: false
+  xy: 2, 52
+  size: 356, 122
+  orig: 400, 128
+  offset: 21, 0
+  index: -1
+tx/menke2/gx/gx_00003
+  rotate: true
+  xy: 467, 143
+  size: 310, 64
+  orig: 400, 128
+  offset: 37, 33
+  index: -1
+tx/menke2/ksq
+  rotate: false
+  xy: 533, 172
+  size: 180, 185
+  orig: 256, 256
+  offset: 36, 36
+  index: -1
+tx/menke2/sf
+  rotate: true
+  xy: 533, 54
+  size: 116, 126
+  orig: 150, 138
+  offset: 12, 4
+  index: -1
+tx/menke2/sj1/sj1_1
+  rotate: false
+  xy: 276, 455
+  size: 262, 260
+  orig: 300, 300
+  offset: 22, 15
+  index: -1
+tx/menke2/sj1/sj1_2
+  rotate: false
+  xy: 2, 446
+  size: 272, 269
+  orig: 300, 300
+  offset: 17, 9
+  index: -1
+tx/menke2/sj1/sj1_3
+  rotate: false
+  xy: 2, 176
+  size: 258, 268
+  orig: 300, 300
+  offset: 21, 6
+  index: -1
+tx/menke2/sj1/sj1_4
+  rotate: false
+  xy: 262, 214
+  size: 203, 230
+  orig: 300, 300
+  offset: 27, 9
+  index: -1

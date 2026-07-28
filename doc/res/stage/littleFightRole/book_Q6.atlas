@@ -1,0 +1,97 @@
+
+book_Q6_.png
+size: 649,649
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ax_1
+  rotate: true
+  xy: 423, 485
+  size: 162, 181
+  orig: 162, 181
+  offset: 0, 0
+  index: -1
+ax_10
+  rotate: true
+  xy: 423, 205
+  size: 44, 62
+  orig: 44, 69
+  offset: 0, 0
+  index: -1
+ax_2
+  rotate: false
+  xy: 581, 289
+  size: 64, 173
+  orig: 64, 173
+  offset: 0, 0
+  index: -1
+ax_3
+  rotate: false
+  xy: 487, 223
+  size: 41, 26
+  orig: 41, 26
+  offset: 0, 0
+  index: -1
+ax_4
+  rotate: false
+  xy: 606, 573
+  size: 41, 74
+  orig: 41, 74
+  offset: 0, 0
+  index: -1
+ax_5
+  rotate: true
+  xy: 575, 242
+  size: 45, 69
+  orig: 45, 69
+  offset: 0, 0
+  index: -1
+ax_6
+  rotate: false
+  xy: 530, 225
+  size: 31, 24
+  orig: 31, 24
+  offset: 0, 0
+  index: -1
+ax_7
+  rotate: false
+  xy: 606, 503
+  size: 41, 68
+  orig: 41, 68
+  offset: 0, 0
+  index: -1
+ax_8
+  rotate: false
+  xy: 606, 464
+  size: 37, 37
+  orig: 37, 37
+  offset: 0, 0
+  index: -1
+ax_9
+  rotate: true
+  xy: 423, 308
+  size: 83, 141
+  orig: 83, 141
+  offset: 0, 0
+  index: -1
+npc1_10
+  rotate: false
+  xy: 423, 251
+  size: 150, 55
+  orig: 150, 55
+  offset: 0, 0
+  index: -1
+tx/guangcib_0000
+  rotate: false
+  xy: 2, 243
+  size: 419, 404
+  orig: 445, 445
+  offset: 13, 24
+  index: -1
+tx/tx_rlsz
+  rotate: true
+  xy: 423, 393
+  size: 90, 156
+  orig: 90, 160
+  offset: 0, 1
+  index: -1

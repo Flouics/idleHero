@@ -1,0 +1,83 @@
+
+bossQ_1_.png
+size: 259,259
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lx_1
+  rotate: false
+  xy: 126, 147
+  size: 119, 110
+  orig: 119, 110
+  offset: 0, 0
+  index: -1
+lx_2
+  rotate: true
+  xy: 2, 98
+  size: 46, 74
+  orig: 46, 74
+  offset: 0, 0
+  index: -1
+lx_3
+  rotate: false
+  xy: 2, 146
+  size: 122, 111
+  orig: 122, 111
+  offset: 0, 0
+  index: -1
+lx_4
+  rotate: false
+  xy: 126, 98
+  size: 118, 47
+  orig: 118, 47
+  offset: 0, 0
+  index: -1
+lx_5
+  rotate: false
+  xy: 89, 8
+  size: 52, 62
+  orig: 52, 62
+  offset: 0, 0
+  index: -1
+lx_6
+  rotate: true
+  xy: 143, 38
+  size: 58, 56
+  orig: 58, 56
+  offset: 0, 0
+  index: -1
+lx_7
+  rotate: false
+  xy: 201, 45
+  size: 55, 51
+  orig: 55, 51
+  offset: 0, 0
+  index: -1
+lx_8
+  rotate: true
+  xy: 78, 108
+  size: 36, 40
+  orig: 36, 43
+  offset: 0, 0
+  index: -1
+lx_8 _1
+  rotate: false
+  xy: 2, 2
+  size: 50, 94
+  orig: 50, 94
+  offset: 0, 0
+  index: -1
+lx_8 _2
+  rotate: false
+  xy: 89, 72
+  size: 34, 34
+  orig: 34, 34
+  offset: 0, 0
+  index: -1
+npc1_10
+  rotate: true
+  xy: 54, 6
+  size: 90, 33
+  orig: 90, 33
+  offset: 0, 0
+  index: -1

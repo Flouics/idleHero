@@ -1,0 +1,69 @@
+
+xiaobingQ_2_.png
+size: 284,284
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lx_8_1
+  rotate: false
+  xy: 2, 175
+  size: 84, 107
+  orig: 84, 108
+  offset: 0, 1
+  index: -1
+npc1_10
+  rotate: false
+  xy: 62, 2
+  size: 78, 29
+  orig: 78, 29
+  offset: 0, 0
+  index: -1
+xb2_1
+  rotate: true
+  xy: 62, 33
+  size: 44, 81
+  orig: 44, 81
+  offset: 0, 0
+  index: -1
+xb2_2
+  rotate: true
+  xy: 131, 101
+  size: 40, 34
+  orig: 40, 34
+  offset: 0, 0
+  index: -1
+xb2_3
+  rotate: true
+  xy: 2, 79
+  size: 94, 86
+  orig: 94, 86
+  offset: 0, 0
+  index: -1
+xb2_4
+  rotate: false
+  xy: 2, 8
+  size: 58, 69
+  orig: 58, 69
+  offset: 0, 0
+  index: -1
+xb2_5
+  rotate: false
+  xy: 90, 143
+  size: 40, 57
+  orig: 40, 57
+  offset: 0, 0
+  index: -1
+xb2_6
+  rotate: false
+  xy: 88, 202
+  size: 66, 80
+  orig: 66, 80
+  offset: 0, 0
+  index: -1
+xb2_7
+  rotate: false
+  xy: 90, 89
+  size: 39, 52
+  orig: 40, 52
+  offset: 1, 0
+  index: -1
